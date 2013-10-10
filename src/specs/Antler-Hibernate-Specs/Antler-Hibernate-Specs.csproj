@@ -99,6 +99,14 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\main\Antler-Abstractions\Antler-Abstractions.csproj">
+      <Project>{66AB4A48-0D4F-4F0D-9A47-EB461B8495E1}</Project>
+      <Name>Antler-Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\main\Antler-Common\Antler-Common.csproj">
+      <Project>{2C949C79-54B6-46E8-9B10-139AF8DD0A96}</Project>
+      <Name>Antler-Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\main\Antler-Domain\Antler-Domain.csproj">
       <Project>{6814B93C-B1E7-4050-AD5E-B10260110716}</Project>
       <Name>Antler-Domain</Name>
@@ -106,6 +114,10 @@
     <ProjectReference Include="..\..\main\Antler-Hibernate\Antler-Hibernate.csproj">
       <Project>{4A2FE4D5-9381-4695-A0D5-21787C903275}</Project>
       <Name>Antler-Hibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\main\Antler-Windsor\Antler-Windsor.csproj">
+      <Project>{91A50383-D6EB-4303-91E8-BD3634E20CAB}</Project>
+      <Name>Antler-Windsor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

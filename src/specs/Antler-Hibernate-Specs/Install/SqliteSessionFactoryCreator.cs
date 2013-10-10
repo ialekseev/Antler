@@ -10,7 +10,7 @@ namespace SmartElk.Antler.Hibernate.Specs.Install
     {       
         public static Configuration Configuration { get; set; }
 
-        public static ISessionFactory CreateFactory()
+        public static ISessionFactory CreateFactory() //todo: move into configuration
         {
             return Fluently.Configure()
                 .Database(SQLiteConfiguration

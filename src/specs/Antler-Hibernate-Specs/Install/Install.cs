@@ -1,28 +1,21 @@
 ﻿using Antler.Hibernate;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
-using CommonServiceLocator.WindsorAdapter;
-using Microsoft.Practices.ServiceLocation;
-using NHibernate;
-using SmartElk.Antler.Domain;
+using SmartElk.Antler.Abstractions.Configuration;
+using SmartElk.Antler.Windsor;
 
 namespace SmartElk.Antler.Hibernate.Specs.Install
 {
-    public class Install //todo: fluent registrations here(abstract Windsor container + get rid of ServiceLocator)
+    public class Install
     {
-        private static WindsorContainer Container { get; set; }
-
+        private static IAntlerConfigurator Configurator { get; set; }
+        
         public static void RegisterComponents()
         {
-            if (Container == null)
+            if (Configurator == null)
             {
-                Container = new WindsorContainer();
-
-                Container.Register(Component.For<ISessionScopeFactory>().ImplementedBy<HibernateSessionScopeFactory>());
-                Container.Register(Component.For<ISessionFactory>().Instance(SqliteSessionFactoryCreator.CreateFactory()).LifeStyle.Singleton);
-
-                ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(Container));
+                Configurator = new AntlerConfigurator();
+                Configurator.UseWindsorContainer();                
+                Configurator.UseNHibernate(SqliteSessionFactoryCreator.CreateFactory());
             }            
-        }
+        }                        
     }
 }

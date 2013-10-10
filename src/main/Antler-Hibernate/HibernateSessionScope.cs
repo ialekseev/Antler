@@ -1,5 +1,4 @@
-﻿using Microsoft.Practices.ServiceLocation;
-using NHibernate;
+﻿using NHibernate;
 using SmartElk.Antler.Domain;
 
 namespace Antler.Hibernate
@@ -9,10 +8,9 @@ namespace Antler.Hibernate
         private readonly ISession _session;
         private readonly ITransaction _transaction;
         
-        public HibernateSessionScope()
-        {
-            var factory = ServiceLocator.Current.GetInstance<ISessionFactory>();
-            _session = factory.OpenSession();
+        public HibernateSessionScope(ISessionFactory sessionFactory)
+        {                        
+            _session = sessionFactory.OpenSession();
             _transaction = _session.BeginTransaction();            
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Practices.ServiceLocation;
 
 namespace SmartElk.Antler.Domain
 {
@@ -7,11 +6,11 @@ namespace SmartElk.Antler.Domain
     {
         private readonly ISessionScope _sessionScope;        
         public static Action<ISessionScope> DoAfterSessionOpening { get; set; }
-        
+        public static ISessionScopeFactory SessionScopeFactory { get; set; }
+
         public UnitOfWork()
-        {                        
-            var sessionScopeFactory = ServiceLocator.Current.GetInstance<ISessionScopeFactory>();
-            _sessionScope = sessionScopeFactory.Open();
+        {                                    
+            _sessionScope = SessionScopeFactory.Open();
 
             if (DoAfterSessionOpening != null)
                 DoAfterSessionOpening(_sessionScope);

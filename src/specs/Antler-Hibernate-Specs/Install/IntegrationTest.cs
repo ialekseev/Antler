@@ -10,6 +10,7 @@ namespace SmartElk.Antler.Hibernate.Specs.Install
         {
             Install.RegisterComponents();
 
+            //todo: move into configuration
             UnitOfWork.DoAfterSessionOpening =
                 sessionScope =>
                 new SchemaExport(SqliteSessionFactoryCreator.Configuration).Execute(false, true, false,
