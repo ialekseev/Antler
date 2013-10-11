@@ -4,13 +4,13 @@ using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NHibernate.Cfg;
 
-namespace SmartElk.Antler.Hibernate.Specs.Install
+namespace SmartElk.Antler.Hibernate.Specs.Base
 {
     public class SqliteSessionFactoryCreator
     {       
         public static Configuration Configuration { get; set; }
 
-        public static ISessionFactory CreateFactory() //todo: move into configuration
+        public static ISessionFactory CreateFactory()
         {
             return Fluently.Configure()
                 .Database(SQLiteConfiguration

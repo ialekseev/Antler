@@ -5,8 +5,8 @@ using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 using SmartElk.Antler.Domain;
+using SmartElk.Antler.Hibernate.Specs.Base;
 using SmartElk.Antler.Hibernate.Specs.Entities;
-using SmartElk.Antler.Hibernate.Specs.Install;
 
 namespace SmartElk.Antler.Hibernate.Specs
 {
