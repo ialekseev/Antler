@@ -21,9 +21,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Windsor-Specs", "spe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-EntityFramework", "main\Antler-EntityFramework\Antler-EntityFramework.csproj", "{34FCF9A5-7B9F-4A9A-A8B0-4FDA717744BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-EntityFramework-Sqlite-Specs", "specs\Antler-EntityFramework-Sqlite-Specs\Antler-EntityFramework-Sqlite-Specs.csproj", "{26A0DD0A-C9A4-42DA-9F12-D1FFC499BCFF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-EntityFramework-SqlCe-Specs", "specs\Antler-EntityFramework-SqlCe-Specs\Antler-EntityFramework-SqlCe-Specs.csproj", "{26A0DD0A-C9A4-42DA-9F12-D1FFC499BCFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-EntityFramework-Sqlite", "main\Antler-EntityFramework-Sqlite\Antler-EntityFramework-Sqlite.csproj", "{70753A7A-3173-4B34-9E9D-5AA1FEA5BE15}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-EntityFramework-SqlCe", "main\Antler-EntityFramework-SqlCe\Antler-EntityFramework-SqlCe.csproj", "{70753A7A-3173-4B34-9E9D-5AA1FEA5BE15}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Specs-Shared", "specs\Antler-Specs-Shared\Antler-Specs-Shared.csproj", "{9C008F64-DBBD-4135-A5C8-1249D5A603F1}"
 EndProject
