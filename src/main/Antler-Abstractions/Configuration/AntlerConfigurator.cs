@@ -8,7 +8,7 @@ namespace SmartElk.Antler.Abstractions.Configuration
 
         public AntlerConfigurator()
         {
-            _configuration = new AntlerConfiguration();
+            _configuration = new AntlerConfiguration();            
         }
 
         public AntlerConfiguration Configuration

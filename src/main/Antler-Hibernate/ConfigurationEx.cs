@@ -7,12 +7,10 @@ namespace Antler.Hibernate
 {
     public static class ConfigurationEx
     {        
-        public static void UseNHibernate(this IAntlerConfigurator nodeConfigurator, ISessionFactory sessionFactory)
+        public static void UseNHibernate(this IAntlerConfigurator configurator, ISessionFactory sessionFactory)
         {
             var sessionScopeFactory = new HibernateSessionScopeFactory(sessionFactory);            
-            nodeConfigurator.Configuration.Container.Put(Binding.Use(sessionScopeFactory).As<ISessionScopeFactory>());
-            
-            UnitOfWork.SessionScopeFactory = nodeConfigurator.Configuration.Container.Get<ISessionScopeFactory>(); //todo: move out from here
+            configurator.Configuration.Container.Put(Binding.Use(sessionScopeFactory).As<ISessionScopeFactory>());                        
         }
     }
 }

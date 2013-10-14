@@ -5,15 +5,29 @@ namespace SmartElk.Antler.Domain
     public class UnitOfWork: IDisposable
     {
         private readonly ISessionScope _sessionScope;        
-        public static Action<ISessionScope> DoAfterSessionOpening { get; set; }
-        public static ISessionScopeFactory SessionScopeFactory { get; set; }
+        
+        private static Action<ISessionScope> DoAfterSessionOpen { get; set; }
+        public static void SetActionToDoAfterSessionOpen(Action<ISessionScope> doAfterSessionOpen)
+        {
+            DoAfterSessionOpen = doAfterSessionOpen;
+        }
+        
+        private static Func<ISessionScopeFactory> SessionScopeFactoryExtractor { get; set; }
+        public static void SetSessionScopeFactoryExtractor(Func<ISessionScopeFactory> extractor)
+        {
+            SessionScopeFactoryExtractor = extractor;
+        }
 
         public UnitOfWork()
-        {                                    
-            _sessionScope = SessionScopeFactory.Open();
+        {
+            var sessionScopeFactory = SessionScopeFactoryExtractor();
+            if (sessionScopeFactory == null)
+                throw new Exception("You should set ISessionScopeFactory implementation before using UnitOfWork");
+            
+            _sessionScope = sessionScopeFactory.Open();
 
-            if (DoAfterSessionOpening != null)
-                DoAfterSessionOpening(_sessionScope);
+            if (DoAfterSessionOpen != null)
+                DoAfterSessionOpen(_sessionScope);
         }
         
         public void Dispose()
