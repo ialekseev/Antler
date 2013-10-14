@@ -31,8 +31,8 @@ namespace SmartElk.Antler.Hibernate.Sqlite
             var sessionScopeFactory = new HibernateSessionScopeFactory(sessionFactory);            
             domainConfigurator.Configuration.Container.Put(Binding.Use(sessionScopeFactory).As<ISessionScopeFactory>()); 
   
-            UnitOfWork.DoAfterSessionOpening = sessionScope =>
-                new SchemaExport(configuration).Execute(false, true, false, ((ISession)(sessionScope.InternalSession)).Connection, null);
+            UnitOfWork.SetActionToDoAfterSessionOpen(sessionScope =>
+                new SchemaExport(configuration).Execute(false, true, false, ((ISession)(sessionScope.InternalSession)).Connection, null));
         }
     }
 }

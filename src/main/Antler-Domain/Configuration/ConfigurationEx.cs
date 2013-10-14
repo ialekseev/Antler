@@ -6,7 +6,7 @@ namespace SmartElk.Antler.Domain.Configuration
     {        
         public static IDomainConfigurator UseDomain(this IAntlerConfigurator configurator)
         {                        
-            UnitOfWork.SessionScopeFactoryExtractor = () => configurator.Configuration.Container.Get<ISessionScopeFactory>();
+            UnitOfWork.SetSessionScopeFactoryExtractor(() => configurator.Configuration.Container.Get<ISessionScopeFactory>());
             return new DomainConfigurator(configurator.Configuration);
         }
     }    

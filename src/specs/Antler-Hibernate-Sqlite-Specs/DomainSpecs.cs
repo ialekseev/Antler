@@ -1,20 +1,35 @@
 ﻿// ReSharper disable InconsistentNaming
-
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using FluentAssertions;
 using NUnit.Framework;
+using SmartElk.Antler.Abstractions.Configuration;
 using SmartElk.Antler.Domain;
-using SmartElk.Antler.Hibernate.Specs.Base;
+using SmartElk.Antler.Domain.Configuration;
 using SmartElk.Antler.Hibernate.Specs.Entities;
+using SmartElk.Antler.Hibernate.Sqlite;
+using SmartElk.Antler.Windsor;
 
 namespace SmartElk.Antler.Hibernate.Specs
 {
     public class DomainSpecs
     {
+        public class TestingScenario
+        {
+            private IAntlerConfigurator Configurator { get; set; }
+
+            public TestingScenario()
+            {            
+                Configurator = new AntlerConfigurator();                
+                Configurator.UseWindsorContainer();
+                Configurator.UseDomain().AsInMemoryStorage(Assembly.GetExecutingAssembly());                                                                              
+            }
+        }
+        
         [TestFixture]
         [Category("Integration")]
-        public class when_trying_to_get_one_employee: IntegrationTest
+        public class when_trying_to_get_one_employee : TestingScenario
         {
            [Test]
            public void should_return_employee()
@@ -51,7 +66,7 @@ namespace SmartElk.Antler.Hibernate.Specs
 
         [TestFixture]
         [Category("Integration")]
-        public class when_trying_to_get_all_teams : IntegrationTest
+        public class when_trying_to_get_all_teams : TestingScenario
         {
             [Test]
             public void should_return_all_teams()

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Hibernate", "main\An
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specs", "Specs", "{0BA7638D-2B16-4E72-AD94-EA2669BA246C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Hibernate-Specs", "specs\Antler-Hibernate-Specs\Antler-Hibernate-Specs.csproj", "{22241314-ACB1-4BD6-AA61-7006A5D19DD5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Hibernate-Sqlite-Specs", "specs\Antler-Hibernate-Sqlite-Specs\Antler-Hibernate-Sqlite-Specs.csproj", "{22241314-ACB1-4BD6-AA61-7006A5D19DD5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Abstractions", "main\Antler-Abstractions\Antler-Abstractions.csproj", "{66AB4A48-0D4F-4F0D-9A47-EB461B8495E1}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Windsor", "main\Antler-Windsor\Antler-Windsor.csproj", "{91A50383-D6EB-4303-91E8-BD3634E20CAB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Hibernate-Sqlite", "main\Antler-Hibernate-Sqlite\Antler-Hibernate-Sqlite.csproj", "{3612BF1E-4B41-40C9-B463-D14EBE1CAE26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Windsor-Specs", "specs\Antler-Windsor-Specs\Antler-Windsor-Specs.csproj", "{DBF351EF-45AB-4708-9267-D0B825FD825B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,11 +53,16 @@ Global
 		{3612BF1E-4B41-40C9-B463-D14EBE1CAE26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3612BF1E-4B41-40C9-B463-D14EBE1CAE26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3612BF1E-4B41-40C9-B463-D14EBE1CAE26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBF351EF-45AB-4708-9267-D0B825FD825B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBF351EF-45AB-4708-9267-D0B825FD825B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBF351EF-45AB-4708-9267-D0B825FD825B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBF351EF-45AB-4708-9267-D0B825FD825B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{22241314-ACB1-4BD6-AA61-7006A5D19DD5} = {0BA7638D-2B16-4E72-AD94-EA2669BA246C}
+		{DBF351EF-45AB-4708-9267-D0B825FD825B} = {0BA7638D-2B16-4E72-AD94-EA2669BA246C}
 	EndGlobalSection
 EndGlobal

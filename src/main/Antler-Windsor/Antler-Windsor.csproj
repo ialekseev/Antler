@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="AppSettingsResolver.cs" />
     <Compile Include="ConfigurationEx.cs" />
+    <Compile Include="ContainerEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnmanagedLifestyleManager.cs" />
     <Compile Include="UnmanagedReleasePolicy.cs" />
