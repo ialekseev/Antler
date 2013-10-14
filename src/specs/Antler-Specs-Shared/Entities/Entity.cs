@@ -1,4 +1,4 @@
-﻿namespace SmartElk.Antler.Hibernate.Specs.Entities
+﻿namespace SmartElk.Antler.Specs.Shared.Entities
 {
     public class Entity<TId>
     {

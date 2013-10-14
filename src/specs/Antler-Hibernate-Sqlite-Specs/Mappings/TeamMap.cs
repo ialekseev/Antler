@@ -1,5 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
-using SmartElk.Antler.Hibernate.Specs.Entities;
+using SmartElk.Antler.Specs.Shared.Entities;
 
 namespace SmartElk.Antler.Hibernate.Specs.Mappings
 {

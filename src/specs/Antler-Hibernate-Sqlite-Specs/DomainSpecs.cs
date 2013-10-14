@@ -7,8 +7,8 @@ using NUnit.Framework;
 using SmartElk.Antler.Abstractions.Configuration;
 using SmartElk.Antler.Domain;
 using SmartElk.Antler.Domain.Configuration;
-using SmartElk.Antler.Hibernate.Specs.Entities;
 using SmartElk.Antler.Hibernate.Sqlite;
+using SmartElk.Antler.Specs.Shared.Entities;
 using SmartElk.Antler.Windsor;
 
 namespace SmartElk.Antler.Hibernate.Specs
@@ -41,16 +41,16 @@ namespace SmartElk.Antler.Hibernate.Specs
                    var employeeRepository = uow.Repository<Employee, string>();
 
                    var team = new Team() { Id = 13, Name = "Super", BusinessGroup = "SuperBg" };                   
-                   teamRepository.Save(team);
+                   teamRepository.Insert(team);
 
                    var employee1 = new Employee { Id = "667", FirstName = "Jack", LastName = "Black" };
-                   employeeRepository.Save(employee1);
+                   employeeRepository.Insert(employee1);
                                       
                    var employee2 = new Employee { Id = "666", FirstName = "John", LastName = "Smith", LineManager= employee1, Teams = new List<Team>() { team } };                   
-                   employeeRepository.Save(employee2);
+                   employeeRepository.Insert(employee2);
                    
                    //act
-                   var result = employeeRepository.Get(employee2.Id);
+                   var result = employeeRepository.GetById(employee2.Id);
 
                    //assert
                    result.Id.Should().Be(employee2.Id);
@@ -77,13 +77,13 @@ namespace SmartElk.Antler.Hibernate.Specs
                     var teamRepository = uow.Repository<Team, int>();
                     
                     var team1 = new Team() { Name = "Super", BusinessGroup = "SuperBg" };                    
-                    teamRepository.Save(team1);
+                    teamRepository.Insert(team1);
 
                     var team2 = new Team() { Name = "Good", BusinessGroup = "GoodBg" };
-                    teamRepository.Save(team2);
+                    teamRepository.Insert(team2);
 
                     var team3 = new Team() { Name = "Bad", BusinessGroup = "BadBg" };
-                    teamRepository.Save(team3);
+                    teamRepository.Insert(team3);
                                                             
                     //act
                     var result = teamRepository.AsQueryable().OrderBy(t=>t.Name).ToArray();
