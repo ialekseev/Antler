@@ -6,11 +6,11 @@ namespace SmartElk.Antler.EntityFramework
 {
     public class EntityFrameworkSessionScope: ISessionScope
     {
-        private readonly IDataContext _dbContext;
+        private readonly IDataContext _dbContext;        
         
         public EntityFrameworkSessionScope(IDataContextFactory dbContextFactory)
         {
-            _dbContext = dbContextFactory.GetDbContext();            
+            _dbContext = dbContextFactory.CreateDbContext();
         }
 
         public void Commit()
@@ -31,6 +31,11 @@ namespace SmartElk.Antler.EntityFramework
         public object InternalSession
         {
             get { return _dbContext; }
+        }
+
+        public void Dispose()
+        {     
+            _dbContext.Dispose();
         }
     }
 }

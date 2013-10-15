@@ -2,9 +2,7 @@
 using Antler.Hibernate;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using NHibernate;
 using NHibernate.Cfg;
-using NHibernate.Tool.hbm2ddl;
 using SmartElk.Antler.Abstractions.Registration;
 using SmartElk.Antler.Domain;
 using SmartElk.Antler.Domain.Configuration;
@@ -27,12 +25,12 @@ namespace SmartElk.Antler.Hibernate.Sqlite
                 })
                 .BuildSessionFactory();
 
+            //todo: How to deal with the fact that Sqllite database exists only current for connect? http://stackoverflow.com/questions/189280/problem-using-sqlite-memory-with-nhibernate
 
+            //Action<ISessionScope> action = sessionScope => new SchemaExport(configuration).Execute(false, true, false, ((ISession)(sessionScope.InternalSession)).Connection, null);
+            
             var sessionScopeFactory = new HibernateSessionScopeFactory(sessionFactory);            
-            domainConfigurator.Configuration.Container.Put(Binding.Use(sessionScopeFactory).As<ISessionScopeFactory>()); 
-  
-            UnitOfWork.SetActionToDoAfterSessionOpen(sessionScope =>
-                new SchemaExport(configuration).Execute(false, true, false, ((ISession)(sessionScope.InternalSession)).Connection, null));
-        }
+            domainConfigurator.Configuration.Container.Put(Binding.Use(sessionScopeFactory).As<ISessionScopeFactory>());               
+        }        
     }
 }

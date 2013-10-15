@@ -14,6 +14,6 @@ namespace SmartElk.Antler.EntityFramework
         public ISessionScope Open()
         {            
             return new EntityFrameworkSessionScope(_dbContextFactory);
-        }
+        }        
     }
 }

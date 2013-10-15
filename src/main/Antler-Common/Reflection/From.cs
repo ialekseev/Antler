@@ -24,7 +24,7 @@ namespace SmartElk.Antler.Common.Reflection
             }
         }
 
-        public static IEnumerable<Assembly> AllAssemblies() //todo: rename to AllAppDomainAssemblies ?
+        public static IEnumerable<Assembly> AllAssemblies()
         {
             return AppDomain.CurrentDomain.GetAssemblies();
         }

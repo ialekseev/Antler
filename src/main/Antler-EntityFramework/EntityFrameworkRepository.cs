@@ -20,7 +20,7 @@ namespace SmartElk.Antler.EntityFramework
         
         public virtual IQueryable<TEntity> AsQueryable()
         {
-            return DbSet.AsQueryable();                        
+            return DbSet.AsQueryable();
         }
 
         public TEntity GetById(TId id)
@@ -31,11 +31,13 @@ namespace SmartElk.Antler.EntityFramework
         public void Insert(TEntity entity)
         {
             DbSet.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Delete(TEntity entity)
         {
             DbSet.Remove(entity);
+            _context.SaveChanges();
         }
     }
 }

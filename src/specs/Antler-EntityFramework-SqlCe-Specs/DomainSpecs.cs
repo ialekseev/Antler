@@ -1,13 +1,14 @@
 ﻿// ReSharper disable InconsistentNaming
+using System.Data.Entity;
 using System.Reflection;
 using NUnit.Framework;
 using SmartElk.Antler.Abstractions.Configuration;
 using SmartElk.Antler.Domain.Configuration;
-using SmartElk.Antler.Hibernate.Sqlite;
+using SmartElk.Antler.EntityFramework.Internal;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
 using SmartElk.Antler.Windsor;
 
-namespace SmartElk.Antler.Hibernate.Specs
+namespace SmartElk.Antler.EntityFramework.Sqlite.Specs
 {
     public class DomainSpecs
     {
@@ -16,22 +17,22 @@ namespace SmartElk.Antler.Hibernate.Specs
             private static IAntlerConfigurator Configurator { get; set; }
 
             static TestingScenario()
-            {            
-                Configurator = new AntlerConfigurator();                
+            {
+                Configurator = new AntlerConfigurator();
                 Configurator.UseWindsorContainer();
-                Configurator.UseDomain().AsInMemoryStorage(Assembly.GetExecutingAssembly());                                                                              
-            }            
+                Configurator.UseDomain().AsInMemoryStorage(Assembly.GetExecutingAssembly(), new DropCreateDatabaseAlways<DataContext>());
+            }
         }
-        
+
         [TestFixture]
         [Category("Integration")]
         public class when_trying_to_get_one_employee : TestingScenario
         {
-           [Test]
-           public void should_return_employee()
-           {
-               CommonDomainSpecs.when_trying_to_get_one_employee.should_return_employee();                  
-           }
+            [Test]
+            public void should_return_employee()
+            {
+                CommonDomainSpecs.when_trying_to_get_one_employee.should_return_employee();
+            }
         }
 
         [TestFixture]

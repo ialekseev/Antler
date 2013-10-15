@@ -1,6 +1,8 @@
-﻿namespace SmartElk.Antler.Domain
+﻿using System;
+
+namespace SmartElk.Antler.Domain
 {
-    public interface ISessionScope
+    public interface ISessionScope: IDisposable
     {
         void Commit();
         void Rollback();

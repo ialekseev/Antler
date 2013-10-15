@@ -10,10 +10,10 @@ namespace Antler.Hibernate
         
         public HibernateSessionScope(ISessionFactory sessionFactory)
         {                        
-            _session = sessionFactory.OpenSession();
+            _session = sessionFactory.OpenSession();            
             _transaction = _session.BeginTransaction();            
         }
-
+        
         public void Commit()
         {
             if (_transaction.IsActive
@@ -44,6 +44,12 @@ namespace Antler.Hibernate
         public object InternalSession
         {
             get { return _session; }
+        }
+
+        public void Dispose()
+        {            
+            _transaction.Dispose();
+            _session.Dispose();
         }
     }
 }
