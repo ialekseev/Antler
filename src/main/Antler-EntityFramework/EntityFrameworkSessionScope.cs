@@ -23,9 +23,9 @@ namespace SmartElk.Antler.EntityFramework
             throw new NotImplementedException();
         }
         
-        public IRepository<TEntity, TId> Repository<TEntity, TId>() where TEntity:class
+        public IRepository<TEntity> CreateRepository<TEntity>() where TEntity:class
         {
-            return new EntityFrameworkRepository<TEntity, TId>(_dbContext);
+            return new EntityFrameworkRepository<TEntity>(_dbContext);
         }
 
         public object InternalSession

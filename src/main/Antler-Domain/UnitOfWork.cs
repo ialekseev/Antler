@@ -27,9 +27,9 @@ namespace SmartElk.Antler.Domain
             _sessionScope.Dispose();
         }
                 
-        public IRepository<TEntity, TId> Repository<TEntity, TId>() where TEntity: class
+        public IRepository<TEntity> Repository<TEntity>() where TEntity: class
         {
-            return _sessionScope.Repository<TEntity, TId>();
+            return _sessionScope.CreateRepository<TEntity>();
         }
 
         public ISessionScope CurrentSession

@@ -5,7 +5,7 @@ using SmartElk.Antler.EntityFramework.Internal;
 
 namespace SmartElk.Antler.EntityFramework
 {
-    public class EntityFrameworkRepository<TEntity, TId>: IRepository<TEntity, TId> where TEntity: class
+    public class EntityFrameworkRepository<TEntity>: IRepository<TEntity> where TEntity: class
     {
         private readonly IDataContext _context;
         public EntityFrameworkRepository(IDataContext context)
@@ -23,7 +23,7 @@ namespace SmartElk.Antler.EntityFramework
             return DbSet.AsQueryable();
         }
 
-        public TEntity GetById(TId id)
+        public TEntity GetById<TId>(TId id)
         {
             return DbSet.Find(id);
         }

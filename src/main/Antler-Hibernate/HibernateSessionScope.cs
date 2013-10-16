@@ -45,9 +45,9 @@ namespace Antler.Hibernate
             }
         }
         
-        public IRepository<TEntity, TId> Repository<TEntity, TId>() where TEntity:class
+        public IRepository<TEntity> CreateRepository<TEntity>() where TEntity:class
         {
-            return new HibernateRepository<TEntity, TId>(_session);
+            return new HibernateRepository<TEntity>(_session);
         }
 
         public object InternalSession

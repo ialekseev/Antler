@@ -10,16 +10,27 @@ namespace SmartElk.Antler.EntityFramework.Internal
     {
         private readonly Assembly _assemblyWithMappings;
 
-        public DataContext(string connectionString, Assembly assemblyWithMappings): base(connectionString)
+        public DataContext(string connectionString, Assembly assemblyWithMappings, bool enableLazyLoading): base(connectionString)
         {
             _assemblyWithMappings = assemblyWithMappings;
+            this.Configuration.LazyLoadingEnabled = enableLazyLoading;
         }
 
-        public DataContext(Assembly assemblyWithMappings)            
+        public DataContext(string connectionString, Assembly assemblyWithMappings)
+            : this(connectionString, assemblyWithMappings, true)
+        {            
+        }
+        
+        public DataContext(Assembly assemblyWithMappings, bool enableLazyLoading)            
         {
             _assemblyWithMappings = assemblyWithMappings;
+            this.Configuration.LazyLoadingEnabled = enableLazyLoading;
         }
 
+        public DataContext(Assembly assemblyWithMappings) : this(assemblyWithMappings, true)
+        {            
+        }
+        
         public new IDbSet<TEntity> Set<TEntity>() where TEntity : class
         {
             return base.Set<TEntity>();

@@ -5,7 +5,7 @@ using SmartElk.Antler.Domain;
 
 namespace Antler.Hibernate
 {
-    public class HibernateRepository<TEntity, TId>: IRepository<TEntity, TId> where TEntity: class
+    public class HibernateRepository<TEntity>: IRepository<TEntity> where TEntity: class
     {
         private readonly ISession _session;
         public HibernateRepository(ISession session)
@@ -18,7 +18,7 @@ namespace Antler.Hibernate
             return _session.Query<TEntity>();
         }
 
-        public TEntity GetById(TId id)
+        public TEntity GetById<TId>(TId id)
         {
             return _session.Get<TEntity>(id);  
         }

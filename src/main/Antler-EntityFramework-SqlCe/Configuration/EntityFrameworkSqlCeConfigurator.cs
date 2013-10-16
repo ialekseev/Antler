@@ -12,11 +12,13 @@ namespace SmartElk.Antler.EntityFramework.Sqlite.Configuration
         private IDomainConfigurator _domainConfigurator;
         private Assembly _assemblyWithMappings;
         private IDatabaseInitializer<DataContext> _databaseInitializer;
+        private bool _enableLazyLoading;
 
         private EntityFrameworkSqlCeConfigurator()
         {
             _assemblyWithMappings = Assembly.GetCallingAssembly();
             _databaseInitializer = new DropCreateDatabaseAlways<DataContext>();
+            _enableLazyLoading = true;
         }
 
         public static EntityFrameworkSqlCeConfigurator Create(IDomainConfigurator domainConfigurator)
@@ -37,9 +39,21 @@ namespace SmartElk.Antler.EntityFramework.Sqlite.Configuration
             return this;
         }
 
+        public EntityFrameworkSqlCeConfigurator WithLazyLoading()
+        {
+            this._enableLazyLoading = true;
+            return this;
+        }
+        
+        public EntityFrameworkSqlCeConfigurator WithoutLazyLoading()
+        {
+            this._enableLazyLoading = false;
+            return this;
+        }
+
         public void AsInMemoryStorage()
         {                                    
-            var dataContextFactory = new DataContextFactory(_assemblyWithMappings);
+            var dataContextFactory = new DataContextFactory(_assemblyWithMappings, _enableLazyLoading);
             var sessionScopeFactory = new EntityFrameworkSessionScopeFactory(dataContextFactory);
             _domainConfigurator.Configuration.Container.Put(Binding.Use(sessionScopeFactory).As<ISessionScopeFactory>());
 
