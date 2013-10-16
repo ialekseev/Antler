@@ -57,7 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigurationEx.cs" />
+    <Compile Include="Configuration\AsInMemoryStorageResult.cs" />
+    <Compile Include="Configuration\ConfigurationEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

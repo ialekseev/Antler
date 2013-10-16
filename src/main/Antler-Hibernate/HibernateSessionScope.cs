@@ -7,13 +7,22 @@ namespace Antler.Hibernate
     {
         private readonly ISession _session;
         private readonly ITransaction _transaction;
+        private readonly bool _ownSession;
         
         public HibernateSessionScope(ISessionFactory sessionFactory)
         {                        
             _session = sessionFactory.OpenSession();            
-            _transaction = _session.BeginTransaction();            
+            _transaction = _session.BeginTransaction();
+            _ownSession = true;
         }
-        
+
+        public HibernateSessionScope(ISession session)
+        {
+            _session = session;
+            _transaction = _session.BeginTransaction();
+            _ownSession = false;
+        }
+
         public void Commit()
         {
             if (_transaction.IsActive
@@ -48,8 +57,9 @@ namespace Antler.Hibernate
 
         public void Dispose()
         {            
-            _transaction.Dispose();
-            _session.Dispose();
+            _transaction.Dispose();            
+            if (_ownSession)                            
+              _session.Dispose();                            
         }
     }
 }

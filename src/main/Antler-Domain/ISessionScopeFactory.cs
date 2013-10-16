@@ -2,6 +2,6 @@
 {
     public interface ISessionScopeFactory
     {
-        ISessionScope Open();
+        ISessionScope Open();        
     }
 }
