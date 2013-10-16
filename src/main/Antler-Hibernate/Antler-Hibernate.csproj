@@ -52,6 +52,7 @@
     <Compile Include="HibernateRepository.cs" />
     <Compile Include="HibernateSessionScope.cs" />
     <Compile Include="HibernateSessionScopeFactory.cs" />
+    <Compile Include="ISessionScopeFactoryEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

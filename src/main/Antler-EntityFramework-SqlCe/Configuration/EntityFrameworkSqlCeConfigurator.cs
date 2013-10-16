@@ -43,7 +43,7 @@ namespace SmartElk.Antler.EntityFramework.Sqlite.Configuration
             var sessionScopeFactory = new EntityFrameworkSessionScopeFactory(dataContextFactory);
             _domainConfigurator.Configuration.Container.Put(Binding.Use(sessionScopeFactory).As<ISessionScopeFactory>());
 
-            Database.SetInitializer(_databaseInitializer); 
+            Database.SetInitializer(_databaseInitializer);             
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 using System.Reflection;
+using Antler.Hibernate;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
@@ -66,6 +67,28 @@ namespace SmartElk.Antler.Hibernate.Specs
             {
                 CommonDomainSpecs.when_trying_to_get_all_teams.should_return_all_teams();
             }            
+        }
+
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_get_all_employees : TestingScenario
+        {
+            [Test]
+            public static void should_return_all_employees()
+            {
+                CommonDomainSpecs.when_trying_to_get_all_employees.should_return_all_employees();
+            }
+        }
+
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_find_employee_by_name : TestingScenario
+        {
+            [Test]
+            public static void should_return_employee()
+            {
+                CommonDomainSpecs.when_trying_to_find_employee_by_name.should_return_employee();
+            }
         }
     }
 }

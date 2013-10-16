@@ -50,5 +50,12 @@ namespace SmartElk.Antler.EntityFramework.Internal
                 modelBuilder.Configurations.Add((dynamic)configurationInstance);
             }
         }
+
+
+        public void Clear()
+        {
+            this.Database.Delete();
+            this.Database.Create();
+        }
     }
 }

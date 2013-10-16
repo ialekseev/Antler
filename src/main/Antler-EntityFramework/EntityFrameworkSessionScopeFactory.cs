@@ -3,7 +3,7 @@ using SmartElk.Antler.EntityFramework.Internal;
 
 namespace SmartElk.Antler.EntityFramework
 {
-    public class EntityFrameworkSessionScopeFactory: ISessionScopeFactory
+    public class EntityFrameworkSessionScopeFactory: ISessionScopeFactory, ISessionScopeFactoryEx
     {
         private readonly IDataContextFactory _dbContextFactory;
         public EntityFrameworkSessionScopeFactory(IDataContextFactory dbContextFactory)
@@ -14,6 +14,11 @@ namespace SmartElk.Antler.EntityFramework
         public ISessionScope Open()
         {            
             return new EntityFrameworkSessionScope(_dbContextFactory);
-        }        
+        }
+
+        public IDataContext CreateDataContext()
+        {
+            return _dbContextFactory.CreateDbContext();
+        }
     }
 }

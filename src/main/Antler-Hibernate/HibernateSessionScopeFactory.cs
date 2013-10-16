@@ -21,9 +21,9 @@ namespace Antler.Hibernate
             return new HibernateSessionScope(_session);
         }
 
-        void ISessionScopeFactoryEx.SetSession(object session)
+        void ISessionScopeFactoryEx.SetSession(ISession session)
         {
-            _session = (ISession)session;
+            _session = session;
         }
 
         void ISessionScopeFactoryEx.ResetSession()

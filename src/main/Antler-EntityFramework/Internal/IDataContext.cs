@@ -7,5 +7,6 @@ namespace SmartElk.Antler.EntityFramework.Internal
     {
         IDbSet<TEntity> Set<TEntity>() where TEntity : class;
         void SaveChanges();
+        void Clear();
     }
 }
