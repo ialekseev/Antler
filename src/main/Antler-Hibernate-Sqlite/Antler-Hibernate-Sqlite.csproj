@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Configuration\AsInMemoryStorageResult.cs" />
     <Compile Include="Configuration\ConfigurationEx.cs" />
+    <Compile Include="Configuration\HibernateSqliteConfigurator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

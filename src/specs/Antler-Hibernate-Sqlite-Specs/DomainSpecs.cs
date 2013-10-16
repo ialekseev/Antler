@@ -25,8 +25,7 @@ namespace SmartElk.Antler.Hibernate.Specs
             {                
                 Configurator = new AntlerConfigurator();
                 Configurator.UseWindsorContainer();
-                AsInMemoryStorageResult = Configurator.UseDomain()
-                                                          .AsInMemoryStorage(Assembly.GetExecutingAssembly());                
+                AsInMemoryStorageResult = Configurator.UseDomain().WithMappings(Assembly.GetExecutingAssembly()).AsInMemoryStorage();
             }
 
             [SetUp]

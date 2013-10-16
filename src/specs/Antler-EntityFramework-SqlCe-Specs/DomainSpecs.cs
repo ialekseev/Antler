@@ -1,10 +1,9 @@
 ﻿// ReSharper disable InconsistentNaming
-using System.Data.Entity;
 using System.Reflection;
 using NUnit.Framework;
 using SmartElk.Antler.Abstractions.Configuration;
 using SmartElk.Antler.Domain.Configuration;
-using SmartElk.Antler.EntityFramework.Internal;
+using SmartElk.Antler.EntityFramework.Sqlite.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
 using SmartElk.Antler.Windsor;
 
@@ -20,7 +19,7 @@ namespace SmartElk.Antler.EntityFramework.Sqlite.Specs
             {
                 Configurator = new AntlerConfigurator();
                 Configurator.UseWindsorContainer();
-                Configurator.UseDomain().AsInMemoryStorage(Assembly.GetExecutingAssembly(), new DropCreateDatabaseAlways<DataContext>());
+                Configurator.UseDomain().WithMappings(Assembly.GetExecutingAssembly()).AsInMemoryStorage();
             }
         }
 

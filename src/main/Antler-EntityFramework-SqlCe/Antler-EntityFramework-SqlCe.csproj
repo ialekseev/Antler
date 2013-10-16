@@ -56,7 +56,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigurationEx.cs" />
+    <Compile Include="Configuration\ConfigurationEx.cs" />
+    <Compile Include="Configuration\EntityFrameworkSqlCeConfigurator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
