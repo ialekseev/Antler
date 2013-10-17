@@ -4,8 +4,7 @@ namespace SmartElk.Antler.Domain
 {
     public interface ISessionScope: IDisposable
     {
-        void Commit();
-        void Rollback();
+        void Commit();        
         IRepository<TEntity> CreateRepository<TEntity>() where TEntity : class;
         object InternalSession { get; }
     }

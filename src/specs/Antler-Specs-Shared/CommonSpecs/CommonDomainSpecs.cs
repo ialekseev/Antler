@@ -170,6 +170,54 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
             }
         }
 
+        public static class when_trying_to_modify_employees_teams
+        {
+            public static void should_modify_teams()
+            {
+                //arrange
+                Employee employee;
+                using (var uow = new UnitOfWork())
+                {
+                    var team1 = new Team() { Name = "Super", BusinessGroup = "SuperBg" };
+                    uow.Repository<Team>().Insert(team1);
+
+                    var team2 = new Team() { Name = "Great", BusinessGroup = "GreatBg" };
+                    uow.Repository<Team>().Insert(team2);
+
+                    employee = new Employee { Id = "666", FirstName = "John", LastName = "Smith", Teams = new List<Team>() { team1, team2 } };
+                    uow.Repository<Employee>().Insert(employee);
+                }
+
+                //act
+                using (var uow = new UnitOfWork())
+                {                    
+                    var foundEmployee = uow.Repository<Employee>().GetById(employee.Id);
+                    foundEmployee.Teams[0].Name = "Super-upd";
+                    foundEmployee.Teams[0].BusinessGroup = "SuperBg-upd";
+                    foundEmployee.Teams[1].Name = "Great-upd";
+                    foundEmployee.Teams[1].BusinessGroup = "GreatBg-upd";
+
+                    var newTeam = new Team() {Name = "Awesome", BusinessGroup = "AwesomeBg"};
+                    uow.Repository<Team>().Insert(newTeam);                    
+                    foundEmployee.Teams.Add(newTeam);
+                }
+
+                //assert
+                using (var uow = new UnitOfWork())
+                {
+                    var foundEmployee = uow.Repository<Employee>().GetById(employee.Id);
+                    
+                    foundEmployee.Teams.Count.Should().Be(3);
+                    foundEmployee.Teams[0].Name.Should().Be("Super-upd");
+                    foundEmployee.Teams[0].BusinessGroup.Should().Be("SuperBg-upd");
+                    foundEmployee.Teams[1].Name.Should().Be("Great-upd");
+                    foundEmployee.Teams[1].BusinessGroup.Should().Be("GreatBg-upd");
+                    foundEmployee.Teams[2].Name.Should().Be("Awesome");
+                    foundEmployee.Teams[2].BusinessGroup.Should().Be("AwesomeBg");
+                }
+            }
+        }
+
     }
 }
 // ReSharper restore InconsistentNaming

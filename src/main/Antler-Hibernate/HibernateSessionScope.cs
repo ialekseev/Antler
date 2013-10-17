@@ -25,26 +25,17 @@ namespace Antler.Hibernate
 
         public void Commit()
         {
-            if (_transaction.IsActive
-                && !_transaction.WasCommitted
-                && !_transaction.WasRolledBack                
-                )
+            try
             {
                 _transaction.Commit();
             }
-        }
-
-        public void Rollback()
-        {
-            if (_transaction.IsActive
-                && !_transaction.WasCommitted
-                && !_transaction.WasRolledBack                
-                )
+            catch (HibernateException)
             {
                 _transaction.Rollback();
-            }
+                throw;
+            }            
         }
-        
+                
         public IRepository<TEntity> CreateRepository<TEntity>() where TEntity:class
         {
             return new HibernateRepository<TEntity>(_session);

@@ -90,6 +90,17 @@ namespace SmartElk.Antler.Hibernate.Specs
                 CommonDomainSpecs.when_trying_to_find_employee_by_name.should_return_employee();
             }
         }
+
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_modify_employees_teams : TestingScenario
+        {
+            [Test]
+            public static void should_modify_teams()
+            {
+                CommonDomainSpecs.when_trying_to_modify_employees_teams.should_modify_teams();
+            }
+        }
     }
 }
 
