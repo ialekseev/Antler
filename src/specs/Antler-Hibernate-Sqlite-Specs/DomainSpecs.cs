@@ -14,39 +14,7 @@ using SmartElk.Antler.Windsor;
 namespace SmartElk.Antler.Hibernate.Specs
 {
     public class DomainSpecs
-    {
-        public class TestingScenario
-        {
-            protected static IAntlerConfigurator Configurator { get; set; }
-            protected static AsInMemoryStorageResult AsInMemoryStorageResult { get; set; }
-            
-            private ISession session;
-
-            static TestingScenario()
-            {                
-                Configurator = new AntlerConfigurator();
-                Configurator.UseWindsorContainer();
-                AsInMemoryStorageResult = Configurator.UseDomain().WithMappings(Assembly.GetExecutingAssembly()).AsInMemoryStorage();
-            }
-
-            [SetUp]
-            public void SetUp()
-            {
-                session = AsInMemoryStorageResult.SessionFactory.OpenSession();
-                new SchemaExport(AsInMemoryStorageResult.Configuration).Execute(false, true, false, session.Connection, null);
-                var sessionScopeFactory = (ISessionScopeFactoryEx)Configurator.Configuration.Container.Get<ISessionScopeFactory>();
-                sessionScopeFactory.SetSession(session);
-            } 
-
-            [TearDown]
-            public void TearDown()
-            {
-                session.Dispose();
-                var sessionScopeFactory = (ISessionScopeFactoryEx)Configurator.Configuration.Container.Get<ISessionScopeFactory>();
-                sessionScopeFactory.ResetSession();
-            }
-        }
-        
+    {                
         [TestFixture]
         [Category("Integration")]
         public class when_trying_to_get_one_employee : TestingScenario
@@ -101,6 +69,37 @@ namespace SmartElk.Antler.Hibernate.Specs
                 CommonDomainSpecs.when_trying_to_modify_employees_teams.should_modify_teams();
             }
         }
+
+        #region Configuration
+        public class TestingScenario
+        {
+            protected IAntlerConfigurator Configurator { get; set; }
+            protected AsInMemoryStorageResult AsInMemoryStorageResult { get; set; }
+            private ISession session;
+
+            [SetUp]
+            public void SetUp()
+            {
+                Configurator = new AntlerConfigurator();
+                AsInMemoryStorageResult = Configurator.UseWindsorContainer().UseDomain().WithMappings(Assembly.GetExecutingAssembly()).AsInMemoryStorage();
+
+                session = AsInMemoryStorageResult.SessionFactory.OpenSession();
+                new SchemaExport(AsInMemoryStorageResult.Configuration).Execute(false, true, false, session.Connection, null);
+                var sessionScopeFactory = (ISessionScopeFactoryEx)Configurator.Configuration.Container.Get<ISessionScopeFactory>();
+                sessionScopeFactory.SetSession(session);
+            }
+
+            [TearDown]
+            public void TearDown()
+            {
+                session.Dispose();
+                var sessionScopeFactory = (ISessionScopeFactoryEx)Configurator.Configuration.Container.Get<ISessionScopeFactory>();
+                sessionScopeFactory.ResetSession();
+
+                Configurator.Dispose();
+            }
+        } 
+        #endregion
     }
 }
 

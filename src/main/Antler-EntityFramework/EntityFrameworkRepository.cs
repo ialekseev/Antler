@@ -13,12 +13,12 @@ namespace SmartElk.Antler.EntityFramework
             _context = context;
         }
 
-        private IDbSet<TEntity> DbSet
+        public IDbSet<TEntity> DbSet
         {
             get { return _context.Set<TEntity>();}
         }
         
-        public virtual IQueryable<TEntity> AsQueryable()
+        public IQueryable<TEntity> AsQueryable()
         {
             return DbSet.AsQueryable();
         }

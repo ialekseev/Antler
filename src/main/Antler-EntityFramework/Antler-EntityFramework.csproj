@@ -59,6 +59,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Antler-Common\Antler-Common.csproj">
+      <Project>{2C949C79-54B6-46E8-9B10-139AF8DD0A96}</Project>
+      <Name>Antler-Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Antler-Domain\Antler-Domain.csproj">
       <Project>{6814B93C-B1E7-4050-AD5E-B10260110716}</Project>
       <Name>Antler-Domain</Name>
