@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainSpecs.cs" />
+    <Compile Include="Mappings\CountryMap.cs" />
     <Compile Include="Mappings\EmployeeMap.cs" />
     <Compile Include="Mappings\TeamMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

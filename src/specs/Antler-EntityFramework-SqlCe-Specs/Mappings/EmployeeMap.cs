@@ -21,7 +21,8 @@ namespace SmartElk.Antler.EntityFramework.Sqlite.Specs.Mappings
                     m.ToTable("TEAMS_MEMBERS_MAP");
                     m.MapLeftKey("TEAM_ID");
                     m.MapRightKey("MEMBER_GPIN");
-                });                                                   
+                });
+                        
         }        
     }
 }

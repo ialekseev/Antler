@@ -70,6 +70,18 @@ namespace SmartElk.Antler.Hibernate.Specs
             }
         }
 
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_find_team_by_country_name : TestingScenario
+        {
+            [Test]
+            public void should_return_country()
+            {
+                CommonDomainSpecs.when_trying_to_find_team_by_country_name.should_return_country();
+            }
+        }
+
+
         #region Configuration
         public class TestingScenario
         {

@@ -218,6 +218,42 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
             }
         }
 
+        public static class when_trying_to_find_team_by_country_name
+        {
+            public static void should_return_country()
+            {
+                //arrange
+                Team team1;
+                Team team2;                
+                using (var uow = new UnitOfWork())
+                {
+                    var country1 = new Country {Name = "USA", Language = "English"};
+                    uow.Repository<Country>().Insert(country1);
+
+                    var country2 = new Country {Name = "Mexico", Language = "Spanish"};
+                    uow.Repository<Country>().Insert(country2);
+
+                    team1 = new Team() { Name = "Super", BusinessGroup = "SuperBg", Country = country1};
+                    uow.Repository<Team>().Insert(team1);
+
+                    team2 = new Team() { Name = "Awesome", BusinessGroup = "AwesomeBg", Country = country2 };
+                    uow.Repository<Team>().Insert(team2);                    
+                }
+
+                using (var uow = new UnitOfWork())
+                {
+                    //act                    
+                    var result = uow.Repository<Team>().AsQueryable().First(t => t.Country.Name == "Mexico");
+
+                    //assert
+                    result.Id.Should().Be(team2.Id);
+                    result.Name.Should().Be("Awesome");
+                    result.BusinessGroup.Should().Be("AwesomeBg");
+                    result.Country.Name.Should().Be("Mexico");                                        
+                }
+            }
+        }
+
     }
 }
 // ReSharper restore InconsistentNaming
