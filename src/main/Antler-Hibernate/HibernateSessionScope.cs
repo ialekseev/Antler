@@ -7,43 +7,50 @@ namespace Antler.Hibernate
     {
         private readonly ISession _session;
         private readonly ITransaction _transaction;
+        private readonly bool _ownSession;
         
         public HibernateSessionScope(ISessionFactory sessionFactory)
         {                        
-            _session = sessionFactory.OpenSession();
-            _transaction = _session.BeginTransaction();            
+            _session = sessionFactory.OpenSession();            
+            _transaction = _session.BeginTransaction();
+            _ownSession = true;
+        }
+
+        public HibernateSessionScope(ISession session)
+        {
+            _session = session;
+            _transaction = _session.BeginTransaction();
+            _ownSession = false;
         }
 
         public void Commit()
         {
-            if (_transaction.IsActive
-                && !_transaction.WasCommitted
-                && !_transaction.WasRolledBack                
-                )
+            try
             {
                 _transaction.Commit();
             }
-        }
-
-        public void Rollback()
-        {
-            if (_transaction.IsActive
-                && !_transaction.WasCommitted
-                && !_transaction.WasRolledBack                
-                )
+            catch (HibernateException)
             {
                 _transaction.Rollback();
-            }
+                throw;
+            }            
         }
-        
-        public IRepository<TEntity, TId> Repository<TEntity, TId>() where TEntity:class
+                
+        public IRepository<TEntity> CreateRepository<TEntity>() where TEntity:class
         {
-            return new HibernateRepository<TEntity, TId>(_session);
+            return new HibernateRepository<TEntity>(_session);
         }
 
         public object InternalSession
         {
             get { return _session; }
+        }
+
+        public void Dispose()
+        {            
+            _transaction.Dispose();            
+            if (_ownSession)                            
+              _session.Dispose();                            
         }
     }
 }

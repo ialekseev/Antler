@@ -23,5 +23,10 @@ namespace SmartElk.Antler.Abstractions.Configuration
 
             _configuration.Container = container;
         }
+
+        public void Dispose()
+        {
+            _configuration.Dispose();
+        }
     }
 }

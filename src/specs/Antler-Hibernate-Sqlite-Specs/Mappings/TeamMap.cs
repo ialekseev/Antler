@@ -16,7 +16,9 @@ namespace SmartElk.Antler.Hibernate.Specs.Mappings
 				.Table("TEAMS_MEMBERS_MAP")
 				.ParentKeyColumn("TEAM_ID")
 				.ChildKeyColumn("MEMBER_GPIN")
-				.ExtraLazyLoad();			
+				.ExtraLazyLoad();
+
+            References(a => a.Country, "COUNTRY_ID").Fetch.Join();
 		}
     }
 }

@@ -7,8 +7,12 @@ namespace SmartElk.Antler.Specs.Shared.Entities
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }        
         public virtual string Email { get; set; }
-        public virtual string JobTitle { get; set; }
-        public virtual Employee LineManager { get; set; }
+        public virtual string JobTitle { get; set; }        
         public virtual IList<Team> Teams { get; set; }
+
+        public Employee()
+        {
+            Teams= new List<Team>();
+        }
     }
 }

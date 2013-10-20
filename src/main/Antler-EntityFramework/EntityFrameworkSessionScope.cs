@@ -6,11 +6,11 @@ namespace SmartElk.Antler.EntityFramework
 {
     public class EntityFrameworkSessionScope: ISessionScope
     {
-        private readonly IDataContext _dbContext;
+        private readonly IDataContext _dbContext;        
         
         public EntityFrameworkSessionScope(IDataContextFactory dbContextFactory)
         {
-            _dbContext = dbContextFactory.GetDbContext();            
+            _dbContext = dbContextFactory.CreateDbContext();
         }
 
         public void Commit()
@@ -23,14 +23,19 @@ namespace SmartElk.Antler.EntityFramework
             throw new NotImplementedException();
         }
         
-        public IRepository<TEntity, TId> Repository<TEntity, TId>() where TEntity:class
+        public IRepository<TEntity> CreateRepository<TEntity>() where TEntity:class
         {
-            return new EntityFrameworkRepository<TEntity, TId>(_dbContext);
+            return new EntityFrameworkRepository<TEntity>(_dbContext);
         }
 
         public object InternalSession
         {
             get { return _dbContext; }
+        }
+
+        public void Dispose()
+        {     
+            _dbContext.Dispose();
         }
     }
 }

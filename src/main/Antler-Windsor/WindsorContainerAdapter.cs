@@ -117,5 +117,10 @@ namespace SmartElk.Antler.Windsor
         {
             return NativeContainer.Kernel.HasComponent(name);
         }
+
+        public void Dispose()
+        {
+            NativeContainer.Dispose();
+        }
     }
 }

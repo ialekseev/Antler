@@ -5,7 +5,7 @@ using SmartElk.Antler.EntityFramework.Internal;
 
 namespace SmartElk.Antler.EntityFramework
 {
-    public class EntityFrameworkRepository<TEntity, TId>: IRepository<TEntity, TId> where TEntity: class
+    public class EntityFrameworkRepository<TEntity>: IRepository<TEntity> where TEntity: class
     {
         private readonly IDataContext _context;
         public EntityFrameworkRepository(IDataContext context)
@@ -13,17 +13,17 @@ namespace SmartElk.Antler.EntityFramework
             _context = context;
         }
 
-        private IDbSet<TEntity> DbSet
+        public IDbSet<TEntity> DbSet
         {
             get { return _context.Set<TEntity>();}
         }
         
-        public virtual IQueryable<TEntity> AsQueryable()
+        public IQueryable<TEntity> AsQueryable()
         {
-            return DbSet.AsQueryable();                        
+            return DbSet.AsQueryable();
         }
 
-        public TEntity GetById(TId id)
+        public TEntity GetById<TId>(TId id)
         {
             return DbSet.Find(id);
         }
@@ -31,11 +31,13 @@ namespace SmartElk.Antler.EntityFramework
         public void Insert(TEntity entity)
         {
             DbSet.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Delete(TEntity entity)
         {
             DbSet.Remove(entity);
+            _context.SaveChanges();
         }
     }
 }

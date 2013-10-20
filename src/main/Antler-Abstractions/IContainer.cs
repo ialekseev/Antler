@@ -5,7 +5,7 @@ using SmartElk.Antler.Abstractions.Registration;
 
 namespace SmartElk.Antler.Abstractions
 {
-    public interface IContainer
+    public interface IContainer: IDisposable
     {        
         T Get<T>();        
         T Get<T>(string name);        
