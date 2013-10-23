@@ -5,7 +5,7 @@ namespace SmartElk.Antler.Hibernate.Sqlite.Configuration
 {
     public static class ConfigurationEx
     {
-        public static HibernateSqliteConfigurator WithMappings(this IDomainConfigurator domainConfigurator, Assembly assemblyWithMappings)
+        public static HibernateSqliteConfigurator WithNHibernate(this IDomainConfigurator domainConfigurator, Assembly assemblyWithMappings)
         {
             return new HibernateSqliteConfigurator(domainConfigurator, assemblyWithMappings);
         } 

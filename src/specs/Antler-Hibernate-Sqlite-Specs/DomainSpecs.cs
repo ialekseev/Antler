@@ -90,33 +90,33 @@ namespace SmartElk.Antler.Hibernate.Specs
         {
             [Test]
             public void should_return_result()
-            {                
-                using (var uow = new UnitOfWork())
-                {
-                    //arrange
-                    var country1 = new Country { Name = "USA", Language = "English" };
-                    uow.Repository<Country>().Insert(country1);
+            {
+                UnitOfWork.Do(uow =>
+                    {
+                        //arrange
+                        var country1 = new Country {Name = "USA", Language = "English"};
+                        uow.Repository<Country>().Insert(country1);
 
-                    var country2 = new Country { Name = "Mexico", Language = "Spanish" };
-                    uow.Repository<Country>().Insert(country2);
+                        var country2 = new Country {Name = "Mexico", Language = "Spanish"};
+                        uow.Repository<Country>().Insert(country2);
 
-                    var team1 = new Team() { Name = "Super", BusinessGroup = "SuperBg", Country = country1 };
-                    uow.Repository<Team>().Insert(team1);
+                        var team1 = new Team() {Name = "Super", BusinessGroup = "SuperBg", Country = country1};
+                        uow.Repository<Team>().Insert(team1);
 
-                    var team2 = new Team() { Name = "Awesome", BusinessGroup = "AwesomeBg", Country = country2 };
-                    uow.Repository<Team>().Insert(team2);
+                        var team2 = new Team() {Name = "Awesome", BusinessGroup = "AwesomeBg", Country = country2};
+                        uow.Repository<Team>().Insert(team2);
 
-                    //act                    
-                    var internalSession = (ISession)uow.CurrentSession.InternalSession;
-                    var result = internalSession.QueryOver<Team>().Where(t => t.Name == "Awesome").List();
-                                                
-                    //assert
-                    result.Count.Should().Be(1);                        
-                    result[0].Id.Should().Be(team2.Id);
-                    result[0].Name.Should().Be("Awesome");
-                    result[0].BusinessGroup.Should().Be("AwesomeBg");
-                    result[0].Country.Name.Should().Be("Mexico");
-                }                
+                        //act                    
+                        var internalSession = (ISession) uow.CurrentSession.InternalSession;
+                        var result = internalSession.QueryOver<Team>().Where(t => t.Name == "Awesome").List();
+
+                        //assert
+                        result.Count.Should().Be(1);
+                        result[0].Id.Should().Be(team2.Id);
+                        result[0].Name.Should().Be("Awesome");
+                        result[0].BusinessGroup.Should().Be("AwesomeBg");
+                        result[0].Country.Name.Should().Be("Mexico");
+                    });
             }
         }
 
@@ -132,7 +132,7 @@ namespace SmartElk.Antler.Hibernate.Specs
             public void SetUp()
             {
                 Configurator = new AntlerConfigurator();
-                AsInMemoryStorageResult = Configurator.UseWindsorContainer().UseDomain().WithMappings(Assembly.GetExecutingAssembly()).AsInMemoryStorage();
+                AsInMemoryStorageResult = Configurator.UseWindsorContainer().UseDomain().WithNHibernate(Assembly.GetExecutingAssembly()).AsInMemoryStorage();
 
                 session = AsInMemoryStorageResult.SessionFactory.OpenSession();
                 new SchemaExport(AsInMemoryStorageResult.Configuration).Execute(false, true, false, session.Connection, null);

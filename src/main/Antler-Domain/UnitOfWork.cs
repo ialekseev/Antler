@@ -12,6 +12,14 @@ namespace SmartElk.Antler.Domain
             SessionScopeFactoryExtractor = extractor;
         }
 
+        public static void Do(Action<UnitOfWork> action)
+        {
+            using (var uow = new UnitOfWork())
+            {
+                action(uow);
+            }
+        }
+        
         public UnitOfWork()
         {                        
             var sessionScopeFactory = SessionScopeFactoryExtractor();

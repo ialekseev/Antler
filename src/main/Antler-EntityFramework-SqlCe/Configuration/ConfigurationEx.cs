@@ -14,7 +14,7 @@ namespace SmartElk.Antler.EntityFramework.Sqlite.Configuration
             entityFrameworkSqlCeConfigurator.AsInMemoryStorage();
         }
 
-        public static EntityFrameworkSqlCeConfigurator WithMappings(this IDomainConfigurator domainConfigurator, Assembly assemblyWithMappings)
+        public static EntityFrameworkSqlCeConfigurator WithEntityFramework(this IDomainConfigurator domainConfigurator, Assembly assemblyWithMappings)
         {
             var configurator = EntityFrameworkSqlCeConfigurator.Create(domainConfigurator);
             configurator.WithMappings(assemblyWithMappings);
