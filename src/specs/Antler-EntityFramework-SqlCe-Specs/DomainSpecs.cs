@@ -165,13 +165,13 @@ namespace SmartElk.Antler.EntityFramework.Sqlite.Specs
         public class EagerLoading { }
         public class TestingScenario<T>
         {
-            protected IAntlerConfigurator Configurator { get; set; }
+            protected IBasicConfigurator Configurator { get; set; }
 
             [SetUp]
             public void SetUp()
             {
-                Configurator = new AntlerConfigurator();
-                var configurator = Configurator.UseWindsorContainer().UseDomain().WithEntityFramework(Assembly.GetExecutingAssembly());
+                Configurator = new BasicConfigurator();
+                var configurator = Configurator.UseWindsorContainer().UseStorage().WithEntityFramework(Assembly.GetExecutingAssembly());
 
                 if (typeof(T) == typeof(LazyLoading))
                     configurator.AsInMemoryStorage();

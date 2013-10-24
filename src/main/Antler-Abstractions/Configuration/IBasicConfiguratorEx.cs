@@ -1,6 +1,6 @@
 ﻿namespace SmartElk.Antler.Abstractions.Configuration
 {
-    public interface IAntlerConfiguratorEx
+    public interface IBasicConfiguratorEx
     {
         void SetContainerAdapter(IContainer container);
     }

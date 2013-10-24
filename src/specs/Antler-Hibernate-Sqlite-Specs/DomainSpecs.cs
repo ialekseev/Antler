@@ -124,15 +124,15 @@ namespace SmartElk.Antler.Hibernate.Specs
         #region Configuration
         public class TestingScenario
         {
-            protected IAntlerConfigurator Configurator { get; set; }
+            protected IBasicConfigurator Configurator { get; set; }
             protected AsInMemoryStorageResult AsInMemoryStorageResult { get; set; }
             private ISession session;
 
             [SetUp]
             public void SetUp()
             {
-                Configurator = new AntlerConfigurator();
-                AsInMemoryStorageResult = Configurator.UseWindsorContainer().UseDomain().WithNHibernate(Assembly.GetExecutingAssembly()).AsInMemoryStorage();
+                Configurator = new BasicConfigurator();
+                AsInMemoryStorageResult = Configurator.UseWindsorContainer().UseStorage().WithNHibernate(Assembly.GetExecutingAssembly()).AsInMemoryStorage();
 
                 session = AsInMemoryStorageResult.SessionFactory.OpenSession();
                 new SchemaExport(AsInMemoryStorageResult.Configuration).Execute(false, true, false, session.Connection, null);

@@ -4,6 +4,6 @@ namespace SmartElk.Antler.Domain.Configuration
 {
     public interface IDomainConfigurator
     {
-        AntlerConfiguration Configuration { get; }
+        IBasicConfiguration Configuration { get; }
     }
 }
