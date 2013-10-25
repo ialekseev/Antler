@@ -6,27 +6,36 @@ namespace SmartElk.Antler.Domain
     {        
         private readonly ISessionScope _sessionScope;
                                         
-        private static Func<ISessionScopeFactory> SessionScopeFactoryExtractor { get; set; }
-        public static void SetSessionScopeFactoryExtractor(Func<ISessionScopeFactory> extractor)
+        private static Func<string, ISessionScopeFactory> SessionScopeFactoryExtractor { get; set; }
+        public static void SetSessionScopeFactoryExtractor(Func<string, ISessionScopeFactory> extractor)
         {
             SessionScopeFactoryExtractor = extractor;
         }
 
-        public static void Do(Action<UnitOfWork> action)
+        public static void Do(string storageName, Action<UnitOfWork> action)
         {
-            using (var uow = new UnitOfWork())
+            using (var uow = new UnitOfWork(storageName))
             {
                 action(uow);
             }
         }
         
-        public UnitOfWork()
-        {                        
-            var sessionScopeFactory = SessionScopeFactoryExtractor();
+        public static void Do(Action<UnitOfWork> action)
+        {
+            Do(null, action);
+        }
+
+        public UnitOfWork(string storageName)
+        {
+            var sessionScopeFactory = SessionScopeFactoryExtractor(storageName);
             if (sessionScopeFactory == null)
                 throw new Exception("You should set ISessionScopeFactory implementation before using UnitOfWork");
-                                    
+
             _sessionScope = sessionScopeFactory.Open();            
+        }
+        
+        public UnitOfWork():this(null)
+        {                                    
         }
         
         public void Dispose()

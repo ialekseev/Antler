@@ -1,7 +1,5 @@
 ﻿using System.Data.Entity;
 using System.Reflection;
-using SmartElk.Antler.Abstractions.Registration;
-using SmartElk.Antler.Domain;
 using SmartElk.Antler.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.Internal;
 
@@ -55,8 +53,8 @@ namespace SmartElk.Antler.EntityFramework.Sqlite.Configuration
         {                                    
             var dataContextFactory = new DataContextFactory(_assemblyWithMappings, _enableLazyLoading);
             var sessionScopeFactory = new EntityFrameworkSessionScopeFactory(dataContextFactory);
-            _domainConfigurator.Configuration.Container.Put(Binding.Use(sessionScopeFactory).As<ISessionScopeFactory>());
-
+            _domainConfigurator.RegisterSessionScopeFactory(sessionScopeFactory);                        
+            
             Database.SetInitializer(_databaseInitializer);             
         }
     }

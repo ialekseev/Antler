@@ -27,7 +27,7 @@ namespace SmartElk.Antler.Domain.Specs
         public class when_trying_to_set_storage_on_basic_configurator: ConfigurationScenario
         {
             [Test]
-            public void should_set_unit_of_work_and_return_domain_configurator()
+            public void should_set_unit_of_work_and_return_valid_domain_configurator()
             {
                 //arrange
                 var basicConfigurator = A.Fake<IBasicConfigurator>();
@@ -43,11 +43,12 @@ namespace SmartElk.Antler.Domain.Specs
 
                 //assert
                 var property = typeof(UnitOfWork).GetProperty("SessionScopeFactoryExtractor", BindingFlags.NonPublic | BindingFlags.Static);
-                var sessionScopeFactoryExtractor = (Func<ISessionScopeFactory>)property.GetValue(null, null);
-                var sessionScopeFactory = sessionScopeFactoryExtractor();
+                var sessionScopeFactoryExtractor = (Func<string, ISessionScopeFactory>)property.GetValue(null, null);
+                var sessionScopeFactory = sessionScopeFactoryExtractor(null);
                 
                 sessionScopeFactory.Should().BeOfType<TestSessionScopeFactory>();
                 result.Should().BeOfType<DomainConfigurator>();
+                result.Name.Should().BeNull();
             }
         }
 
@@ -67,15 +68,16 @@ namespace SmartElk.Antler.Domain.Specs
                 A.CallTo(() => basicConfigurator.Configuration).Returns(basicConfiguration);
 
                 //act
-                var result = basicConfigurator.UseNamedStorage("SuperStorage");
+                var result = basicConfigurator.UseStorage().Named("SuperStorage");
 
                 //assert
                 var property = typeof(UnitOfWork).GetProperty("SessionScopeFactoryExtractor", BindingFlags.NonPublic | BindingFlags.Static);
-                var sessionScopeFactoryExtractor = (Func<ISessionScopeFactory>)property.GetValue(null, null);
-                var sessionScopeFactory = sessionScopeFactoryExtractor();
+                var sessionScopeFactoryExtractor = (Func<string, ISessionScopeFactory>)property.GetValue(null, null);
+                var sessionScopeFactory = sessionScopeFactoryExtractor("SuperStorage");
                 
                 sessionScopeFactory.Should().BeOfType<TestSessionScopeFactory>();
                 result.Should().BeOfType<DomainConfigurator>();
+                result.Name.Should().Be("SuperStorage");
             }
         }
     }

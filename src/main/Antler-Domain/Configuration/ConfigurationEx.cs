@@ -6,14 +6,14 @@ namespace SmartElk.Antler.Domain.Configuration
     {        
         public static IDomainConfigurator UseStorage(this IBasicConfigurator configurator)
         {                        
-            UnitOfWork.SetSessionScopeFactoryExtractor(() => configurator.Configuration.Container.Get<ISessionScopeFactory>());
+            RegisterSessionScopeFactoryExtractor(configurator);
             return new DomainConfigurator(configurator.Configuration);
         }
-
-        public static IDomainConfigurator UseNamedStorage(this IBasicConfigurator configurator, string name)
+        
+        private static void RegisterSessionScopeFactoryExtractor(IBasicConfigurator configurator)
         {
-            UnitOfWork.SetSessionScopeFactoryExtractor(() => configurator.Configuration.Container.Get<ISessionScopeFactory>(name));
-            return new DomainConfigurator(configurator.Configuration);
+            UnitOfWork.SetSessionScopeFactoryExtractor(name => string.IsNullOrEmpty(name) ? configurator.Configuration.Container.Get<ISessionScopeFactory>() : 
+                                                               configurator.Configuration.Container.Get<ISessionScopeFactory>(name));
         }
     }    
 }
