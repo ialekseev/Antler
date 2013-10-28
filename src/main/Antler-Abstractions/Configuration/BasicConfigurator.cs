@@ -2,21 +2,21 @@
 
 namespace SmartElk.Antler.Abstractions.Configuration
 {
-    public class AntlerConfigurator : IAntlerConfigurator, IAntlerConfiguratorEx
+    public class BasicConfigurator : IBasicConfigurator, IBasicConfiguratorEx
     {
-        private readonly AntlerConfiguration _configuration;
+        private readonly IBasicConfiguration _configuration;
 
-        public AntlerConfigurator()
+        public BasicConfigurator()
         {
-            _configuration = new AntlerConfiguration();            
+            _configuration = new BasicConfiguration();            
         }
 
-        public AntlerConfiguration Configuration
+        public IBasicConfiguration Configuration
         {
             get { return _configuration; }
         }
 
-        void IAntlerConfiguratorEx.SetContainerAdapter(IContainer container)
+        void IBasicConfiguratorEx.SetContainerAdapter(IContainer container)
         {
             if (_configuration.Container != null)
                 throw new InvalidOperationException("Container adapter is already set to " + _configuration.Container.GetType().Name);

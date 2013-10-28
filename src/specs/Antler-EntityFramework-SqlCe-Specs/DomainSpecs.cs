@@ -91,33 +91,33 @@ namespace SmartElk.Antler.EntityFramework.Sqlite.Specs
             public static void should_return_employee()
             {
                 //arrange
-                Team team;
-                Employee employee2;
-                using (var uow = new UnitOfWork())
-                {
-                    team = new Team() { Name = "Super", BusinessGroup = "SuperBg" };
-                    uow.Repository<Team>().Insert(team);
+                Team team = null;
+                Employee employee2 = null;
+                UnitOfWork.Do(uow =>
+                    {
+                        team = new Team() { Name = "Super", BusinessGroup = "SuperBg" };
+                        uow.Repository<Team>().Insert(team);
 
-                    var employee1 = new Employee { Id = "667", FirstName = "Jack", LastName = "Black" };
-                    uow.Repository<Employee>().Insert(employee1);
+                        var employee1 = new Employee { Id = "667", FirstName = "Jack", LastName = "Black" };
+                        uow.Repository<Employee>().Insert(employee1);
 
-                    employee2 = new Employee { Id = "666", FirstName = "John", LastName = "Smith", Teams = new List<Team>() { team } };
-                    uow.Repository<Employee>().Insert(employee2);
-                }
+                        employee2 = new Employee { Id = "666", FirstName = "John", LastName = "Smith", Teams = new List<Team>() { team } };
+                        uow.Repository<Employee>().Insert(employee2);
+                    });
 
-                using (var uow = new UnitOfWork())
-                {
-                    //act                    
-                    var result = uow.Repository<Employee>().AsQueryable().Where(t => t.Id == employee2.Id).Include(t => t.Teams).First();
+                UnitOfWork.Do(uow =>
+                    {
+                        //act                    
+                        var result = uow.Repository<Employee>().AsQueryable().Where(t => t.Id == employee2.Id).Include(t => t.Teams).First();
 
-                    //assert
-                    result.Id.Should().Be(employee2.Id);
-                    result.FirstName.Should().Be(employee2.FirstName);
-                    result.LastName.Should().Be(employee2.LastName);
-                    result.Teams.First().Id.Should().Be(team.Id);
-                    result.Teams.First().Name.Should().Be(team.Name);
-                    result.Teams.First().BusinessGroup.Should().Be(team.BusinessGroup);
-                }
+                        //assert
+                        result.Id.Should().Be(employee2.Id);
+                        result.FirstName.Should().Be(employee2.FirstName);
+                        result.LastName.Should().Be(employee2.LastName);
+                        result.Teams.First().Id.Should().Be(team.Id);
+                        result.Teams.First().Name.Should().Be(team.Name);
+                        result.Teams.First().BusinessGroup.Should().Be(team.BusinessGroup);
+                    });
             }
         }
 
@@ -129,34 +129,33 @@ namespace SmartElk.Antler.EntityFramework.Sqlite.Specs
             public void should_return_country()
             {
                 //arrange
-                Team team1;
-                Team team2;
-                using (var uow = new UnitOfWork())
-                {
-                    var country1 = new Country { Name = "USA", Language = "English" };
-                    uow.Repository<Country>().Insert(country1);
+                Team team2 = null;
+                UnitOfWork.Do(uow =>
+                    {
+                        var country1 = new Country {Name = "USA", Language = "English"};
+                        uow.Repository<Country>().Insert(country1);
 
-                    var country2 = new Country { Name = "Mexico", Language = "Spanish" };
-                    uow.Repository<Country>().Insert(country2);
+                        var country2 = new Country {Name = "Mexico", Language = "Spanish"};
+                        uow.Repository<Country>().Insert(country2);
 
-                    team1 = new Team() { Name = "Super", BusinessGroup = "SuperBg", Country = country1 };
-                    uow.Repository<Team>().Insert(team1);
+                        Team team1 = new Team() {Name = "Super", BusinessGroup = "SuperBg", Country = country1};
+                        uow.Repository<Team>().Insert(team1);
 
-                    team2 = new Team() { Name = "Awesome", BusinessGroup = "AwesomeBg", Country = country2 };
-                    uow.Repository<Team>().Insert(team2);
-                }
+                        team2 = new Team() {Name = "Awesome", BusinessGroup = "AwesomeBg", Country = country2};
+                        uow.Repository<Team>().Insert(team2);
+                    });
 
-                using (var uow = new UnitOfWork())
-                {
-                    //act                    
-                    var result = uow.Repository<Team>().AsQueryable().Include(t=>t.Country).First(t => t.Country.Name == "Mexico");
+                UnitOfWork.Do(uow =>
+                    {
+                        //act                    
+                        var result = uow.Repository<Team>().AsQueryable().Include(t => t.Country).First(t => t.Country.Name == "Mexico");
 
-                    //assert
-                    result.Id.Should().Be(team2.Id);
-                    result.Name.Should().Be("Awesome");
-                    result.BusinessGroup.Should().Be("AwesomeBg");
-                    result.Country.Name.Should().Be("Mexico");
-                }
+                        //assert
+                        result.Id.Should().Be(team2.Id);
+                        result.Name.Should().Be("Awesome");
+                        result.BusinessGroup.Should().Be("AwesomeBg");
+                        result.Country.Name.Should().Be("Mexico");
+                    });
             }
         }
         
@@ -166,13 +165,13 @@ namespace SmartElk.Antler.EntityFramework.Sqlite.Specs
         public class EagerLoading { }
         public class TestingScenario<T>
         {
-            protected IAntlerConfigurator Configurator { get; set; }
+            protected IBasicConfigurator Configurator { get; set; }
 
             [SetUp]
             public void SetUp()
             {
-                Configurator = new AntlerConfigurator();
-                var configurator = Configurator.UseWindsorContainer().UseDomain().WithMappings(Assembly.GetExecutingAssembly());
+                Configurator = new BasicConfigurator();
+                var configurator = Configurator.UseWindsorContainer().UseStorage().Named("SuperStorage").WithEntityFramework(Assembly.GetExecutingAssembly());
 
                 if (typeof(T) == typeof(LazyLoading))
                     configurator.AsInMemoryStorage();

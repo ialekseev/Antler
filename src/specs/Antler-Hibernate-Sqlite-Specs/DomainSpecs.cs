@@ -1,6 +1,8 @@
 ﻿// ReSharper disable InconsistentNaming
+
 using System.Reflection;
 using Antler.Hibernate;
+using FluentAssertions;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
@@ -9,6 +11,7 @@ using SmartElk.Antler.Domain;
 using SmartElk.Antler.Domain.Configuration;
 using SmartElk.Antler.Hibernate.Sqlite.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
+using SmartElk.Antler.Specs.Shared.Entities;
 using SmartElk.Antler.Windsor;
 
 namespace SmartElk.Antler.Hibernate.Specs
@@ -81,19 +84,55 @@ namespace SmartElk.Antler.Hibernate.Specs
             }
         }
 
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_query_using_nhibernate_internal_session_directly : TestingScenario
+        {
+            [Test]
+            public void should_return_result()
+            {
+                UnitOfWork.Do(uow =>
+                    {
+                        //arrange
+                        var country1 = new Country {Name = "USA", Language = "English"};
+                        uow.Repository<Country>().Insert(country1);
+
+                        var country2 = new Country {Name = "Mexico", Language = "Spanish"};
+                        uow.Repository<Country>().Insert(country2);
+
+                        var team1 = new Team() {Name = "Super", BusinessGroup = "SuperBg", Country = country1};
+                        uow.Repository<Team>().Insert(team1);
+
+                        var team2 = new Team() {Name = "Awesome", BusinessGroup = "AwesomeBg", Country = country2};
+                        uow.Repository<Team>().Insert(team2);
+
+                        //act                    
+                        var internalSession = (ISession) uow.CurrentSession.InternalSession;
+                        var result = internalSession.QueryOver<Team>().Where(t => t.Name == "Awesome").List();
+
+                        //assert
+                        result.Count.Should().Be(1);
+                        result[0].Id.Should().Be(team2.Id);
+                        result[0].Name.Should().Be("Awesome");
+                        result[0].BusinessGroup.Should().Be("AwesomeBg");
+                        result[0].Country.Name.Should().Be("Mexico");
+                    });
+            }
+        }
+
 
         #region Configuration
         public class TestingScenario
         {
-            protected IAntlerConfigurator Configurator { get; set; }
+            protected IBasicConfigurator Configurator { get; set; }
             protected AsInMemoryStorageResult AsInMemoryStorageResult { get; set; }
             private ISession session;
 
             [SetUp]
             public void SetUp()
             {
-                Configurator = new AntlerConfigurator();
-                AsInMemoryStorageResult = Configurator.UseWindsorContainer().UseDomain().WithMappings(Assembly.GetExecutingAssembly()).AsInMemoryStorage();
+                Configurator = new BasicConfigurator();
+                AsInMemoryStorageResult = Configurator.UseWindsorContainer().UseStorage().WithNHibernate(Assembly.GetExecutingAssembly()).AsInMemoryStorage();
 
                 session = AsInMemoryStorageResult.SessionFactory.OpenSession();
                 new SchemaExport(AsInMemoryStorageResult.Configuration).Execute(false, true, false, session.Connection, null);

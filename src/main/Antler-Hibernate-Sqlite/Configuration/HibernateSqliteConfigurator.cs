@@ -2,8 +2,6 @@
 using Antler.Hibernate;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using SmartElk.Antler.Abstractions.Registration;
-using SmartElk.Antler.Domain;
 using SmartElk.Antler.Domain.Configuration;
 
 namespace SmartElk.Antler.Hibernate.Sqlite.Configuration
@@ -34,7 +32,7 @@ namespace SmartElk.Antler.Hibernate.Sqlite.Configuration
                 .BuildSessionFactory();
 
             var sessionScopeFactory = new HibernateSessionScopeFactory(sessionFactory);
-            _domainConfigurator.Configuration.Container.Put(Binding.Use(sessionScopeFactory).As<ISessionScopeFactory>());
+            _domainConfigurator.RegisterSessionScopeFactory(sessionScopeFactory);
 
             return new AsInMemoryStorageResult(sessionFactory, configuration);
         }
