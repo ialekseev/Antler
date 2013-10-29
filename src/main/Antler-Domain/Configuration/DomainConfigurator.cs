@@ -1,5 +1,4 @@
 ﻿using SmartElk.Antler.Abstractions.Configuration;
-using SmartElk.Antler.Abstractions.Registration;
 
 namespace SmartElk.Antler.Domain.Configuration
 {
@@ -17,15 +16,7 @@ namespace SmartElk.Antler.Domain.Configuration
         {
             Configuration = configuration;            
         }
-
-        public void RegisterSessionScopeFactory<T>(T sessionScopeFactory) where T:class
-        {
-            Configuration.Container.Put(HasName
-                                            ? Binding.Use(sessionScopeFactory).As<ISessionScopeFactory>().Named(Name)
-                                            : Binding.Use(sessionScopeFactory).As<ISessionScopeFactory>());
-        }
-
-
+        
         public IDomainConfigurator Named(string name)
         {
             Name = name;

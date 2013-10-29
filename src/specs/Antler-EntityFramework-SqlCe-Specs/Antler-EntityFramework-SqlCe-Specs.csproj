@@ -86,10 +86,6 @@
       <Project>{6814B93C-B1E7-4050-AD5E-B10260110716}</Project>
       <Name>Antler-Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\main\Antler-EntityFramework-SqlCe\Antler-EntityFramework-SqlCe.csproj">
-      <Project>{70753A7A-3173-4B34-9E9D-5AA1FEA5BE15}</Project>
-      <Name>Antler-EntityFramework-SqlCe</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\main\Antler-EntityFramework\Antler-EntityFramework.csproj">
       <Project>{34FCF9A5-7B9F-4A9A-A8B0-4FDA717744BD}</Project>
       <Name>Antler-EntityFramework</Name>

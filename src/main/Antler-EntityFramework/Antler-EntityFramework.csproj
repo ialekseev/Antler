@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ConfigurationEx.cs" />
+    <Compile Include="Configuration\EntityFrameworkConfigurator.cs" />
     <Compile Include="Internal\DataContext.cs" />
     <Compile Include="Internal\DataContextFactory.cs" />
     <Compile Include="EntityFrameworkRepository.cs" />
@@ -59,6 +61,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Antler-Abstractions\Antler-Abstractions.csproj">
+      <Project>{66AB4A48-0D4F-4F0D-9A47-EB461B8495E1}</Project>
+      <Name>Antler-Abstractions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Antler-Common\Antler-Common.csproj">
       <Project>{2C949C79-54B6-46E8-9B10-139AF8DD0A96}</Project>
       <Name>Antler-Common</Name>

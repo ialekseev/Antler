@@ -132,7 +132,7 @@ namespace SmartElk.Antler.Hibernate.Specs
             public void SetUp()
             {
                 Configurator = new BasicConfigurator();
-                AsInMemoryStorageResult = Configurator.UseWindsorContainer().UseStorage().WithNHibernate(Assembly.GetExecutingAssembly()).AsInMemoryStorage();
+                AsInMemoryStorageResult = Configurator.UseWindsorContainer().UseStorage().WithNHibernatePlusSqlite(Assembly.GetExecutingAssembly()).AsInMemoryStorage();
 
                 session = AsInMemoryStorageResult.SessionFactory.OpenSession();
                 new SchemaExport(AsInMemoryStorageResult.Configuration).Execute(false, true, false, session.Connection, null);

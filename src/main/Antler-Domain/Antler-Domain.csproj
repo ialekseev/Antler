@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Configuration\ConfigurationEx.cs" />
     <Compile Include="Configuration\DomainConfigurator.cs" />
+    <Compile Include="Configuration\ContainerEx.cs" />
     <Compile Include="Configuration\IDomainConfigurator.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="ISessionScope.cs" />
