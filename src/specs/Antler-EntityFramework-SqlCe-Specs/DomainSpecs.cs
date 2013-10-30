@@ -174,9 +174,9 @@ namespace SmartElk.Antler.EntityFramework.Sqlite.Specs
                 var configurator = Configurator.UseWindsorContainer().UseStorage().Named("SuperStorage").WithEntityFramework(Assembly.GetExecutingAssembly());
 
                 if (typeof(T) == typeof(LazyLoading))
-                    configurator.AsInMemoryStorage();
+                    configurator.Configure();
                 else
-                    configurator.WithoutLazyLoading().AsInMemoryStorage();
+                    configurator.WithoutLazyLoading().Configure();
 
                 ((ISessionScopeFactoryEx)Configurator.Configuration.Container.Get<ISessionScopeFactory>()).CreateDataContext().Clear();
             }

@@ -10,7 +10,7 @@ namespace SmartElk.Antler.EntityFramework.Configuration
         public static void AsInMemoryStorage(this IDomainConfigurator domainConfigurator)
         {
             var entityFrameworkSqlCeConfigurator = EntityFrameworkConfigurator.Create(domainConfigurator);
-            entityFrameworkSqlCeConfigurator.AsInMemoryStorage();
+            entityFrameworkSqlCeConfigurator.Configure();
         }
 
         public static EntityFrameworkConfigurator WithEntityFramework(this IDomainConfigurator domainConfigurator, Assembly assemblyWithMappings)

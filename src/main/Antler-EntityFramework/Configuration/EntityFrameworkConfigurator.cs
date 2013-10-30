@@ -50,7 +50,7 @@ namespace SmartElk.Antler.EntityFramework.Configuration
             return this;
         }
 
-        public void AsInMemoryStorage()
+        public void Configure()
         {                                    
             var dataContextFactory = new DataContextFactory(_assemblyWithMappings, _enableLazyLoading);
             var sessionScopeFactory = new EntityFrameworkSessionScopeFactory(dataContextFactory);

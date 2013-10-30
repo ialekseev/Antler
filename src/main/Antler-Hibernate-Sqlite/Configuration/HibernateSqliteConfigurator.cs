@@ -18,7 +18,7 @@ namespace SmartElk.Antler.Hibernate.Sqlite.Configuration
             _assemblyWithMappings = assemblyWithMappings;
         }
 
-        public AsInMemoryStorageResult AsInMemoryStorage()
+        public ConfigurationResult Configure()
         {
             NHibernate.Cfg.Configuration configuration = null;
             var sessionFactory = Fluently.Configure()
@@ -35,7 +35,7 @@ namespace SmartElk.Antler.Hibernate.Sqlite.Configuration
             var sessionScopeFactory = new HibernateSessionScopeFactory(sessionFactory);
             _domainConfigurator.Configuration.Container.Put<ISessionScopeFactory>(sessionScopeFactory, _domainConfigurator.Name);     
 
-            return new AsInMemoryStorageResult(sessionFactory, configuration);
+            return new ConfigurationResult(sessionFactory, configuration);
         }
     }
 }
