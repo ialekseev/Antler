@@ -10,6 +10,7 @@ namespace SmartElk.Antler.EntityFramework.Configuration
     {
         private IDomainConfigurator _domainConfigurator;
         private Assembly _assemblyWithMappings;
+        private string _connectionString;
         private IDatabaseInitializer<DataContext> _databaseInitializer;
         private bool _enableLazyLoading;
 
@@ -26,6 +27,12 @@ namespace SmartElk.Antler.EntityFramework.Configuration
             return configurator;
         }
 
+        public EntityFrameworkConfigurator WithConnectionString(string connectionString)
+        {
+            this._connectionString = connectionString;
+            return this;
+        }
+        
         public EntityFrameworkConfigurator WithMappings(Assembly assembly)
         {
             this._assemblyWithMappings = assembly;
@@ -51,8 +58,12 @@ namespace SmartElk.Antler.EntityFramework.Configuration
         }
 
         public void Configure()
-        {                                    
-            var dataContextFactory = new DataContextFactory(_assemblyWithMappings, _enableLazyLoading);
+        {
+            var dataContextFactory = string.IsNullOrEmpty(_connectionString)
+                                         ? new DataContextFactory(_assemblyWithMappings, _enableLazyLoading)
+                                         : new DataContextFactory(_connectionString, _assemblyWithMappings,
+                                                                  _enableLazyLoading); 
+            
             var sessionScopeFactory = new EntityFrameworkSessionScopeFactory(dataContextFactory);
             _domainConfigurator.Configuration.Container.Put<ISessionScopeFactory>(sessionScopeFactory, _domainConfigurator.Name);                                    
             Database.SetInitializer(_databaseInitializer);             

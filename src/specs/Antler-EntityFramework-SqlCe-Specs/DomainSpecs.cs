@@ -9,6 +9,7 @@ using SmartElk.Antler.Abstractions.Configuration;
 using SmartElk.Antler.Domain;
 using SmartElk.Antler.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.Configuration;
+using SmartElk.Antler.EntityFramework.SqlCe.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
 using SmartElk.Antler.Specs.Shared.Entities;
 using SmartElk.Antler.Windsor;
@@ -171,7 +172,7 @@ namespace SmartElk.Antler.EntityFramework.Sqlite.Specs
             public void SetUp()
             {
                 Configurator = new BasicConfigurator();
-                var configurator = Configurator.UseWindsorContainer().UseStorage().Named("SuperStorage").WithEntityFramework(Assembly.GetExecutingAssembly());
+                var configurator = Configurator.UseWindsorContainer().UseStorage().Named("SuperStorage").WithEntityFrameworkPlusSqlCe().WithConnectionString("Data Source=TestDB.sdf").WithMappings(Assembly.GetExecutingAssembly());
 
                 if (typeof(T) == typeof(LazyLoading))
                     configurator.Configure();
