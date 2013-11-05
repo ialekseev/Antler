@@ -57,11 +57,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\ConfigurationEx.cs" />
+    <Compile Include="Configuration\EntityFrameworkPlusSqlCe.cs" />
     <Compile Include="Configuration\SqlCeDbConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Antler-Abstractions\Antler-Abstractions.csproj">
+      <Project>{66AB4A48-0D4F-4F0D-9A47-EB461B8495E1}</Project>
+      <Name>Antler-Abstractions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Antler-Domain\Antler-Domain.csproj">
       <Project>{6814B93C-B1E7-4050-AD5E-B10260110716}</Project>
       <Name>Antler-Domain</Name>

@@ -46,6 +46,7 @@
     <Compile Include="Configuration\DomainConfigurator.cs" />
     <Compile Include="Configuration\ContainerEx.cs" />
     <Compile Include="Configuration\IDomainConfigurator.cs" />
+    <Compile Include="Configuration\IStorage.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="ISessionScope.cs" />
     <Compile Include="ISessionScopeFactory.cs" />

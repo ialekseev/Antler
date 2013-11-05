@@ -8,7 +8,6 @@ using NUnit.Framework;
 using SmartElk.Antler.Abstractions.Configuration;
 using SmartElk.Antler.Domain;
 using SmartElk.Antler.Domain.Configuration;
-using SmartElk.Antler.EntityFramework.Configuration;
 using SmartElk.Antler.EntityFramework.SqlCe.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
 using SmartElk.Antler.Specs.Shared.Entities;
@@ -171,13 +170,12 @@ namespace SmartElk.Antler.EntityFramework.Sqlite.Specs
             [SetUp]
             public void SetUp()
             {
-                Configurator = new BasicConfigurator();
-                var configurator = Configurator.UseWindsorContainer().UseStorage().Named("SuperStorage").WithEntityFrameworkPlusSqlCe().WithConnectionString("Data Source=TestDB.sdf").WithMappings(Assembly.GetExecutingAssembly());
-
+                Configurator = new BasicConfigurator();                
+                                
                 if (typeof(T) == typeof(LazyLoading))
-                    configurator.Configure();
+                   Configurator.UseWindsorContainer().UseStorage(EntityFrameworkPlusSqlCe.Use.WithConnectionString("Data Source=TestDB.sdf").WithMappings(Assembly.GetExecutingAssembly()));
                 else
-                    configurator.WithoutLazyLoading().Configure();
+                    Configurator.UseWindsorContainer().UseStorage(EntityFrameworkPlusSqlCe.Use.WithoutLazyLoading().WithConnectionString("Data Source=TestDB.sdf").WithMappings(Assembly.GetExecutingAssembly()));
 
                 ((ISessionScopeFactoryEx)Configurator.Configuration.Container.Get<ISessionScopeFactory>()).CreateDataContext().Clear();
             }

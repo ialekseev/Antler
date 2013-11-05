@@ -52,8 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\ConfigurationResult.cs" />
-    <Compile Include="Configuration\ConfigurationEx.cs" />
-    <Compile Include="Configuration\HibernateSqliteConfigurator.cs" />
+    <Compile Include="Configuration\HibernatePlusSqlite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

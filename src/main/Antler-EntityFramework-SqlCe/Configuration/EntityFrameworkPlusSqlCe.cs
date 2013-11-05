@@ -7,15 +7,20 @@ using SmartElk.Antler.EntityFramework.Configuration;
 
 namespace SmartElk.Antler.EntityFramework.SqlCe.Configuration
 {
-    public static class ConfigurationEx
-    {       
-        public static EntityFrameworkConfigurator WithEntityFrameworkPlusSqlCe(this IDomainConfigurator domainConfigurator)
-        {                        
+    public class EntityFrameworkPlusSqlCe : EntityFrameworkPlusSqlServer
+    {
+        public new static IEntityFrameworkStorage Use
+        {
+           get { return new EntityFrameworkPlusSqlCe();}            
+        }
+
+        public override void Configure(IDomainConfigurator configurator)
+        {
             DbConfiguration.SetConfiguration(new SqlCeDbConfiguration());
             RegisterDbProviderFactory();
-                                    
-            return EntityFrameworkConfigurator.Create(domainConfigurator);                        
-        }        
+            
+            base.Configure(configurator);
+        }
 
         private static void RegisterDbProviderFactory()//todo: find the better way
         {
@@ -25,7 +30,7 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Configuration
             if (!alreadyRegistered)
             {
                 providerFactories.Rows.Add("System.Data.SqlServerCe.4.0", "System.Data.SqlServerCe.4.0", "System.Data.SqlServerCe.4.0", "System.Data.SqlServerCe.SqlCeProviderFactory, System.Data.SqlServerCe");
-            }                                    
+            }
         }
     }
 }

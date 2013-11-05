@@ -6,58 +6,56 @@ using SmartElk.Antler.EntityFramework.Internal;
 
 namespace SmartElk.Antler.EntityFramework.Configuration
 {
-    public class EntityFrameworkConfigurator
-    {
-        private IDomainConfigurator _domainConfigurator;
+    public class EntityFrameworkPlusSqlServer: IEntityFrameworkStorage
+    {        
         private Assembly _assemblyWithMappings;
         private string _connectionString;
         private IDatabaseInitializer<DataContext> _databaseInitializer;
         private bool _enableLazyLoading;
 
-        private EntityFrameworkConfigurator()
+        protected EntityFrameworkPlusSqlServer()
         {
             _assemblyWithMappings = Assembly.GetCallingAssembly();
             _databaseInitializer = new DropCreateDatabaseAlways<DataContext>();
             _enableLazyLoading = true;
         }
 
-        public static EntityFrameworkConfigurator Create(IDomainConfigurator domainConfigurator)
+        public static IEntityFrameworkStorage Use()
         {
-            var configurator = new EntityFrameworkConfigurator { _domainConfigurator = domainConfigurator };
-            return configurator;
+            return new EntityFrameworkPlusSqlServer();            
         }
 
-        public EntityFrameworkConfigurator WithConnectionString(string connectionString)
+        public IEntityFrameworkStorage WithConnectionString(string connectionString)
         {
             this._connectionString = connectionString;
             return this;
         }
-        
-        public EntityFrameworkConfigurator WithMappings(Assembly assembly)
+
+        public IEntityFrameworkStorage WithMappings(Assembly assembly)
         {
             this._assemblyWithMappings = assembly;
             return this;
         }
 
-        public EntityFrameworkConfigurator WithDatabaseInitializer(IDatabaseInitializer<DataContext> databaseInitializer)
+        public IEntityFrameworkStorage WithDatabaseInitializer(IDatabaseInitializer<DataContext> databaseInitializer)
         {
             this._databaseInitializer = databaseInitializer;
             return this;
         }
 
-        public EntityFrameworkConfigurator WithLazyLoading()
+        public IEntityFrameworkStorage WithLazyLoading()
         {
             this._enableLazyLoading = true;
             return this;
         }
 
-        public EntityFrameworkConfigurator WithoutLazyLoading()
+        public IEntityFrameworkStorage WithoutLazyLoading()
         {
             this._enableLazyLoading = false;
             return this;
         }
 
-        public void Configure()
+        public virtual void Configure(IDomainConfigurator configurator)
         {
             var dataContextFactory = string.IsNullOrEmpty(_connectionString)
                                          ? new DataContextFactory(_assemblyWithMappings, _enableLazyLoading)
@@ -65,7 +63,7 @@ namespace SmartElk.Antler.EntityFramework.Configuration
                                                                   _enableLazyLoading); 
             
             var sessionScopeFactory = new EntityFrameworkSessionScopeFactory(dataContextFactory);
-            _domainConfigurator.Configuration.Container.Put<ISessionScopeFactory>(sessionScopeFactory, _domainConfigurator.Name);                                    
+            configurator.Configuration.Container.Put<ISessionScopeFactory>(sessionScopeFactory, configurator.Name);                                    
             Database.SetInitializer(_databaseInitializer);             
         }
     }
