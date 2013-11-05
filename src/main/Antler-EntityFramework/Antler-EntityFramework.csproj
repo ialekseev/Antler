@@ -33,13 +33,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EntityFramework.6.0.1\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.0.1\lib\net40\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\EntityFrameworkPlusSqlServer.cs" />
+    <Compile Include="Configuration\IEntityFrameworkStorage.cs" />
     <Compile Include="Internal\DataContext.cs" />
     <Compile Include="Internal\DataContextFactory.cs" />
     <Compile Include="EntityFrameworkRepository.cs" />
@@ -59,6 +64,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Antler-Abstractions\Antler-Abstractions.csproj">
+      <Project>{66AB4A48-0D4F-4F0D-9A47-EB461B8495E1}</Project>
+      <Name>Antler-Abstractions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Antler-Common\Antler-Common.csproj">
       <Project>{2C949C79-54B6-46E8-9B10-139AF8DD0A96}</Project>
       <Name>Antler-Common</Name>

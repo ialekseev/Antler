@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{70753A7A-3173-4B34-9E9D-5AA1FEA5BE15}</ProjectGuid>
+    <ProjectGuid>{5D2D71A7-110B-44B3-9F16-79DA905DF70C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SmartElk.Antler.EntityFramework.Sqlite</RootNamespace>
-    <AssemblyName>SmartElk.Antler.EntityFramework.Sqlite</AssemblyName>
+    <RootNamespace>SmartElk.Antler.EntityFramework.SqlCe</RootNamespace>
+    <AssemblyName>SmartElk.Antler.EntityFramework.SqlCe</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -33,21 +33,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.6.0.1\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.0.1\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServerCompact">
+      <HintPath>..\..\packages\EntityFramework.SqlServerCompact.6.0.1\lib\net40\EntityFramework.SqlServerCompact.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EntityFramework.SqlServerCompact.4.3.6\lib\net40\System.Data.SqlServerCe.Entity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -56,22 +57,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\ConfigurationEx.cs" />
-    <Compile Include="Configuration\EntityFrameworkSqlCeConfigurator.cs" />
+    <Compile Include="Configuration\EntityFrameworkPlusSqlCe.cs" />
+    <Compile Include="Configuration\SqlCeDbConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Antler-Abstractions\Antler-Abstractions.csproj">
       <Project>{66AB4A48-0D4F-4F0D-9A47-EB461B8495E1}</Project>
       <Name>Antler-Abstractions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Antler-Common\Antler-Common.csproj">
-      <Project>{2C949C79-54B6-46E8-9B10-139AF8DD0A96}</Project>
-      <Name>Antler-Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Antler-Domain\Antler-Domain.csproj">
       <Project>{6814B93C-B1E7-4050-AD5E-B10260110716}</Project>
@@ -81,6 +74,9 @@
       <Project>{34FCF9A5-7B9F-4A9A-A8B0-4FDA717744BD}</Project>
       <Name>Antler-EntityFramework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

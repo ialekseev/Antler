@@ -48,7 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigurationEx.cs" />
+    <Compile Include="Configuration\HibernateStorage.cs" />
+    <Compile Include="Configuration\IHibernateStorage.cs" />
     <Compile Include="HibernateRepository.cs" />
     <Compile Include="HibernateSessionScope.cs" />
     <Compile Include="HibernateSessionScopeFactory.cs" />

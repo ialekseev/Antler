@@ -125,14 +125,16 @@ namespace SmartElk.Antler.Hibernate.Specs
         public class TestingScenario
         {
             protected IBasicConfigurator Configurator { get; set; }
-            protected AsInMemoryStorageResult AsInMemoryStorageResult { get; set; }
+            protected ConfigurationResult AsInMemoryStorageResult { get; set; }
             private ISession session;
 
             [SetUp]
             public void SetUp()
             {
                 Configurator = new BasicConfigurator();
-                AsInMemoryStorageResult = Configurator.UseWindsorContainer().UseStorage().WithNHibernate(Assembly.GetExecutingAssembly()).AsInMemoryStorage();
+                Configurator.UseWindsorContainer().UseStorage(HibernatePlusSqlite.Use.WithMappings(Assembly.GetExecutingAssembly()));
+
+                AsInMemoryStorageResult = HibernatePlusSqlite.LatestConfigurationResult;
 
                 session = AsInMemoryStorageResult.SessionFactory.OpenSession();
                 new SchemaExport(AsInMemoryStorageResult.Configuration).Execute(false, true, false, session.Connection, null);

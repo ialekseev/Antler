@@ -24,10 +24,11 @@ namespace SmartElk.Antler.Domain.Specs
         }
         
         [TestFixture]
-        public class when_trying_to_set_storage_on_basic_configurator: ConfigurationScenario
+        [Category("Unit")]
+        public class when_trying_to_set_unnamed_storage_on_basic_configurator: ConfigurationScenario
         {
             [Test]
-            public void should_set_unit_of_work_and_return_valid_domain_configurator()
+            public void should_set_unit_of_work_and_perform_storage_configuring_without_name()
             {
                 //arrange
                 var basicConfigurator = A.Fake<IBasicConfigurator>();
@@ -37,9 +38,11 @@ namespace SmartElk.Antler.Domain.Specs
                 A.CallTo(() => container.Get<ISessionScopeFactory>()).Returns(new TestSessionScopeFactory());
                 A.CallTo(() => basicConfiguration.Container).Returns(container);
                 A.CallTo(() => basicConfigurator.Configuration).Returns(basicConfiguration);
-                
+
+                var storage = A.Fake<IStorage>();
+
                 //act
-                var result = basicConfigurator.UseStorage();
+                basicConfigurator.UseStorage(storage);
 
                 //assert
                 var property = typeof(UnitOfWork).GetProperty("SessionScopeFactoryExtractor", BindingFlags.NonPublic | BindingFlags.Static);
@@ -47,8 +50,7 @@ namespace SmartElk.Antler.Domain.Specs
                 var sessionScopeFactory = sessionScopeFactoryExtractor(null);
                 
                 sessionScopeFactory.Should().BeOfType<TestSessionScopeFactory>();
-                result.Should().BeOfType<DomainConfigurator>();
-                result.Name.Should().BeNull();
+                A.CallTo(()=>storage.Configure(A<IDomainConfigurator>.That.Matches(t=>string.IsNullOrEmpty(t.Name)))).MustHaveHappened();
             }
         }
 
@@ -56,7 +58,7 @@ namespace SmartElk.Antler.Domain.Specs
         public class when_trying_to_set_named_storage_on_basic_configurator : ConfigurationScenario
         {            
             [Test]
-            public void should_set_unit_of_work_and_return_domain_configurator()
+            public void should_set_unit_of_work_and_perform_storage_configuring_with_name()
             {
                 //arrange
                 var basicConfigurator = A.Fake<IBasicConfigurator>();
@@ -67,8 +69,10 @@ namespace SmartElk.Antler.Domain.Specs
                 A.CallTo(() => basicConfiguration.Container).Returns(container);
                 A.CallTo(() => basicConfigurator.Configuration).Returns(basicConfiguration);
 
+                var storage = A.Fake<IStorage>();
+                
                 //act
-                var result = basicConfigurator.UseStorage().Named("SuperStorage");
+                basicConfigurator.UseStorageNamed(storage, "SuperStorage");
 
                 //assert
                 var property = typeof(UnitOfWork).GetProperty("SessionScopeFactoryExtractor", BindingFlags.NonPublic | BindingFlags.Static);
@@ -76,8 +80,7 @@ namespace SmartElk.Antler.Domain.Specs
                 var sessionScopeFactory = sessionScopeFactoryExtractor("SuperStorage");
                 
                 sessionScopeFactory.Should().BeOfType<TestSessionScopeFactory>();
-                result.Should().BeOfType<DomainConfigurator>();
-                result.Name.Should().Be("SuperStorage");
+                A.CallTo(() => storage.Configure(A<IDomainConfigurator>.That.Matches(t => t.Name.Equals("SuperStorage")))).MustHaveHappened();
             }
         }
     }

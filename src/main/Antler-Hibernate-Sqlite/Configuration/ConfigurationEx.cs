@@ -5,15 +5,14 @@ namespace SmartElk.Antler.Hibernate.Sqlite.Configuration
 {
     public static class ConfigurationEx
     {
-        public static HibernateSqliteConfigurator WithNHibernate(this IDomainConfigurator domainConfigurator, Assembly assemblyWithMappings)
+        public static HibernateSqliteConfigurator WithNHibernatePlusSqlite(this IDomainConfigurator domainConfigurator, Assembly assemblyWithMappings)
         {
             return new HibernateSqliteConfigurator(domainConfigurator, assemblyWithMappings);
-        } 
-                
-        public static AsInMemoryStorageResult AsInMemoryStorage(this IDomainConfigurator domainConfigurator)
+        }
+
+        public static HibernateSqliteConfigurator WithNHibernatePlusSqlite(this IDomainConfigurator domainConfigurator)
         {
-            var hibernateSqliteConfigurator = new HibernateSqliteConfigurator(domainConfigurator, Assembly.GetCallingAssembly());
-            return hibernateSqliteConfigurator.AsInMemoryStorage();
+            return new HibernateSqliteConfigurator(domainConfigurator, Assembly.GetCallingAssembly());                        
         }        
     }
 }

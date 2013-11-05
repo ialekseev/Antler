@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Antler-EntityFramework-Sqlite")]
+[assembly: AssemblyTitle("Antler-EntityFramework-SqlCe")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("UBS AG")]
-[assembly: AssemblyProduct("Antler-EntityFramework-Sqlite")]
+[assembly: AssemblyProduct("Antler-EntityFramework-SqlCe")]
 [assembly: AssemblyCopyright("Copyright © UBS AG 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("4bdd1375-feda-4397-8b96-33f676f78079")]
+[assembly: Guid("b63c3afe-aa10-4089-aeee-a1791725fabe")]
 
 // Version information for an assembly consists of the following four values:
 //
