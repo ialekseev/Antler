@@ -170,12 +170,15 @@ namespace SmartElk.Antler.EntityFramework.Sqlite.Specs
             [SetUp]
             public void SetUp()
             {
-                Configurator = new BasicConfigurator();                
-                                
-                if (typeof(T) == typeof(LazyLoading))
-                   Configurator.UseWindsorContainer().UseStorage(EntityFrameworkPlusSqlCe.Use.WithConnectionString("Data Source=TestDB.sdf").WithMappings(Assembly.GetExecutingAssembly()));
-                else
-                    Configurator.UseWindsorContainer().UseStorage(EntityFrameworkPlusSqlCe.Use.WithoutLazyLoading().WithConnectionString("Data Source=TestDB.sdf").WithMappings(Assembly.GetExecutingAssembly()));
+                Configurator = new BasicConfigurator();
+
+                Configurator.UseWindsorContainer()
+                            .UseStorage(typeof (T) == typeof (LazyLoading)
+                                            ? EntityFrameworkPlusSqlCe.Use.WithConnectionString("Data Source=TestDB.sdf")
+                                                                      .WithMappings(Assembly.GetExecutingAssembly())
+                                            : EntityFrameworkPlusSqlCe.Use.WithoutLazyLoading()
+                                                                      .WithConnectionString("Data Source=TestDB.sdf")
+                                                                      .WithMappings(Assembly.GetExecutingAssembly()));
 
                 ((ISessionScopeFactoryEx)Configurator.Configuration.Container.Get<ISessionScopeFactory>()).CreateDataContext().Clear();
             }
