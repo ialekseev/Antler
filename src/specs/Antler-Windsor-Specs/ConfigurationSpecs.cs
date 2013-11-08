@@ -15,13 +15,13 @@ namespace SmartElk.Antler.Windsor.Specs
             public void should_set_windsor_container()
             {
                 //arrange
-                var basicConfigurator = new BasicConfigurator();
+                var configurator = new AntlerConfigurator();
                 
                 //act
-                basicConfigurator.UseWindsorContainer();
+                configurator.UseWindsorContainer();
 
                 //assert
-                basicConfigurator.Configuration.Container.Should().BeOfType<WindsorContainerAdapter>();
+                configurator.Configuration.Container.Should().BeOfType<WindsorContainerAdapter>();
             }
         }
 
@@ -33,10 +33,10 @@ namespace SmartElk.Antler.Windsor.Specs
             public void should_not_have_any_container()
             {
                 //arrange
-                var basicConfigurator = new BasicConfigurator();
+                var configurator = new AntlerConfigurator();
                                 
                 //assert
-                basicConfigurator.Configuration.Container.Should().BeNull();
+                configurator.Configuration.Container.Should().BeNull();
             }
         }        
     }

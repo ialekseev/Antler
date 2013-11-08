@@ -41,13 +41,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\IBasicConfiguration.cs" />
+    <Compile Include="ContainerRequiredException.cs" />
     <Compile Include="Registration\Binding.cs" />
     <Compile Include="Configuration\BasicConfiguration.cs" />
-    <Compile Include="Configuration\BasicConfigurator.cs" />
+    <Compile Include="Configuration\AntlerConfigurator.cs" />
     <Compile Include="BindingNotRegistered.cs" />
-    <Compile Include="Configuration\IBasicConfiguratorEx.cs" />
+    <Compile Include="Configuration\IAntlerConfiguratorEx.cs" />
     <Compile Include="DynamicResolver.cs" />
-    <Compile Include="Configuration\IBasicConfigurator.cs" />
+    <Compile Include="Configuration\IAntlerConfigurator.cs" />
     <Compile Include="Registration\IBinding.cs" />
     <Compile Include="Registration\IBindingSyntax.cs" />
     <Compile Include="IContainer.cs" />
