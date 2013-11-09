@@ -1,5 +1,4 @@
 ﻿// ReSharper disable InconsistentNaming
-
 using System.Reflection;
 using Antler.Hibernate;
 using FluentAssertions;
@@ -124,14 +123,14 @@ namespace SmartElk.Antler.Hibernate.Specs
         #region Configuration
         public class TestingScenario
         {
-            protected IBasicConfigurator Configurator { get; set; }
+            protected IAntlerConfigurator Configurator { get; set; }
             protected ConfigurationResult AsInMemoryStorageResult { get; set; }
             private ISession session;
 
             [SetUp]
             public void SetUp()
             {
-                Configurator = new BasicConfigurator();
+                Configurator = new AntlerConfigurator();
                 Configurator.UseWindsorContainer().UseStorage(HibernatePlusSqlite.Use.WithMappings(Assembly.GetExecutingAssembly()));
 
                 AsInMemoryStorageResult = HibernatePlusSqlite.LatestConfigurationResult;

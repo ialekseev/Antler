@@ -3,7 +3,7 @@ using SmartElk.Antler.Common;
 
 namespace SmartElk.Antler.Abstractions.Configuration
 {
-    public interface IBasicConfigurator : ISyntax, IDisposable
+    public interface IAntlerConfigurator : ISyntax, IDisposable
     {
         IBasicConfiguration Configuration { get; }
     }

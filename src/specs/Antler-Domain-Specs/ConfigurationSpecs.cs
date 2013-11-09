@@ -31,18 +31,18 @@ namespace SmartElk.Antler.Domain.Specs
             public void should_set_unit_of_work_and_perform_storage_configuring_without_name()
             {
                 //arrange
-                var basicConfigurator = A.Fake<IBasicConfigurator>();
+                var configurator = A.Fake<IAntlerConfigurator>();
                 var basicConfiguration = A.Fake<IBasicConfiguration>();
                 var container = A.Fake<IContainer>();
                                 
                 A.CallTo(() => container.Get<ISessionScopeFactory>()).Returns(new TestSessionScopeFactory());
                 A.CallTo(() => basicConfiguration.Container).Returns(container);
-                A.CallTo(() => basicConfigurator.Configuration).Returns(basicConfiguration);
+                A.CallTo(() => configurator.Configuration).Returns(basicConfiguration);
 
                 var storage = A.Fake<IStorage>();
 
                 //act
-                basicConfigurator.UseStorage(storage);
+                configurator.UseStorage(storage);
 
                 //assert
                 var property = typeof(UnitOfWork).GetProperty("SessionScopeFactoryExtractor", BindingFlags.NonPublic | BindingFlags.Static);
@@ -61,18 +61,18 @@ namespace SmartElk.Antler.Domain.Specs
             public void should_set_unit_of_work_and_perform_storage_configuring_with_name()
             {
                 //arrange
-                var basicConfigurator = A.Fake<IBasicConfigurator>();
+                var configurator = A.Fake<IAntlerConfigurator>();
                 var basicConfiguration = A.Fake<IBasicConfiguration>();
                 var container = A.Fake<IContainer>();
 
                 A.CallTo(() => container.Get<ISessionScopeFactory>("SuperStorage")).Returns(new TestSessionScopeFactory());
                 A.CallTo(() => basicConfiguration.Container).Returns(container);
-                A.CallTo(() => basicConfigurator.Configuration).Returns(basicConfiguration);
+                A.CallTo(() => configurator.Configuration).Returns(basicConfiguration);
 
                 var storage = A.Fake<IStorage>();
                 
                 //act
-                basicConfigurator.UseStorageNamed(storage, "SuperStorage");
+                configurator.UseStorageNamed(storage, "SuperStorage");
 
                 //assert
                 var property = typeof(UnitOfWork).GetProperty("SessionScopeFactoryExtractor", BindingFlags.NonPublic | BindingFlags.Static);

@@ -4,9 +4,9 @@ namespace SmartElk.Antler.Windsor
 {
     public static class ConfigurationEx
     {
-        public static IBasicConfigurator UseWindsorContainer(this IBasicConfigurator nodeConfigurator)
+        public static IAntlerConfigurator UseWindsorContainer(this IAntlerConfigurator nodeConfigurator)
         {
-            ((IBasicConfiguratorEx)nodeConfigurator).SetContainerAdapter(new WindsorContainerAdapter());
+            ((IAntlerConfiguratorEx)nodeConfigurator).SetContainerAdapter(new WindsorContainerAdapter());
             return nodeConfigurator;
         }
     }
