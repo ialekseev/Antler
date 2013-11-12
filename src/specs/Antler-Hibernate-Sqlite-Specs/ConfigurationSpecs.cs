@@ -18,7 +18,7 @@ namespace SmartElk.Antler.Hibernate.Specs
         public class when_trying_to_configure_storage
         {
             [Test]
-            public void should_set_hibernate_storage()
+            public void should_set_storage()
             {
                 //arrange
                 var configurator = new AntlerConfigurator();
@@ -26,11 +26,11 @@ namespace SmartElk.Antler.Hibernate.Specs
                 //act
                 configurator.UseWindsorContainer().UseStorage(HibernatePlusSqlite.Use);
 
-                //assert
+                //assert                                
                 configurator.Configuration.Container.Get<ISessionScopeFactory>().Should().BeOfType<HibernateSessionScopeFactory>(); 
             }
         }
-
+        
         [TestFixture]
         [Category("Integration")]
         public class when_trying_to_configure_storage_without_container
@@ -61,7 +61,7 @@ namespace SmartElk.Antler.Hibernate.Specs
                 //act
                 basicConfigurator.UseStorageNamed(HibernatePlusSqlite.Use, "SuperStorage");                
             }
-        }
+        }       
     }
 }
 // ReSharper restore InconsistentNaming
