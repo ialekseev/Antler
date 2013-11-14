@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArrayEx.cs" />
+    <Compile Include="CodeContracts\Assumes.cs" />
+    <Compile Include="CodeContracts\Requires.cs" />
     <Compile Include="Extensions\ObjectEx.cs" />
     <Compile Include="ISyntax.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

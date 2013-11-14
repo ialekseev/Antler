@@ -1,4 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
+
+using System.Diagnostics.Contracts;
 using FluentAssertions;
 using NUnit.Framework;
 using SmartElk.Antler.Abstractions.Configuration;
@@ -27,7 +29,7 @@ namespace SmartElk.Antler.Windsor.Specs
 
         [TestFixture]
         [Category("Integration")]
-        public class when_using_configurator_without_container
+        public class when_trying_to_use_configurator_without_container
         {
             [Test]
             public void should_not_have_any_container()
@@ -38,7 +40,7 @@ namespace SmartElk.Antler.Windsor.Specs
                 //assert
                 configurator.Configuration.Container.Should().BeNull();
             }
-        }        
+        }                
     }
 }
 // ReSharper restore InconsistentNaming
