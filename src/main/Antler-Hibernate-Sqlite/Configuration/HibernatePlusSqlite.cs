@@ -38,6 +38,6 @@ namespace SmartElk.Antler.Hibernate.Sqlite.Configuration
             LatestConfigurationResult = new ConfigurationResult(sessionFactory, configuration);
         }
         
-        public static ConfigurationResult LatestConfigurationResult { get; set; } //todo: hide this(make private and call using reflection?)
+        private static ConfigurationResult LatestConfigurationResult { get; set; }
     }
 }

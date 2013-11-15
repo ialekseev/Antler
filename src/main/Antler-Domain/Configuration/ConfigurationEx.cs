@@ -1,23 +1,22 @@
 ﻿using SmartElk.Antler.Abstractions;
 using SmartElk.Antler.Abstractions.Configuration;
+using SmartElk.Antler.Common.CodeContracts;
 
 namespace SmartElk.Antler.Domain.Configuration
 {
     public static class ConfigurationEx
     {        
         public static void UseStorage(this IAntlerConfigurator configurator, IStorage storage)
-        {                        
-            if (!configurator.HasContainer())
-                throw new ContainerRequiredException("Please choose some IoC container");
-
+        {
+            Assumes.True<ContainerRequiredException>(configurator.HasContainer(), "Please choose some IoC container");
+                        
             RegisterSessionScopeFactoryExtractor(configurator);
             storage.Configure(new DomainConfigurator(configurator.Configuration));                                    
         }
 
         public static void UseStorageNamed(this IAntlerConfigurator configurator, IStorage storage, string name)
         {
-            if (!configurator.HasContainer())
-                throw new ContainerRequiredException("Please choose some IoC container");
+            Assumes.True<ContainerRequiredException>(configurator.HasContainer(), "Please choose some IoC container");
 
             RegisterSessionScopeFactoryExtractor(configurator);
             storage.Configure(new DomainConfigurator(configurator.Configuration).Named(name));            

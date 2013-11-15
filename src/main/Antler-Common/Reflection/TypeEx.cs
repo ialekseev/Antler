@@ -1,4 +1,5 @@
 ﻿using System;
+using SmartElk.Antler.Common.Dynamic;
 
 namespace SmartElk.Antler.Common.Reflection
 {
@@ -24,5 +25,10 @@ namespace SmartElk.Antler.Common.Reflection
 
             return type.IsGenericType && type.GetGenericTypeDefinition() == generic;
         }
+
+        public static dynamic AsStaticMembersDynamicWrapper(this Type type)
+        {                        
+            return new StaticMembersDynamicWrapper(type);
+        }            
     }
 }

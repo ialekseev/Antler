@@ -6,6 +6,7 @@ using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
 using SmartElk.Antler.Abstractions.Configuration;
+using SmartElk.Antler.Common.Reflection;
 using SmartElk.Antler.Domain;
 using SmartElk.Antler.Domain.Configuration;
 using SmartElk.Antler.Hibernate.Sqlite.Configuration;
@@ -133,7 +134,7 @@ namespace SmartElk.Antler.Hibernate.Specs
                 Configurator = new AntlerConfigurator();
                 Configurator.UseWindsorContainer().UseStorage(HibernatePlusSqlite.Use.WithMappings(Assembly.GetExecutingAssembly()));
 
-                AsInMemoryStorageResult = HibernatePlusSqlite.LatestConfigurationResult;
+                AsInMemoryStorageResult = typeof(HibernatePlusSqlite).AsStaticMembersDynamicWrapper().LatestConfigurationResult;
 
                 session = AsInMemoryStorageResult.SessionFactory.OpenSession();
                 new SchemaExport(AsInMemoryStorageResult.Configuration).Execute(false, true, false, session.Connection, null);

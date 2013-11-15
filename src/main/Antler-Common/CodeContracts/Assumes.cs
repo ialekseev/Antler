@@ -29,6 +29,20 @@ namespace SmartElk.Antler.Common.CodeContracts
         /// <summary>
         /// Validates some expression describing the acceptable condition evaluates to true.
         /// </summary>
+        /// <param name="condition">The expression that must evaluate to true to avoid the custom exception.</param>
+        /// <param name="message">The message to include with the exception.</param>
+        [Pure, DebuggerStepThrough]
+        public static void True<TCustomException>(bool condition, string message = null) where TCustomException:Exception
+        {
+            if (!condition)
+            {
+                Fail<TCustomException>(message);
+            }
+        }
+
+        /// <summary>
+        /// Validates some expression describing the acceptable condition evaluates to true.
+        /// </summary>
         /// <param name="condition">The expression that must evaluate to true to avoid an internal error exception.</param>
         /// <param name="unformattedMessage">The unformatted message.</param>
         /// <param name="args">Formatting arguments.</param>
@@ -55,6 +69,23 @@ namespace SmartElk.Antler.Common.CodeContracts
             else
             {
                 throw new InternalErrorException();
+            }
+        }
+
+        /// <summary>
+        /// Throws custom exception.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        [Pure, DebuggerStepThrough]
+        public static void Fail<TCustomException>(string message = null) where TCustomException:Exception
+        {
+            if (message != null)
+            {
+                throw (TCustomException)Activator.CreateInstance(typeof(TCustomException), message);
+            }
+            else
+            {
+                throw (TCustomException)Activator.CreateInstance(typeof(TCustomException));
             }
         }
 
