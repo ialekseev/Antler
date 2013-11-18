@@ -95,16 +95,16 @@ namespace SmartElk.Antler.Hibernate.Specs
                     {
                         //arrange
                         var country1 = new Country {Name = "USA", Language = "English"};
-                        uow.Repository<Country>().Insert(country1);
+                        uow.Repo<Country>().Insert(country1);
 
                         var country2 = new Country {Name = "Mexico", Language = "Spanish"};
-                        uow.Repository<Country>().Insert(country2);
+                        uow.Repo<Country>().Insert(country2);
 
                         var team1 = new Team() {Name = "Super", BusinessGroup = "SuperBg", Country = country1};
-                        uow.Repository<Team>().Insert(team1);
+                        uow.Repo<Team>().Insert(team1);
 
                         var team2 = new Team() {Name = "Awesome", BusinessGroup = "AwesomeBg", Country = country2};
-                        uow.Repository<Team>().Insert(team2);
+                        uow.Repo<Team>().Insert(team2);
 
                         //act                    
                         var internalSession = (ISession) uow.CurrentSession.InternalSession;

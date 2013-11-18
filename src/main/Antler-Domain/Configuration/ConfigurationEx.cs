@@ -9,8 +9,9 @@ namespace SmartElk.Antler.Domain.Configuration
         public static void UseStorage(this IAntlerConfigurator configurator, IStorage storage)
         {
             Assumes.True<ContainerRequiredException>(configurator.HasContainer(), "Please choose some IoC container");
-                        
-            RegisterSessionScopeFactoryExtractor(configurator);
+                                    
+            UnitOfWork.SetSessionScopeFactoryExtractor(() => configurator.Configuration.Container.Get<ISessionScopeFactory>());
+
             storage.Configure(new DomainConfigurator(configurator.Configuration));                                    
         }
 
@@ -18,14 +19,9 @@ namespace SmartElk.Antler.Domain.Configuration
         {
             Assumes.True<ContainerRequiredException>(configurator.HasContainer(), "Please choose some IoC container");
 
-            RegisterSessionScopeFactoryExtractor(configurator);
+            UnitOfWork.SetSessionScopeFactoryNamedExtractor(storageName => configurator.Configuration.Container.Get<ISessionScopeFactory>(storageName));
+
             storage.Configure(new DomainConfigurator(configurator.Configuration).Named(name));            
-        }
-                
-        private static void RegisterSessionScopeFactoryExtractor(IAntlerConfigurator configurator)
-        {
-            UnitOfWork.SetSessionScopeFactoryExtractor(name => string.IsNullOrEmpty(name) ? configurator.Configuration.Container.Get<ISessionScopeFactory>() : 
-                                                               configurator.Configuration.Container.Get<ISessionScopeFactory>(name));
-        }
+        }                        
     }    
 }
