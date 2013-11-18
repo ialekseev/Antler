@@ -1,15 +1,14 @@
 ﻿// ReSharper disable InconsistentNaming
-using Antler.Hibernate;
 using FluentAssertions;
 using NUnit.Framework;
 using SmartElk.Antler.Abstractions;
 using SmartElk.Antler.Abstractions.Configuration;
 using SmartElk.Antler.Domain;
 using SmartElk.Antler.Domain.Configuration;
-using SmartElk.Antler.Hibernate.Sqlite.Configuration;
+using SmartElk.Antler.EntityFramework.SqlCe.Configuration;
 using SmartElk.Antler.Windsor;
 
-namespace SmartElk.Antler.Hibernate.Specs
+namespace SmartElk.Antler.EntityFramework.Sqlite.Specs
 {
     public class ConfigurationSpecs
     {
@@ -19,15 +18,15 @@ namespace SmartElk.Antler.Hibernate.Specs
         {
             [Test]
             public void should_set_storage()
-            {
+            {                
                 //arrange
                 var configurator = new AntlerConfigurator();
                 
                 //act
-                configurator.UseWindsorContainer().UseStorage(HibernatePlusSqlite.Use);
+                configurator.UseWindsorContainer().UseStorage(EntityFrameworkPlusSqlCe.Use);
 
                 //assert                                
-                configurator.Configuration.Container.Get<ISessionScopeFactory>().Should().BeOfType<HibernateSessionScopeFactory>(); 
+                configurator.Configuration.Container.Get<ISessionScopeFactory>().Should().BeOfType<EntityFrameworkSessionScopeFactory>(); 
             }
         }
         
@@ -43,7 +42,7 @@ namespace SmartElk.Antler.Hibernate.Specs
                 var basicConfigurator = new AntlerConfigurator();
 
                 //act
-                basicConfigurator.UseStorage(HibernatePlusSqlite.Use);                                
+                basicConfigurator.UseStorage(EntityFrameworkPlusSqlCe.Use);                                
             }
         }
 
@@ -59,7 +58,7 @@ namespace SmartElk.Antler.Hibernate.Specs
                 var basicConfigurator = new AntlerConfigurator();
 
                 //act
-                basicConfigurator.UseStorageNamed(HibernatePlusSqlite.Use, "SuperStorage");                
+                basicConfigurator.UseStorageNamed(EntityFrameworkPlusSqlCe.Use, "SuperStorage");                
             }
         }       
     }

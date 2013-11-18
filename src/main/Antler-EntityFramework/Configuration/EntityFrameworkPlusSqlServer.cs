@@ -26,7 +26,7 @@ namespace SmartElk.Antler.EntityFramework.Configuration
         }
 
         public IEntityFrameworkStorage WithConnectionString(string connectionString)
-        {
+        {            
             this._connectionString = connectionString;
             return this;
         }

@@ -19,19 +19,19 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                 UnitOfWork.Do(uow =>
                     {
                         team = new Team() { Name = "Super", BusinessGroup = "SuperBg" };
-                        uow.Repository<Team>().Insert(team);
+                        uow.Repo<Team>().Insert(team);
 
                         var employee1 = new Employee { Id = "667", FirstName = "Jack", LastName = "Black" };
-                        uow.Repository<Employee>().Insert(employee1);
+                        uow.Repo<Employee>().Insert(employee1);
 
                         employee2 = new Employee { Id = "666", FirstName = "John", LastName = "Smith", Teams = new List<Team>() { team } };
-                        uow.Repository<Employee>().Insert(employee2);
+                        uow.Repo<Employee>().Insert(employee2);
                     });
 
                 UnitOfWork.Do(uow =>
                     {
                         //act                    
-                        var result = uow.Repository<Employee>().GetById(employee2.Id);
+                        var result = uow.Repo<Employee>().GetById(employee2.Id);
 
                         //assert
                         result.Id.Should().Be(employee2.Id);
@@ -52,19 +52,19 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                     {
                         //arrange                    
                         var team1 = new Team() {Name = "Super", BusinessGroup = "SuperBg"};
-                        uow.Repository<Team>().Insert(team1);
+                        uow.Repo<Team>().Insert(team1);
 
                         var team2 = new Team() {Name = "Good", BusinessGroup = "GoodBg"};
-                        uow.Repository<Team>().Insert(team2);
+                        uow.Repo<Team>().Insert(team2);
 
                         var team3 = new Team() {Name = "Bad", BusinessGroup = "BadBg"};
-                        uow.Repository<Team>().Insert(team3);
+                        uow.Repo<Team>().Insert(team3);
                     });
 
                 UnitOfWork.Do(uow =>
                     {
                         //act                    
-                        var result = uow.Repository<Team>().AsQueryable().OrderBy(t => t.Name).ToArray();
+                        var result = uow.Repo<Team>().AsQueryable().OrderBy(t => t.Name).ToArray();
 
                         //assert
                         result.Length.Should().Be(3);
@@ -93,22 +93,22 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                 UnitOfWork.Do(uow =>
                     {
                         team = new Team() { Name = "Super", BusinessGroup = "SuperBg" };
-                        uow.Repository<Team>().Insert(team);
+                        uow.Repo<Team>().Insert(team);
 
                         employee1 = new Employee { Id = "667", FirstName = "Jack", LastName = "Black" };
-                        uow.Repository<Employee>().Insert(employee1);
+                        uow.Repo<Employee>().Insert(employee1);
 
                         employee2 = new Employee { Id = "666", FirstName = "John", LastName = "Smith", Teams = new List<Team>() { team } };
-                        uow.Repository<Employee>().Insert(employee2);
+                        uow.Repo<Employee>().Insert(employee2);
 
                         employee3 = new Employee { Id = "77", FirstName = "Billy", LastName = "Bobby", Teams = new List<Team>() { team } };
-                        uow.Repository<Employee>().Insert(employee3);
+                        uow.Repo<Employee>().Insert(employee3);
                     });
 
                 UnitOfWork.Do(uow =>
                     {
                         //act                    
-                        var result = uow.Repository<Employee>().AsQueryable().OrderBy(t => t.FirstName).ToArray();
+                        var result = uow.Repo<Employee>().AsQueryable().OrderBy(t => t.FirstName).ToArray();
 
                         //assert
                         result.Length.Should().Be(3);
@@ -141,22 +141,22 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                 UnitOfWork.Do(uow =>
                     {
                         team = new Team() { Name = "Super", BusinessGroup = "SuperBg" };
-                        uow.Repository<Team>().Insert(team);
+                        uow.Repo<Team>().Insert(team);
 
                         var employee1 = new Employee { Id = "667", FirstName = "Jack", LastName = "Black" };
-                        uow.Repository<Employee>().Insert(employee1);
+                        uow.Repo<Employee>().Insert(employee1);
 
                         employee2 = new Employee { Id = "666", FirstName = "John", LastName = "Smith", Teams = new List<Team>() { team } };
-                        uow.Repository<Employee>().Insert(employee2);
+                        uow.Repo<Employee>().Insert(employee2);
 
                         var employee3 = new Employee { Id = "77", FirstName = "Billy", LastName = "Bobby", Teams = new List<Team>() { team } };
-                        uow.Repository<Employee>().Insert(employee3);
+                        uow.Repo<Employee>().Insert(employee3);
                     });
 
                 UnitOfWork.Do(uow =>
                     {
                         //act                    
-                        var result = uow.Repository<Employee>().AsQueryable().First(t => t.FirstName == "John");
+                        var result = uow.Repo<Employee>().AsQueryable().First(t => t.FirstName == "John");
 
                         //assert
                         result.Id.Should().Be(employee2.Id);
@@ -177,33 +177,33 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                 UnitOfWork.Do(uow =>
                     {
                         var team1 = new Team() { Name = "Super", BusinessGroup = "SuperBg" };
-                        uow.Repository<Team>().Insert(team1);
+                        uow.Repo<Team>().Insert(team1);
 
                         var team2 = new Team() { Name = "Great", BusinessGroup = "GreatBg" };
-                        uow.Repository<Team>().Insert(team2);
+                        uow.Repo<Team>().Insert(team2);
 
                         employee = new Employee { Id = "666", FirstName = "John", LastName = "Smith", Teams = new List<Team>() { team1, team2 } };
-                        uow.Repository<Employee>().Insert(employee);
+                        uow.Repo<Employee>().Insert(employee);
                     });
 
                 //act
                 UnitOfWork.Do(uow =>
                     {
-                        var foundEmployee = uow.Repository<Employee>().GetById(employee.Id);
+                        var foundEmployee = uow.Repo<Employee>().GetById(employee.Id);
                         foundEmployee.Teams[0].Name = "Super-upd";
                         foundEmployee.Teams[0].BusinessGroup = "SuperBg-upd";
                         foundEmployee.Teams[1].Name = "Great-upd";
                         foundEmployee.Teams[1].BusinessGroup = "GreatBg-upd";
 
                         var newTeam = new Team() {Name = "Awesome", BusinessGroup = "AwesomeBg"};
-                        uow.Repository<Team>().Insert(newTeam);
+                        uow.Repo<Team>().Insert(newTeam);
                         foundEmployee.Teams.Add(newTeam);
                     });
 
                 //assert
                 UnitOfWork.Do(uow =>
                     {
-                        var foundEmployee = uow.Repository<Employee>().GetById(employee.Id);
+                        var foundEmployee = uow.Repo<Employee>().GetById(employee.Id);
 
                         foundEmployee.Teams.Count.Should().Be(3);
                         foundEmployee.Teams[0].Name.Should().Be("Super-upd");
@@ -225,22 +225,22 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                 UnitOfWork.Do(uow =>
                     {
                         var country1 = new Country {Name = "USA", Language = "English"};
-                        uow.Repository<Country>().Insert(country1);
+                        uow.Repo<Country>().Insert(country1);
 
                         var country2 = new Country {Name = "Mexico", Language = "Spanish"};
-                        uow.Repository<Country>().Insert(country2);
+                        uow.Repo<Country>().Insert(country2);
 
                         var team1 = new Team() {Name = "Super", BusinessGroup = "SuperBg", Country = country1};
-                        uow.Repository<Team>().Insert(team1);
+                        uow.Repo<Team>().Insert(team1);
 
                         team2 = new Team() {Name = "Awesome", BusinessGroup = "AwesomeBg", Country = country2};
-                        uow.Repository<Team>().Insert(team2);
+                        uow.Repo<Team>().Insert(team2);
                     });
 
                 UnitOfWork.Do(uow =>
                     {
                         //act                    
-                        var result = uow.Repository<Team>().AsQueryable().First(t => t.Country.Name == "Mexico");
+                        var result = uow.Repo<Team>().AsQueryable().First(t => t.Country.Name == "Mexico");
 
                         //assert
                         result.Id.Should().Be(team2.Id);

@@ -25,7 +25,7 @@ namespace SmartElk.Antler.Domain.Specs
         
         [TestFixture]
         [Category("Unit")]
-        public class when_trying_to_set_unnamed_storage_on_basic_configurator: ConfigurationScenario
+        public class when_trying_to_set_unnamed_storage_on_configurator: ConfigurationScenario
         {
             [Test]
             public void should_set_unit_of_work_and_perform_storage_configuring_without_name()
@@ -46,8 +46,8 @@ namespace SmartElk.Antler.Domain.Specs
 
                 //assert
                 var property = typeof(UnitOfWork).GetProperty("SessionScopeFactoryExtractor", BindingFlags.NonPublic | BindingFlags.Static);
-                var sessionScopeFactoryExtractor = (Func<string, ISessionScopeFactory>)property.GetValue(null, null);
-                var sessionScopeFactory = sessionScopeFactoryExtractor(null);
+                var sessionScopeFactoryExtractor = (Func<ISessionScopeFactory>)property.GetValue(null, null);
+                var sessionScopeFactory = sessionScopeFactoryExtractor();
                 
                 sessionScopeFactory.Should().BeOfType<TestSessionScopeFactory>();
                 A.CallTo(()=>storage.Configure(A<IDomainConfigurator>.That.Matches(t=>string.IsNullOrEmpty(t.Name)))).MustHaveHappened();
@@ -55,7 +55,7 @@ namespace SmartElk.Antler.Domain.Specs
         }
 
         [TestFixture]
-        public class when_trying_to_set_named_storage_on_basic_configurator : ConfigurationScenario
+        public class when_trying_to_set_named_storage_on_configurator : ConfigurationScenario
         {            
             [Test]
             public void should_set_unit_of_work_and_perform_storage_configuring_with_name()
@@ -75,7 +75,7 @@ namespace SmartElk.Antler.Domain.Specs
                 configurator.UseStorageNamed(storage, "SuperStorage");
 
                 //assert
-                var property = typeof(UnitOfWork).GetProperty("SessionScopeFactoryExtractor", BindingFlags.NonPublic | BindingFlags.Static);
+                var property = typeof(UnitOfWork).GetProperty("SessionScopeFactoryNamedExtractor", BindingFlags.NonPublic | BindingFlags.Static);
                 var sessionScopeFactoryExtractor = (Func<string, ISessionScopeFactory>)property.GetValue(null, null);
                 var sessionScopeFactory = sessionScopeFactoryExtractor("SuperStorage");
                 
