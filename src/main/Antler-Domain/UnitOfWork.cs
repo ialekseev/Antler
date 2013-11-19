@@ -36,22 +36,38 @@ namespace SmartElk.Antler.Domain
             _sessionScope = sessionScopeFactory.Open();                                    
         }
 
-        public static void Do(Action<UnitOfWork> action)
+        public static void Do(Action<UnitOfWork> work)
         {
             using (var uow = new UnitOfWork())
             {
-                action(uow);
+                work(uow);
             }
         }
-        
-        public static void Do(string storageName, Action<UnitOfWork> action)
+
+        public static TResult Do<TResult>(Func<UnitOfWork, TResult> work)
+        {
+            using (var uow = new UnitOfWork())
+            {
+                return work(uow);
+            }
+        }
+
+        public static void Do(string storageName, Action<UnitOfWork> work)
         {
             using (var uow = new UnitOfWork(storageName))
             {
-                action(uow);
+                work(uow);
             }
         }
-        
+
+        public static TResult Do<TResult>(string storageName, Func<UnitOfWork, TResult> work)
+        {
+            using (var uow = new UnitOfWork(storageName))
+            {
+                return work(uow);
+            }
+        }
+
         public void Dispose()
         {
             _sessionScope.Commit();

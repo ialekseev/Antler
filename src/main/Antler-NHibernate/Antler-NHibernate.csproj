@@ -8,8 +8,8 @@
     <ProjectGuid>{4A2FE4D5-9381-4695-A0D5-21787C903275}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Antler.Hibernate</RootNamespace>
-    <AssemblyName>Antler.Hibernate</AssemblyName>
+    <RootNamespace>Antler.NHibernate</RootNamespace>
+    <AssemblyName>Antler.NHibernate</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -48,11 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\HibernateStorage.cs" />
-    <Compile Include="Configuration\IHibernateStorage.cs" />
-    <Compile Include="HibernateRepository.cs" />
-    <Compile Include="HibernateSessionScope.cs" />
-    <Compile Include="HibernateSessionScopeFactory.cs" />
+    <Compile Include="Configuration\NHibernateStorage.cs" />
+    <Compile Include="Configuration\INHibernateStorage.cs" />
+    <Compile Include="NHibernateRepository.cs" />
+    <Compile Include="NHibernateSessionScope.cs" />
+    <Compile Include="NHibernateSessionScopeFactory.cs" />
     <Compile Include="ISessionScopeFactoryEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

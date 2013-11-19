@@ -1,15 +1,15 @@
 ﻿// ReSharper disable InconsistentNaming
-using Antler.Hibernate;
+using Antler.NHibernate;
 using FluentAssertions;
 using NUnit.Framework;
 using SmartElk.Antler.Abstractions;
 using SmartElk.Antler.Abstractions.Configuration;
 using SmartElk.Antler.Domain;
 using SmartElk.Antler.Domain.Configuration;
-using SmartElk.Antler.Hibernate.Sqlite.Configuration;
+using SmartElk.Antler.NHibernate.Sqlite.Configuration;
 using SmartElk.Antler.Windsor;
 
-namespace SmartElk.Antler.Hibernate.Specs
+namespace SmartElk.Antler.NHibernate.Specs
 {
     public class ConfigurationSpecs
     {
@@ -24,10 +24,10 @@ namespace SmartElk.Antler.Hibernate.Specs
                 var configurator = new AntlerConfigurator();
                 
                 //act
-                configurator.UseWindsorContainer().UseStorage(HibernatePlusSqlite.Use);
+                configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlite.Use);
 
                 //assert                                
-                configurator.Configuration.Container.Get<ISessionScopeFactory>().Should().BeOfType<HibernateSessionScopeFactory>(); 
+                configurator.Configuration.Container.Get<ISessionScopeFactory>().Should().BeOfType<NHibernateSessionScopeFactory>(); 
             }
         }
         
@@ -43,7 +43,7 @@ namespace SmartElk.Antler.Hibernate.Specs
                 var basicConfigurator = new AntlerConfigurator();
 
                 //act
-                basicConfigurator.UseStorage(HibernatePlusSqlite.Use);                                
+                basicConfigurator.UseStorage(NHibernatePlusSqlite.Use);                                
             }
         }
 
@@ -59,7 +59,7 @@ namespace SmartElk.Antler.Hibernate.Specs
                 var basicConfigurator = new AntlerConfigurator();
 
                 //act
-                basicConfigurator.UseStorageNamed(HibernatePlusSqlite.Use, "SuperStorage");                
+                basicConfigurator.UseStorageNamed(NHibernatePlusSqlite.Use, "SuperStorage");                
             }
         }       
     }

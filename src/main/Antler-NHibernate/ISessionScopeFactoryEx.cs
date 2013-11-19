@@ -1,6 +1,6 @@
 ﻿using NHibernate;
 
-namespace Antler.Hibernate
+namespace Antler.NHibernate
 {
     public interface ISessionScopeFactoryEx
     {

@@ -8,8 +8,8 @@
     <ProjectGuid>{22241314-ACB1-4BD6-AA61-7006A5D19DD5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SmartElk.Antler.Hibernate.Specs</RootNamespace>
-    <AssemblyName>SmartElk.Antler.Hibernate.Specs</AssemblyName>
+    <RootNamespace>SmartElk.Antler.NHibernate.Specs</RootNamespace>
+    <AssemblyName>SmartElk.Antler.NHibernate.Specs</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -107,11 +107,11 @@
       <Project>{6814B93C-B1E7-4050-AD5E-B10260110716}</Project>
       <Name>Antler-Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\main\Antler-Hibernate-Sqlite\Antler-Hibernate-Sqlite.csproj">
+    <ProjectReference Include="..\..\main\Antler-NHibernate-Sqlite\Antler-NHibernate-Sqlite.csproj">
       <Project>{3612BF1E-4B41-40C9-B463-D14EBE1CAE26}</Project>
       <Name>Antler-Hibernate-Sqlite</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\main\Antler-Hibernate\Antler-Hibernate.csproj">
+    <ProjectReference Include="..\..\main\Antler-NHibernate\Antler-NHibernate.csproj">
       <Project>{4A2FE4D5-9381-4695-A0D5-21787C903275}</Project>
       <Name>Antler-Hibernate</Name>
     </ProjectReference>

@@ -1,22 +1,22 @@
 ﻿using NHibernate;
 using SmartElk.Antler.Domain;
 
-namespace Antler.Hibernate
+namespace Antler.NHibernate
 {
-    public class HibernateSessionScope: ISessionScope
+    public class NHibernateSessionScope: ISessionScope
     {
         private readonly ISession _session;
         private readonly ITransaction _transaction;
         private readonly bool _ownSession;
         
-        public HibernateSessionScope(ISessionFactory sessionFactory)
+        public NHibernateSessionScope(ISessionFactory sessionFactory)
         {                        
             _session = sessionFactory.OpenSession();            
             _transaction = _session.BeginTransaction();
             _ownSession = true;
         }
 
-        public HibernateSessionScope(ISession session)
+        public NHibernateSessionScope(ISession session)
         {
             _session = session;
             _transaction = _session.BeginTransaction();
@@ -38,7 +38,7 @@ namespace Antler.Hibernate
                 
         public IRepository<TEntity> CreateRepository<TEntity>() where TEntity:class
         {
-            return new HibernateRepository<TEntity>(_session);
+            return new NHibernateRepository<TEntity>(_session);
         }
 
         public object InternalSession

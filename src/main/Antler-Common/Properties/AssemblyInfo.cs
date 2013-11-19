@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Antler-Common")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("UBS AG")]
+[assembly: AssemblyCompany("SmartElk")]
 [assembly: AssemblyProduct("Antler-Common")]
-[assembly: AssemblyCopyright("Copyright © UBS AG 2013")]
+[assembly: AssemblyCopyright("SmartElk")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Antler-Domain-Specs")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("UBS AG")]
+[assembly: AssemblyCompany("SmartElk")]
 [assembly: AssemblyProduct("Antler-Domain-Specs")]
-[assembly: AssemblyCopyright("Copyright © UBS AG 2013")]
+[assembly: AssemblyCopyright("SmartElk")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

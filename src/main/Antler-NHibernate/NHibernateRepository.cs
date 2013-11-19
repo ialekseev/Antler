@@ -3,12 +3,12 @@ using NHibernate;
 using NHibernate.Linq;
 using SmartElk.Antler.Domain;
 
-namespace Antler.Hibernate
+namespace Antler.NHibernate
 {
-    public class HibernateRepository<TEntity>: IRepository<TEntity> where TEntity: class
+    public class NHibernateRepository<TEntity>: IRepository<TEntity> where TEntity: class
     {
         private readonly ISession _session;
-        public HibernateRepository(ISession session)
+        public NHibernateRepository(ISession session)
         {
             _session = session;
         }

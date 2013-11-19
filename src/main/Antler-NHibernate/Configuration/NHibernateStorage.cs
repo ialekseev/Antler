@@ -1,18 +1,18 @@
 ﻿using System.Reflection;
 using SmartElk.Antler.Domain.Configuration;
 
-namespace Antler.Hibernate.Configuration
+namespace Antler.NHibernate.Configuration
 {
-    public abstract class HibernateStorage: IHibernateStorage
+    public abstract class NHibernateStorage: INHibernateStorage
     {
         protected Assembly AssemblyWithMappings { get; set; }
 
-        protected HibernateStorage()
+        protected NHibernateStorage()
         {
             AssemblyWithMappings = Assembly.GetCallingAssembly();            
         }
         
-        public IHibernateStorage WithMappings(Assembly assemblyWithMappings)
+        public INHibernateStorage WithMappings(Assembly assemblyWithMappings)
         {
             AssemblyWithMappings = assemblyWithMappings;
             return this;

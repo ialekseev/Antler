@@ -6,14 +6,14 @@ using SmartElk.Antler.EntityFramework.Internal;
 
 namespace SmartElk.Antler.EntityFramework.Configuration
 {
-    public class EntityFrameworkPlusSqlServer: IEntityFrameworkStorage
+    public class EntityFrameworkStorage: IEntityFrameworkStorage
     {        
         private Assembly _assemblyWithMappings;
         private string _connectionString;
         private IDatabaseInitializer<DataContext> _databaseInitializer;
         private bool _enableLazyLoading;
 
-        protected EntityFrameworkPlusSqlServer()
+        protected EntityFrameworkStorage()
         {
             _assemblyWithMappings = Assembly.GetCallingAssembly();
             _databaseInitializer = new DropCreateDatabaseAlways<DataContext>();
@@ -22,7 +22,7 @@ namespace SmartElk.Antler.EntityFramework.Configuration
 
         public static IEntityFrameworkStorage Use()
         {
-            return new EntityFrameworkPlusSqlServer();            
+            return new EntityFrameworkStorage();            
         }
 
         public IEntityFrameworkStorage WithConnectionString(string connectionString)

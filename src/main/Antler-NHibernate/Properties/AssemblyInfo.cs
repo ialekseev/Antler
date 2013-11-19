@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Antler-Hibernate-Specs")]
+[assembly: AssemblyTitle("Antler-NHibernate")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SmartElk")]
-[assembly: AssemblyProduct("Antler-Hibernate-Specs")]
+[assembly: AssemblyProduct("Antler-NHibernate")]
 [assembly: AssemblyCopyright("SmartElk")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a773e976-81f3-4e5b-bef3-78fbc88395cd")]
+[assembly: Guid("a8c4d890-02bf-4da0-b404-73ea2021c70b")]
 
 // Version information for an assembly consists of the following four values:
 //

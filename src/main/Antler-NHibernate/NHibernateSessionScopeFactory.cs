@@ -1,14 +1,14 @@
 ﻿using NHibernate;
 using SmartElk.Antler.Domain;
 
-namespace Antler.Hibernate
+namespace Antler.NHibernate
 {
-    public class HibernateSessionScopeFactory: ISessionScopeFactory, ISessionScopeFactoryEx
+    public class NHibernateSessionScopeFactory: ISessionScopeFactory, ISessionScopeFactoryEx
     {
         private readonly ISessionFactory _sessionFactory;
         private ISession _session;
         
-        public HibernateSessionScopeFactory(ISessionFactory sessionFactory)
+        public NHibernateSessionScopeFactory(ISessionFactory sessionFactory)
         {
             _sessionFactory = sessionFactory;
         }
@@ -16,9 +16,9 @@ namespace Antler.Hibernate
         public ISessionScope Open()
         {            
             if (_session == null)
-              return new HibernateSessionScope(_sessionFactory);
+              return new NHibernateSessionScope(_sessionFactory);
 
-            return new HibernateSessionScope(_session);
+            return new NHibernateSessionScope(_session);
         }
 
         void ISessionScopeFactoryEx.SetSession(ISession session)

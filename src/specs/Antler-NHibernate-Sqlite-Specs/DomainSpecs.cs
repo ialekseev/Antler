@@ -1,6 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 using System.Reflection;
-using Antler.Hibernate;
+using Antler.NHibernate;
 using FluentAssertions;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
@@ -9,12 +9,12 @@ using SmartElk.Antler.Abstractions.Configuration;
 using SmartElk.Antler.Common.Reflection;
 using SmartElk.Antler.Domain;
 using SmartElk.Antler.Domain.Configuration;
-using SmartElk.Antler.Hibernate.Sqlite.Configuration;
+using SmartElk.Antler.NHibernate.Sqlite.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
 using SmartElk.Antler.Specs.Shared.Entities;
 using SmartElk.Antler.Windsor;
 
-namespace SmartElk.Antler.Hibernate.Specs
+namespace SmartElk.Antler.NHibernate.Specs
 {
     public class DomainSpecs
     {                
@@ -132,9 +132,9 @@ namespace SmartElk.Antler.Hibernate.Specs
             public void SetUp()
             {
                 Configurator = new AntlerConfigurator();
-                Configurator.UseWindsorContainer().UseStorage(HibernatePlusSqlite.Use.WithMappings(Assembly.GetExecutingAssembly()));
+                Configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlite.Use.WithMappings(Assembly.GetExecutingAssembly()));
 
-                AsInMemoryStorageResult = typeof(HibernatePlusSqlite).AsStaticMembersDynamicWrapper().LatestConfigurationResult;
+                AsInMemoryStorageResult = typeof(NHibernatePlusSqlite).AsStaticMembersDynamicWrapper().LatestConfigurationResult;
 
                 session = AsInMemoryStorageResult.SessionFactory.OpenSession();
                 new SchemaExport(AsInMemoryStorageResult.Configuration).Execute(false, true, false, session.Connection, null);

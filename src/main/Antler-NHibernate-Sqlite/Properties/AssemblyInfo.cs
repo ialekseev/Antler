@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Antler-Hibernate-Sqlite")]
+[assembly: AssemblyTitle("Antler-NHibernate-Sqlite")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("UBS AG")]
-[assembly: AssemblyProduct("Antler-Hibernate-Sqlite")]
-[assembly: AssemblyCopyright("Copyright © UBS AG 2013")]
+[assembly: AssemblyCompany("SmartElk")]
+[assembly: AssemblyProduct("Antler-NHibernate-Sqlite")]
+[assembly: AssemblyCopyright("SmartElk")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
