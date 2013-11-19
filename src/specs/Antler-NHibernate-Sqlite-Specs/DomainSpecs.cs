@@ -9,6 +9,7 @@ using SmartElk.Antler.Abstractions.Configuration;
 using SmartElk.Antler.Common.Reflection;
 using SmartElk.Antler.Domain;
 using SmartElk.Antler.Domain.Configuration;
+using SmartElk.Antler.NHibernate.Specs.Configuration;
 using SmartElk.Antler.NHibernate.Sqlite.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
 using SmartElk.Antler.Specs.Shared.Entities;
@@ -134,21 +135,13 @@ namespace SmartElk.Antler.NHibernate.Specs
                 Configurator = new AntlerConfigurator();
                 Configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlite.Use.WithMappings(Assembly.GetExecutingAssembly()));
 
-                AsInMemoryStorageResult = typeof(NHibernatePlusSqlite).AsStaticMembersDynamicWrapper().LatestConfigurationResult;
-
-                session = AsInMemoryStorageResult.SessionFactory.OpenSession();
-                new SchemaExport(AsInMemoryStorageResult.Configuration).Execute(false, true, false, session.Connection, null);
-                var sessionScopeFactory = (ISessionScopeFactoryEx)Configurator.Configuration.Container.Get<ISessionScopeFactory>();
-                sessionScopeFactory.SetSession(session);
+                session = Configurator.CreateNHibernateSession();
             }
 
             [TearDown]
             public void TearDown()
             {
-                session.Dispose();
-                var sessionScopeFactory = (ISessionScopeFactoryEx)Configurator.Configuration.Container.Get<ISessionScopeFactory>();
-                sessionScopeFactory.ResetSession();
-
+                Configurator.ResetNHibernateSession(session);
                 Configurator.Dispose();
             }
         } 

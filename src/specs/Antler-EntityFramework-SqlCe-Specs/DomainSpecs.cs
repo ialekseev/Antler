@@ -9,6 +9,7 @@ using SmartElk.Antler.Abstractions.Configuration;
 using SmartElk.Antler.Domain;
 using SmartElk.Antler.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.SqlCe.Configuration;
+using SmartElk.Antler.EntityFramework.Sqlite.Specs.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
 using SmartElk.Antler.Specs.Shared.Entities;
 using SmartElk.Antler.Windsor;
@@ -180,7 +181,7 @@ namespace SmartElk.Antler.EntityFramework.Sqlite.Specs
                                                                       .WithConnectionString("Data Source=TestDB.sdf")
                                                                       .WithMappings(Assembly.GetExecutingAssembly()));
 
-                ((ISessionScopeFactoryEx)Configurator.Configuration.Container.Get<ISessionScopeFactory>()).CreateDataContext().Clear();
+                Configurator.RecreateEntityFrameworkDatabase();
             }
 
             [TearDown]

@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Domain-Specs", "spec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-EntityFramework-SqlCe", "main\Antler-EntityFramework-SqlCe\Antler-EntityFramework-SqlCe.csproj", "{5D2D71A7-110B-44B3-9F16-79DA905DF70C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Storages-Specs", "main\Antler-Storages-Specs\Antler-Storages-Specs.csproj", "{25C258C8-09CF-4CC9-A555-600EEED8EEBB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{5D2D71A7-110B-44B3-9F16-79DA905DF70C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D2D71A7-110B-44B3-9F16-79DA905DF70C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D2D71A7-110B-44B3-9F16-79DA905DF70C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25C258C8-09CF-4CC9-A555-600EEED8EEBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25C258C8-09CF-4CC9-A555-600EEED8EEBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25C258C8-09CF-4CC9-A555-600EEED8EEBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25C258C8-09CF-4CC9-A555-600EEED8EEBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,5 +103,6 @@ Global
 		{26A0DD0A-C9A4-42DA-9F12-D1FFC499BCFF} = {0BA7638D-2B16-4E72-AD94-EA2669BA246C}
 		{9C008F64-DBBD-4135-A5C8-1249D5A603F1} = {0BA7638D-2B16-4E72-AD94-EA2669BA246C}
 		{C9221BB3-3490-462C-9E78-23DA1B847158} = {0BA7638D-2B16-4E72-AD94-EA2669BA246C}
+		{25C258C8-09CF-4CC9-A555-600EEED8EEBB} = {0BA7638D-2B16-4E72-AD94-EA2669BA246C}
 	EndGlobalSection
 EndGlobal

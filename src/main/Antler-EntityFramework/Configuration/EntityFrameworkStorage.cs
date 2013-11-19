@@ -63,7 +63,7 @@ namespace SmartElk.Antler.EntityFramework.Configuration
                                                                   _enableLazyLoading); 
             
             var sessionScopeFactory = new EntityFrameworkSessionScopeFactory(dataContextFactory);
-            configurator.Configuration.Container.Put<ISessionScopeFactory>(sessionScopeFactory, configurator.Name);                                    
+            configurator.Configuration.Container.PutWithNameOrDefault<ISessionScopeFactory>(sessionScopeFactory, configurator.Name);                                    
             Database.SetInitializer(_databaseInitializer);             
         }
     }

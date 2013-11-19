@@ -33,7 +33,7 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Configuration
                 .BuildSessionFactory();
 
             var sessionScopeFactory = new NHibernateSessionScopeFactory(sessionFactory);
-            configurator.Configuration.Container.Put<ISessionScopeFactory>(sessionScopeFactory, configurator.Name); 
+            configurator.Configuration.Container.PutWithNameOrDefault<ISessionScopeFactory>(sessionScopeFactory, configurator.Name); 
             
             LatestConfigurationResult = new ConfigurationResult(sessionFactory, configuration);
         }

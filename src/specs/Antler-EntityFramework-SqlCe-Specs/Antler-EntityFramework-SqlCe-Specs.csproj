@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationSpecs.cs" />
+    <Compile Include="Configuration\ConfigurationEx.cs" />
     <Compile Include="DomainSpecs.cs" />
     <Compile Include="Mappings\CountryMap.cs" />
     <Compile Include="Mappings\EmployeeMap.cs" />
