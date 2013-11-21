@@ -110,11 +110,11 @@
     </ProjectReference>
     <ProjectReference Include="..\..\main\Antler-NHibernate-Sqlite\Antler-NHibernate-Sqlite.csproj">
       <Project>{3612BF1E-4B41-40C9-B463-D14EBE1CAE26}</Project>
-      <Name>Antler-Hibernate-Sqlite</Name>
+      <Name>Antler-NHibernate-Sqlite</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\main\Antler-NHibernate\Antler-NHibernate.csproj">
       <Project>{4A2FE4D5-9381-4695-A0D5-21787C903275}</Project>
-      <Name>Antler-Hibernate</Name>
+      <Name>Antler-NHibernate</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\main\Antler-Windsor\Antler-Windsor.csproj">
       <Project>{91A50383-D6EB-4303-91E8-BD3634E20CAB}</Project>

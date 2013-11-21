@@ -73,7 +73,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Antler-NHibernate\Antler-NHibernate.csproj">
       <Project>{4A2FE4D5-9381-4695-A0D5-21787C903275}</Project>
-      <Name>Antler-Hibernate</Name>
+      <Name>Antler-NHibernate</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
