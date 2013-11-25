@@ -18,11 +18,7 @@ UnitOfWork.Do(uow =>
 
 Querying Teams from database:
 <pre>
- UnitOfWork.Do(uow =>
-                    {
-                        var teams = uow.Repo<Team>().AsQueryable().Where(t => t.BusinessGroup == "Great").OrderBy(t => t.Name).ToArray();
-                        //do something with teams
-                    });
+var found = UnitOfWork.Do(uow => uow.Repo<Team>().AsQueryable().Where(t => t.BusinessGroup == "Great").OrderBy(t => t.Name).ToArray()); 
 </pre>
 
 Configuration examples
