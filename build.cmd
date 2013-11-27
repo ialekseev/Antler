@@ -21,13 +21,6 @@ tools\ilmerge\ILMerge.exe /target:library ^
  "src\main\Antler-Common\bin\Release\SmartElk.Antler.Common.dll" ^
  "src\main\Antler-Domain\bin\Release\SmartElk.Antler.Domain.dll" 
 
-:tools\ilmerge\ILMerge.exe /keyfile:src\Antler.snk /wildcards /target:library
-tools\ilmerge\ILMerge.exe /target:library ^
- /targetplatform:"v4,C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319" ^
- /out:"output\bin\Antler.EF.SqlCe.dll" ^
- "src\main\Antler-EntityFramework\bin\Release\SmartElk.Antler.EntityFramework.dll" ^
- "src\main\Antler-EntityFramework-SqlCe\bin\Release\SmartElk.Antler.EntityFramework.SqlCe.dll"
-
 copy src\main\Antler-Windsor\bin\Release\SmartElk.Antler.Windsor.* output\bin\Antler.Windsor.dll
 
 echo Done.
