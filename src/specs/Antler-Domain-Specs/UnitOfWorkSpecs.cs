@@ -50,7 +50,23 @@ namespace SmartElk.Antler.Domain.Specs
                 A.CallTo(() => SessionScopeFactory.Open()).MustHaveHappened();
             }
         }
-        
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_trying_to_create_unit_of_work_returning_result : UnitOfWorkScenario
+        {
+            [Test]
+            public void should_open_session_and_get_result()
+            {
+                //act
+               var result = UnitOfWork.Do(uow => { return 1; });
+
+                //assert
+                A.CallTo(() => SessionScopeFactory.Open()).MustHaveHappened();
+                result.Should().Be(1);
+            }
+        }
+
         [TestFixture]
         [Category("Unit")]
         public class when_trying_to_create_unit_of_work_with_storage_name : UnitOfWorkNamedScenario
@@ -63,6 +79,22 @@ namespace SmartElk.Antler.Domain.Specs
 
                 //assert
                 A.CallTo(() => SessionScopeFactory.Open()).MustHaveHappened();
+            }
+        }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_trying_to_create_unit_of_work_with_storage_name_returning_result : UnitOfWorkNamedScenario
+        {
+            [Test]
+            public void should_open_session_and_get_result()
+            {
+                //act
+                var result = UnitOfWork.Do("SuperStorage", uow => { return "super"; });
+
+                //assert
+                A.CallTo(() => SessionScopeFactory.Open()).MustHaveHappened();
+                result.Should().Be("super");
             }
         }
 

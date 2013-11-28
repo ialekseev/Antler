@@ -7,7 +7,7 @@ using SmartElk.Antler.EntityFramework.Configuration;
 
 namespace SmartElk.Antler.EntityFramework.SqlCe.Configuration
 {
-    public class EntityFrameworkPlusSqlCe : EntityFrameworkPlusSqlServer
+    public class EntityFrameworkPlusSqlCe : EntityFrameworkStorage
     {
         public new static IEntityFrameworkStorage Use
         {

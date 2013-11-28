@@ -18,11 +18,7 @@ UnitOfWork.Do(uow =>
 
 Querying Teams from database:
 <pre>
- UnitOfWork.Do(uow =>
-                    {
-                        var teams = uow.Repo<Team>().AsQueryable().Where(t => t.BusinessGroup == "Great").OrderBy(t => t.Name).ToArray();
-                        //do something with teams
-                    });
+var found = UnitOfWork.Do(uow => uow.Repo<Team>().AsQueryable().Where(t => t.BusinessGroup == "Great").OrderBy(t => t.Name).ToArray()); 
 </pre>
 
 Configuration examples
@@ -30,13 +26,13 @@ Configuration examples
 For example, let's configure application to use (NHibernate + Sqlite database) and Castle Windsor container:
 <pre>
 var Configurator = new AntlerConfigurator();
-Configurator.UseWindsorContainer().UseStorage(HibernatePlusSqlite.Use);
+Configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlite.Use);
 </pre>
 
 If we want to specify assembly with NHibernate mappings explicitly we can write:
 <pre>
 var Configurator = new AntlerConfigurator();
-Configurator.UseWindsorContainer().UseStorage(HibernatePlusSqlite.Use.WithMappings(Assembly.GetExecutingAssembly()));
+Configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlite.Use.WithMappings(Assembly.GetExecutingAssembly()));
 </pre>
 
 Let's configure application to use (EntityFramework Code First + Sql Compact database) and Castle Windsor container:

@@ -29,6 +29,11 @@ namespace SmartElk.Antler.Common.Reflection
             return AppDomain.CurrentDomain.GetAssemblies();
         }
        
+        public static IEnumerable<Assembly> AssemblyWithType<T>()
+        {
+            return typeof (T).Assembly.AsEnumerable();
+        }
+
         public static IEnumerable<FileInfo> AllFilesIn(string path, bool recursively = false)
         {
             return new DirectoryInfo(path)

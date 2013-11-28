@@ -51,7 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\EntityFrameworkPlusSqlServer.cs" />
+    <Compile Include="Configuration\EntityFrameworkStorage.cs" />
     <Compile Include="Configuration\IEntityFrameworkStorage.cs" />
     <Compile Include="Internal\DataContext.cs" />
     <Compile Include="Internal\DataContextFactory.cs" />

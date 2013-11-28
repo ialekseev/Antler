@@ -1,6 +1,4 @@
 ﻿// ReSharper disable InconsistentNaming
-
-using System.Diagnostics.Contracts;
 using FluentAssertions;
 using NUnit.Framework;
 using SmartElk.Antler.Abstractions.Configuration;
