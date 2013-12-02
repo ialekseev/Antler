@@ -25,20 +25,20 @@ Configuration examples
 -----------------------
 For example, let's configure application to use (NHibernate + Sqlite database) and Castle Windsor container:
 <pre>
-var Configurator = new AntlerConfigurator();
-Configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlite.Use);
+var configurator = new AntlerConfigurator();
+configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlite.Use);
 </pre>
 
 If we want to specify assembly with NHibernate mappings explicitly we can write:
 <pre>
-var Configurator = new AntlerConfigurator();
-Configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlite.Use.WithMappings(Assembly.GetExecutingAssembly()));
+var configurator = new AntlerConfigurator();
+configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlite.Use.WithMappings(Assembly.GetExecutingAssembly()));
 </pre>
 
 Let's configure application to use (EntityFramework Code First + Sql Compact database) and Castle Windsor container:
 <pre>
-var Configurator = new AntlerConfigurator();
-Configurator.UseWindsorContainer().UseStorage(EntityFrameworkPlusSqlCe.Use.WithConnectionString("Data Source=DB.sdf")
+var configurator = new AntlerConfigurator();
+configurator.UseWindsorContainer().UseStorage(EntityFrameworkPlusSqlCe.Use.WithConnectionString("Data Source=DB.sdf")
                                                                       .WithMappings(Assembly.GetExecutingAssembly()));
 </pre>
 
