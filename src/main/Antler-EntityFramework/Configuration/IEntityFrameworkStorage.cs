@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Reflection;
-using SmartElk.Antler.Domain.Configuration;
+using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.Internal;
 
 namespace SmartElk.Antler.EntityFramework.Configuration

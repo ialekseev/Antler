@@ -3,7 +3,7 @@ using System.Configuration;
 using Castle.Core;
 using Castle.MicroKernel;
 using Castle.MicroKernel.Context;
-using SmartElk.Antler.Common;
+using SmartElk.Antler.Core.Common;
 
 namespace SmartElk.Antler.Windsor
 {

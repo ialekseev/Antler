@@ -4,16 +4,17 @@ using System.Linq;
 using FluentAssertions;
 using NHibernate;
 using NUnit.Framework;
-using SmartElk.Antler.Abstractions.Configuration;
-using SmartElk.Antler.Common.Reflection;
-using SmartElk.Antler.Domain;
-using SmartElk.Antler.Domain.Configuration;
+using SmartElk.Antler.Core.Abstractions.Configuration;
+using SmartElk.Antler.Core.Common.Reflection;
+using SmartElk.Antler.Core.Domain;
+using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.SqlCe.Configuration;
 using SmartElk.Antler.EntityFramework.Sqlite.Specs.Configuration;
 using SmartElk.Antler.NHibernate.Specs.Configuration;
 using SmartElk.Antler.NHibernate.Sqlite.Configuration;
 using SmartElk.Antler.Specs.Shared.Entities;
 using SmartElk.Antler.Windsor;
+
 
 namespace SmartElk.Antler.Storages.Specs
 {

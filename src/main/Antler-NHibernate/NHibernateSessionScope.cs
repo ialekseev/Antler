@@ -1,5 +1,5 @@
 ﻿using NHibernate;
-using SmartElk.Antler.Domain;
+using SmartElk.Antler.Core.Domain;
 
 namespace Antler.NHibernate
 {

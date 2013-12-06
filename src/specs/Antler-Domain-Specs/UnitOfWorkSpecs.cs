@@ -3,6 +3,7 @@ using System;
 using FakeItEasy;
 using FluentAssertions;
 using NUnit.Framework;
+using SmartElk.Antler.Core.Domain;
 
 namespace SmartElk.Antler.Domain.Specs
 {

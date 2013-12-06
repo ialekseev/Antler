@@ -4,9 +4,10 @@ using System.Reflection;
 using FakeItEasy;
 using FluentAssertions;
 using NUnit.Framework;
-using SmartElk.Antler.Abstractions;
-using SmartElk.Antler.Abstractions.Configuration;
-using SmartElk.Antler.Domain.Configuration;
+using SmartElk.Antler.Core.Abstractions;
+using SmartElk.Antler.Core.Abstractions.Configuration;
+using SmartElk.Antler.Core.Domain;
+using SmartElk.Antler.Core.Domain.Configuration;
 
 namespace SmartElk.Antler.Domain.Specs
 {

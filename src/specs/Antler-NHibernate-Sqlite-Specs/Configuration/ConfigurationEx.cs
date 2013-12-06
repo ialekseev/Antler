@@ -1,10 +1,10 @@
 ﻿using Antler.NHibernate;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
-using SmartElk.Antler.Abstractions.Configuration;
-using SmartElk.Antler.Common.Reflection;
-using SmartElk.Antler.Domain;
-using SmartElk.Antler.Domain.Configuration;
+using SmartElk.Antler.Core.Abstractions.Configuration;
+using SmartElk.Antler.Core.Common.Reflection;
+using SmartElk.Antler.Core.Domain;
+using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.NHibernate.Sqlite.Configuration;
 
 namespace SmartElk.Antler.NHibernate.Specs.Configuration

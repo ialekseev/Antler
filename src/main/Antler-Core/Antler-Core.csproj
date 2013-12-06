@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{61E50BED-1EA6-48C6-BEE9-E4471AEE4635}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SmartElk.Antler.Core</RootNamespace>
+    <AssemblyName>SmartElk.Antler.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstractions\BindingNotRegistered.cs" />
+    <Compile Include="Abstractions\Configuration\AntlerConfigurator.cs" />
+    <Compile Include="Abstractions\Configuration\BasicConfiguration.cs" />
+    <Compile Include="Abstractions\Configuration\IAntlerConfigurator.cs" />
+    <Compile Include="Abstractions\Configuration\IAntlerConfiguratorEx.cs" />
+    <Compile Include="Abstractions\Configuration\IBasicConfiguration.cs" />
+    <Compile Include="Abstractions\ContainerRequiredException.cs" />
+    <Compile Include="Abstractions\DynamicResolver.cs" />
+    <Compile Include="Abstractions\IContainer.cs" />
+    <Compile Include="Abstractions\IImplementationResolver.cs" />
+    <Compile Include="Abstractions\InstanceResolver.cs" />
+    <Compile Include="Abstractions\Lifestyle.cs" />
+    <Compile Include="Abstractions\LifestyleBasedBinding.cs" />
+    <Compile Include="Abstractions\MultipleBinding.cs" />
+    <Compile Include="Abstractions\Registration\Binding.cs" />
+    <Compile Include="Abstractions\Registration\IBinding.cs" />
+    <Compile Include="Abstractions\Registration\IBindingSyntax.cs" />
+    <Compile Include="Abstractions\Registration\IMultipleBindingSyntax.cs" />
+    <Compile Include="Abstractions\Registration\ISingleBindingSyntax.cs" />
+    <Compile Include="Abstractions\Registration\MultipleBindingSyntax.cs" />
+    <Compile Include="Abstractions\Registration\SingleBindingSyntax.cs" />
+    <Compile Include="Abstractions\SingleBinding.cs" />
+    <Compile Include="Abstractions\StaticResolver.cs" />
+    <Compile Include="Common\ArrayEx.cs" />
+    <Compile Include="Common\CodeContracts\Assumes.cs" />
+    <Compile Include="Common\CodeContracts\Requires.cs" />
+    <Compile Include="Common\Dynamic\StaticMembersDynamicWrapper.cs" />
+    <Compile Include="Common\Extensions\ObjectEx.cs" />
+    <Compile Include="Common\ISyntax.cs" />
+    <Compile Include="Common\Reflection\AllTypes.cs" />
+    <Compile Include="Common\Reflection\From.cs" />
+    <Compile Include="Common\Reflection\TypeEx.cs" />
+    <Compile Include="Common\StringEx.cs" />
+    <Compile Include="Domain\Configuration\ConfigurationEx.cs" />
+    <Compile Include="Domain\Configuration\ContainerEx.cs" />
+    <Compile Include="Domain\Configuration\DomainConfigurator.cs" />
+    <Compile Include="Domain\Configuration\IDomainConfigurator.cs" />
+    <Compile Include="Domain\Configuration\IStorage.cs" />
+    <Compile Include="Domain\IRepository.cs" />
+    <Compile Include="Domain\ISessionScope.cs" />
+    <Compile Include="Domain\ISessionScopeFactory.cs" />
+    <Compile Include="Domain\UnitOfWork.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
