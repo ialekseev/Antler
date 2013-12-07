@@ -1,14 +1,11 @@
 ﻿// ReSharper disable InconsistentNaming
 using System.Reflection;
-using Antler.NHibernate;
 using FluentAssertions;
 using NHibernate;
-using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
-using SmartElk.Antler.Abstractions.Configuration;
-using SmartElk.Antler.Common.Reflection;
-using SmartElk.Antler.Domain;
-using SmartElk.Antler.Domain.Configuration;
+using SmartElk.Antler.Core.Abstractions.Configuration;
+using SmartElk.Antler.Core.Domain;
+using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.NHibernate.Specs.Configuration;
 using SmartElk.Antler.NHibernate.Sqlite.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;

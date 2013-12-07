@@ -1,5 +1,5 @@
 ﻿using System;
-using SmartElk.Antler.Domain;
+using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.EntityFramework.Internal;
 
 namespace SmartElk.Antler.EntityFramework

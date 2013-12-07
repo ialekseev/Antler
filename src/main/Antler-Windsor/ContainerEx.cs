@@ -1,6 +1,6 @@
 ﻿using Castle.Windsor;
 using System;
-using SmartElk.Antler.Abstractions;
+using SmartElk.Antler.Core.Abstractions;
 
 namespace SmartElk.Antler.Windsor
 {

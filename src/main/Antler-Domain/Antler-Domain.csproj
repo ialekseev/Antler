@@ -42,16 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\ConfigurationEx.cs" />
-    <Compile Include="Configuration\DomainConfigurator.cs" />
-    <Compile Include="Configuration\ContainerEx.cs" />
-    <Compile Include="Configuration\IDomainConfigurator.cs" />
-    <Compile Include="Configuration\IStorage.cs" />
-    <Compile Include="IRepository.cs" />
-    <Compile Include="ISessionScope.cs" />
-    <Compile Include="ISessionScopeFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Antler-Abstractions\Antler-Abstractions.csproj">

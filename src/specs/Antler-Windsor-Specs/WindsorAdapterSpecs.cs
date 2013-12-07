@@ -1,10 +1,10 @@
 ﻿using System;
 using FluentAssertions;
 using NUnit.Framework;
-using SmartElk.Antler.Abstractions;
-using SmartElk.Antler.Abstractions.Registration;
-using SmartElk.Antler.Common;
-using SmartElk.Antler.Common.Reflection;
+using SmartElk.Antler.Core.Abstractions;
+using SmartElk.Antler.Core.Abstractions.Registration;
+using SmartElk.Antler.Core.Common;
+using SmartElk.Antler.Core.Common.Reflection;
 
 namespace SmartElk.Antler.Windsor.Specs
 {

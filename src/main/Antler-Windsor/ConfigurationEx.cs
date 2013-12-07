@@ -1,4 +1,4 @@
-﻿using SmartElk.Antler.Abstractions.Configuration;
+﻿using SmartElk.Antler.Core.Abstractions.Configuration;
 
 namespace SmartElk.Antler.Windsor
 {

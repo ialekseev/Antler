@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
-using SmartElk.Antler.Domain;
+using SmartElk.Antler.Core.Domain;
 
 namespace Antler.NHibernate
 {

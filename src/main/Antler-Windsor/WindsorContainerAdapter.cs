@@ -5,8 +5,8 @@ using Castle.Facilities.Startable;
 using Castle.MicroKernel;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
-using SmartElk.Antler.Abstractions;
-using SmartElk.Antler.Abstractions.Registration;
+using SmartElk.Antler.Core.Abstractions;
+using SmartElk.Antler.Core.Abstractions.Registration;
 
 namespace SmartElk.Antler.Windsor
 {

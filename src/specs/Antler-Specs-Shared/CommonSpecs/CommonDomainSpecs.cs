@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using SmartElk.Antler.Domain;
+using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Specs.Shared.Entities;
 
 namespace SmartElk.Antler.Specs.Shared.CommonSpecs

@@ -2,8 +2,8 @@
 using Antler.NHibernate.Configuration;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using SmartElk.Antler.Domain;
-using SmartElk.Antler.Domain.Configuration;
+using SmartElk.Antler.Core.Domain;
+using SmartElk.Antler.Core.Domain.Configuration;
 
 namespace SmartElk.Antler.NHibernate.Sqlite.Configuration
 {

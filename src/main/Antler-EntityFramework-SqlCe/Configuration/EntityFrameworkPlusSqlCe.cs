@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using SmartElk.Antler.Domain.Configuration;
+using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.Configuration;
 
 namespace SmartElk.Antler.EntityFramework.SqlCe.Configuration

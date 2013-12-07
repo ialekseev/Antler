@@ -2,10 +2,10 @@
 using Antler.NHibernate;
 using FluentAssertions;
 using NUnit.Framework;
-using SmartElk.Antler.Abstractions;
-using SmartElk.Antler.Abstractions.Configuration;
-using SmartElk.Antler.Domain;
-using SmartElk.Antler.Domain.Configuration;
+using SmartElk.Antler.Core.Abstractions;
+using SmartElk.Antler.Core.Abstractions.Configuration;
+using SmartElk.Antler.Core.Domain;
+using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.NHibernate.Sqlite.Configuration;
 using SmartElk.Antler.Windsor;
 

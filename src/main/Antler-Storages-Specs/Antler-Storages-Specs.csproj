@@ -97,17 +97,9 @@
       <Project>{9C008F64-DBBD-4135-A5C8-1249D5A603F1}</Project>
       <Name>Antler-Specs-Shared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Antler-Abstractions\Antler-Abstractions.csproj">
-      <Project>{66AB4A48-0D4F-4F0D-9A47-EB461B8495E1}</Project>
-      <Name>Antler-Abstractions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Antler-Common\Antler-Common.csproj">
-      <Project>{2C949C79-54B6-46E8-9B10-139AF8DD0A96}</Project>
-      <Name>Antler-Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Antler-Domain\Antler-Domain.csproj">
-      <Project>{6814B93C-B1E7-4050-AD5E-B10260110716}</Project>
-      <Name>Antler-Domain</Name>
+    <ProjectReference Include="..\Antler-Core\Antler-Core.csproj">
+      <Project>{61E50BED-1EA6-48C6-BEE9-E4471AEE4635}</Project>
+      <Name>Antler-Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Antler-EntityFramework-SqlCe\Antler-EntityFramework-SqlCe.csproj">
       <Project>{5D2D71A7-110B-44B3-9F16-79DA905DF70C}</Project>

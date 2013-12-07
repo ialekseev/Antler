@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using SmartElk.Antler.Domain.Configuration;
+using SmartElk.Antler.Core.Domain.Configuration;
 
 namespace Antler.NHibernate.Configuration
 {
