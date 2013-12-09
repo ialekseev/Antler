@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SmartElk.Antler.EntityFramework.Sqlite.Specs</RootNamespace>
-    <AssemblyName>SmartElk.Antler.EntityFramework.Sqlite.Specs</AssemblyName>
+    <AssemblyName>Antler.EntityFramework.Sqlite.Specs</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
