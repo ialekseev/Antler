@@ -2,7 +2,7 @@
 using System.Data.Entity.ModelConfiguration;
 using SmartElk.Antler.Specs.Shared.Entities;
 
-namespace SmartElk.Antler.EntityFramework.Sqlite.Specs.Mappings
+namespace SmartElk.Antler.EntityFramework.SqlCe.Specs.Mappings
 {
     public class CountryMap : EntityTypeConfiguration<Country>
     {
