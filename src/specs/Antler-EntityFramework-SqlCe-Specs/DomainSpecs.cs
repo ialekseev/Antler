@@ -1,4 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
+
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -9,12 +10,12 @@ using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.SqlCe.Configuration;
-using SmartElk.Antler.EntityFramework.Sqlite.Specs.Configuration;
+using SmartElk.Antler.EntityFramework.SqlCe.Specs.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
 using SmartElk.Antler.Specs.Shared.Entities;
 using SmartElk.Antler.Windsor;
 
-namespace SmartElk.Antler.EntityFramework.Sqlite.Specs
+namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
 {
     public class DomainSpecs
     {                                                        

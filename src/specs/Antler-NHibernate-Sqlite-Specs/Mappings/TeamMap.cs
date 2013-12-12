@@ -1,7 +1,7 @@
 ﻿using FluentNHibernate.Mapping;
 using SmartElk.Antler.Specs.Shared.Entities;
 
-namespace SmartElk.Antler.NHibernate.Specs.Mappings
+namespace SmartElk.Antler.NHibernate.Sqlite.Specs.Mappings
 {
     public class TeamMap : ClassMap<Team>
     {

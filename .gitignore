@@ -38,5 +38,4 @@ testdb
 output
 tmp
 docs/_build/*
-*.nuspec
 *.nupkg

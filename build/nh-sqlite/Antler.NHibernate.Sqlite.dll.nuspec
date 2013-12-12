@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Antler.NHibernate.Sqlite</id>
+    <version>$version$</version>
+    <authors>SmartElk</authors>
+    <owners>SmartElk</owners>    
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/SmartElk/Antler</projectUrl>
+    <description>NHibernate + Sqlite adapter for Antler framework</description>
+    <releaseNotes>Beware: Project is still under construction</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>Antler, NHibernate, Sqlite</tags>    
+	<dependencies>
+      <dependency id="NHibernate" version="3.3.3.4001" />
+	  <dependency id="Iesi.Collections" version="3.2.0.4000" />
+	  <dependency id="FluentNHibernate" version="1.3.0.733" />
+   </dependencies>
+  </metadata>  
+</package>

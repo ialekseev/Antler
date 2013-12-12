@@ -8,7 +8,7 @@ using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.SqlCe.Configuration;
 using SmartElk.Antler.Windsor;
 
-namespace SmartElk.Antler.EntityFramework.Sqlite.Specs
+namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
 {
     public class ConfigurationSpecs
     {

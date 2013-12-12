@@ -1,4 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
+
 using System.Reflection;
 using FluentAssertions;
 using NHibernate;
@@ -6,13 +7,13 @@ using NUnit.Framework;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
-using SmartElk.Antler.NHibernate.Specs.Configuration;
 using SmartElk.Antler.NHibernate.Sqlite.Configuration;
+using SmartElk.Antler.NHibernate.Sqlite.Specs.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
 using SmartElk.Antler.Specs.Shared.Entities;
 using SmartElk.Antler.Windsor;
 
-namespace SmartElk.Antler.NHibernate.Specs
+namespace SmartElk.Antler.NHibernate.Sqlite.Specs
 {
     public class DomainSpecs
     {                

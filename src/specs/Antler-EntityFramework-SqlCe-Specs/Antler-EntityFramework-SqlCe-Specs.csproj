@@ -8,8 +8,8 @@
     <ProjectGuid>{26A0DD0A-C9A4-42DA-9F12-D1FFC499BCFF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SmartElk.Antler.EntityFramework.Sqlite.Specs</RootNamespace>
-    <AssemblyName>SmartElk.Antler.EntityFramework.Sqlite.Specs</AssemblyName>
+    <RootNamespace>SmartElk.Antler.EntityFramework.SqlCe.Specs</RootNamespace>
+    <AssemblyName>Antler.EntityFramework.SqlCe.Specs</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
