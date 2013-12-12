@@ -6,7 +6,8 @@
     <authors>SmartElk</authors>
     <owners>SmartElk</owners>    
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Core library for SmartElk.Antler framework</description>
+    <projectUrl>https://github.com/SmartElk/Antler</projectUrl>
+    <description>Antler is a pluggable framework to work with different databases(SQL CE, Sqlite, SqlExpress, SqlServer, Oracle etc.) and different ORMs(NHibernate, EntityFramework Code First) using the same syntax. Core library.</description>
     <releaseNotes>Beware: Project is still under construction</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>Antler</tags>    

@@ -13,7 +13,7 @@ namespace SmartElk.Antler.Windsor.Specs
         {
             [Test]
             public void should_set_windsor_container()
-            {
+            {                                
                 //arrange
                 var configurator = new AntlerConfigurator();
                 

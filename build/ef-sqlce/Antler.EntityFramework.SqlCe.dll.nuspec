@@ -6,7 +6,8 @@
     <authors>SmartElk</authors>
     <owners>SmartElk</owners>    
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>EntityFramework + SqlCe adapter for SmartElk.Antler framework</description>
+    <projectUrl>https://github.com/SmartElk/Antler</projectUrl>
+	<description>EntityFramework + SqlCe adapter for Antler framework</description>
     <releaseNotes>Beware: Project is still under construction</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>Antler, EntityFramework, Sql Server Compact</tags>    

@@ -1,7 +1,7 @@
 @echo off
 set path=%path%;C:/Windows/Microsoft.NET/Framework/v4.0.30319;
-set version=1.2;
-set skipTests=false;
+set version=1.4
+set skipTests=true
 
 ::+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo Building project...
@@ -11,11 +11,15 @@ msbuild.exe ..\src\Antler.sln /nologo /v:q /p:Configuration=Release /clp:ErrorsO
 
 ::+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-if %skipTests%==true goto skipTestsMark
+if %skipTests%==true goto skipTests
 echo Running tests...
+if exist output rmdir /s /q output
+mkdir output
+
 ..\src\.nuget\nuget.exe install ..\src\.nuget\packages.config -o ..\src\packages
-..\src\packages\NUnit.Runners.2.6.3\tools\nunit-console.exe ..\src\specs\Antler-Domain-Specs\bin\Release\Antler.Domain.Specs.dll ..\src\specs\Antler-EntityFramework-SqlCe-Specs\bin\Release\Antler.EntityFramework.SqlCe.Specs.dll ..\src\specs\Antler-NHibernate-Sqlite-Specs\bin\Release\Antler.NHibernate.Sqlite.Specs.dll ..\src\specs\Antler-Storages-Specs\bin\Release\Antler.Storages.Specs.dll ..\src\specs\Antler-Windsor-Specs\bin\Release\Antler.Windsor.Specs.dll
-:skipTestsMark
+..\src\packages\NUnit.Runners.2.6.3\tools\nunit-console.exe /work:output ..\src\specs\Antler-Domain-Specs\bin\Release\Antler.Domain.Specs.dll ..\src\specs\Antler-EntityFramework-SqlCe-Specs\bin\Release\Antler.EntityFramework.SqlCe.Specs.dll ..\src\specs\Antler-NHibernate-Sqlite-Specs\bin\Release\Antler.NHibernate.Sqlite.Specs.dll ..\src\specs\Antler-Storages-Specs\bin\Release\Antler.Storages.Specs.dll ..\src\specs\Antler-Windsor-Specs\bin\Release\Antler.Windsor.Specs.dll
+if %ERRORLEVEL% neq 0 goto end
+:skipTests
 
 ::+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo Copying assemblies...
@@ -63,6 +67,10 @@ copy windsor\Antler.Windsor.dll.nuspec windsor\output
 ..\src\.nuget\Nuget.exe pack windsor\output\Antler.Windsor.dll.nuspec -properties version=%version%
 move Antler.Windsor*.nupkg windsor\output
 
-echo Done.
+::++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+echo Publishing NuGet packages...
+..\src\.nuget\Nuget.exe push core\output\Antler.Core.%version%.nupkg
+..\src\.nuget\Nuget.exe push windsor\output\Antler.Windsor.%version%.nupkg
+: end
 
 pause
