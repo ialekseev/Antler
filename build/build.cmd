@@ -1,7 +1,7 @@
 @echo off
 set path=%path%;C:/Windows/Microsoft.NET/Framework/v4.0.30319;
-set version=1.4
-set skipTests=true
+set version=1.7
+set skipTests=false
 
 ::+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo Building project...
@@ -71,6 +71,7 @@ move Antler.Windsor*.nupkg windsor\output
 echo Publishing NuGet packages...
 ..\src\.nuget\Nuget.exe push core\output\Antler.Core.%version%.nupkg
 ..\src\.nuget\Nuget.exe push windsor\output\Antler.Windsor.%version%.nupkg
+..\src\.nuget\Nuget.exe push ef-sqlce\output\Antler.EntityFramework.SqlCe.%version%.nupkg
 : end
 
 pause
