@@ -1,5 +1,4 @@
-﻿using System;
-using SmartElk.Antler.Core.Domain;
+﻿using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.EntityFramework.Internal;
 
 namespace SmartElk.Antler.EntityFramework
@@ -17,12 +16,7 @@ namespace SmartElk.Antler.EntityFramework
         {
             _dbContext.SaveChanges();
         }
-
-        public void Rollback()
-        {
-            throw new NotImplementedException();
-        }
-        
+                
         public IRepository<TEntity> CreateRepository<TEntity>() where TEntity:class
         {
             return new EntityFrameworkRepository<TEntity>(_dbContext);

@@ -85,6 +85,17 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
 
         [TestFixture]
         [Category("Integration")]
+        public class when_trying_to_delete_team_by_id : TestingScenario
+        {
+            [Test]
+            public void should_delete_team()
+            {
+                CommonDomainSpecs.when_trying_to_delete_team_by_id.should_delete_team();
+            }
+        }
+
+        [TestFixture]
+        [Category("Integration")]
         public class when_trying_to_query_using_nhibernate_internal_session_directly : TestingScenario
         {
             [Test]

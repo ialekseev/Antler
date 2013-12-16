@@ -251,6 +251,31 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
             }
         }
 
+        public static class when_trying_to_delete_team_by_id
+        {
+            public static void should_delete_team()
+            {
+                //arrange
+                Team team = null;
+                UnitOfWork.Do(uow =>
+                {
+                    team = new Team() { Name = "Super", BusinessGroup = "SuperBg" };
+                    uow.Repo<Team>().Insert(team);                    
+                });
+                
+                UnitOfWork.Do(uow =>
+                    {
+                     uow.Repo<Team>().GetById(team.Id).Should().NotBeNull();
+                     
+                     //act                    
+                     uow.Repo<Team>().Delete(team.Id);
+
+                    //assert
+                     var foundTeam = uow.Repo<Team>().GetById(team.Id);
+                     foundTeam.Should().BeNull();
+                    });
+            }
+        }
     }
 }
 // ReSharper restore InconsistentNaming
