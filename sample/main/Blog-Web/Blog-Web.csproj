@@ -141,6 +141,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\ConfigurationEx.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -170,6 +172,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Blog-Mappings-EF\Blog-Mappings-EF.csproj">
+      <Project>{46259AAD-3943-4B8F-9DCB-E6E661525B8D}</Project>
+      <Name>Blog-Mappings-EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Blog-Service\Blog-Service.csproj">
+      <Project>{83AC0EB3-77B8-417F-9F99-7F4A05F1832A}</Project>
+      <Name>Blog-Service</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Post\Edit.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,5 +1,14 @@
-﻿@{
+﻿@model IList<Blog.Service.Dto.PostDto>
+
+@{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Home</h2>
+
+@foreach (var post in Model)
+{
+    <div>
+        <a href="@Url.Action("Edit", "Post", new { id = post.Id })">@post.Title</a>
+    </div>
+}

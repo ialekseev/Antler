@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Blog.Service;
 
 namespace Blog.Web.Controllers
 {
@@ -6,7 +7,9 @@ namespace Blog.Web.Controllers
     {        
         public ActionResult Index()
         {
-            return View();
+            var blogService = new BlogService();
+            var posts = blogService.GetAllPosts();
+            return View(posts);
         }
     }
 }

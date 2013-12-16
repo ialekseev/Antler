@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog-Domain", "main\Blog-Do
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog-Web", "main\Blog-Web\Blog-Web.csproj", "{8FB4C292-144B-49FE-84D6-124BC271D830}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog-Mappings-EF", "main\Blog-Mappings-EF\Blog-Mappings-EF.csproj", "{46259AAD-3943-4B8F-9DCB-E6E661525B8D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mappings", "Mappings", "{0231CF1C-86B5-483A-AA6D-20702CE68D76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,8 +36,15 @@ Global
 		{8FB4C292-144B-49FE-84D6-124BC271D830}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FB4C292-144B-49FE-84D6-124BC271D830}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FB4C292-144B-49FE-84D6-124BC271D830}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46259AAD-3943-4B8F-9DCB-E6E661525B8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46259AAD-3943-4B8F-9DCB-E6E661525B8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46259AAD-3943-4B8F-9DCB-E6E661525B8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46259AAD-3943-4B8F-9DCB-E6E661525B8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{46259AAD-3943-4B8F-9DCB-E6E661525B8D} = {0231CF1C-86B5-483A-AA6D-20702CE68D76}
 	EndGlobalSection
 EndGlobal

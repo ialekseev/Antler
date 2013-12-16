@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
-using Blog.Domain.Entities;
+using Blog.Service.Dto;
 
 namespace Blog.Service.Contracts
 {
     public interface IBlogService
     {
-        IList<Post> GetAllPosts();
+        int? CreateUser(CreatedUserDto userDto);
+        PostDto GetPost(int postId);
+        IList<PostDto> GetAllPosts();
+        int? CreatePost(CreatedPostDto postDto);
+        void EditPost(EditedPostDto editedPostDto);
     }
 }
