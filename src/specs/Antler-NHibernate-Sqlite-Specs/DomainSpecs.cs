@@ -142,7 +142,7 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
             public void SetUp()
             {
                 Configurator = new AntlerConfigurator();
-                Configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlite.Use.WithMappings(Assembly.GetExecutingAssembly()));
+                Configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlite.Use.AsInMemoryStorage().WithMappings(Assembly.GetExecutingAssembly()));
 
                 session = Configurator.CreateNHibernateSession();
             }

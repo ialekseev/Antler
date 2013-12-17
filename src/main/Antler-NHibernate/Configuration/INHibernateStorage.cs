@@ -3,8 +3,8 @@ using SmartElk.Antler.Core.Domain.Configuration;
 
 namespace Antler.NHibernate.Configuration
 {
-    public interface INHibernateStorage: IStorage
+    public interface INHibernateStorage<out TStorage> : IStorage
     {
-        INHibernateStorage WithMappings(Assembly assemblyWithMappings);
+        TStorage WithMappings(Assembly assemblyWithMappings);
     }
 }
