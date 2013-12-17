@@ -1,14 +1,14 @@
 ﻿using System.Web.Mvc;
-using Blog.Service;
+using Blog.Web.Code;
 
 namespace Blog.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {        
+        [HttpGet]
         public ActionResult Index()
-        {
-            var blogService = new BlogService();
-            var posts = blogService.GetAllPosts();
+        {            
+            var posts = BlogService.GetAllPosts();
             return View(posts);
         }
     }

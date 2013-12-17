@@ -117,7 +117,7 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
                         uow.Repo<Team>().Insert(team2);
 
                         //act                    
-                        var internalSession = (ISession) uow.CurrentSession.InternalSession;
+                        var internalSession = uow.CurrentSession.GetInternal<ISession>();
                         var result = internalSession.QueryOver<Team>().Where(t => t.Name == "Awesome").List();
 
                         //assert

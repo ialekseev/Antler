@@ -6,9 +6,11 @@ namespace Blog.Service.Contracts
     public interface IBlogService
     {
         int? CreateUser(CreatedUserDto userDto);
+        UserDto FindUserByName(string name);
         PostDto GetPost(int postId);
         IList<PostDto> GetAllPosts();
-        int? CreatePost(CreatedPostDto postDto);
-        void EditPost(EditedPostDto editedPostDto);
+        IList<UserDto> GetAllUsers();
+        int? SavePost(SavePostDto postDto);
+        void DeletePost(int postId);
     }
 }

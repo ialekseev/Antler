@@ -1,11 +1,36 @@
-﻿@model Blog.Service.Dto.PostDto
+﻿@model Blog.Service.Dto.SavePostDto
 
 @{
     ViewBag.Title = "Edit";
 }
 
 <h2>Edit</h2>
+<div>
+    <a href="@Url.Action("Index", "Home")">home</a>
+</div>
+<form action="@Url.Action("Save")" method="post">
+    <table>
+        <tr>
+            <td>Title:</td>
+            <td>@Html.TextBoxFor(t => t.Title)</td>
+        </tr>   
+        <tr>
+            <td>Text:</td>
+            <td>@Html.TextBoxFor(t => t.Text)</td>
+        </tr>           
+    </table>
+    <input type="submit" value="Save" />
+            
+    @Html.HiddenFor(t => t.AuthodId)
+    @Html.HiddenFor(t => t.Id)
+</form>
 
-<div>@Model.Title</div>
-<div>@Model.Text</div>
-<div>@Model.AuthorName</div>
+@if (Model.Id != 0)
+{
+    using (Html.BeginForm("Delete", "Post"))
+    { 
+      <input type="submit" value="Delete" />    
+      @Html.HiddenFor(t => t.Id)
+      @Html.HttpMethodOverride(HttpVerbs.Delete)
+    }
+} 

@@ -33,9 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antler.Core, Version=1.0.5095.25671, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.Core, Version=1.0.5099.21595, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.Core.1.7\lib\net40\Antler.Core.dll</HintPath>
+      <HintPath>..\..\packages\Antler.Core.1.8\lib\net40\Antler.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -48,10 +48,10 @@
   <ItemGroup>
     <Compile Include="BlogService.cs" />
     <Compile Include="Contracts\IBlogService.cs" />
-    <Compile Include="Dto\EditedPostDto.cs" />
-    <Compile Include="Dto\CreatedPostDto.cs" />
+    <Compile Include="Dto\SavePostDto.cs" />
     <Compile Include="Dto\CreatedUserDto.cs" />
     <Compile Include="Dto\PostDto.cs" />
+    <Compile Include="Dto\UserDto.cs" />
     <Compile Include="Mapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

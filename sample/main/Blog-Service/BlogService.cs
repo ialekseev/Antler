@@ -24,7 +24,20 @@ namespace Blog.Service
                     return (int?)null;
                 });
         }
-        
+
+        public UserDto FindUserByName(string name)
+        {
+            return UnitOfWork.Do(uow =>
+                {
+                    var found = uow.Repo<User>().AsQueryable().FirstOrDefault(t => t.Name == name);
+                    if (found != null)
+                    {
+                        return new UserDto() {Id = found.Id, Name = found.Name, Email = found.Email};
+                    }
+                    return null;
+                });
+        }
+
         public PostDto GetPost(int postId)
         {
             return UnitOfWork.Do(uow =>
@@ -39,39 +52,50 @@ namespace Blog.Service
             return UnitOfWork.Do(uow => uow.Repo<Post>().AsQueryable().ToList().Select(Mapper.Map).ToList());
         }
 
-        public int? CreatePost(CreatedPostDto postDto)
+        public IList<UserDto> GetAllUsers()
+        {
+            return UnitOfWork.Do(uow => uow.Repo<User>().AsQueryable().Select(t => new UserDto() { Id = t.Id, Name = t.Name, Email = t.Email }).ToList());
+        }
+
+        public int? SavePost(SavePostDto postDto)
         {                        
             return UnitOfWork.Do(uow =>
                 {
-                    var post = new Post()
+                    if (postDto.Id == 0)
                     {
-                        Title = postDto.Title,
-                        Text = postDto.Text,
-                        Created = DateTime.Now,
-                        Author = new User() { Id = postDto.AuthodId }
-                    };
+                        var post = new Post()
+                        {
+                            Title = postDto.Title,
+                            Text = postDto.Text,
+                            Created = DateTime.Now,
+                            Author = uow.Repo<User>().GetById(postDto.AuthodId)
+                        };
 
-                    var found = uow.Repo<Post>().AsQueryable().FirstOrDefault(t => t.Title == postDto.Title);
-                    if (found == null)
+                        var found = uow.Repo<Post>().AsQueryable().FirstOrDefault(t => t.Title == postDto.Title);
+                        if (found == null)
+                        {
+                            uow.Repo<Post>().Insert(post);
+                            return post.Id;
+                        }                        
+                    }
+                    else
                     {
-                        uow.Repo<Post>().Insert(post);
-                        return post.Id;
+                        var found = uow.Repo<Post>().GetById(postDto.Id);
+                        if (found != null)
+                        {
+                            found.Title = postDto.Title;
+                            found.Text = postDto.Text;
+                            found.Author = uow.Repo<User>().GetById(postDto.AuthodId);
+                            return found.Id;
+                        }                        
                     }
                     return (int?)null;
                 });            
         }
 
-        public void EditPost(EditedPostDto editedPostDto)
+        public void DeletePost(int postId)
         {
-            UnitOfWork.Do(uof =>
-                {
-                    var found = uof.Repo<Post>().GetById(editedPostDto.Id);
-                    if (found != null)
-                    {
-                        found.Title = editedPostDto.Title;
-                        found.Text = editedPostDto.Text;                        
-                    }
-                });
+            UnitOfWork.Do(uow => uow.Repo<Post>().Delete(postId));
         }
     }
 }

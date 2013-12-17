@@ -6,6 +6,6 @@ namespace SmartElk.Antler.Core.Domain
     {
         void Commit();        
         IRepository<TEntity> CreateRepository<TEntity>() where TEntity : class;
-        object InternalSession { get; }
+        TInternal GetInternal<TInternal>() where TInternal : class;
     }
 }

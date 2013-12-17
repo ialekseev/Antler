@@ -20,14 +20,14 @@ namespace Blog.Web.Code
             if (!userId.HasValue)
                 throw new Exception("Problem with creating User");
                                     
-            blogService.CreatePost(new CreatedPostDto()
+            blogService.SavePost(new SavePostDto()
             {
                 Title = "Great post about programming",
                 Text = "Programming is a ...",
                 AuthodId = userId.Value
             });
 
-            blogService.CreatePost(new CreatedPostDto()
+            blogService.SavePost(new SavePostDto()
             {
                 Title = "Great post about fishing",
                 Text = "Fishing is a ...",
