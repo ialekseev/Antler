@@ -36,7 +36,7 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Configuration
             FileName = fileName;            
             return this;
         }
-        
+
         public override void Configure(IDomainConfigurator configurator)
         {
             global::NHibernate.Cfg.Configuration configuration = null;

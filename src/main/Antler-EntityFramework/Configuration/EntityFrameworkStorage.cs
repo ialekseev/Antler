@@ -6,7 +6,7 @@ using SmartElk.Antler.EntityFramework.Internal;
 
 namespace SmartElk.Antler.EntityFramework.Configuration
 {
-    public class EntityFrameworkStorage: IEntityFrameworkStorage
+    public class EntityFrameworkStorage : AbstractStorage
     {        
         private Assembly _assemblyWithMappings;
         private string _connectionString;
@@ -20,42 +20,42 @@ namespace SmartElk.Antler.EntityFramework.Configuration
             _enableLazyLoading = true;
         }
 
-        public static IEntityFrameworkStorage Use()
+        public static EntityFrameworkStorage Use()
         {
             return new EntityFrameworkStorage();            
         }
 
-        public IEntityFrameworkStorage WithConnectionString(string connectionString)
+        public EntityFrameworkStorage WithConnectionString(string connectionString)
         {            
             this._connectionString = connectionString;
             return this;
         }
 
-        public IEntityFrameworkStorage WithMappings(Assembly assembly)
+        public EntityFrameworkStorage WithMappings(Assembly assembly)
         {
             this._assemblyWithMappings = assembly;
             return this;
         }
 
-        public IEntityFrameworkStorage WithDatabaseInitializer(IDatabaseInitializer<DataContext> databaseInitializer)
+        public EntityFrameworkStorage WithDatabaseInitializer(IDatabaseInitializer<DataContext> databaseInitializer)
         {
             this._databaseInitializer = databaseInitializer;
             return this;
         }
 
-        public IEntityFrameworkStorage WithLazyLoading()
+        public EntityFrameworkStorage WithLazyLoading()
         {
             this._enableLazyLoading = true;
             return this;
         }
 
-        public IEntityFrameworkStorage WithoutLazyLoading()
+        public EntityFrameworkStorage WithoutLazyLoading()
         {
             this._enableLazyLoading = false;
             return this;
         }
 
-        public virtual void Configure(IDomainConfigurator configurator)
+        public override void Configure(IDomainConfigurator configurator)
         {
             var dataContextFactory = string.IsNullOrEmpty(_connectionString)
                                          ? new DataContextFactory(_assemblyWithMappings, _enableLazyLoading)

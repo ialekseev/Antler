@@ -2,6 +2,6 @@
 {
     public interface IStorage
     {
-        void Configure(IDomainConfigurator configurator); //todo: hide this method from framework clients
+        void Configure(IDomainConfigurator configurator);
     }
 }
