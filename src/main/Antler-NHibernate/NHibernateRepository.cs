@@ -22,7 +22,7 @@ namespace Antler.NHibernate
         {
             return _session.Get<TEntity>(id);  
         }
-
+        
         public void Insert(TEntity entity)
         {
             _session.Save(entity);
@@ -31,6 +31,15 @@ namespace Antler.NHibernate
         public void Delete(TEntity entity)
         {
             _session.Delete(entity);
-        }               
+        }
+
+        public void Delete<TId>(TId id)
+        {
+            var entity = GetById(id);
+            if (entity != null)
+            {
+                _session.Delete(entity);
+            }            
+        }
     }
 }

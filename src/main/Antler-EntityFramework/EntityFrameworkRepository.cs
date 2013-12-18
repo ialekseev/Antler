@@ -27,7 +27,7 @@ namespace SmartElk.Antler.EntityFramework
         {
             return DbSet.Find(id);
         }
-
+        
         public void Insert(TEntity entity)
         {
             DbSet.Add(entity);
@@ -38,6 +38,16 @@ namespace SmartElk.Antler.EntityFramework
         {
             DbSet.Remove(entity);
             _context.SaveChanges();
+        }
+
+        public void Delete<TId>(TId id)
+        {
+            var entity = GetById(id);
+            if (entity != null)
+            {
+                DbSet.Remove(entity);
+                _context.SaveChanges();
+            }                        
         }
     }
 }

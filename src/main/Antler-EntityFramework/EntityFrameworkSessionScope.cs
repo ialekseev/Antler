@@ -1,4 +1,4 @@
-﻿using System;
+﻿using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.EntityFramework.Internal;
 
@@ -17,25 +17,22 @@ namespace SmartElk.Antler.EntityFramework
         {
             _dbContext.SaveChanges();
         }
-
-        public void Rollback()
-        {
-            throw new NotImplementedException();
-        }
-        
+                
         public IRepository<TEntity> CreateRepository<TEntity>() where TEntity:class
         {
             return new EntityFrameworkRepository<TEntity>(_dbContext);
         }
 
-        public object InternalSession
+        public TInternal GetInternal<TInternal>() where TInternal:class
         {
-            get { return _dbContext; }
+            var internalSession = _dbContext as TInternal;
+            Assumes.True(internalSession != null, "Can't cast Internal Session to TInternal type");
+            return internalSession;
         }
 
         public void Dispose()
         {     
             _dbContext.Dispose();
-        }
+        }        
     }
 }

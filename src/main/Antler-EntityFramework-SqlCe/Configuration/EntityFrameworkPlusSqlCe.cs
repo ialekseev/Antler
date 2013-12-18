@@ -10,7 +10,7 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Configuration
 {
     public class EntityFrameworkPlusSqlCe : EntityFrameworkStorage
     {
-        public new static IEntityFrameworkStorage Use
+        public new static EntityFrameworkStorage Use
         {
            get { return new EntityFrameworkPlusSqlCe();}            
         }

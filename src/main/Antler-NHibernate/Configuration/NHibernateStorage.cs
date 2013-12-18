@@ -3,7 +3,7 @@ using SmartElk.Antler.Core.Domain.Configuration;
 
 namespace Antler.NHibernate.Configuration
 {
-    public abstract class NHibernateStorage: INHibernateStorage
+    public abstract class NHibernateStorage<TStorage> : AbstractStorage where TStorage : class                                                                
     {
         protected Assembly AssemblyWithMappings { get; set; }
 
@@ -11,13 +11,11 @@ namespace Antler.NHibernate.Configuration
         {
             AssemblyWithMappings = Assembly.GetCallingAssembly();            
         }
-        
-        public INHibernateStorage WithMappings(Assembly assemblyWithMappings)
+
+        public TStorage WithMappings(Assembly assemblyWithMappings)
         {
             AssemblyWithMappings = assemblyWithMappings;
-            return this;
-        }
-
-        public abstract void Configure(IDomainConfigurator configurator);
+            return this as TStorage;
+        }               
     }
 }

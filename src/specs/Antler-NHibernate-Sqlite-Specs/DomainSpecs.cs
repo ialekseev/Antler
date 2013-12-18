@@ -85,6 +85,17 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
 
         [TestFixture]
         [Category("Integration")]
+        public class when_trying_to_delete_team_by_id : TestingScenario
+        {
+            [Test]
+            public void should_delete_team()
+            {
+                CommonDomainSpecs.when_trying_to_delete_team_by_id.should_delete_team();
+            }
+        }
+
+        [TestFixture]
+        [Category("Integration")]
         public class when_trying_to_query_using_nhibernate_internal_session_directly : TestingScenario
         {
             [Test]
@@ -106,7 +117,7 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
                         uow.Repo<Team>().Insert(team2);
 
                         //act                    
-                        var internalSession = (ISession) uow.CurrentSession.InternalSession;
+                        var internalSession = uow.CurrentSession.GetInternal<ISession>();
                         var result = internalSession.QueryOver<Team>().Where(t => t.Name == "Awesome").List();
 
                         //assert
@@ -131,7 +142,7 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
             public void SetUp()
             {
                 Configurator = new AntlerConfigurator();
-                Configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlite.Use.WithMappings(Assembly.GetExecutingAssembly()));
+                Configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlite.Use.AsInMemoryStorage().WithMappings(Assembly.GetExecutingAssembly()));
 
                 session = Configurator.CreateNHibernateSession();
             }

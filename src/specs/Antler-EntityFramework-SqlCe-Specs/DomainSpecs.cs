@@ -84,7 +84,18 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
                 CommonDomainSpecs.when_trying_to_find_team_by_country_name.should_return_country();
             }
         }
-        
+
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_delete_team_by_id : TestingScenario<LazyLoading>
+        {
+            [Test]
+            public void should_delete_team()
+            {
+                CommonDomainSpecs.when_trying_to_delete_team_by_id.should_delete_team();
+            }
+        }
+
         [TestFixture]
         [Category("Integration")]
         public class when_trying_to_get_one_employee_without_lazy_loading : TestingScenario<EagerLoading>

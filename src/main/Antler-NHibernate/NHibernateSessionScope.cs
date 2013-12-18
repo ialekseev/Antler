@@ -1,4 +1,5 @@
 ﻿using NHibernate;
+using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain;
 
 namespace Antler.NHibernate
@@ -41,9 +42,11 @@ namespace Antler.NHibernate
             return new NHibernateRepository<TEntity>(_session);
         }
 
-        public object InternalSession
+        public TInternal GetInternal<TInternal>() where TInternal : class
         {
-            get { return _session; }
+            var internalSession = _session as TInternal;
+            Assumes.True(internalSession != null, "Can't cast Internal Session to TInternal type");
+            return internalSession;
         }
 
         public void Dispose()
@@ -51,6 +54,6 @@ namespace Antler.NHibernate
             _transaction.Dispose();            
             if (_ownSession)                            
               _session.Dispose();                            
-        }
+        }        
     }
 }

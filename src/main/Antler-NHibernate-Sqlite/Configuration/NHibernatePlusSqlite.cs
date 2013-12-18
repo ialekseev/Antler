@@ -7,8 +7,15 @@ using SmartElk.Antler.Core.Domain.Configuration;
 
 namespace SmartElk.Antler.NHibernate.Sqlite.Configuration
 {
-    public class NHibernatePlusSqlite: NHibernateStorage
-    {                        
+    public class NHibernatePlusSqlite : NHibernateStorage<NHibernatePlusSqlite>
+    {        
+        protected string FileName { get; set; }
+
+        private bool IsFileStorage
+        {
+            get { return !string.IsNullOrEmpty(FileName); }
+        }
+
         protected NHibernatePlusSqlite()
         {            
         }
@@ -17,14 +24,24 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Configuration
         {
             get { return new NHibernatePlusSqlite();}                        
         }
-        
+
+        public NHibernatePlusSqlite AsInMemoryStorage()
+        {
+            FileName = null;
+            return this;
+        }
+
+        public NHibernatePlusSqlite AsInFileStorage(string fileName)
+        {
+            FileName = fileName;            
+            return this;
+        }
+
         public override void Configure(IDomainConfigurator configurator)
         {
             global::NHibernate.Cfg.Configuration configuration = null;
             var sessionFactory = Fluently.Configure()
-                .Database(SQLiteConfiguration
-                            .Standard.InMemory
-                )
+                .Database(IsFileStorage ? SQLiteConfiguration.Standard.UsingFile(FileName) : SQLiteConfiguration.Standard.InMemory())
                 .Mappings(x => x.FluentMappings.AddFromAssembly(AssemblyWithMappings)).
                 ExposeConfiguration(x =>
                 {
@@ -38,6 +55,6 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Configuration
             LatestConfigurationResult = new ConfigurationResult(sessionFactory, configuration);
         }
         
-        private static ConfigurationResult LatestConfigurationResult { get; set; }
+        private static ConfigurationResult LatestConfigurationResult { get; set; }        
     }
 }
