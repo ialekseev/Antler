@@ -42,6 +42,5 @@ configurator.UseWindsorContainer().UseStorage(EntityFrameworkPlusSqlCe.Use.WithC
                                                                       .WithMappings(Assembly.GetExecutingAssembly()));
 </pre>
 
-
 Largely based on the great NoSQL framework https://github.com/Kostassoid/Anodyne.
 
