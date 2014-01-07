@@ -1,11 +1,11 @@
 ﻿@model IList<Blog.Service.Dto.PostDto>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Blog posts";
 }
 
-<h2>Home</h2>
-
+<h2>Blog posts</h2>
+<hr />
 @foreach (var post in Model)
 {
     <div>
@@ -13,6 +13,7 @@
     </div>
 }
 <br/>
+<hr />
 <div>
     <b><a href="@Url.Action("New", "Post")">create new post</a></b>
 </div>

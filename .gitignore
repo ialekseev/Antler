@@ -39,3 +39,4 @@ output
 tmp
 docs/_build/*
 *.nupkg
+*.sdf
