@@ -121,6 +121,10 @@
       <Project>{91A50383-D6EB-4303-91E8-BD3634E20CAB}</Project>
       <Name>Antler-Windsor</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Antler-Specs-Shared-EntityFramework\Antler-Specs-Shared-EntityFramework.csproj">
+      <Project>{E8EEAF94-7FB9-458C-8298-74F2AFFF8F4D}</Project>
+      <Name>Antler-Specs-Shared-EntityFramework</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="x64\SQLite.Interop.dll">

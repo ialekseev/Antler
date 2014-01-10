@@ -1,8 +1,9 @@
 ﻿using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
+using SmartElk.Antler.EntityFramework;
 
-namespace SmartElk.Antler.EntityFramework.SqlCe.Specs.Configuration
+namespace SmartElk.Antler.Specs.Shared.EntityFramework.Configuration
 {
     public static class ConfigurationEx
     {

@@ -32,6 +32,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4D81FA
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-EntityFramework-Specs", "specs\Antler-EntityFramework-Specs\Antler-EntityFramework-Specs.csproj", "{2FC7F493-3B9C-4BF7-91FE-2F0D2EBABBB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Specs-Shared-EntityFramework", "specs\Antler-Specs-Shared-EntityFramework\Antler-Specs-Shared-EntityFramework.csproj", "{E8EEAF94-7FB9-458C-8298-74F2AFFF8F4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +90,14 @@ Global
 		{61E50BED-1EA6-48C6-BEE9-E4471AEE4635}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61E50BED-1EA6-48C6-BEE9-E4471AEE4635}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61E50BED-1EA6-48C6-BEE9-E4471AEE4635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FC7F493-3B9C-4BF7-91FE-2F0D2EBABBB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FC7F493-3B9C-4BF7-91FE-2F0D2EBABBB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FC7F493-3B9C-4BF7-91FE-2F0D2EBABBB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FC7F493-3B9C-4BF7-91FE-2F0D2EBABBB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8EEAF94-7FB9-458C-8298-74F2AFFF8F4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8EEAF94-7FB9-458C-8298-74F2AFFF8F4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8EEAF94-7FB9-458C-8298-74F2AFFF8F4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8EEAF94-7FB9-458C-8298-74F2AFFF8F4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,5 +109,7 @@ Global
 		{9C008F64-DBBD-4135-A5C8-1249D5A603F1} = {0BA7638D-2B16-4E72-AD94-EA2669BA246C}
 		{C9221BB3-3490-462C-9E78-23DA1B847158} = {0BA7638D-2B16-4E72-AD94-EA2669BA246C}
 		{25C258C8-09CF-4CC9-A555-600EEED8EEBB} = {0BA7638D-2B16-4E72-AD94-EA2669BA246C}
+		{2FC7F493-3B9C-4BF7-91FE-2F0D2EBABBB7} = {0BA7638D-2B16-4E72-AD94-EA2669BA246C}
+		{E8EEAF94-7FB9-458C-8298-74F2AFFF8F4D} = {0BA7638D-2B16-4E72-AD94-EA2669BA246C}
 	EndGlobalSection
 EndGlobal
