@@ -2,7 +2,7 @@
 using System.Data.Entity.ModelConfiguration;
 using SmartElk.Antler.Specs.Shared.Entities;
 
-namespace SmartElk.Antler.EntityFramework.SqlCe.Specs.Mappings
+namespace SmartElk.Antler.Specs.Shared.EntityFramework.Mappings
 {
     public class TeamMap : EntityTypeConfiguration<Team>
     {

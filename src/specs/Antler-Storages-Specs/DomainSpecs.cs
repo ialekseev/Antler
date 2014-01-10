@@ -9,13 +9,12 @@ using SmartElk.Antler.Core.Common.Reflection;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.SqlCe.Configuration;
-using SmartElk.Antler.EntityFramework.SqlCe.Specs.Configuration;
-using SmartElk.Antler.EntityFramework.SqlCe.Specs.Mappings;
 using SmartElk.Antler.NHibernate.Sqlite.Configuration;
 using SmartElk.Antler.NHibernate.Sqlite.Specs.Configuration;
+using SmartElk.Antler.NHibernate.Sqlite.Specs.Mappings;
 using SmartElk.Antler.Specs.Shared.Entities;
+using SmartElk.Antler.Specs.Shared.EntityFramework.Configuration;
 using SmartElk.Antler.Windsor;
-
 
 namespace SmartElk.Antler.Storages.Specs
 {
@@ -70,8 +69,8 @@ namespace SmartElk.Antler.Storages.Specs
             public void SetUp()
             {
                 Configurator = new AntlerConfigurator();
-                Configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlite.Use.WithMappings(From.AssemblyWithType<NHibernate.Sqlite.Specs.Mappings.CountryMap>().First())).
-                                                   UseStorageNamed(EntityFrameworkPlusSqlCe.Use.WithConnectionString("Data Source=TestDB.sdf").WithMappings(From.AssemblyWithType<CountryMap>().First()), "EF");
+                Configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlite.Use.WithMappings(From.AssemblyWithType<CountryMap>().First())).
+                                                   UseStorageNamed(EntityFrameworkPlusSqlCe.Use.WithConnectionString("Data Source=TestDB.sdf").WithMappings(From.AssemblyWithType<Antler.Specs.Shared.EntityFramework.Mappings.CountryMap>().First()), "EF");
                 
                 Configurator.RecreateEntityFrameworkDatabase("EF");
 
