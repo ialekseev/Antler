@@ -1,6 +1,6 @@
 @echo off
 set path=%path%;C:/Windows/Microsoft.NET/Framework/v4.0.30319;
-set version=1.8
+set version=1.10
 set skipTests=false
 set skipPublishing=false
 
@@ -27,11 +27,13 @@ echo Copying assemblies...
 if exist core\output rmdir /s /q core\output
 if exist nh-sqlite\output rmdir /s /q nh-sqlite\output
 if exist ef-sqlce\output rmdir /s /q ef-sqlce\output
+if exist ef-sqlserver\output rmdir /s /q ef-sqlserver\output
 if exist windsor\output rmdir /s /q windsor\output
 
 mkdir core\output\lib\net40
 mkdir nh-sqlite\output\lib\net40
 mkdir ef-sqlce\output\lib\net40
+mkdir ef-sqlserver\output\lib\net40
 mkdir windsor\output\lib\net40
 
 ::Core
@@ -44,6 +46,9 @@ copy ..\src\main\Antler-NHibernate-Sqlite\bin\Release\Antler.NHibernate.Sqlite.*
 ::EntityFramework + SqlCe adapter
 copy ..\src\main\Antler-EntityFramework\bin\Release\Antler.EntityFramework.* ef-sqlce\output\lib\net40
 copy ..\src\main\Antler-EntityFramework-SqlCe\bin\Release\Antler.EntityFramework.SqlCe.* ef-sqlce\output\lib\net40
+
+::EntityFramework + SqlServer adapter
+copy ..\src\main\Antler-EntityFramework\bin\Release\Antler.EntityFramework.* ef-sqlserver\output\lib\net40
 
 ::Windsor adapter
 copy ..\src\main\Antler-Windsor\bin\Release\Antler.Windsor.* windsor\output\lib\net40
@@ -63,6 +68,10 @@ copy ef-sqlce\Antler.EntityFramework.SqlCe.dll.nuspec ef-sqlce\output
 ..\src\.nuget\Nuget.exe pack ef-sqlce\output\Antler.EntityFramework.SqlCe.dll.nuspec -properties version=%version%
 move Antler.EntityFramework.SqlCe*.nupkg ef-sqlce\output
 
+copy ef-sqlserver\Antler.EntityFramework.dll.nuspec ef-sqlserver\output
+..\src\.nuget\Nuget.exe pack ef-sqlserver\output\Antler.EntityFramework.dll.nuspec -properties version=%version%
+move Antler.EntityFramework*.nupkg ef-sqlserver\output
+
 copy windsor\Antler.Windsor.dll.nuspec windsor\output
 ..\src\.nuget\Nuget.exe pack windsor\output\Antler.Windsor.dll.nuspec -properties version=%version%
 move Antler.Windsor*.nupkg windsor\output
@@ -73,6 +82,7 @@ echo Publishing NuGet packages...
 ..\src\.nuget\Nuget.exe push core\output\Antler.Core.%version%.nupkg
 ..\src\.nuget\Nuget.exe push windsor\output\Antler.Windsor.%version%.nupkg
 ..\src\.nuget\Nuget.exe push ef-sqlce\output\Antler.EntityFramework.SqlCe.%version%.nupkg
+..\src\.nuget\Nuget.exe push ef-sqlserver\output\Antler.EntityFramework.SqlServer.%version%.nupkg
 ::++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 : end
 

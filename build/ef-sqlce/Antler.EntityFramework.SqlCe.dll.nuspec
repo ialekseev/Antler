@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/SmartElk/Antler</projectUrl>
 	<description>EntityFramework + SqlCe adapter for Antler framework</description>
     <releaseNotes>Beware: Project is still under construction</releaseNotes>
-    <copyright>Copyright 2013</copyright>
+    <copyright>Copyright 2014</copyright>
     <tags>Antler, EntityFramework, Sql Server Compact</tags>    
 	<dependencies>
       <dependency id="Antler.Core" version="" />
