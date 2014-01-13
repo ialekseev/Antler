@@ -5,18 +5,18 @@ using NUnit.Framework;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Common.Reflection;
 using SmartElk.Antler.Core.Domain.Configuration;
-using SmartElk.Antler.EntityFramework.SqlCe.Configuration;
+using SmartElk.Antler.EntityFramework.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
 using SmartElk.Antler.Specs.Shared.EntityFramework.Configuration;
 using SmartElk.Antler.Specs.Shared.EntityFramework.Mappings;
 using SmartElk.Antler.Windsor;
 
-namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
-{
+namespace Antler.EntityFramework.Specs
+{    
     public class DomainSpecs
     {                                                        
         [TestFixture]
-        [Category("Integration")]
+        [Category("Integration")]        
         public class when_trying_to_get_one_employee : TestingScenario<LazyLoading>
         {
             [Test]
@@ -27,7 +27,7 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
         }
 
         [TestFixture]
-        [Category("Integration")]
+        [Category("Integration")]        
         public class when_trying_to_get_all_teams : TestingScenario<LazyLoading>
         {
             [Test]
@@ -38,7 +38,7 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
         }
 
         [TestFixture]
-        [Category("Integration")]
+        [Category("Integration")]        
         public class when_trying_to_get_all_employees : TestingScenario<LazyLoading>
         {
             [Test]
@@ -49,7 +49,7 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
         }
 
         [TestFixture]
-        [Category("Integration")]
+        [Category("Integration")]        
         public class when_trying_to_find_employee_by_name : TestingScenario<LazyLoading>
         {
             [Test]
@@ -60,7 +60,7 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
         }
 
         [TestFixture]
-        [Category("Integration")]
+        [Category("Integration")]        
         public class when_trying_to_modify_employees_teams : TestingScenario<LazyLoading>
         {
             [Test]
@@ -71,7 +71,7 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
         }
 
         [TestFixture]
-        [Category("Integration")]
+        [Category("Integration")]        
         public class when_trying_to_find_team_by_country_name : TestingScenario<LazyLoading>
         {
             [Test]
@@ -82,7 +82,7 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
         }
 
         [TestFixture]
-        [Category("Integration")]
+        [Category("Integration")]        
         public class when_trying_to_delete_team_by_id : TestingScenario<LazyLoading>
         {
             [Test]
@@ -93,27 +93,26 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
         }
 
         [TestFixture]
-        [Category("Integration")]
+        [Category("Integration")]        
         public class when_trying_to_get_one_employee_without_lazy_loading : TestingScenario<EagerLoading>
         {
             [Test]
             public static void should_return_employee()
             {
-                Antler.Specs.Shared.EntityFramework.CommonSpecs.CommonDomainSpecs.when_trying_to_get_one_employee_without_lazy_loading .should_return_employee();
+                SmartElk.Antler.Specs.Shared.EntityFramework.CommonSpecs.CommonDomainSpecs.when_trying_to_get_one_employee_without_lazy_loading.should_return_employee();
             }
         }
 
         [TestFixture]
-        [Category("Integration")]
+        [Category("Integration")]        
         public class when_trying_to_find_team_by_country_name_without_lazy_loading : TestingScenario<EagerLoading>
         {
             [Test]
             public void should_return_country()
             {
-                Antler.Specs.Shared.EntityFramework.CommonSpecs.CommonDomainSpecs.when_trying_to_find_team_by_country_name_without_lazy_loading.should_return_country();
+                SmartElk.Antler.Specs.Shared.EntityFramework.CommonSpecs.CommonDomainSpecs.when_trying_to_find_team_by_country_name_without_lazy_loading.should_return_country();
             }
         }
-        
 
         #region Configuration
         public class LazyLoading { }
@@ -127,17 +126,17 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
             {
                 Configurator = new AntlerConfigurator();
 
-                const string connectionString = "Data Source=TestDB.sdf";
+                const string connectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True";
                 var assemblyWithMappings = From.AssemblyWithType<CountryMap>().First();
                 Configurator.UseWindsorContainer()
-                            .UseStorage(typeof (T) == typeof (LazyLoading)
-                                            ? EntityFrameworkPlusSqlCe.Use.WithConnectionString(connectionString)
+                            .UseStorage(typeof(T) == typeof(LazyLoading)
+                                            ? EntityFrameworkStorage.Use.WithConnectionString(connectionString)
                                                                       .WithMappings(assemblyWithMappings)
-                                            : EntityFrameworkPlusSqlCe.Use.WithoutLazyLoading()
+                                            : EntityFrameworkStorage.Use.WithoutLazyLoading()
                                                                       .WithConnectionString(connectionString)
                                                                       .WithMappings(assemblyWithMappings));
 
-                Configurator.RecreateEntityFrameworkDatabase();
+                Configurator.RecreateEntityFrameworkDatabase();                                
             }
 
             [TearDown]

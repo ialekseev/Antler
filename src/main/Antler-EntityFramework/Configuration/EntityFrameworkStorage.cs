@@ -20,9 +20,9 @@ namespace SmartElk.Antler.EntityFramework.Configuration
             _enableLazyLoading = true;
         }
 
-        public static EntityFrameworkStorage Use()
+        public static EntityFrameworkStorage Use
         {
-            return new EntityFrameworkStorage();            
+            get { return new EntityFrameworkStorage();}            
         }
 
         public EntityFrameworkStorage WithConnectionString(string connectionString)
