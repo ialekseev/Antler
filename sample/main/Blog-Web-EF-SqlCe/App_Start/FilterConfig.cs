@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Blog.Web.App_Start
+namespace Blog.Web.EF.SqlCe.App_Start
 {
     public class FilterConfig
     {

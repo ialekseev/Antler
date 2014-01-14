@@ -2,14 +2,14 @@
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Blog.Web.App_Start;
-using Blog.Web.Code;
+using Blog.Web.Common;
+using Blog.Web.EF.SqlCe.App_Start;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.SqlCe.Configuration;
 using SmartElk.Antler.Windsor;
 
-namespace Blog.Web
+namespace Blog.Web.EF.SqlCe
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
@@ -19,6 +19,9 @@ namespace Blog.Web
 
         protected void Application_Start()
         {
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new BlogViewEngine());
+
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
@@ -30,7 +33,7 @@ namespace Blog.Web
                               .UseStorage(EntityFrameworkPlusSqlCe.Use.WithConnectionString("Data Source=|DataDirectory|\\BlogDB.sdf")
                                                                   .WithMappings(Assembly.Load("Blog-Mappings-EF"))).CreateInitialData();
         }
-
+        
         protected void Application_End()
         {
             if (AntlerConfigurator != null)

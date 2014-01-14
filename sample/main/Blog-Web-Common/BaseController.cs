@@ -3,7 +3,7 @@ using Blog.Service;
 using Blog.Service.Contracts;
 using Blog.Service.Dto;
 
-namespace Blog.Web.Code
+namespace Blog.Web.Common
 {
     public abstract class BaseController : Controller
     {

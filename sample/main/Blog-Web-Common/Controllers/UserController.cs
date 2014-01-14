@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
-using Blog.Web.Code;
 
-namespace Blog.Web.Controllers
+namespace Blog.Web.Common.Controllers
 {
     public class UserController : BaseController
     {
