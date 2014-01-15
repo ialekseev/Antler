@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Blog.Web.App_Start
+namespace Blog.Web.EF.SqlCe.App_Start
 {
     public class RouteConfig
     {
@@ -12,6 +12,7 @@ namespace Blog.Web.App_Start
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
+                namespaces: new[] { "Blog.Web.Common" },
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }

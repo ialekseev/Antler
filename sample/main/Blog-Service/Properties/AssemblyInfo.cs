@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SmartElk")]
 [assembly: AssemblyProduct("Blog-Service")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCopyright("SmartElk")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

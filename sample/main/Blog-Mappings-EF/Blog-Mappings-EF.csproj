@@ -33,17 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antler.Core, Version=1.0.5099.21595, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.Core, Version=1.0.5126.28696, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.Core.1.8\lib\net40\Antler.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Antler.EntityFramework, Version=1.0.5099.21599, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.EntityFramework.SqlCe.1.8\lib\net40\Antler.EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="Antler.EntityFramework.SqlCe, Version=1.0.5099.21599, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.EntityFramework.SqlCe.1.8\lib\net40\Antler.EntityFramework.SqlCe.dll</HintPath>
+      <HintPath>..\..\packages\Antler.Core.1.10\lib\net40\Antler.Core.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\..\packages\EntityFramework.6.0.2\lib\net40\EntityFramework.dll</HintPath>

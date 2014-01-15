@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
 
-namespace Blog.Web.App_Start
+namespace Blog.Web.EF.SqlCe.App_Start
 {
     public static class WebApiConfig
     {

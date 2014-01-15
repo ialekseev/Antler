@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/SmartElk/Antler</projectUrl>
 	<description>Windsor adapter for Antler framework</description>
     <releaseNotes>Beware: Project is still under construction</releaseNotes>
-    <copyright>Copyright 2013</copyright>
+    <copyright>Copyright 2014</copyright>
     <tags>Antler, Castle Windsor, IoC</tags> 
 	<dependencies>
       <dependency id="Castle.Core" version="3.2.1" />

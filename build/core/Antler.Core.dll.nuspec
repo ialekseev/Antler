@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/SmartElk/Antler</projectUrl>
     <description>Antler is a pluggable framework to work with different databases(SQL CE, Sqlite, SqlExpress, SqlServer, Oracle etc.) and different ORMs(NHibernate, EntityFramework Code First) using the same syntax. Core library.</description>
     <releaseNotes>Beware: Project is still under construction</releaseNotes>
-    <copyright>Copyright 2013</copyright>
+    <copyright>Copyright 2014</copyright>
     <tags>Antler</tags>    
   </metadata>
 </package>

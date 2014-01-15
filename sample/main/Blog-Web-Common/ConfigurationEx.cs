@@ -3,7 +3,7 @@ using Blog.Service;
 using Blog.Service.Dto;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 
-namespace Blog.Web.Code
+namespace Blog.Web.Common
 {
     public static class ConfigurationEx
     {

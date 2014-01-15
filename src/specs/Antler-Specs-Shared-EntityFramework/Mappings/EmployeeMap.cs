@@ -7,7 +7,7 @@ namespace SmartElk.Antler.Specs.Shared.EntityFramework.Mappings
     {
         public EmployeeMap()
         {
-            ToTable("EmployeeTable");
+            ToTable("EMPLOYEE");
 
             HasKey(c => c.Id).Property(c => c.Id).HasColumnName("GPIN");
 
