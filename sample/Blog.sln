@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mappings", "Mappings", "{02
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog-Web-Common", "main\Blog-Web-Common\Blog-Web-Common.csproj", "{257561C2-E0D9-416B-8774-E5960F9BE055}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog-Web-EF-SqlServer", "main\Blog-Web-EF-SqlServer\Blog-Web-EF-SqlServer.csproj", "{3671FCB8-07D1-40BF-A060-F121DCF60E5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{257561C2-E0D9-416B-8774-E5960F9BE055}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{257561C2-E0D9-416B-8774-E5960F9BE055}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{257561C2-E0D9-416B-8774-E5960F9BE055}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3671FCB8-07D1-40BF-A060-F121DCF60E5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3671FCB8-07D1-40BF-A060-F121DCF60E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3671FCB8-07D1-40BF-A060-F121DCF60E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3671FCB8-07D1-40BF-A060-F121DCF60E5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
