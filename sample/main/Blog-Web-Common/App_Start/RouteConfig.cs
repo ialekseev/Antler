@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Blog.Web.EF.SqlCe.App_Start
+namespace Blog.Web.Common.App_Start
 {
     public class RouteConfig
     {

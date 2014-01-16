@@ -3,7 +3,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Blog.Web.Common;
-using Blog.Web.EF.SqlCe.App_Start;
+using Blog.Web.Common.App_Start;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.SqlCe.Configuration;
