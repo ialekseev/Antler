@@ -38,7 +38,7 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Configuration
         }
 
         public override void Configure(IDomainConfigurator configurator)
-        {
+        {            
             global::NHibernate.Cfg.Configuration configuration = null;
             var sessionFactory = Fluently.Configure()
                 .Database(IsFileStorage ? SQLiteConfiguration.Standard.UsingFile(FileName) : SQLiteConfiguration.Standard.InMemory())

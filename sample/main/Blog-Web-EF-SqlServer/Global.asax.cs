@@ -4,11 +4,11 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Blog.Web.Common;
-using Blog.Web.Common.App_Start;
+using Blog.Web.Common.AppStart;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Domain.Configuration;
-using SmartElk.Antler.EntityFramework.Configuration;
 using SmartElk.Antler.EntityFramework.Internal;
+using SmartElk.Antler.EntityFramework.SqlServer.Configuration;
 using SmartElk.Antler.Windsor;
 
 namespace Blog.Web.EF.SqlServer
@@ -32,8 +32,8 @@ namespace Blog.Web.EF.SqlServer
             
             AntlerConfigurator = new AntlerConfigurator();
             AntlerConfigurator.UseWindsorContainer()
-                              .UseStorage(EntityFrameworkStorage.Use.WithConnectionString("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True").WithLazyLoading().WithDatabaseInitializer(new DropCreateDatabaseIfModelChanges<DataContext>())
-                                                                  .WithMappings(Assembly.Load("Blog-Mappings-EF")));
+                              .UseStorage(EntityFrameworkPlusSqlServer.Use.WithConnectionString("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True").WithLazyLoading().WithDatabaseInitializer(new DropCreateDatabaseIfModelChanges<DataContext>())
+                                                                  .WithMappings(Assembly.Load("Blog.Mappings.EF")));
                         
             AntlerConfigurator.CreateInitialData();            
         }

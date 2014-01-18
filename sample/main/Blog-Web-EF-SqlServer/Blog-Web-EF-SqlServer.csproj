@@ -12,7 +12,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Blog.Web.EF.SqlServer</RootNamespace>
-    <AssemblyName>Blog-Web-EF-SqlServer</AssemblyName>
+    <AssemblyName>Blog.Web.EF.SqlServer</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
@@ -37,16 +37,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antler.Core, Version=1.0.5126.28696, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.Core, Version=1.0.5131.21055, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.Core.1.10\lib\net40\Antler.Core.dll</HintPath>
+      <HintPath>..\..\packages\Antler.Core.1.11\lib\net40\Antler.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Antler.EntityFramework, Version=1.0.5126.28700, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Antler.EntityFramework.SqlServer.1.10\lib\net40\Antler.EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="Antler.Windsor, Version=1.0.5126.28698, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.EntityFramework, Version=1.0.5131.21059, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.Windsor.1.10\lib\net40\Antler.Windsor.dll</HintPath>
+      <HintPath>..\..\packages\Antler.EntityFramework.SqlServer.1.11\lib\net40\Antler.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Antler.EntityFramework.SqlServer">
+      <HintPath>..\..\packages\Antler.EntityFramework.SqlServer.1.11\lib\net40\Antler.EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Antler.Windsor, Version=1.0.5131.21057, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Antler.Windsor.1.11\lib\net40\Antler.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core">
       <HintPath>..\..\packages\Castle.Core.3.2.2\lib\net40-client\Castle.Core.dll</HintPath>

@@ -3,7 +3,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Blog.Web.Common;
-using Blog.Web.Common.App_Start;
+using Blog.Web.Common.AppStart;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.SqlCe.Configuration;
@@ -31,7 +31,7 @@ namespace Blog.Web.EF.SqlCe
             AntlerConfigurator = new AntlerConfigurator();
             AntlerConfigurator.UseWindsorContainer()
                               .UseStorage(EntityFrameworkPlusSqlCe.Use.WithConnectionString("Data Source=|DataDirectory|\\BlogDB.sdf")
-                                                                  .WithMappings(Assembly.Load("Blog-Mappings-EF"))).CreateInitialData();
+                                                                  .WithMappings(Assembly.Load("Blog.Mappings.EF"))).CreateInitialData();
         }
         
         protected void Application_End()

@@ -1,6 +1,6 @@
 @echo off
 set path=%path%;C:/Windows/Microsoft.NET/Framework/v4.0.30319;
-set version=1.10
+set version=1.11
 set skipTests=false
 set skipPublishing=false
 
@@ -49,6 +49,7 @@ copy ..\src\main\Antler-EntityFramework-SqlCe\bin\Release\Antler.EntityFramework
 
 ::EntityFramework + SqlServer adapter
 copy ..\src\main\Antler-EntityFramework\bin\Release\Antler.EntityFramework.* ef-sqlserver\output\lib\net40
+copy ..\src\main\Antler-EntityFramework-SqlServer\bin\Release\Antler.EntityFramework.SqlServer.* ef-sqlserver\output\lib\net40
 
 ::Windsor adapter
 copy ..\src\main\Antler-Windsor\bin\Release\Antler.Windsor.* windsor\output\lib\net40
@@ -68,9 +69,9 @@ copy ef-sqlce\Antler.EntityFramework.SqlCe.dll.nuspec ef-sqlce\output
 ..\src\.nuget\Nuget.exe pack ef-sqlce\output\Antler.EntityFramework.SqlCe.dll.nuspec -properties version=%version%
 move Antler.EntityFramework.SqlCe*.nupkg ef-sqlce\output
 
-copy ef-sqlserver\Antler.EntityFramework.dll.nuspec ef-sqlserver\output
-..\src\.nuget\Nuget.exe pack ef-sqlserver\output\Antler.EntityFramework.dll.nuspec -properties version=%version%
-move Antler.EntityFramework*.nupkg ef-sqlserver\output
+copy ef-sqlserver\Antler.EntityFramework.SqlServer.dll.nuspec ef-sqlserver\output
+..\src\.nuget\Nuget.exe pack ef-sqlserver\output\Antler.EntityFramework.SqlServer.dll.nuspec -properties version=%version%
+move Antler.EntityFramework.SqlServer*.nupkg ef-sqlserver\output
 
 copy windsor\Antler.Windsor.dll.nuspec windsor\output
 ..\src\.nuget\Nuget.exe pack windsor\output\Antler.Windsor.dll.nuspec -properties version=%version%
