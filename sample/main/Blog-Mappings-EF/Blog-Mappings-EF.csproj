@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Blog.Mappings.EF</RootNamespace>
-    <AssemblyName>Blog-Mappings-EF</AssemblyName>
+    <AssemblyName>Blog.Mappings.EF</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -33,9 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antler.Core, Version=1.0.5126.28696, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.Core, Version=1.0.5131.21055, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.Core.1.10\lib\net40\Antler.Core.dll</HintPath>
+      <HintPath>..\..\packages\Antler.Core.1.11\lib\net40\Antler.Core.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\..\packages\EntityFramework.6.0.2\lib\net40\EntityFramework.dll</HintPath>

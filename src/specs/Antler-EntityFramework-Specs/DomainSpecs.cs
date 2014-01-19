@@ -5,7 +5,7 @@ using NUnit.Framework;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Common.Reflection;
 using SmartElk.Antler.Core.Domain.Configuration;
-using SmartElk.Antler.EntityFramework.Configuration;
+using SmartElk.Antler.EntityFramework.SqlServer.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
 using SmartElk.Antler.Specs.Shared.EntityFramework.Configuration;
 using SmartElk.Antler.Specs.Shared.EntityFramework.Mappings;
@@ -130,9 +130,9 @@ namespace Antler.EntityFramework.Specs
                 var assemblyWithMappings = From.AssemblyWithType<CountryMap>().First();
                 Configurator.UseWindsorContainer()
                             .UseStorage(typeof(T) == typeof(LazyLoading)
-                                            ? EntityFrameworkStorage.Use.WithConnectionString(connectionString)
+                                            ? EntityFrameworkPlusSqlServer.Use.WithConnectionString(connectionString)
                                                                       .WithMappings(assemblyWithMappings)
-                                            : EntityFrameworkStorage.Use.WithoutLazyLoading()
+                                            : EntityFrameworkPlusSqlServer.Use.WithoutLazyLoading()
                                                                       .WithConnectionString(connectionString)
                                                                       .WithMappings(assemblyWithMappings));
 

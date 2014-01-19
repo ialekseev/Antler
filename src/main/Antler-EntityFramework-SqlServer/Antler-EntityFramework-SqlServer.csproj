@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{83AC0EB3-77B8-417F-9F99-7F4A05F1832A}</ProjectGuid>
+    <ProjectGuid>{B6A4097F-D939-449E-B61C-526949185B59}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Blog.Service</RootNamespace>
-    <AssemblyName>Blog.Service</AssemblyName>
+    <RootNamespace>SmartElk.Antler.EntityFramework.SqlServer</RootNamespace>
+    <AssemblyName>Antler.EntityFramework.SqlServer</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -33,11 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antler.Core, Version=1.0.5131.21055, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.Core.1.11\lib\net40\Antler.Core.dll</HintPath>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.6.0.2\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.0.2\lib\net40\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,22 +49,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlogService.cs" />
-    <Compile Include="Contracts\IBlogService.cs" />
-    <Compile Include="Dto\SavePostDto.cs" />
-    <Compile Include="Dto\CreatedUserDto.cs" />
-    <Compile Include="Dto\PostDto.cs" />
-    <Compile Include="Dto\UserDto.cs" />
-    <Compile Include="Mapper.cs" />
+    <Compile Include="Configuration\EntityFrameworkPlusSqlServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Blog-Domain\Blog-Domain.csproj">
-      <Project>{C8004B90-6E29-4F42-9D71-5D23990CF1D8}</Project>
-      <Name>Blog-Domain</Name>
+    <ProjectReference Include="..\Antler-Core\Antler-Core.csproj">
+      <Project>{61E50BED-1EA6-48C6-BEE9-E4471AEE4635}</Project>
+      <Name>Antler-Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Antler-EntityFramework\Antler-EntityFramework.csproj">
+      <Project>{34FCF9A5-7B9F-4A9A-A8B0-4FDA717744BD}</Project>
+      <Name>Antler-EntityFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

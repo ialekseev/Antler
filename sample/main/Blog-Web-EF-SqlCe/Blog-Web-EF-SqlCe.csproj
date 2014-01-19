@@ -12,7 +12,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Blog.Web.EF.SqlCe</RootNamespace>
-    <AssemblyName>Blog-Web-EF-SqlCe</AssemblyName>
+    <AssemblyName>Blog.Web.EF.SqlCe</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
@@ -37,21 +37,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antler.Core, Version=1.0.5126.28696, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.Core, Version=1.0.5131.21055, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.Core.1.10\lib\net40\Antler.Core.dll</HintPath>
+      <HintPath>..\..\packages\Antler.Core.1.11\lib\net40\Antler.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Antler.EntityFramework, Version=1.0.5126.28700, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.EntityFramework, Version=1.0.5131.21059, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.EntityFramework.SqlCe.1.10\lib\net40\Antler.EntityFramework.dll</HintPath>
+      <HintPath>..\..\packages\Antler.EntityFramework.SqlCe.1.11\lib\net40\Antler.EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Antler.EntityFramework.SqlCe, Version=1.0.5126.28701, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.EntityFramework.SqlCe, Version=1.0.5131.21060, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.EntityFramework.SqlCe.1.10\lib\net40\Antler.EntityFramework.SqlCe.dll</HintPath>
+      <HintPath>..\..\packages\Antler.EntityFramework.SqlCe.1.11\lib\net40\Antler.EntityFramework.SqlCe.dll</HintPath>
     </Reference>
-    <Reference Include="Antler.Windsor, Version=1.0.5126.28698, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.Windsor, Version=1.0.5131.21057, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.Windsor.1.10\lib\net40\Antler.Windsor.dll</HintPath>
+      <HintPath>..\..\packages\Antler.Windsor.1.11\lib\net40\Antler.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core">
       <HintPath>..\..\packages\Castle.Core.3.2.2\lib\net40-client\Castle.Core.dll</HintPath>
@@ -145,9 +145,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
