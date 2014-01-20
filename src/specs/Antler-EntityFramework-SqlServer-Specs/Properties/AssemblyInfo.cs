@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Antler-EntityFramework-Specs")]
+[assembly: AssemblyTitle("Antler-EntityFramework-SqlServer-Specs")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SmartElk")]
-[assembly: AssemblyProduct("Antler-EntityFramework-Specs")]
+[assembly: AssemblyProduct("Antler-EntityFramework-SqlServer-Specs")]
 [assembly: AssemblyCopyright("SmartElk")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
