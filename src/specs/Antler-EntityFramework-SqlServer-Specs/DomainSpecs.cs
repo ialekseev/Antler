@@ -11,7 +11,7 @@ using SmartElk.Antler.Specs.Shared.EntityFramework.Configuration;
 using SmartElk.Antler.Specs.Shared.EntityFramework.Mappings;
 using SmartElk.Antler.Windsor;
 
-namespace Antler.EntityFramework.Specs
+namespace Antler.EntityFramework.SqlServer.Specs
 {    
     public class DomainSpecs
     {                                                        
