@@ -52,7 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\ConfigurationResult.cs" />
     <Compile Include="Configuration\NHibernatePlusSqlite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

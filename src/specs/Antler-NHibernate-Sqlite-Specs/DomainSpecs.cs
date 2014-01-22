@@ -1,6 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
 
 using System.Reflection;
+using Antler.NHibernate.Configuration;
 using FluentAssertions;
 using NHibernate;
 using NUnit.Framework;
