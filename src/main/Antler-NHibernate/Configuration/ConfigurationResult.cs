@@ -1,6 +1,6 @@
 ﻿using NHibernate;
 
-namespace SmartElk.Antler.NHibernate.Sqlite.Configuration
+namespace Antler.NHibernate.Configuration
 {
     public class ConfigurationResult
     {
