@@ -1,22 +1,30 @@
-﻿using Antler.NHibernate;
+﻿using System;
+using Antler.NHibernate;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Common.Reflection;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
-using SmartElk.Antler.NHibernate.Sqlite.Configuration;
 
-namespace SmartElk.Antler.NHibernate.Sqlite.Specs.Configuration
+namespace SmartElk.Antler.Specs.Shared.NHibernate.Configuration
 {
     public static class ConfigurationEx
     {
-        public static ISession CreateNHibernateSession(this IAntlerConfigurator configurator, string storageName = null)
+        public static ISession CreateNHibernateSession(this IAntlerConfigurator configurator, Type storageType, string storageName = null)
         {
-            var nhConfigurationResult = typeof(NHibernatePlusSqlite).AsStaticMembersDynamicWrapper().LatestConfigurationResult;
+            var nhConfigurationResult = storageType.AsStaticMembersDynamicWrapper().LatestConfigurationResult;
 
             var session = nhConfigurationResult.SessionFactory.OpenSession();
-            new SchemaExport(nhConfigurationResult.Configuration).Execute(false, true, false, session.Connection, null);
+
+            //todo: How to actually create database here? Like in EF case
+            var schemaExport = new SchemaExport(nhConfigurationResult.Configuration);            
+            schemaExport.Drop(true, true);
+            schemaExport.Execute(false, true, false, session.Connection, null);            
+
+            //var schemaExport = new SchemaUpdate(nhConfigurationResult.Configuration);            
+            //schemaExport.Execute(false, true);
+
             var sessionScopeFactory = (ISessionScopeFactoryEx)configurator.Configuration.Container.GetWithNameOrDefault<ISessionScopeFactory>(storageName);
             sessionScopeFactory.SetSession(session);
 

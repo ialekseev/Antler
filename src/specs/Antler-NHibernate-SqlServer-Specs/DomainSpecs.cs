@@ -3,21 +3,17 @@
 using System.Linq;
 using System.Reflection;
 using Antler.NHibernate.Configuration;
-using FluentAssertions;
 using NHibernate;
 using NUnit.Framework;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Common.Reflection;
-using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
-using SmartElk.Antler.NHibernate.Sqlite.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
-using SmartElk.Antler.Specs.Shared.Entities;
 using SmartElk.Antler.Specs.Shared.NHibernate.Configuration;
 using SmartElk.Antler.Specs.Shared.NHibernate.Mappings;
 using SmartElk.Antler.Windsor;
 
-namespace SmartElk.Antler.NHibernate.Sqlite.Specs
+namespace SmartElk.Antler.NHibernate.SqlServer.Specs
 {
     public class DomainSpecs
     {                
@@ -108,7 +104,7 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
                 Antler.Specs.Shared.NHibernate.CommonSpecs.CommonDomainSpecs.when_trying_to_query_using_nhibernate_internal_session_directly.should_return_result();
             }
         }
-
+        
         #region Configuration
         public class TestingScenario
         {
@@ -118,11 +114,11 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
 
             [SetUp]
             public void SetUp()
-            {
+            {                
                 Configurator = new AntlerConfigurator();
-                Configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlite.Use.AsInMemoryStorage().WithMappings(From.AssemblyWithType<CountryMap>().First()));
+                Configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlServer.Use("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True").WithMappings(From.AssemblyWithType<CountryMap>().First()));
 
-                session = Configurator.CreateNHibernateSession(typeof(NHibernatePlusSqlite));
+                session = Configurator.CreateNHibernateSession(typeof(NHibernatePlusSqlServer));
             }
 
             [TearDown]
