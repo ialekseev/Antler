@@ -1,7 +1,7 @@
 ﻿using FluentNHibernate.Mapping;
 using SmartElk.Antler.Specs.Shared.Entities;
 
-namespace SmartElk.Antler.NHibernate.Sqlite.Specs.Mappings
+namespace SmartElk.Antler.Specs.Shared.NHibernate.Mappings
 {
     public class EmployeeMap : ClassMap<Employee>
     {

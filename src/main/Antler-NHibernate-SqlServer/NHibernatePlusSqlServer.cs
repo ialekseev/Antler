@@ -2,7 +2,6 @@
 using Antler.NHibernate.Configuration;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
 
@@ -11,14 +10,17 @@ namespace SmartElk.Antler.NHibernate.SqlServer
     public class NHibernatePlusSqlServer : NHibernateStorage<NHibernatePlusSqlServer>
     {                
         private string _connectionString;
-
-        protected NHibernatePlusSqlServer()
-        {            
+        private MsSqlConfiguration _msSqlConfiguration;
+        
+        protected NHibernatePlusSqlServer(string connectionString)
+        {
+            _connectionString = connectionString;
+            _msSqlConfiguration = MsSqlConfiguration.MsSql2008;
         }
 
-        public static NHibernatePlusSqlServer Use
+        public static NHibernatePlusSqlServer Use(string connectionString)
         {
-            get { return new NHibernatePlusSqlServer(); }                        
+            return new NHibernatePlusSqlServer(connectionString);                         
         }
 
         public NHibernatePlusSqlServer WithConnectionString(string connectionString)
@@ -27,13 +29,17 @@ namespace SmartElk.Antler.NHibernate.SqlServer
             return this;
         }
 
+        public NHibernatePlusSqlServer WithSqlConfiguration(MsSqlConfiguration msSqlConfiguration)
+        {
+            _msSqlConfiguration = msSqlConfiguration;
+            return this;
+        }
+
         public override void Configure(IDomainConfigurator configurator)
-        {            
-            Assumes.True(!string.IsNullOrEmpty(_connectionString), "Can't configure without provided connection string");
-            
+        {                                    
             global::NHibernate.Cfg.Configuration configuration = null;
             var sessionFactory = Fluently.Configure()
-                .Database(MsSqlConfiguration.MsSql2008.ConnectionString(_connectionString))
+                .Database(_msSqlConfiguration.ConnectionString(_connectionString))
                 .Mappings(x => x.FluentMappings.AddFromAssembly(AssemblyWithMappings)).
                 ExposeConfiguration(x =>
                 {
