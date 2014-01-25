@@ -7,18 +7,9 @@ namespace SmartElk.Antler.Core.Domain
     {        
         private readonly ISessionScope _sessionScope;
                                         
-        private static Func<ISessionScopeFactory> SessionScopeFactoryExtractor { get; set; }
-        public static void SetSessionScopeFactoryExtractor(Func<ISessionScopeFactory> extractor)
-        {
-            SessionScopeFactoryExtractor = extractor;
-        }
-
-        private static Func<string, ISessionScopeFactory> SessionScopeFactoryNamedExtractor { get; set; }
-        public static void SetSessionScopeFactoryNamedExtractor(Func<string, ISessionScopeFactory> extractor)
-        {
-            SessionScopeFactoryNamedExtractor = extractor;
-        }
-        
+        public static Func<ISessionScopeFactory> SessionScopeFactoryExtractor { get; set; }        
+        public static Func<string, ISessionScopeFactory> SessionScopeFactoryNamedExtractor { get; set; }
+                        
         private UnitOfWork()            
         {            
             Assumes.True(SessionScopeFactoryExtractor != null, "SessionScopeFactoryExtractor should be set before using UnitOfWork. Wrong configuration?");

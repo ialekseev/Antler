@@ -9,5 +9,11 @@ namespace SmartElk.Antler.Windsor
             ((IAntlerConfiguratorEx)nodeConfigurator).SetContainerAdapter(new WindsorContainerAdapter());
             return nodeConfigurator;
         }
+
+        public static IAntlerConfigurator UnUseWindsorContainer(this IAntlerConfigurator nodeConfigurator)
+        {
+            ((IAntlerConfiguratorEx)nodeConfigurator).UnSetContainerAdapter();
+            return nodeConfigurator;
+        }
     }
 }

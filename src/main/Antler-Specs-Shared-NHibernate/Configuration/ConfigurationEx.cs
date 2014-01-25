@@ -16,15 +16,11 @@ namespace SmartElk.Antler.Specs.Shared.NHibernate.Configuration
             var nhConfigurationResult = storageType.AsStaticMembersDynamicWrapper().LatestConfigurationResult;
 
             var session = nhConfigurationResult.SessionFactory.OpenSession();
-
-            //todo: How to actually create database here? Like in EF case
+            
             var schemaExport = new SchemaExport(nhConfigurationResult.Configuration);            
             schemaExport.Drop(true, true);
-            schemaExport.Execute(false, true, false, session.Connection, null);            
-
-            //var schemaExport = new SchemaUpdate(nhConfigurationResult.Configuration);            
-            //schemaExport.Execute(false, true);
-
+            schemaExport.Execute(false, true, false, session.Connection, null);
+            
             var sessionScopeFactory = (ISessionScopeFactoryEx)configurator.Configuration.Container.GetWithNameOrDefault<ISessionScopeFactory>(storageName);
             sessionScopeFactory.SetSession(session);
 

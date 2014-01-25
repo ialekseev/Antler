@@ -125,7 +125,7 @@ namespace SmartElk.Antler.NHibernate.SqlServer.Specs
             public void TearDown()
             {
                 Configurator.ResetNHibernateSession(session);
-                Configurator.Dispose();
+                Configurator.UnUseWindsorContainer().UnUseStorage().Dispose();
             }
         } 
         #endregion

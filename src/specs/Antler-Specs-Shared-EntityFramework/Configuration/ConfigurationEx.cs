@@ -7,8 +7,8 @@ namespace SmartElk.Antler.Specs.Shared.EntityFramework.Configuration
 {
     public static class ConfigurationEx
     {
-        public static void RecreateEntityFrameworkDatabase(this IAntlerConfigurator configurator, string storageName=null)
-        {
+        public static void ClearDatabase(this IAntlerConfigurator configurator, string storageName=null)
+        {            
             ((ISessionScopeFactoryEx)configurator.Configuration.Container.GetWithNameOrDefault<ISessionScopeFactory>(storageName)).CreateDataContext().Clear();
         }        
     }
