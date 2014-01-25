@@ -73,7 +73,7 @@ namespace SmartElk.Antler.Storages.Specs
                 Configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlite.Use.WithMappings(From.AssemblyWithType<CountryMap>().First())).
                                                    UseStorageNamed(EntityFrameworkPlusSqlCe.Use.WithConnectionString("Data Source=TestDB.sdf").WithMappings(From.AssemblyWithType<Antler.Specs.Shared.EntityFramework.Mappings.CountryMap>().First()), "EF");
                 
-                Configurator.RecreateEntityFrameworkDatabase("EF");
+                Configurator.ClearDatabase("EF");
 
                 nhSession = Configurator.CreateNHibernateSession(typeof(NHibernatePlusSqlite));
             }
@@ -82,7 +82,7 @@ namespace SmartElk.Antler.Storages.Specs
             public void TearDown()
             {
                 Configurator.ResetNHibernateSession(nhSession);
-                Configurator.Dispose();
+                Configurator.UnUseWindsorContainer().UnUseStorage().Dispose();                
             }
         } 
         #endregion

@@ -19,7 +19,7 @@ namespace SmartElk.Antler.Domain.Specs
                 SessionScope = A.Fake<ISessionScope>();
                 A.CallTo(() => SessionScopeFactory.Open()).Returns(SessionScope);
                 Func<ISessionScopeFactory> sessionScopeFactoryExtractor = () => SessionScopeFactory;
-                UnitOfWork.SetSessionScopeFactoryExtractor(sessionScopeFactoryExtractor);
+                UnitOfWork.SessionScopeFactoryExtractor = sessionScopeFactoryExtractor;
             }
         }
         
@@ -33,7 +33,7 @@ namespace SmartElk.Antler.Domain.Specs
                 SessionScope = A.Fake<ISessionScope>();
                 A.CallTo(() => SessionScopeFactory.Open()).Returns(SessionScope);
                 Func<string, ISessionScopeFactory> sessionScopeFactoryExtractor = name => (name=="SuperStorage" ? SessionScopeFactory: null);
-                UnitOfWork.SetSessionScopeFactoryNamedExtractor(sessionScopeFactoryExtractor);
+                UnitOfWork.SessionScopeFactoryNamedExtractor = sessionScopeFactoryExtractor;
             }
         }
         

@@ -46,7 +46,7 @@ namespace SmartElk.Antler.Domain.Specs
                 configurator.UseStorage(storage);
 
                 //assert
-                var property = typeof(UnitOfWork).GetProperty("SessionScopeFactoryExtractor", BindingFlags.NonPublic | BindingFlags.Static);
+                var property = typeof(UnitOfWork).GetProperty("SessionScopeFactoryExtractor", BindingFlags.Public | BindingFlags.Static);
                 var sessionScopeFactoryExtractor = (Func<ISessionScopeFactory>)property.GetValue(null, null);
                 var sessionScopeFactory = sessionScopeFactoryExtractor();
                 
@@ -76,7 +76,7 @@ namespace SmartElk.Antler.Domain.Specs
                 configurator.UseStorageNamed(storage, "SuperStorage");
 
                 //assert
-                var property = typeof(UnitOfWork).GetProperty("SessionScopeFactoryNamedExtractor", BindingFlags.NonPublic | BindingFlags.Static);
+                var property = typeof(UnitOfWork).GetProperty("SessionScopeFactoryNamedExtractor", BindingFlags.Public | BindingFlags.Static);
                 var sessionScopeFactoryExtractor = (Func<string, ISessionScopeFactory>)property.GetValue(null, null);
                 var sessionScopeFactory = sessionScopeFactoryExtractor("SuperStorage");
                 

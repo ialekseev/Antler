@@ -1,4 +1,5 @@
 ﻿using System;
+using SmartElk.Antler.Core.Common.CodeContracts;
 
 namespace SmartElk.Antler.Core.Abstractions.Configuration
 {
@@ -18,10 +19,18 @@ namespace SmartElk.Antler.Core.Abstractions.Configuration
 
         void IAntlerConfiguratorEx.SetContainerAdapter(IContainer container)
         {
+            Requires.NotNull(container, "container");
+            
             if (_configuration.Container != null)
                 throw new InvalidOperationException("Container adapter is already set to " + _configuration.Container.GetType().Name);
 
             _configuration.Container = container;
+        }
+
+        void IAntlerConfiguratorEx.UnSetContainerAdapter()
+        {            
+            _configuration.Container.Dispose();
+            _configuration.Container = null;
         }
 
         public void Dispose()

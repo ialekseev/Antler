@@ -137,13 +137,13 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
                                                                       .WithConnectionString(connectionString)
                                                                       .WithMappings(assemblyWithMappings));
 
-                Configurator.RecreateEntityFrameworkDatabase();
+                Configurator.ClearDatabase();
             }
 
             [TearDown]
             public void Dispose()
-            {
-                Configurator.Dispose();
+            {                
+                Configurator.UnUseWindsorContainer().UnUseStorage().Dispose();
             }
         } 
         #endregion

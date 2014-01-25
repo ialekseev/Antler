@@ -6,7 +6,8 @@
 
         public void Dispose()
         {
-            Container.Dispose();
+            if (Container != null)
+              Container.Dispose();            
         }
     }
 }

@@ -1,18 +1,14 @@
 ﻿// ReSharper disable InconsistentNaming
 
 using System.Linq;
-using System.Reflection;
 using Antler.NHibernate.Configuration;
-using FluentAssertions;
 using NHibernate;
 using NUnit.Framework;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Common.Reflection;
-using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.NHibernate.Sqlite.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
-using SmartElk.Antler.Specs.Shared.Entities;
 using SmartElk.Antler.Specs.Shared.NHibernate.Configuration;
 using SmartElk.Antler.Specs.Shared.NHibernate.Mappings;
 using SmartElk.Antler.Windsor;
@@ -129,7 +125,7 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
             public void TearDown()
             {
                 Configurator.ResetNHibernateSession(session);
-                Configurator.Dispose();
+                Configurator.UnUseWindsorContainer().UnUseStorage().Dispose();
             }
         } 
         #endregion

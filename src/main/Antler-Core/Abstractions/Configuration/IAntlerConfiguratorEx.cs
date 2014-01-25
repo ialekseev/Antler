@@ -3,6 +3,7 @@
     public interface IAntlerConfiguratorEx
     {
         void SetContainerAdapter(IContainer container);
+        void UnSetContainerAdapter();
     }
 
     public static class AntlerConfiguratorEx
