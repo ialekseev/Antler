@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationSpecs.cs" />
+    <Compile Include="Configuration\ConfigurationEx.cs" />
     <Compile Include="DomainSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -101,7 +102,7 @@
       <Project>{4A2FE4D5-9381-4695-A0D5-21787C903275}</Project>
       <Name>Antler-NHibernate</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\main\Antler-Specs-Shared-NHibernate\Antler-Specs-Shared-NHibernate.csproj">
+    <ProjectReference Include="..\Antler-Specs-Shared-NHibernate\Antler-Specs-Shared-NHibernate.csproj">
       <Project>{ED6504E9-077F-44EA-B144-FB8796151E46}</Project>
       <Name>Antler-Specs-Shared-NHibernate</Name>
     </ProjectReference>

@@ -126,7 +126,7 @@ namespace Antler.EntityFramework.SqlServer.Specs
             {
                 Configurator = new AntlerConfigurator();
 
-                const string connectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True";
+                const string connectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=AntlerTest;Integrated Security=True";
                 var assemblyWithMappings = From.AssemblyWithType<CountryMap>().First();
                 Configurator.UseWindsorContainer()
                             .UseStorage(typeof(T) == typeof(LazyLoading)

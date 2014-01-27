@@ -7,7 +7,7 @@ using SmartElk.Antler.Core.Common.Reflection;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
 
-namespace SmartElk.Antler.Specs.Shared.NHibernate.Configuration
+namespace SmartElk.Antler.NHibernate.Sqlite.Specs.Configuration
 {
     public static class ConfigurationEx
     {

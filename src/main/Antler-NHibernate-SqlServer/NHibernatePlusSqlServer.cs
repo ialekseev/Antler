@@ -2,6 +2,7 @@
 using Antler.NHibernate.Configuration;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using NHibernate.Tool.hbm2ddl;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
 
@@ -11,7 +12,9 @@ namespace SmartElk.Antler.NHibernate.SqlServer
     {                
         private string _connectionString;
         private MsSqlConfiguration _msSqlConfiguration;
-        
+        private bool _generateDatabase;
+        private bool _dropBeforeGeneration;
+
         protected NHibernatePlusSqlServer(string connectionString)
         {
             _connectionString = connectionString;
@@ -35,6 +38,13 @@ namespace SmartElk.Antler.NHibernate.SqlServer
             return this;
         }
 
+        public NHibernatePlusSqlServer GenerateDatabase(bool dropBeforeGeneration = false)
+        {
+            _generateDatabase = true;
+            _dropBeforeGeneration = dropBeforeGeneration;
+            return this;
+        }
+
         public override void Configure(IDomainConfigurator configurator)
         {                                    
             global::NHibernate.Cfg.Configuration configuration = null;
@@ -42,8 +52,17 @@ namespace SmartElk.Antler.NHibernate.SqlServer
                 .Database(_msSqlConfiguration.ConnectionString(_connectionString))
                 .Mappings(x => x.FluentMappings.AddFromAssembly(AssemblyWithMappings)).
                 ExposeConfiguration(x =>
-                {
-                    configuration = x;
+                    {
+                      if (_generateDatabase)
+                      {
+                          var export = new SchemaExport(x);
+                          if (_dropBeforeGeneration)
+                          {
+                              export.Drop(true, true);
+                          }
+                          export.Execute(false, true, false);  
+                      }                        
+                      configuration = x;
                 })
                 .BuildSessionFactory();
 

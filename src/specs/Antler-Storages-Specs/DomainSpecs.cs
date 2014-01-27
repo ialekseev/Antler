@@ -11,9 +11,9 @@ using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.SqlCe.Configuration;
 using SmartElk.Antler.NHibernate.Sqlite.Configuration;
+using SmartElk.Antler.NHibernate.Sqlite.Specs.Configuration;
 using SmartElk.Antler.Specs.Shared.Entities;
 using SmartElk.Antler.Specs.Shared.EntityFramework.Configuration;
-using SmartElk.Antler.Specs.Shared.NHibernate.Configuration;
 using SmartElk.Antler.Specs.Shared.NHibernate.Mappings;
 using SmartElk.Antler.Windsor;
 

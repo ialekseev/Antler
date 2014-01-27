@@ -10,7 +10,7 @@ namespace Blog.Mappings.EF
         {
             ToTable("USERS");
 
-            HasKey(c => c.Id).Property(c => c.Id).HasColumnName("POST_ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            HasKey(c => c.Id).Property(c => c.Id).HasColumnName("USER_ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(p => p.Name).HasColumnName("NAME");
             Property(p => p.Email).HasColumnName("EMAIL");
