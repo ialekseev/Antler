@@ -1,7 +1,8 @@
 @echo off
 set path=%path%;C:/Windows/Microsoft.NET/Framework/v4.0.30319;
-set version=1.11
+set version=1.16
 set skipTests=false
+set skipDependentPackagesVersionsUpdate=false
 set skipPublishing=false
 
 ::++++++++++++++++++++++ Building +++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -26,12 +27,14 @@ echo Copying assemblies...
 
 if exist core\output rmdir /s /q core\output
 if exist nh-sqlite\output rmdir /s /q nh-sqlite\output
+if exist nh-sqlserver\output rmdir /s /q nh-sqlserver\output
 if exist ef-sqlce\output rmdir /s /q ef-sqlce\output
 if exist ef-sqlserver\output rmdir /s /q ef-sqlserver\output
 if exist windsor\output rmdir /s /q windsor\output
 
 mkdir core\output\lib\net40
 mkdir nh-sqlite\output\lib\net40
+mkdir nh-sqlserver\output\lib\net40
 mkdir ef-sqlce\output\lib\net40
 mkdir ef-sqlserver\output\lib\net40
 mkdir windsor\output\lib\net40
@@ -42,6 +45,10 @@ copy ..\src\main\Antler-Core\bin\Release\Antler.Core.* core\output\lib\net40
 ::NHibernate + Sqlite adapter
 copy ..\src\main\Antler-NHibernate\bin\Release\Antler.NHibernate.* nh-sqlite\output\lib\net40
 copy ..\src\main\Antler-NHibernate-Sqlite\bin\Release\Antler.NHibernate.Sqlite.* nh-sqlite\output\lib\net40
+
+::NHibernate + SqlServer adapter
+copy ..\src\main\Antler-NHibernate\bin\Release\Antler.NHibernate.* nh-sqlserver\output\lib\net40
+copy ..\src\main\Antler-NHibernate-SqlServer\bin\Release\Antler.NHibernate.SqlServer.* nh-sqlserver\output\lib\net40
 
 ::EntityFramework + SqlCe adapter
 copy ..\src\main\Antler-EntityFramework\bin\Release\Antler.EntityFramework.* ef-sqlce\output\lib\net40
@@ -54,6 +61,14 @@ copy ..\src\main\Antler-EntityFramework-SqlServer\bin\Release\Antler.EntityFrame
 ::Windsor adapter
 copy ..\src\main\Antler-Windsor\bin\Release\Antler.Windsor.* windsor\output\lib\net40
 
+::+++++++++++++++++++++ Updating Nuget Spec files+++++++++++++++++++++++++++++++++++++++++++
+if %skipDependentPackagesVersionsUpdate%==true goto end
+echo Updating Nuget Spec files(Dependent packages versions update)...
+@powershell ./substitude.ps1
+: end
+::++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
 ::++++++++++++++++++++ Creating Nuget packages+++++++++++++++++++++++++++++++++++++++++++++
 echo Creating NuGet packages...
 
@@ -64,6 +79,10 @@ move Antler.Core*.nupkg core\output
 copy nh-sqlite\Antler.NHibernate.Sqlite.dll.nuspec nh-sqlite\output
 ..\src\.nuget\Nuget.exe pack nh-sqlite\output\Antler.NHibernate.Sqlite.dll.nuspec -properties version=%version%
 move Antler.NHibernate.Sqlite*.nupkg nh-sqlite\output
+
+copy nh-sqlserver\Antler.NHibernate.SqlServer.dll.nuspec nh-sqlserver\output
+..\src\.nuget\Nuget.exe pack nh-sqlserver\output\Antler.NHibernate.SqlServer.dll.nuspec -properties version=%version%
+move Antler.NHibernate.SqlServer*.nupkg nh-sqlserver\output
 
 copy ef-sqlce\Antler.EntityFramework.SqlCe.dll.nuspec ef-sqlce\output
 ..\src\.nuget\Nuget.exe pack ef-sqlce\output\Antler.EntityFramework.SqlCe.dll.nuspec -properties version=%version%
@@ -84,8 +103,9 @@ echo Publishing NuGet packages...
 ..\src\.nuget\Nuget.exe push windsor\output\Antler.Windsor.%version%.nupkg
 ..\src\.nuget\Nuget.exe push ef-sqlce\output\Antler.EntityFramework.SqlCe.%version%.nupkg
 ..\src\.nuget\Nuget.exe push ef-sqlserver\output\Antler.EntityFramework.SqlServer.%version%.nupkg
-::++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+..\src\.nuget\Nuget.exe push nh-sqlserver\output\Antler.NHibernate.SqlServer.%version%.nupkg
 : end
+::++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 echo Done.
 

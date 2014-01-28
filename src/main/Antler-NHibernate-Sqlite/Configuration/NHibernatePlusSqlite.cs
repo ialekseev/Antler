@@ -31,7 +31,7 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Configuration
             return this;
         }
 
-        public NHibernatePlusSqlite AsInFileStorage(string fileName)
+        public NHibernatePlusSqlite AsFileStorage(string fileName)
         {
             FileName = fileName;            
             return this;

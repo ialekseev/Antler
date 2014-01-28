@@ -22,10 +22,10 @@ namespace SmartElk.Antler.Specs.Shared.NHibernate.CommonSpecs
                         var country2 = new Country {Name = "Mexico", Language = "Spanish"};
                         uow.Repo<Country>().Insert(country2);
 
-                        var team1 = new Team() {Name = "Super", BusinessGroup = "SuperBg", Country = country1};
+                        var team1 = new Team() {Name = "Super", Description = "SuperBg", Country = country1};
                         uow.Repo<Team>().Insert(team1);
 
-                        var team2 = new Team() {Name = "Awesome", BusinessGroup = "AwesomeBg", Country = country2};
+                        var team2 = new Team() {Name = "Awesome", Description = "AwesomeBg", Country = country2};
                         uow.Repo<Team>().Insert(team2);
 
                         //act                    
@@ -36,7 +36,7 @@ namespace SmartElk.Antler.Specs.Shared.NHibernate.CommonSpecs
                         result.Count.Should().Be(1);
                         result[0].Id.Should().Be(team2.Id);
                         result[0].Name.Should().Be("Awesome");
-                        result[0].BusinessGroup.Should().Be("AwesomeBg");
+                        result[0].Description.Should().Be("AwesomeBg");
                         result[0].Country.Name.Should().Be("Mexico");
                     });
             }

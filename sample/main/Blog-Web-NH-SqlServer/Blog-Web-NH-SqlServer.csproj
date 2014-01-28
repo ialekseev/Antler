@@ -7,12 +7,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8FB4C292-144B-49FE-84D6-124BC271D830}</ProjectGuid>
+    <ProjectGuid>{132F4B90-C5E8-4EFE-816B-4A996FD72366}</ProjectGuid>
     <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Blog.Web.EF.SqlCe</RootNamespace>
-    <AssemblyName>Blog.Web.EF.SqlCe</AssemblyName>
+    <RootNamespace>Blog.Web.NH.SqlServer</RootNamespace>
+    <AssemblyName>Blog.Web.NH.SqlServer</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
@@ -41,36 +41,36 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Antler.Core.1.16\lib\net40\Antler.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Antler.EntityFramework, Version=1.0.5141.33047, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.NHibernate, Version=1.0.5141.33044, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.EntityFramework.SqlCe.1.16\lib\net40\Antler.EntityFramework.dll</HintPath>
+      <HintPath>..\..\packages\Antler.NHibernate.SqlServer.1.16\lib\net40\Antler.NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Antler.EntityFramework.SqlCe, Version=1.0.5141.33048, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.NHibernate.SqlServer, Version=1.0.5141.33053, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.EntityFramework.SqlCe.1.16\lib\net40\Antler.EntityFramework.SqlCe.dll</HintPath>
+      <HintPath>..\..\packages\Antler.NHibernate.SqlServer.1.16\lib\net40\Antler.NHibernate.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Antler.Windsor, Version=1.0.5141.33046, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Antler.Windsor.1.16\lib\net40\Antler.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Core">
+    <Reference Include="Castle.Core, Version=3.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Castle.Core.3.2.2\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Windsor">
+    <Reference Include="Castle.Windsor, Version=3.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Castle.Windsor.3.2.1\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.0.2\lib\net40\EntityFramework.dll</HintPath>
+    <Reference Include="FluentNHibernate, Version=1.4.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentNHibernate.1.4.0.0\lib\net35\FluentNHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.0.2\lib\net40\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServerCompact, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.SqlServerCompact.6.0.2\lib\net40\EntityFramework.SqlServerCompact.dll</HintPath>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -146,7 +146,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -155,15 +157,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Blog-Mappings-EF\Blog-Mappings-EF.csproj">
-      <Project>{46259AAD-3943-4B8F-9DCB-E6E661525B8D}</Project>
-      <Name>Blog-Mappings-EF</Name>
+    <ProjectReference Include="..\Blog-Mappings-NH\Blog-Mappings-NH.csproj">
+      <Project>{65E79CA3-C80D-48A4-B8B5-347C15B5D31B}</Project>
+      <Name>Blog-Mappings-NH</Name>
     </ProjectReference>
     <ProjectReference Include="..\Blog-Service\Blog-Service.csproj">
       <Project>{83AC0EB3-77B8-417F-9F99-7F4A05F1832A}</Project>
@@ -190,7 +189,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2617</DevelopmentServerPort>
+          <DevelopmentServerPort>4659</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

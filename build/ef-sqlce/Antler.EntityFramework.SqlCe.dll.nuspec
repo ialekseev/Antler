@@ -4,18 +4,18 @@
     <id>Antler.EntityFramework.SqlCe</id>
     <version>$version$</version>
     <authors>SmartElk</authors>
-    <owners>SmartElk</owners>    
+    <owners>SmartElk</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <projectUrl>https://github.com/SmartElk/Antler</projectUrl>
-	<description>EntityFramework + SqlCe adapter for Antler framework</description>
+    <description>EntityFramework + SqlCe adapter for Antler framework</description>
     <releaseNotes>Beware: Project is still under construction</releaseNotes>
     <copyright>Copyright 2014</copyright>
-    <tags>Antler, EntityFramework, Sql Server Compact</tags>    
-	<dependencies>
+    <tags>Antler, EntityFramework, Sql Server Compact</tags>
+    <dependencies>
       <dependency id="Antler.Core" version="" />
-	  <dependency id="EntityFramework" version="6.0.1" />
-	  <dependency id="EntityFramework.SqlServerCompact" version="6.0.1" />
-	  <dependency id="Microsoft.SqlServer.Compact" version="4.0.8876.1" />
+      <dependency id="EntityFramework" version="6.0.2" />
+      <dependency id="EntityFramework.SqlServerCompact" version="6.0.2" />
+      <dependency id="Microsoft.SqlServer.Compact" version="4.0.8876.1" />
     </dependencies>
   </metadata>
 </package>

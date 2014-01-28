@@ -8,8 +8,8 @@ using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Common.Reflection;
 using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.NHibernate.Sqlite.Configuration;
+using SmartElk.Antler.NHibernate.Sqlite.Specs.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
-using SmartElk.Antler.Specs.Shared.NHibernate.Configuration;
 using SmartElk.Antler.Specs.Shared.NHibernate.Mappings;
 using SmartElk.Antler.Windsor;
 

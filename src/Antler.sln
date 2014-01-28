@@ -44,7 +44,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-EntityFramework-SqlS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-NHibernate-SqlServer-Specs", "specs\Antler-NHibernate-SqlServer-Specs\Antler-NHibernate-SqlServer-Specs.csproj", "{D2226D26-F078-48B3-A762-1BF1E61BDF89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Specs-Shared-NHibernate", "main\Antler-Specs-Shared-NHibernate\Antler-Specs-Shared-NHibernate.csproj", "{ED6504E9-077F-44EA-B144-FB8796151E46}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Specs-Shared-NHibernate", "specs\Antler-Specs-Shared-NHibernate\Antler-Specs-Shared-NHibernate.csproj", "{ED6504E9-077F-44EA-B144-FB8796151E46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

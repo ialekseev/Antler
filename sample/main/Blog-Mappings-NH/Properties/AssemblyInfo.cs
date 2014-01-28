@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Antler-Core")]
-[assembly: AssemblyDescription("Antler-Core")]
+[assembly: AssemblyTitle("Blog-Mappings-NH")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SmartElk")]
-[assembly: AssemblyProduct("Antler-Core")]
+[assembly: AssemblyProduct("Blog-Mappings-NH")]
 [assembly: AssemblyCopyright("SmartElk")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d61e80f3-b559-454c-996d-c84a815d365b")]
+[assembly: Guid("b3f6e7ed-f720-4d41-bb23-bdf4d1091bde")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -31,5 +31,6 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.0.*")]
-
+// [assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

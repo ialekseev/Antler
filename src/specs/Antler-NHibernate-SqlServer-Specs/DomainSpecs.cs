@@ -1,15 +1,12 @@
 ﻿// ReSharper disable InconsistentNaming
 
 using System.Linq;
-using System.Reflection;
 using Antler.NHibernate.Configuration;
-using NHibernate;
 using NUnit.Framework;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Common.Reflection;
 using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
-using SmartElk.Antler.Specs.Shared.NHibernate.Configuration;
 using SmartElk.Antler.Specs.Shared.NHibernate.Mappings;
 using SmartElk.Antler.Windsor;
 
@@ -110,21 +107,17 @@ namespace SmartElk.Antler.NHibernate.SqlServer.Specs
         {
             protected IAntlerConfigurator Configurator { get; set; }
             protected ConfigurationResult AsInMemoryStorageResult { get; set; }
-            private ISession session;
-
+            
             [SetUp]
             public void SetUp()
             {                
                 Configurator = new AntlerConfigurator();
-                Configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlServer.Use("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True").WithMappings(From.AssemblyWithType<CountryMap>().First()));
-
-                session = Configurator.CreateNHibernateSession(typeof(NHibernatePlusSqlServer));
+                Configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlServer.Use("Data Source=.\\SQLEXPRESS;Initial Catalog=AntlerTest;Integrated Security=True").WithMappings(From.AssemblyWithType<CountryMap>().First()).GenerateDatabase(true));                
             }
 
             [TearDown]
             public void TearDown()
-            {
-                Configurator.ResetNHibernateSession(session);
+            {                
                 Configurator.UnUseWindsorContainer().UnUseStorage().Dispose();
             }
         } 
