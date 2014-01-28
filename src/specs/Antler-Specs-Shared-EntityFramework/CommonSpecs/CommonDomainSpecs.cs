@@ -20,7 +20,7 @@ namespace SmartElk.Antler.Specs.Shared.EntityFramework.CommonSpecs
                 Employee employee2 = null;
                 UnitOfWork.Do(uow =>
                 {
-                    team = new Team() { Name = "Super", BusinessGroup = "SuperBg" };
+                    team = new Team() { Name = "Super", Description = "SuperBg" };
                     uow.Repo<Team>().Insert(team);
 
                     var employee1 = new Employee { Id = "667", FirstName = "Jack", LastName = "Black" };
@@ -41,7 +41,7 @@ namespace SmartElk.Antler.Specs.Shared.EntityFramework.CommonSpecs
                     result.LastName.Should().Be(employee2.LastName);
                     result.Teams.First().Id.Should().Be(team.Id);
                     result.Teams.First().Name.Should().Be(team.Name);
-                    result.Teams.First().BusinessGroup.Should().Be(team.BusinessGroup);
+                    result.Teams.First().Description.Should().Be(team.Description);
                 });
             }
         }
@@ -60,10 +60,10 @@ namespace SmartElk.Antler.Specs.Shared.EntityFramework.CommonSpecs
                     var country2 = new Country { Name = "Mexico", Language = "Spanish" };
                     uow.Repo<Country>().Insert(country2);
 
-                    Team team1 = new Team() { Name = "Super", BusinessGroup = "SuperBg", Country = country1 };
+                    Team team1 = new Team() { Name = "Super", Description = "SuperBg", Country = country1 };
                     uow.Repo<Team>().Insert(team1);
 
-                    team2 = new Team() { Name = "Awesome", BusinessGroup = "AwesomeBg", Country = country2 };
+                    team2 = new Team() { Name = "Awesome", Description = "AwesomeBg", Country = country2 };
                     uow.Repo<Team>().Insert(team2);
                 });
 
@@ -75,7 +75,7 @@ namespace SmartElk.Antler.Specs.Shared.EntityFramework.CommonSpecs
                     //assert
                     result.Id.Should().Be(team2.Id);
                     result.Name.Should().Be("Awesome");
-                    result.BusinessGroup.Should().Be("AwesomeBg");
+                    result.Description.Should().Be("AwesomeBg");
                     result.Country.Name.Should().Be("Mexico");
                 });
             }

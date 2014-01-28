@@ -12,7 +12,7 @@ namespace SmartElk.Antler.Specs.Shared.EntityFramework.Mappings
 
             HasKey(c => c.Id).Property(c => c.Id).HasColumnName("STANDARDS_TEAMS_ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);            
             Property(p => p.Name).HasColumnName("NAME");
-            Property(p => p.BusinessGroup).HasColumnName("BU");
+            Property(p => p.Description).HasColumnName("BU");
             HasMany(d => d.Members).WithMany(t => t.Teams).Map(m =>
             {
                 m.ToTable("TEAMS_MEMBERS_MAP");

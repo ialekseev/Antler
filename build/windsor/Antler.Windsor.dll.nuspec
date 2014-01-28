@@ -4,16 +4,15 @@
     <id>Antler.Windsor</id>
     <version>$version$</version>
     <authors>SmartElk</authors>
-    <owners>SmartElk</owners>    
+    <owners>SmartElk</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <projectUrl>https://github.com/SmartElk/Antler</projectUrl>
-	<description>Windsor adapter for Antler framework</description>
+    <description>Windsor adapter for Antler framework</description>
     <releaseNotes>Beware: Project is still under construction</releaseNotes>
     <copyright>Copyright 2014</copyright>
-    <tags>Antler, Castle Windsor, IoC</tags> 
-	<dependencies>
-      <dependency id="Castle.Core" version="3.2.1" />
-	  <dependency id="Castle.Windsor" version="3.2.1" />	  
-    </dependencies>	
+    <tags>Antler, Castle Windsor, IoC</tags>
+    <dependencies>
+      <dependency id="Castle.Windsor" version="3.2.1" />
+    </dependencies>
   </metadata>
 </package>

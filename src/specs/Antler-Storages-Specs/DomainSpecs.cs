@@ -37,10 +37,10 @@ namespace SmartElk.Antler.Storages.Specs
                         var country2 = new Country {Name = "Mexico", Language = "Spanish"};
                         uow.Repo<Country>().Insert(country2);
 
-                        var team1 = new Team() {Name = "Super", BusinessGroup = "SuperBg", Country = country1};
+                        var team1 = new Team() {Name = "Super", Description = "SuperBg", Country = country1};
                         uow.Repo<Team>().Insert(team1);
 
-                        var team2 = new Team() {Name = "Awesome", BusinessGroup = "AwesomeBg", Country = country2};
+                        var team2 = new Team() {Name = "Awesome", Description = "AwesomeBg", Country = country2};
                         uow.Repo<Team>().Insert(team2);                                                
                     });
 

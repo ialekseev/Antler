@@ -18,7 +18,7 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                 Employee employee2 = null;
                 UnitOfWork.Do(uow =>
                     {
-                        team = new Team() { Name = "Super", BusinessGroup = "SuperBg" };
+                        team = new Team() { Name = "Super", Description = "SuperBg" };
                         uow.Repo<Team>().Insert(team);
 
                         var employee1 = new Employee { Id = "667", FirstName = "Jack", LastName = "Black" };
@@ -39,7 +39,7 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                         result.LastName.Should().Be(employee2.LastName);
                         result.Teams.First().Id.Should().Be(team.Id);
                         result.Teams.First().Name.Should().Be(team.Name);
-                        result.Teams.First().BusinessGroup.Should().Be(team.BusinessGroup);
+                        result.Teams.First().Description.Should().Be(team.Description);
                     });
             }
         }
@@ -51,13 +51,13 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                 UnitOfWork.Do(uow =>
                     {
                         //arrange                    
-                        var team1 = new Team() {Name = "Super", BusinessGroup = "SuperBg"};
+                        var team1 = new Team() {Name = "Super", Description = "SuperBg"};
                         uow.Repo<Team>().Insert(team1);
 
-                        var team2 = new Team() {Name = "Good", BusinessGroup = "GoodBg"};
+                        var team2 = new Team() {Name = "Good", Description = "GoodBg"};
                         uow.Repo<Team>().Insert(team2);
 
-                        var team3 = new Team() {Name = "Bad", BusinessGroup = "BadBg"};
+                        var team3 = new Team() {Name = "Bad", Description = "BadBg"};
                         uow.Repo<Team>().Insert(team3);
                     });
 
@@ -70,13 +70,13 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                         result.Length.Should().Be(3);
                         result[0].Id.Should().Be(3);
                         result[0].Name.Should().Be("Bad");
-                        result[0].BusinessGroup.Should().Be("BadBg");
+                        result[0].Description.Should().Be("BadBg");
                         result[1].Id.Should().Be(2);
                         result[1].Name.Should().Be("Good");
-                        result[1].BusinessGroup.Should().Be("GoodBg");
+                        result[1].Description.Should().Be("GoodBg");
                         result[2].Id.Should().Be(1);
                         result[2].Name.Should().Be("Super");
-                        result[2].BusinessGroup.Should().Be("SuperBg");
+                        result[2].Description.Should().Be("SuperBg");
                     });
             }
         }
@@ -92,7 +92,7 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                 Employee employee3 = null;
                 UnitOfWork.Do(uow =>
                     {
-                        team = new Team() { Name = "Super", BusinessGroup = "SuperBg" };
+                        team = new Team() { Name = "Super", Description = "SuperBg" };
                         uow.Repo<Team>().Insert(team);
 
                         employee1 = new Employee { Id = "667", FirstName = "Jack", LastName = "Black" };
@@ -117,7 +117,7 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                         result[0].LastName.Should().Be(employee3.LastName);
                         result[0].Teams.First().Id.Should().Be(team.Id);
                         result[0].Teams.First().Name.Should().Be(team.Name);
-                        result[0].Teams.First().BusinessGroup.Should().Be(team.BusinessGroup);
+                        result[0].Teams.First().Description.Should().Be(team.Description);
                         result[1].Id.Should().Be(employee1.Id);
                         result[1].FirstName.Should().Be(employee1.FirstName);
                         result[1].LastName.Should().Be(employee1.LastName);
@@ -126,7 +126,7 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                         result[2].FirstName.Should().Be(employee2.FirstName);
                         result[2].LastName.Should().Be(employee2.LastName);
                         result[2].Teams.First().Id.Should().Be(team.Id);
-                        result[2].Teams.First().BusinessGroup.Should().Be(team.BusinessGroup);
+                        result[2].Teams.First().Description.Should().Be(team.Description);
                     });
             }
         }
@@ -140,7 +140,7 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                 Employee employee2 = null;
                 UnitOfWork.Do(uow =>
                     {
-                        team = new Team() { Name = "Super", BusinessGroup = "SuperBg" };
+                        team = new Team() { Name = "Super", Description = "SuperBg" };
                         uow.Repo<Team>().Insert(team);
 
                         var employee1 = new Employee { Id = "667", FirstName = "Jack", LastName = "Black" };
@@ -163,7 +163,7 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                         result.FirstName.Should().Be(employee2.FirstName);
                         result.LastName.Should().Be(employee2.LastName);
                         result.Teams.First().Id.Should().Be(team.Id);
-                        result.Teams.First().BusinessGroup.Should().Be(team.BusinessGroup);
+                        result.Teams.First().Description.Should().Be(team.Description);
                     });
             }
         }
@@ -176,10 +176,10 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                 Employee employee = null;
                 UnitOfWork.Do(uow =>
                     {
-                        var team1 = new Team() { Name = "Super", BusinessGroup = "SuperBg" };
+                        var team1 = new Team() { Name = "Super", Description = "SuperBg" };
                         uow.Repo<Team>().Insert(team1);
 
-                        var team2 = new Team() { Name = "Great", BusinessGroup = "GreatBg" };
+                        var team2 = new Team() { Name = "Great", Description = "GreatBg" };
                         uow.Repo<Team>().Insert(team2);
 
                         employee = new Employee { Id = "666", FirstName = "John", LastName = "Smith", Teams = new List<Team>() { team1, team2 } };
@@ -191,11 +191,11 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                     {
                         var foundEmployee = uow.Repo<Employee>().GetById(employee.Id);
                         foundEmployee.Teams[0].Name = "Super-upd";
-                        foundEmployee.Teams[0].BusinessGroup = "SuperBg-upd";
+                        foundEmployee.Teams[0].Description = "SuperBg-upd";
                         foundEmployee.Teams[1].Name = "Great-upd";
-                        foundEmployee.Teams[1].BusinessGroup = "GreatBg-upd";
+                        foundEmployee.Teams[1].Description = "GreatBg-upd";
 
-                        var newTeam = new Team() {Name = "Awesome", BusinessGroup = "AwesomeBg"};
+                        var newTeam = new Team() {Name = "Awesome", Description = "AwesomeBg"};
                         uow.Repo<Team>().Insert(newTeam);
                         foundEmployee.Teams.Add(newTeam);
                     });
@@ -207,11 +207,11 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
 
                         foundEmployee.Teams.Count.Should().Be(3);
                         foundEmployee.Teams[0].Name.Should().Be("Super-upd");
-                        foundEmployee.Teams[0].BusinessGroup.Should().Be("SuperBg-upd");
+                        foundEmployee.Teams[0].Description.Should().Be("SuperBg-upd");
                         foundEmployee.Teams[1].Name.Should().Be("Great-upd");
-                        foundEmployee.Teams[1].BusinessGroup.Should().Be("GreatBg-upd");
+                        foundEmployee.Teams[1].Description.Should().Be("GreatBg-upd");
                         foundEmployee.Teams[2].Name.Should().Be("Awesome");
-                        foundEmployee.Teams[2].BusinessGroup.Should().Be("AwesomeBg");
+                        foundEmployee.Teams[2].Description.Should().Be("AwesomeBg");
                     });
             }
         }
@@ -230,10 +230,10 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                         var country2 = new Country {Name = "Mexico", Language = "Spanish"};
                         uow.Repo<Country>().Insert(country2);
 
-                        var team1 = new Team() {Name = "Super", BusinessGroup = "SuperBg", Country = country1};
+                        var team1 = new Team() {Name = "Super", Description = "SuperBg", Country = country1};
                         uow.Repo<Team>().Insert(team1);
 
-                        team2 = new Team() {Name = "Awesome", BusinessGroup = "AwesomeBg", Country = country2};
+                        team2 = new Team() {Name = "Awesome", Description = "AwesomeBg", Country = country2};
                         uow.Repo<Team>().Insert(team2);
                     });
 
@@ -245,7 +245,7 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                         //assert
                         result.Id.Should().Be(team2.Id);
                         result.Name.Should().Be("Awesome");
-                        result.BusinessGroup.Should().Be("AwesomeBg");
+                        result.Description.Should().Be("AwesomeBg");
                         result.Country.Name.Should().Be("Mexico");
                     });
             }
@@ -259,7 +259,7 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                 Team team = null;
                 UnitOfWork.Do(uow =>
                 {
-                    team = new Team() { Name = "Super", BusinessGroup = "SuperBg" };
+                    team = new Team() { Name = "Super", Description = "SuperBg" };
                     uow.Repo<Team>().Insert(team);                    
                 });
                 

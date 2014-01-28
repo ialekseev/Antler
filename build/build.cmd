@@ -1,7 +1,8 @@
 @echo off
 set path=%path%;C:/Windows/Microsoft.NET/Framework/v4.0.30319;
-set version=1.14
+set version=1.16
 set skipTests=false
+set skipDependentPackagesVersionsUpdate=false
 set skipPublishing=false
 
 ::++++++++++++++++++++++ Building +++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -60,6 +61,14 @@ copy ..\src\main\Antler-EntityFramework-SqlServer\bin\Release\Antler.EntityFrame
 ::Windsor adapter
 copy ..\src\main\Antler-Windsor\bin\Release\Antler.Windsor.* windsor\output\lib\net40
 
+::+++++++++++++++++++++ Updating Nuget Spec files+++++++++++++++++++++++++++++++++++++++++++
+if %skipDependentPackagesVersionsUpdate%==true goto end
+echo Updating Nuget Spec files(Dependent packages versions update)...
+@powershell ./substitude.ps1
+: end
+::++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
 ::++++++++++++++++++++ Creating Nuget packages+++++++++++++++++++++++++++++++++++++++++++++
 echo Creating NuGet packages...
 
@@ -95,8 +104,8 @@ echo Publishing NuGet packages...
 ..\src\.nuget\Nuget.exe push ef-sqlce\output\Antler.EntityFramework.SqlCe.%version%.nupkg
 ..\src\.nuget\Nuget.exe push ef-sqlserver\output\Antler.EntityFramework.SqlServer.%version%.nupkg
 ..\src\.nuget\Nuget.exe push nh-sqlserver\output\Antler.NHibernate.SqlServer.%version%.nupkg
-::++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 : end
+::++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 echo Done.
 
