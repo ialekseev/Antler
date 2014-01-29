@@ -3,6 +3,7 @@ using SmartElk.Antler.Core.Common.CodeContracts;
 
 namespace SmartElk.Antler.Core.Domain
 {
+    //todo: add support for nested UoF
     public class UnitOfWork: IDisposable
     {        
         private readonly ISessionScope _sessionScope;
