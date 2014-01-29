@@ -15,7 +15,6 @@ $toFile.Save($toFilePathFull)
 substituteVersions "\..\src\main\Antler-NHibernate-Sqlite\packages.config" "\nh-sqlite\Antler.NHibernate.Sqlite.dll.nuspec" "NHibernate"
 substituteVersions "\..\src\main\Antler-NHibernate-Sqlite\packages.config" "\nh-sqlite\Antler.NHibernate.Sqlite.dll.nuspec" "Iesi.Collections"
 substituteVersions "\..\src\main\Antler-NHibernate-Sqlite\packages.config" "\nh-sqlite\Antler.NHibernate.Sqlite.dll.nuspec" "FluentNHibernate"
-#substituteVersions "\..\src\main\Antler-NHibernate-Sqlite\packages.config" "\nh-sqlite\Antler.NHibernate.Sqlite.dll.nuspec" "System.Data.SQLite"
 
 #nh-sqlserver
 substituteVersions "\..\src\main\Antler-NHibernate-SqlServer\packages.config" "\nh-sqlserver\Antler.NHibernate.SqlServer.dll.nuspec" "NHibernate"

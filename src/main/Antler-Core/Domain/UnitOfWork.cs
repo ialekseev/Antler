@@ -2,20 +2,36 @@
 using SmartElk.Antler.Core.Common.CodeContracts;
 
 namespace SmartElk.Antler.Core.Domain
-{
+{    
+    //todo: add rollback support
+    //todo: cover by Unit-tests
     public class UnitOfWork: IDisposable
-    {        
-        private readonly ISessionScope _sessionScope;
-                                        
+    {
+        public ISessionScope SessionScope { get; private set; }
+
+        [ThreadStatic]
+        private static UnitOfWork _current;
+        public static UnitOfWork Current
+        {
+            get { return _current; }
+        }
+
+        private UnitOfWork _parent;
+        
+        public bool IsFinished { get; private set; }
+        public bool IsRoot
+        {
+            get { return _parent == null; }
+        }
+
         public static Func<ISessionScopeFactory> SessionScopeFactoryExtractor { get; set; }        
         public static Func<string, ISessionScopeFactory> SessionScopeFactoryNamedExtractor { get; set; }
                         
         private UnitOfWork()            
         {            
             Assumes.True(SessionScopeFactoryExtractor != null, "SessionScopeFactoryExtractor should be set before using UnitOfWork. Wrong configuration?");
-            var sessionScopeFactory = SessionScopeFactoryExtractor();
-            Assumes.True(sessionScopeFactory !=null, "Can't continue without SessionScopeFactory. Wrong configuration?");
-            _sessionScope = sessionScopeFactory.Open();            
+            var sessionScopeFactory = SessionScopeFactoryExtractor();            
+            SetSession(sessionScopeFactory);
         }
 
         private UnitOfWork(string storageName)            
@@ -23,8 +39,24 @@ namespace SmartElk.Antler.Core.Domain
             Requires.NotNullOrEmpty(storageName, "Storage name can't be null or empty");
             Assumes.True(SessionScopeFactoryNamedExtractor != null, "SessionScopeFactoryNamedExtractor should be set before using UnitOfWork with storage name. Wrong configuraiton?");
             var sessionScopeFactory = SessionScopeFactoryNamedExtractor(storageName);
-            Assumes.True(sessionScopeFactory != null, "Can't continue without SessionScopeFactory. Wrong configuration?");
-            _sessionScope = sessionScopeFactory.Open();                                    
+            SetSession(sessionScopeFactory);
+        }
+
+        private void SetSession(ISessionScopeFactory sessionScopeFactory)
+        {
+            Requires.NotNull(sessionScopeFactory, "Can't continue without SessionScopeFactory. Wrong configuration?");
+
+            if (_current != null)
+            {
+                _parent = _current;
+                SessionScope = _parent.SessionScope;
+            }
+            else
+            {
+                SessionScope = sessionScopeFactory.Open();
+            }                                    
+           _current = this;
+            IsFinished = false;
         }
 
         public static void Do(Action<UnitOfWork> work)
@@ -61,18 +93,21 @@ namespace SmartElk.Antler.Core.Domain
 
         public void Dispose()
         {
-            _sessionScope.Commit();
-            _sessionScope.Dispose();
+            Assumes.True(!IsFinished, "This UnitOfWork is finished");
+
+            if (!IsRoot)
+                return;
+            
+           SessionScope.Commit();
+           SessionScope.Dispose();
+           
+           IsFinished = true;
+           _current = null;
         }
                 
         public IRepository<TEntity> Repo<TEntity>() where TEntity: class
         {
-            return _sessionScope.CreateRepository<TEntity>();
-        }
-
-        public ISessionScope CurrentSession
-        {
-            get { return _sessionScope;}
-        }
+            return SessionScope.CreateRepository<TEntity>();
+        }                
     }
 }

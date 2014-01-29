@@ -29,7 +29,7 @@ namespace SmartElk.Antler.Specs.Shared.NHibernate.CommonSpecs
                         uow.Repo<Team>().Insert(team2);
 
                         //act                    
-                        var internalSession = uow.CurrentSession.GetInternal<ISession>();
+                        var internalSession = uow.SessionScope.GetInternal<ISession>();
                         var result = internalSession.QueryOver<Team>().Where(t => t.Name == "Awesome").List();
 
                         //assert
