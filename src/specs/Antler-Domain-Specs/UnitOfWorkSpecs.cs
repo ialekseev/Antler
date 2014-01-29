@@ -153,7 +153,7 @@ namespace SmartElk.Antler.Domain.Specs
                 UnitOfWork.Do(uow =>
                     {
                         //assert
-                        uow.CurrentSession.Should().NotBeNull();
+                        uow.SessionScope.Should().NotBeNull();
                     });
                 
             }
