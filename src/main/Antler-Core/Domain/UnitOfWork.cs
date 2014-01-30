@@ -3,8 +3,7 @@ using SmartElk.Antler.Core.Common.CodeContracts;
 
 namespace SmartElk.Antler.Core.Domain
 {    
-    //todo: add rollback support
-    //todo: cover by Unit-tests
+    //todo: add rollback support    
     public class UnitOfWork: IDisposable
     {
         public ISessionScope SessionScope { get; private set; }
@@ -24,6 +23,12 @@ namespace SmartElk.Antler.Core.Domain
             get { return _parent == null; }
         }
 
+        public Guid? ParentId
+        {
+            get { return IsRoot ? (Guid?) null : _parent.Id; }
+        }        
+        public Guid Id { get; private set; }
+        
         public static Func<ISessionScopeFactory> SessionScopeFactoryExtractor { get; set; }        
         public static Func<string, ISessionScopeFactory> SessionScopeFactoryNamedExtractor { get; set; }
                         
@@ -57,6 +62,7 @@ namespace SmartElk.Antler.Core.Domain
             }                                    
            _current = this;
             IsFinished = false;
+            Id = Guid.NewGuid();
         }
 
         public static void Do(Action<UnitOfWork> work)
@@ -95,19 +101,19 @@ namespace SmartElk.Antler.Core.Domain
         {
             Assumes.True(!IsFinished, "This UnitOfWork is finished");
 
-            if (!IsRoot)
-                return;
-            
-           SessionScope.Commit();
-           SessionScope.Dispose();
-           
-           IsFinished = true;
-           _current = null;
+            if (IsRoot)
+            {
+                SessionScope.Commit();
+                SessionScope.Dispose();
+                IsFinished = true;
+            }
+                                             
+           _current = _parent;
         }
                 
         public IRepository<TEntity> Repo<TEntity>() where TEntity: class
         {
             return SessionScope.CreateRepository<TEntity>();
-        }                
+        }                   
     }
 }

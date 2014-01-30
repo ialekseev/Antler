@@ -159,6 +159,79 @@ namespace SmartElk.Antler.Domain.Specs
             }
         }
 
+        [TestFixture]
+        [Category("Unit")]
+        public class when_trying_to_create_nested_unit_of_work : UnitOfWorkScenario
+        {
+            [Test]
+            public void should_set_hierarchy_properly()
+            {                
+                UnitOfWork.Do(uow =>
+                    {
+                        //assert
+                        uow.IsRoot.Should().BeTrue();
+                        uow.ParentId.HasValue.Should().BeFalse();
+                        UnitOfWork.Current.Id.Should().Be(uow.Id);
+
+                        UnitOfWork.Do(nested =>
+                            {
+                                //assert
+                                nested.IsRoot.Should().BeFalse();
+                                nested.ParentId.Value.Should().Be(uow.Id);
+                                UnitOfWork.Current.Id.Should().Be(nested.Id);
+                            });
+                    });
+            }
+        }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_trying_to_commit_root_unit_of_work_ : UnitOfWorkScenario
+        {
+            [Test]
+            public void should_commit_only_root()
+            {
+                UnitOfWork rootUow = null;
+                UnitOfWork.Do(root =>
+                    {
+                    rootUow = root;
+                    UnitOfWork nestedUow=null;
+                    UnitOfWork.Do(nested =>
+                    {                        
+                        nestedUow = nested;                        
+                    });
+                        
+                        //assert
+                        nestedUow.IsFinished.Should().BeFalse();
+                        A.CallTo(() => SessionScope.Commit()).MustNotHaveHappened();
+                        A.CallTo(() => SessionScope.Dispose()).MustNotHaveHappened();
+                        UnitOfWork.Current.Id.Should().Be(rootUow.Id);                        
+                    });
+                
+                //assert
+                rootUow.IsFinished.Should().BeTrue();
+                A.CallTo(() => SessionScope.Commit()).MustHaveHappened();
+                A.CallTo(() => SessionScope.Dispose()).MustHaveHappened();
+                UnitOfWork.Current.Should().BeNull();
+            }
+        }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_trying_to_get_current_uow_from_the_out_of_scope_ : UnitOfWorkScenario
+        {
+            [Test]
+            public void should_return_null()
+            {
+                //arrange
+                UnitOfWork.Do(uow =>
+                {                    
+                });
+
+                //assert
+                UnitOfWork.Current.Should().BeNull();
+            }
+        }
     }
 }
 // ReSharper restore InconsistentNaming
