@@ -69,6 +69,7 @@
     <Compile Include="Common\Dynamic\StaticMembersDynamicWrapper.cs" />
     <Compile Include="Common\Extensions\ObjectEx.cs" />
     <Compile Include="Common\ISyntax.cs" />
+    <Compile Include="Common\Option.cs" />
     <Compile Include="Common\Reflection\AllTypes.cs" />
     <Compile Include="Common\Reflection\From.cs" />
     <Compile Include="Common\Reflection\TypeEx.cs" />

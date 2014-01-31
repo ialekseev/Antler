@@ -171,14 +171,14 @@ namespace SmartElk.Antler.Domain.Specs
                         //assert
                         uow.IsRoot.Should().BeTrue();
                         uow.ParentId.HasValue.Should().BeFalse();
-                        UnitOfWork.Current.Id.Should().Be(uow.Id);
+                        UnitOfWork.Current.Value.Id.Should().Be(uow.Id);
 
                         UnitOfWork.Do(nested =>
                             {
                                 //assert
                                 nested.IsRoot.Should().BeFalse();
                                 nested.ParentId.Value.Should().Be(uow.Id);
-                                UnitOfWork.Current.Id.Should().Be(nested.Id);
+                                UnitOfWork.Current.Value.Id.Should().Be(nested.Id);
                             });
                     });
             }
@@ -205,14 +205,14 @@ namespace SmartElk.Antler.Domain.Specs
                         nestedUow.IsFinished.Should().BeFalse();
                         A.CallTo(() => SessionScope.Commit()).MustNotHaveHappened();
                         A.CallTo(() => SessionScope.Dispose()).MustNotHaveHappened();
-                        UnitOfWork.Current.Id.Should().Be(rootUow.Id);                        
+                        UnitOfWork.Current.Value.Id.Should().Be(rootUow.Id);                        
                     });
                 
                 //assert
                 rootUow.IsFinished.Should().BeTrue();
                 A.CallTo(() => SessionScope.Commit()).MustHaveHappened();
                 A.CallTo(() => SessionScope.Dispose()).MustHaveHappened();
-                UnitOfWork.Current.Should().BeNull();
+                UnitOfWork.Current.IsSome.Should().BeFalse();
             }
         }
 
@@ -229,7 +229,7 @@ namespace SmartElk.Antler.Domain.Specs
                 });
 
                 //assert
-                UnitOfWork.Current.Should().BeNull();
+                UnitOfWork.Current.IsSome.Should().BeFalse();
             }
         }
     }

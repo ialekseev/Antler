@@ -1,4 +1,5 @@
 ﻿using System;
+using SmartElk.Antler.Core.Common;
 using SmartElk.Antler.Core.Common.CodeContracts;
 
 namespace SmartElk.Antler.Core.Domain
@@ -10,9 +11,10 @@ namespace SmartElk.Antler.Core.Domain
 
         [ThreadStatic]
         private static UnitOfWork _current;
-        public static UnitOfWork Current
+        public static Option<UnitOfWork> Current
         {
             get { return _current; }
+            private set { _current = value.Value; }
         }
 
         private UnitOfWork _parent;
@@ -51,7 +53,7 @@ namespace SmartElk.Antler.Core.Domain
         {
             Requires.NotNull(sessionScopeFactory, "Can't continue without SessionScopeFactory. Wrong configuration?");
 
-            if (_current != null)
+            if (Current.IsSome)
             {
                 _parent = _current;
                 SessionScope = _parent.SessionScope;
@@ -60,7 +62,7 @@ namespace SmartElk.Antler.Core.Domain
             {
                 SessionScope = sessionScopeFactory.Open();
             }                                    
-           _current = this;
+           Current = this;
             IsFinished = false;
             Id = Guid.NewGuid();
         }
