@@ -1,16 +1,10 @@
-@echo off
-set path=%path%;C:/Windows/Microsoft.NET/Framework/v4.0.30319;
-set version=1.16
-set skipTests=false
-set skipDependentPackagesVersionsUpdate=false
-set skipPublishing=false
-
 ::++++++++++++++++++++++ Building +++++++++++++++++++++++++++++++++++++++++++++++++++++
+if %skipBuild%==true goto skipBuild
 echo Building project...
 
 msbuild.exe ..\src\Antler.sln /nologo /v:q /p:Configuration=Release /t:Clean
 msbuild.exe ..\src\Antler.sln /nologo /v:q /p:Configuration=Release /clp:ErrorsOnly
-
+:skipBuild
 ::++++++++++++++++++++++ Running tests++++++++++++++++++++++++++++++++++++++++++++++++++
 
 if %skipTests%==true goto skipTests
@@ -62,10 +56,10 @@ copy ..\src\main\Antler-EntityFramework-SqlServer\bin\Release\Antler.EntityFrame
 copy ..\src\main\Antler-Windsor\bin\Release\Antler.Windsor.* windsor\output\lib\net40
 
 ::+++++++++++++++++++++ Updating Nuget Spec files+++++++++++++++++++++++++++++++++++++++++++
-if %skipDependentPackagesVersionsUpdate%==true goto end
+if %skipDependentPackagesVersionsUpdate%==true goto skipVersionsUpdate
 echo Updating Nuget Spec files(Dependent packages versions update)...
 @powershell ./substitude.ps1
-: end
+:skipVersionsUpdate
 ::++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
@@ -97,16 +91,14 @@ copy windsor\Antler.Windsor.dll.nuspec windsor\output
 move Antler.Windsor*.nupkg windsor\output
 
 ::+++++++++++++++++++++ Publishing NuGet packages+++++++++++++++++++++++++++++++++++++++++++
-if %skipPublishing%==true goto end
+if %skipPublishing%==true goto skipPublishing
 echo Publishing NuGet packages...
 ..\src\.nuget\Nuget.exe push core\output\Antler.Core.%version%.nupkg
 ..\src\.nuget\Nuget.exe push windsor\output\Antler.Windsor.%version%.nupkg
 ..\src\.nuget\Nuget.exe push ef-sqlce\output\Antler.EntityFramework.SqlCe.%version%.nupkg
 ..\src\.nuget\Nuget.exe push ef-sqlserver\output\Antler.EntityFramework.SqlServer.%version%.nupkg
 ..\src\.nuget\Nuget.exe push nh-sqlserver\output\Antler.NHibernate.SqlServer.%version%.nupkg
-: end
+:skipPublishing
 ::++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+: end
 echo Done.
-
-pause
