@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8183D392-7F79-4787-9D2E-FB9909BFB09C}</ProjectGuid>
+    <ProjectGuid>{24AE9E90-A876-49C2-A871-F058B2DA234B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SmartElk.Antler.NHibernate.SqlServer</RootNamespace>
-    <AssemblyName>Antler.NHibernate.SqlServer</AssemblyName>
+    <RootNamespace>SmartElk.Antler.NHibernate.Oracle</RootNamespace>
+    <AssemblyName>Antler.NHibernate.Oracle</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -51,7 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\NHibernatePlusSqlServer.cs" />
+    <Compile Include="Configuration\NHibernatePlusOracle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
