@@ -46,6 +46,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-NHibernate-SqlServer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Specs-Shared-NHibernate", "specs\Antler-Specs-Shared-NHibernate\Antler-Specs-Shared-NHibernate.csproj", "{ED6504E9-077F-44EA-B144-FB8796151E46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-NHibernate-Oracle", "main\Antler-NHibernate-Oracle\Antler-NHibernate-Oracle.csproj", "{24AE9E90-A876-49C2-A871-F058B2DA234B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -124,6 +126,10 @@ Global
 		{ED6504E9-077F-44EA-B144-FB8796151E46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED6504E9-077F-44EA-B144-FB8796151E46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED6504E9-077F-44EA-B144-FB8796151E46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24AE9E90-A876-49C2-A871-F058B2DA234B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24AE9E90-A876-49C2-A871-F058B2DA234B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24AE9E90-A876-49C2-A871-F058B2DA234B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24AE9E90-A876-49C2-A871-F058B2DA234B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

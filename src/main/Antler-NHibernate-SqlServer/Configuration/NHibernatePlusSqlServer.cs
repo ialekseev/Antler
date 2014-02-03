@@ -3,35 +3,31 @@ using Antler.NHibernate.Configuration;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
+using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
 
-namespace SmartElk.Antler.NHibernate.SqlServer
+namespace SmartElk.Antler.NHibernate.SqlServer.Configuration
 {
     public class NHibernatePlusSqlServer : NHibernateStorage<NHibernatePlusSqlServer>
     {                
-        private string _connectionString;
+        private readonly string _connectionString;
         private MsSqlConfiguration _msSqlConfiguration;
         private bool _generateDatabase;
         private bool _dropBeforeGeneration;
 
         protected NHibernatePlusSqlServer(string connectionString)
-        {
+        {            
             _connectionString = connectionString;
             _msSqlConfiguration = MsSqlConfiguration.MsSql2008;
         }
 
         public static NHibernatePlusSqlServer Use(string connectionString)
         {
+            Requires.NotNullOrEmpty(connectionString, "connectionString");
             return new NHibernatePlusSqlServer(connectionString);                         
         }
-
-        public NHibernatePlusSqlServer WithConnectionString(string connectionString)
-        {
-            this._connectionString = connectionString;
-            return this;
-        }
-
+        
         public NHibernatePlusSqlServer WithSqlConfiguration(MsSqlConfiguration msSqlConfiguration)
         {
             _msSqlConfiguration = msSqlConfiguration;
@@ -53,6 +49,8 @@ namespace SmartElk.Antler.NHibernate.SqlServer
                 .Mappings(x => x.FluentMappings.AddFromAssembly(AssemblyWithMappings)).
                 ExposeConfiguration(x =>
                     {
+                      configuration = x;
+                      
                       if (_generateDatabase)
                       {
                           var export = new SchemaExport(x);
@@ -61,8 +59,12 @@ namespace SmartElk.Antler.NHibernate.SqlServer
                               export.Drop(true, true);
                           }
                           export.Execute(false, true, false);  
-                      }                        
-                      configuration = x;
+                      }
+                      
+                      if (ActionToApplyOnNHibernateConfiguration != null)
+                      {
+                          ActionToApplyOnNHibernateConfiguration(x);
+                      }                      
                 })
                 .BuildSessionFactory();
 

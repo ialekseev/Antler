@@ -2,6 +2,7 @@
 using Antler.NHibernate.Configuration;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
 
@@ -33,6 +34,7 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Configuration
 
         public NHibernatePlusSqlite AsFileStorage(string fileName)
         {
+            Requires.NotNullOrEmpty(fileName, "fileName");
             FileName = fileName;            
             return this;
         }
