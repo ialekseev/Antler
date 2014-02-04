@@ -1,13 +1,14 @@
 ﻿// ReSharper disable InconsistentNaming
 
 using Antler.NHibernate;
+using Antler.NHibernate.Configuration;
 using FluentAssertions;
+using FluentNHibernate.Cfg.Db;
 using NUnit.Framework;
 using SmartElk.Antler.Core.Abstractions;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
-using SmartElk.Antler.NHibernate.Sqlite.Configuration;
 using SmartElk.Antler.Windsor;
 
 namespace SmartElk.Antler.NHibernate.Sqlite.Specs
@@ -25,7 +26,7 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
                 var configurator = new AntlerConfigurator();
                 
                 //act
-                configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlite.Use);
+                configurator.UseWindsorContainer().UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(SQLiteConfiguration.Standard.InMemory()));
 
                 //assert                                
                 configurator.Configuration.Container.Get<ISessionScopeFactory>().Should().BeOfType<NHibernateSessionScopeFactory>(); 
@@ -44,7 +45,7 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
                 var basicConfigurator = new AntlerConfigurator();
 
                 //act
-                basicConfigurator.UseStorage(NHibernatePlusSqlite.Use);                                
+                basicConfigurator.UseStorage(NHibernateStorage.Use);                                
             }
         }
 
@@ -60,7 +61,7 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
                 var basicConfigurator = new AntlerConfigurator();
 
                 //act
-                basicConfigurator.UseStorageNamed(NHibernatePlusSqlite.Use, "SuperStorage");                
+                basicConfigurator.UseStorageNamed(NHibernateStorage.Use, "SuperStorage");                
             }
         }       
     }

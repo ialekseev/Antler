@@ -2,11 +2,11 @@
 
 using System.Linq;
 using Antler.NHibernate.Configuration;
+using FluentNHibernate.Cfg.Db;
 using NUnit.Framework;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Common.Reflection;
 using SmartElk.Antler.Core.Domain.Configuration;
-using SmartElk.Antler.NHibernate.SqlServer.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
 using SmartElk.Antler.Specs.Shared.NHibernate.Mappings;
 using SmartElk.Antler.Windsor;
@@ -113,7 +113,7 @@ namespace SmartElk.Antler.NHibernate.SqlServer.Specs
             public void SetUp()
             {                
                 Configurator = new AntlerConfigurator();
-                Configurator.UseWindsorContainer().UseStorage(NHibernatePlusSqlServer.Use("Data Source=.\\SQLEXPRESS;Initial Catalog=AntlerTest;Integrated Security=True").WithMappings(From.AssemblyWithType<CountryMap>().First()).GenerateDatabase(true));                
+                Configurator.UseWindsorContainer().UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(MsSqlConfiguration.MsSql2008.ConnectionString("Data Source=.\\SQLEXPRESS;Initial Catalog=AntlerTest;Integrated Security=True")).WithGeneratedDatabase(true).WithMappings(From.AssemblyWithType<CountryMap>().First()));
             }
 
             [TearDown]
