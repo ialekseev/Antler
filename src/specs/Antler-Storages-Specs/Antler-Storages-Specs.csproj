@@ -117,10 +117,6 @@
       <Project>{34FCF9A5-7B9F-4A9A-A8B0-4FDA717744BD}</Project>
       <Name>Antler-EntityFramework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\main\Antler-NHibernate-Sqlite\Antler-NHibernate-Sqlite.csproj">
-      <Project>{3612BF1E-4B41-40C9-B463-D14EBE1CAE26}</Project>
-      <Name>Antler-NHibernate-Sqlite</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\main\Antler-NHibernate\Antler-NHibernate.csproj">
       <Project>{4A2FE4D5-9381-4695-A0D5-21787C903275}</Project>
       <Name>Antler-NHibernate</Name>

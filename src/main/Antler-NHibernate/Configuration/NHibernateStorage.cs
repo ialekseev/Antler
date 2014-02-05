@@ -1,32 +1,95 @@
 ﻿using System;
 using System.Reflection;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+using NHibernate.Tool.hbm2ddl;
 using SmartElk.Antler.Core.Common.CodeContracts;
+using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
 
 namespace Antler.NHibernate.Configuration
 {
-    public abstract class NHibernateStorage<TStorage> : AbstractStorage where TStorage : class                                                                
+    public class NHibernateStorage : AbstractStorage /*<TStorage> : AbstractStorage where TStorage : class*/                                                                
     {
         protected Assembly AssemblyWithMappings { get; set; }
         protected Action<global::NHibernate.Cfg.Configuration> ActionToApplyOnNHibernateConfiguration;
+        
+        protected bool GenerateDatabase { get; set; }
+        protected bool DropDatabaseBeforeGeneration { get; set; }
+
+        protected IPersistenceConfigurer PersistenceConfigurer { get; set; }
 
         protected NHibernateStorage()
         {
             AssemblyWithMappings = Assembly.GetCallingAssembly();            
         }
 
-        public TStorage WithMappings(Assembly assemblyWithMappings)
+        public static NHibernateStorage Use
+        {
+            get { return new NHibernateStorage();}
+        }
+
+        public NHibernateStorage WithMappings(Assembly assemblyWithMappings)
         {
             Requires.NotNull(assemblyWithMappings, "assemblyWithMappings");
             AssemblyWithMappings = assemblyWithMappings;
-            return this as TStorage;
+            return this;
         }
 
-        public TStorage ApplyOnNHibernateConfiguration(Action<global::NHibernate.Cfg.Configuration> actionToApplyOnNHibernateConfiguration)
+        public NHibernateStorage ApplyOnNHibernateConfiguration(Action<global::NHibernate.Cfg.Configuration> actionToApplyOnNHibernateConfiguration)
         {
             Requires.NotNull(actionToApplyOnNHibernateConfiguration, "actionToApplyOnNHibernateConfiguration");
             ActionToApplyOnNHibernateConfiguration = actionToApplyOnNHibernateConfiguration;
-            return this as TStorage;
+            return this;
         }
+
+        public NHibernateStorage WithGeneratedDatabase(bool dropBeforeGeneration = false)
+        {
+            GenerateDatabase = true;
+            DropDatabaseBeforeGeneration = dropBeforeGeneration;
+            return this;
+        }
+
+        public NHibernateStorage WithDatabaseConfiguration(IPersistenceConfigurer persistenceConfigurer)
+        {
+            PersistenceConfigurer = persistenceConfigurer;
+            return this;
+        }
+
+        public override void Configure(IDomainConfigurator configurator)
+        {
+            global::NHibernate.Cfg.Configuration configuration = null;
+
+            var sessionFactory = Fluently.Configure()
+                .Database(PersistenceConfigurer)
+                .Mappings(x => x.FluentMappings.AddFromAssembly(AssemblyWithMappings)).
+                ExposeConfiguration(x =>
+                {
+                    configuration = x;
+
+                    if (GenerateDatabase)
+                    {
+                        var export = new SchemaExport(x);
+                        if (DropDatabaseBeforeGeneration)
+                        {
+                            export.Drop(true, true);
+                        }
+                        export.Execute(false, true, false);
+                    }
+
+                    if (ActionToApplyOnNHibernateConfiguration != null)
+                    {
+                        ActionToApplyOnNHibernateConfiguration(x);
+                    }
+                })
+                .BuildSessionFactory();
+
+            var sessionScopeFactory = new NHibernateSessionScopeFactory(sessionFactory);
+            configurator.Configuration.Container.PutWithNameOrDefault<ISessionScopeFactory>(sessionScopeFactory, configurator.Name);
+
+            LatestConfigurationResult = new ConfigurationResult(sessionFactory, configuration);
+        }
+
+        private static ConfigurationResult LatestConfigurationResult { get; set; }
     }
 }

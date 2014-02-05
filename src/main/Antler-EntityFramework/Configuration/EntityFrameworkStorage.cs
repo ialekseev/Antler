@@ -6,7 +6,7 @@ using SmartElk.Antler.EntityFramework.Internal;
 
 namespace SmartElk.Antler.EntityFramework.Configuration
 {
-    public abstract class EntityFrameworkStorage : AbstractStorage
+    public class EntityFrameworkStorage : AbstractStorage
     {        
         private Assembly _assemblyWithMappings;
         private string _connectionString;
@@ -18,6 +18,11 @@ namespace SmartElk.Antler.EntityFramework.Configuration
             _assemblyWithMappings = Assembly.GetCallingAssembly();
             _databaseInitializer = new DropCreateDatabaseAlways<DataContext>();
             _enableLazyLoading = true;
+        }
+        
+        public static EntityFrameworkStorage Use
+        {
+            get { return new EntityFrameworkStorage(); }
         }
         
         public EntityFrameworkStorage WithConnectionString(string connectionString)

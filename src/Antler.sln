@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-NHibernate-Sqlite-Sp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Windsor", "main\Antler-Windsor\Antler-Windsor.csproj", "{91A50383-D6EB-4303-91E8-BD3634E20CAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-NHibernate-Sqlite", "main\Antler-NHibernate-Sqlite\Antler-NHibernate-Sqlite.csproj", "{3612BF1E-4B41-40C9-B463-D14EBE1CAE26}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Windsor-Specs", "specs\Antler-Windsor-Specs\Antler-Windsor-Specs.csproj", "{DBF351EF-45AB-4708-9267-D0B825FD825B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-EntityFramework", "main\Antler-EntityFramework\Antler-EntityFramework.csproj", "{34FCF9A5-7B9F-4A9A-A8B0-4FDA717744BD}"
@@ -38,15 +36,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Specs-Shared-EntityF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{270F4A97-5525-46A4-9C1B-FB6DC49219A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-NHibernate-SqlServer", "main\Antler-NHibernate-SqlServer\Antler-NHibernate-SqlServer.csproj", "{8183D392-7F79-4787-9D2E-FB9909BFB09C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-EntityFramework-SqlServer", "main\Antler-EntityFramework-SqlServer\Antler-EntityFramework-SqlServer.csproj", "{B6A4097F-D939-449E-B61C-526949185B59}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-NHibernate-SqlServer-Specs", "specs\Antler-NHibernate-SqlServer-Specs\Antler-NHibernate-SqlServer-Specs.csproj", "{D2226D26-F078-48B3-A762-1BF1E61BDF89}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Specs-Shared-NHibernate", "specs\Antler-Specs-Shared-NHibernate\Antler-Specs-Shared-NHibernate.csproj", "{ED6504E9-077F-44EA-B144-FB8796151E46}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-NHibernate-Oracle", "main\Antler-NHibernate-Oracle\Antler-NHibernate-Oracle.csproj", "{24AE9E90-A876-49C2-A871-F058B2DA234B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,10 +58,6 @@ Global
 		{91A50383-D6EB-4303-91E8-BD3634E20CAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91A50383-D6EB-4303-91E8-BD3634E20CAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91A50383-D6EB-4303-91E8-BD3634E20CAB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3612BF1E-4B41-40C9-B463-D14EBE1CAE26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3612BF1E-4B41-40C9-B463-D14EBE1CAE26}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3612BF1E-4B41-40C9-B463-D14EBE1CAE26}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3612BF1E-4B41-40C9-B463-D14EBE1CAE26}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DBF351EF-45AB-4708-9267-D0B825FD825B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DBF351EF-45AB-4708-9267-D0B825FD825B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBF351EF-45AB-4708-9267-D0B825FD825B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -110,14 +98,6 @@ Global
 		{E8EEAF94-7FB9-458C-8298-74F2AFFF8F4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8EEAF94-7FB9-458C-8298-74F2AFFF8F4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8EEAF94-7FB9-458C-8298-74F2AFFF8F4D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8183D392-7F79-4787-9D2E-FB9909BFB09C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8183D392-7F79-4787-9D2E-FB9909BFB09C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8183D392-7F79-4787-9D2E-FB9909BFB09C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8183D392-7F79-4787-9D2E-FB9909BFB09C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B6A4097F-D939-449E-B61C-526949185B59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B6A4097F-D939-449E-B61C-526949185B59}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B6A4097F-D939-449E-B61C-526949185B59}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B6A4097F-D939-449E-B61C-526949185B59}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D2226D26-F078-48B3-A762-1BF1E61BDF89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D2226D26-F078-48B3-A762-1BF1E61BDF89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2226D26-F078-48B3-A762-1BF1E61BDF89}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -126,10 +106,6 @@ Global
 		{ED6504E9-077F-44EA-B144-FB8796151E46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED6504E9-077F-44EA-B144-FB8796151E46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED6504E9-077F-44EA-B144-FB8796151E46}.Release|Any CPU.Build.0 = Release|Any CPU
-		{24AE9E90-A876-49C2-A871-F058B2DA234B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{24AE9E90-A876-49C2-A871-F058B2DA234B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{24AE9E90-A876-49C2-A871-F058B2DA234B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{24AE9E90-A876-49C2-A871-F058B2DA234B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
