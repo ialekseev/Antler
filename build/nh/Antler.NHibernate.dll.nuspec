@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <package>
   <metadata>
-    <id>Antler.NHibernate.SqlServer</id>
+    <id>Antler.NHibernate</id>
     <version>$version$</version>
     <authors>SmartElk</authors>
     <owners>SmartElk</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <projectUrl>https://github.com/SmartElk/Antler</projectUrl>
-    <description>NHibernate + SqlServer adapter for Antler framework</description>
+    <description>NHibernate adapter for Antler framework</description>
     <releaseNotes>Beware: Project is still under construction</releaseNotes>
     <copyright>Copyright 2014</copyright>
-    <tags>Antler, NHibernate, Sql Server</tags>
+    <tags>Antler, NHibernate</tags>
     <dependencies>
       <dependency id="Antler.Core" version="" />
       <dependency id="NHibernate" version="3.3.3.4001" />
