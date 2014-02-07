@@ -11,18 +11,13 @@ $toFile.SelectSingleNode("//package/metadata/dependencies/dependency[@id='" + $p
 $toFile.Save($toFilePathFull)
 }
 
-#nh-sqlite
-substituteVersions "\..\src\main\Antler-NHibernate-Sqlite\packages.config" "\nh-sqlite\Antler.NHibernate.Sqlite.dll.nuspec" "NHibernate"
-substituteVersions "\..\src\main\Antler-NHibernate-Sqlite\packages.config" "\nh-sqlite\Antler.NHibernate.Sqlite.dll.nuspec" "Iesi.Collections"
-substituteVersions "\..\src\main\Antler-NHibernate-Sqlite\packages.config" "\nh-sqlite\Antler.NHibernate.Sqlite.dll.nuspec" "FluentNHibernate"
-
 #nh-sqlserver
-substituteVersions "\..\src\main\Antler-NHibernate-SqlServer\packages.config" "\nh-sqlserver\Antler.NHibernate.SqlServer.dll.nuspec" "NHibernate"
-substituteVersions "\..\src\main\Antler-NHibernate-SqlServer\packages.config" "\nh-sqlserver\Antler.NHibernate.SqlServer.dll.nuspec" "Iesi.Collections"
-substituteVersions "\..\src\main\Antler-NHibernate-SqlServer\packages.config" "\nh-sqlserver\Antler.NHibernate.SqlServer.dll.nuspec" "FluentNHibernate"
+substituteVersions "\..\src\main\Antler-NHibernate\packages.config" "\nh\Antler.NHibernate.dll.nuspec" "NHibernate"
+substituteVersions "\..\src\main\Antler-NHibernate\packages.config" "\nh\Antler.NHibernate.dll.nuspec" "Iesi.Collections"
+substituteVersions "\..\src\main\Antler-NHibernate\packages.config" "\nh\Antler.NHibernate.dll.nuspec" "FluentNHibernate"
 
 #ef-sqlserver
-substituteVersions "\..\src\main\Antler-EntityFramework-SqlServer\packages.config" "\ef-sqlserver\Antler.EntityFramework.SqlServer.dll.nuspec" "EntityFramework"
+substituteVersions "\..\src\main\Antler-EntityFramework\packages.config" "\ef\Antler.EntityFramework.dll.nuspec" "EntityFramework"
 
 #ef-sqlce
 substituteVersions "\..\src\main\Antler-EntityFramework-SqlCe\packages.config" "\ef-sqlce\Antler.EntityFramework.SqlCe.dll.nuspec" "EntityFramework"

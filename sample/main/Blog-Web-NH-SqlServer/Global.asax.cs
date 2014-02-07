@@ -2,12 +2,12 @@
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Antler.NHibernate.Configuration;
 using Blog.Web.Common;
 using Blog.Web.Common.AppStart;
+using FluentNHibernate.Cfg.Db;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Domain.Configuration;
-
-using SmartElk.Antler.NHibernate.SqlServer;
 using SmartElk.Antler.Windsor;
 
 namespace Blog.Web.NH.SqlServer
@@ -31,8 +31,8 @@ namespace Blog.Web.NH.SqlServer
             
             AntlerConfigurator = new AntlerConfigurator();
             AntlerConfigurator.UseWindsorContainer()
-                              .UseStorage(NHibernatePlusSqlServer.Use("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True")
-                                                                  .WithMappings(Assembly.Load("Blog.Mappings.NH")).GenerateDatabase(true));
+                              .UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(MsSqlConfiguration.MsSql2008.ConnectionString("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True"))
+                                                                  .WithMappings(Assembly.Load("Blog.Mappings.NH")).WithGeneratedDatabase(true));
                         
             AntlerConfigurator.CreateInitialData();            
         }
