@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace SmartElk.Antler.EntityFramework.Internal
 {
-    public class DataContext: DbContext, IDataContext
+    public class DataContext: DbContext
     {
         private readonly Assembly _assemblyWithMappings;
 
@@ -30,17 +30,7 @@ namespace SmartElk.Antler.EntityFramework.Internal
         public DataContext(Assembly assemblyWithMappings) : this(assemblyWithMappings, true)
         {            
         }
-        
-        public new IDbSet<TEntity> Set<TEntity>() where TEntity : class
-        {
-            return base.Set<TEntity>();
-        }
-
-        public new void SaveChanges()
-        {
-            base.SaveChanges();
-        }
-
+                        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {                        
             RegisterMappings(modelBuilder);
@@ -49,24 +39,22 @@ namespace SmartElk.Antler.EntityFramework.Internal
         }
 
         private void RegisterMappings(DbModelBuilder modelBuilder)
-        {            
+        {
             var typesToRegister =
                 _assemblyWithMappings.GetTypes().Where(
                     type =>
                     type.BaseType.IsGenericType &&
-                    type.BaseType.GetGenericTypeDefinition() == typeof(EntityTypeConfiguration<>));
+                    type.BaseType.GetGenericTypeDefinition() == typeof (EntityTypeConfiguration<>));
 
             foreach (object configurationInstance in typesToRegister.Select(Activator.CreateInstance))
             {
-                modelBuilder.Configurations.Add((dynamic)configurationInstance);
+                modelBuilder.Configurations.Add((dynamic) configurationInstance);
             }
         }
 
-
-        public void Clear()
+        public DbContextTransaction BeginTransaction()
         {
-            this.Database.Delete();
-            this.Database.Create();
-        }
+            return this.Database.BeginTransaction();
+        }        
     }
 }

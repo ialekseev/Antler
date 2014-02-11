@@ -7,8 +7,8 @@ namespace SmartElk.Antler.EntityFramework
 {
     public class EntityFrameworkRepository<TEntity>: IRepository<TEntity> where TEntity: class
     {
-        private readonly IDataContext _context;
-        public EntityFrameworkRepository(IDataContext context)
+        private readonly DataContext _context;
+        public EntityFrameworkRepository(DataContext context)
         {
             _context = context;
         }
