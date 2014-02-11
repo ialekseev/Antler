@@ -21,7 +21,7 @@ namespace SmartElk.Antler.EntityFramework.Internal
             _enableLazyLoading = enableLazyLoading;
         }
 
-        public IDataContext CreateDbContext()
+        public DataContext CreateDataContext()
         {
             if (!string.IsNullOrEmpty(_connectionString))
               return new DataContext(_connectionString, _assemblyWithMappings, _enableLazyLoading);

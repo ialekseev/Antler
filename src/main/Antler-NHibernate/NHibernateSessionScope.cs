@@ -12,6 +12,7 @@ namespace Antler.NHibernate
         
         public NHibernateSessionScope(ISessionFactory sessionFactory)
         {                        
+            Requires.NotNull(sessionFactory, "sessionFactory");
             _session = sessionFactory.OpenSession();            
             _transaction = _session.BeginTransaction();
             _ownSession = true;
@@ -19,6 +20,7 @@ namespace Antler.NHibernate
 
         public NHibernateSessionScope(ISession session)
         {
+            Requires.NotNull(session, "session");
             _session = session;
             _transaction = _session.BeginTransaction();
             _ownSession = false;
@@ -26,6 +28,7 @@ namespace Antler.NHibernate
 
         public void Commit()
         {
+            AssertIfDone();
             try
             {
                 _transaction.Commit();
@@ -36,7 +39,20 @@ namespace Antler.NHibernate
                 throw;
             }            
         }
-                
+
+        //todo: test rollback
+        public void Rollback()
+        {
+            AssertIfDone();
+            _transaction.Rollback();
+        }
+        
+        private void AssertIfDone()
+        {
+            Assumes.True(!_transaction.WasCommitted, "Transaction already was commited");
+            Assumes.True(!_transaction.WasRolledBack, "Transaction already was rolled back");
+        }
+
         public IRepository<TEntity> CreateRepository<TEntity>() where TEntity:class
         {
             return new NHibernateRepository<TEntity>(_session);
@@ -50,7 +66,7 @@ namespace Antler.NHibernate
         }
 
         public void Dispose()
-        {            
+        {                        
             _transaction.Dispose();            
             if (_ownSession)                            
               _session.Dispose();                            

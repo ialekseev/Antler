@@ -56,9 +56,7 @@
     <Compile Include="EntityFrameworkRepository.cs" />
     <Compile Include="EntityFrameworkSessionScope.cs" />
     <Compile Include="EntityFrameworkSessionScopeFactory.cs" />
-    <Compile Include="Internal\IDataContext.cs" />
     <Compile Include="Internal\IDataContextFactory.cs" />
-    <Compile Include="ISessionScopeFactoryEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

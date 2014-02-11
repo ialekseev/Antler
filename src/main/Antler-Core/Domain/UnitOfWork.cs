@@ -101,6 +101,11 @@ namespace SmartElk.Antler.Core.Domain
 
         public void Dispose()
         {
+            Commit();
+        }
+        
+        public void Commit()
+        {
             Assumes.True(!IsFinished, "This UnitOfWork is finished");
 
             if (IsRoot)
@@ -109,10 +114,10 @@ namespace SmartElk.Antler.Core.Domain
                 SessionScope.Dispose();
                 IsFinished = true;
             }
-                                             
-           _current = _parent;
+
+            _current = _parent;
         }
-                
+
         public IRepository<TEntity> Repo<TEntity>() where TEntity: class
         {
             return SessionScope.CreateRepository<TEntity>();
