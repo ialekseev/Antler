@@ -39,8 +39,7 @@ namespace Antler.NHibernate
                 throw;
             }            
         }
-
-        //todo: test rollback
+        
         public void Rollback()
         {
             AssertIfDone();

@@ -3,8 +3,7 @@ using SmartElk.Antler.Core.Common;
 using SmartElk.Antler.Core.Common.CodeContracts;
 
 namespace SmartElk.Antler.Core.Domain
-{    
-    //todo: add rollback support    
+{        
     public class UnitOfWork: IDisposable
     {
         public ISessionScope SessionScope { get; private set; }
@@ -16,19 +15,8 @@ namespace SmartElk.Antler.Core.Domain
             get { return _current; }
             private set { _current = value.Value; }
         }
-
-        private UnitOfWork _parent;
-        
-        public bool IsFinished { get; private set; }
-        public bool IsRoot
-        {
-            get { return _parent == null; }
-        }
-
-        public Guid? ParentId
-        {
-            get { return IsRoot ? (Guid?) null : _parent.Id; }
-        }        
+                
+        public bool IsFinished { get; private set; }                
         public Guid Id { get; private set; }
         
         public static Func<ISessionScopeFactory> SessionScopeFactoryExtractor { get; set; }        
@@ -49,20 +37,13 @@ namespace SmartElk.Antler.Core.Domain
             SetSession(sessionScopeFactory);
         }
 
-        private void SetSession(ISessionScopeFactory sessionScopeFactory)
+         private void SetSession(ISessionScopeFactory sessionScopeFactory)
         {
             Requires.NotNull(sessionScopeFactory, "Can't continue without SessionScopeFactory. Wrong configuration?");
-
-            if (Current.IsSome)
-            {
-                _parent = _current;
-                SessionScope = _parent.SessionScope;
-            }
-            else
-            {
-                SessionScope = sessionScopeFactory.Open();
-            }                                    
-           Current = this;
+            Assumes.True(Current.IsNone, "Nested transactions are not supported");  
+                      
+            SessionScope = sessionScopeFactory.Open();
+            Current = this;
             IsFinished = false;
             Id = Guid.NewGuid();
         }
@@ -105,17 +86,21 @@ namespace SmartElk.Antler.Core.Domain
         }
         
         public void Commit()
-        {
-            Assumes.True(!IsFinished, "This UnitOfWork is finished");
-
-            if (IsRoot)
+        {            
+            if (!IsFinished)
             {
                 SessionScope.Commit();
                 SessionScope.Dispose();
-                IsFinished = true;
-            }
 
-            _current = _parent;
+                IsFinished = true;
+                _current = null;
+            }            
+        }
+
+        //todo: implement & test
+        public void Rollback()
+        {
+            throw new NotImplementedException();
         }
 
         public IRepository<TEntity> Repo<TEntity>() where TEntity: class

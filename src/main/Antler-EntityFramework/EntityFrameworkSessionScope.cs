@@ -31,8 +31,7 @@ namespace SmartElk.Antler.EntityFramework
                 throw;
             }
         }
-        
-        //todo: test rollback
+                
         public void Rollback()
         {                        
             _transaction.Rollback();            

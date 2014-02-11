@@ -3,6 +3,7 @@ using System;
 using FakeItEasy;
 using FluentAssertions;
 using NUnit.Framework;
+using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain;
 
 namespace SmartElk.Antler.Domain.Specs
@@ -60,7 +61,7 @@ namespace SmartElk.Antler.Domain.Specs
             public void should_open_session_and_get_result()
             {
                 //act
-               var result = UnitOfWork.Do(uow => { return 1; });
+               var result = UnitOfWork.Do(uow => 1);
 
                 //assert
                 A.CallTo(() => SessionScopeFactory.Open()).MustHaveHappened();
@@ -91,13 +92,30 @@ namespace SmartElk.Antler.Domain.Specs
             public void should_open_session_and_get_result()
             {
                 //act
-                var result = UnitOfWork.Do("SuperStorage", uow => { return "super"; });
+                var result = UnitOfWork.Do("SuperStorage", uow => "super");
 
                 //assert
                 A.CallTo(() => SessionScopeFactory.Open()).MustHaveHappened();
                 result.Should().Be("super");
             }
         }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_committing_unit_of_work : UnitOfWorkScenario
+        {
+            [Test]
+            public void should_commit_and_dispose()
+            {
+                //act
+                UnitOfWork.Do(uow => uow.Commit());
+
+                //assert
+                A.CallTo(() => SessionScope.Commit()).MustHaveHappened(Repeated.Exactly.Once);
+                A.CallTo(() => SessionScope.Dispose()).MustHaveHappened(Repeated.Exactly.Once);
+            }
+        }
+
 
         [TestFixture]
         [Category("Unit")]
@@ -110,8 +128,8 @@ namespace SmartElk.Antler.Domain.Specs
                 UnitOfWork.Do(uow => { });
 
                 //assert
-                A.CallTo(() => SessionScope.Commit()).MustHaveHappened();
-                A.CallTo(() => SessionScope.Dispose()).MustHaveHappened();
+                A.CallTo(() => SessionScope.Commit()).MustHaveHappened(Repeated.Exactly.Once);
+                A.CallTo(() => SessionScope.Dispose()).MustHaveHappened(Repeated.Exactly.Once);
             }
         }
 
@@ -164,61 +182,18 @@ namespace SmartElk.Antler.Domain.Specs
         public class when_trying_to_create_nested_unit_of_work : UnitOfWorkScenario
         {
             [Test]
-            public void should_set_hierarchy_properly()
+            [ExpectedException(typeof(Assumes.InternalErrorException))]
+            public void should_throw_exception()
             {                
-                UnitOfWork.Do(uow =>
-                    {
-                        //assert
-                        uow.IsRoot.Should().BeTrue();
-                        uow.ParentId.HasValue.Should().BeFalse();
-                        UnitOfWork.Current.Value.Id.Should().Be(uow.Id);
-
-                        UnitOfWork.Do(nested =>
-                            {
-                                //assert
-                                nested.IsRoot.Should().BeFalse();
-                                nested.ParentId.Value.Should().Be(uow.Id);
-                                UnitOfWork.Current.Value.Id.Should().Be(nested.Id);
-                            });
-                    });
+                UnitOfWork.Do(uow => UnitOfWork.Do(nested =>
+                    {                                
+                    }));
             }
         }
-
+        
         [TestFixture]
         [Category("Unit")]
-        public class when_trying_to_commit_root_unit_of_work_ : UnitOfWorkScenario
-        {
-            [Test]
-            public void should_commit_only_root()
-            {
-                UnitOfWork rootUow = null;
-                UnitOfWork.Do(root =>
-                    {
-                    rootUow = root;
-                    UnitOfWork nestedUow=null;
-                    UnitOfWork.Do(nested =>
-                    {                        
-                        nestedUow = nested;                        
-                    });
-                        
-                        //assert
-                        nestedUow.IsFinished.Should().BeFalse();
-                        A.CallTo(() => SessionScope.Commit()).MustNotHaveHappened();
-                        A.CallTo(() => SessionScope.Dispose()).MustNotHaveHappened();
-                        UnitOfWork.Current.Value.Id.Should().Be(rootUow.Id);                        
-                    });
-                
-                //assert
-                rootUow.IsFinished.Should().BeTrue();
-                A.CallTo(() => SessionScope.Commit()).MustHaveHappened();
-                A.CallTo(() => SessionScope.Dispose()).MustHaveHappened();
-                UnitOfWork.Current.IsSome.Should().BeFalse();
-            }
-        }
-
-        [TestFixture]
-        [Category("Unit")]
-        public class when_trying_to_get_current_uow_from_the_out_of_scope_ : UnitOfWorkScenario
+        public class when_trying_to_get_current_uow_from_the_out_of_scope : UnitOfWorkScenario
         {
             [Test]
             public void should_return_null()
