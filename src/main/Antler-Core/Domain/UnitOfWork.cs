@@ -38,9 +38,9 @@ namespace SmartElk.Antler.Core.Domain
         }
 
          private void SetSession(ISessionScopeFactory sessionScopeFactory)
-        {
+         {
             Requires.NotNull(sessionScopeFactory, "Can't continue without SessionScopeFactory. Wrong configuration?");
-            Assumes.True(Current.IsNone, "Nested transactions are not supported");  
+            Assumes.True(Current.IsNone, "Nested UnitOfWorks are not supported");  
                       
             SessionScope = sessionScopeFactory.Open();
             Current = this;
@@ -87,20 +87,24 @@ namespace SmartElk.Antler.Core.Domain
         
         public void Commit()
         {            
-            if (!IsFinished)
-            {
-                SessionScope.Commit();
-                SessionScope.Dispose();
-
-                IsFinished = true;
-                _current = null;
-            }            
+            Perform(() => SessionScope.Commit());
         }
-
-        //todo: implement & test
+        
         public void Rollback()
         {
-            throw new NotImplementedException();
+            Perform(() => SessionScope.Rollback());            
+        }
+
+        private void Perform(Action action)
+        {
+            Requires.NotNull(action, "action");            
+            if (!IsFinished)
+            {
+                action();
+                SessionScope.Dispose();
+                IsFinished = true;
+                _current = null;
+            }
         }
 
         public IRepository<TEntity> Repo<TEntity>() where TEntity: class

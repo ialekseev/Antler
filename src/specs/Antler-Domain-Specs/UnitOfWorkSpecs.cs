@@ -116,6 +116,22 @@ namespace SmartElk.Antler.Domain.Specs
             }
         }
 
+        [TestFixture]
+        [Category("Unit")]
+        public class when_rolling_back_unit_of_work : UnitOfWorkScenario
+        {
+            [Test]
+            public void should_rollback_and_dispose()
+            {
+                //act
+                UnitOfWork.Do(uow => uow.Rollback());
+
+                //assert
+                A.CallTo(() => SessionScope.Commit()).MustNotHaveHappened();
+                A.CallTo(() => SessionScope.Rollback()).MustHaveHappened(Repeated.Exactly.Once);
+                A.CallTo(() => SessionScope.Dispose()).MustHaveHappened(Repeated.Exactly.Once);
+            }
+        }
 
         [TestFixture]
         [Category("Unit")]

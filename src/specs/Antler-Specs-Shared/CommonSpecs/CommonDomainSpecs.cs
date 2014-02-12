@@ -276,6 +276,30 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                     });
             }
         }
+
+        public static class when_trying_to_rollback_transaction
+        {
+            public static void should_rollback()
+            {
+                //arrange
+                Team team = null;
+                UnitOfWork.Do(uow =>
+                {
+                    team = new Team() { Name = "Super", Description = "SuperBg" };
+                    uow.Repo<Team>().Insert(team);
+
+                    uow.Rollback();
+                });
+
+                UnitOfWork.Do(uow =>
+                {                    
+                    //assert
+                    var foundTeam = uow.Repo<Team>().AsQueryable().FirstOrDefault(t => t.Name == "Super");
+                    foundTeam.Should().BeNull();
+                });
+            }
+        }
+
     }
 }
 // ReSharper restore InconsistentNaming
