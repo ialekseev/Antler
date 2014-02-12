@@ -37,17 +37,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antler.Core, Version=1.0.5150.22186, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.Core, Version=1.0.5156.32618, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.Core.1.18\lib\net40\Antler.Core.dll</HintPath>
+      <HintPath>..\..\packages\Antler.Core.1.19\lib\net40\Antler.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Antler.EntityFramework, Version=1.0.5150.22189, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.EntityFramework, Version=1.0.5156.32621, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.EntityFramework.1.18\lib\net40\Antler.EntityFramework.dll</HintPath>
+      <HintPath>..\..\packages\Antler.EntityFramework.1.19\lib\net40\Antler.EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Antler.Windsor, Version=1.0.5150.22188, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.Windsor, Version=1.0.5156.32620, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.Windsor.1.18\lib\net40\Antler.Windsor.dll</HintPath>
+      <HintPath>..\..\packages\Antler.Windsor.1.19\lib\net40\Antler.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core">
       <HintPath>..\..\packages\Castle.Core.3.2.2\lib\net40-client\Castle.Core.dll</HintPath>

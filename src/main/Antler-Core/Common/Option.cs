@@ -43,7 +43,7 @@ namespace SmartElk.Antler.Core.Common
         public Some(T value)
         {
             // ReSharper disable CompareNonConstrainedGenericWithNull
-            if (!typeof(T).IsValueType && value == null)
+            if (/*!typeof(T).IsValueType &&*/ value == null)
             // ReSharper restore CompareNonConstrainedGenericWithNull
             {
                 throw new ArgumentNullException("value", "Some value was null, use None instead");
@@ -106,10 +106,10 @@ namespace SmartElk.Antler.Core.Common
         public static Option<T> AsOption<T>(this T value)
         {
             // ReSharper disable CompareNonConstrainedGenericWithNull
-            if (!typeof(T).IsValueType && value == null) return new None<T>();
+            if (/*!typeof(T).IsValueType &&*/ value == null) return new None<T>();
             // ReSharper restore CompareNonConstrainedGenericWithNull
 
             return new Some<T>(value);
         }
-    }
+    }        
 }

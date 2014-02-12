@@ -94,6 +94,17 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
 
         [TestFixture]
         [Category("Integration")]
+        public class when_trying_to_rollback_transaction : TestingScenario<LazyLoading>
+        {
+            [Test]
+            public void should_rollback()
+            {
+                CommonDomainSpecs.when_trying_to_rollback_transaction.should_rollback();
+            }
+        }
+
+        [TestFixture]
+        [Category("Integration")]
         public class when_trying_to_get_one_employee_without_lazy_loading : TestingScenario<EagerLoading>
         {
             [Test]

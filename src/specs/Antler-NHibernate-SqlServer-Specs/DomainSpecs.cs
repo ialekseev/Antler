@@ -94,6 +94,17 @@ namespace SmartElk.Antler.NHibernate.SqlServer.Specs
 
         [TestFixture]
         [Category("Integration")]
+        public class when_trying_to_rollback_transaction : TestingScenario
+        {
+            [Test]
+            public void should_rollback()
+            {
+                CommonDomainSpecs.when_trying_to_rollback_transaction.should_rollback();
+            }
+        }
+
+        [TestFixture]
+        [Category("Integration")]
         public class when_trying_to_query_using_nhibernate_internal_session_directly : TestingScenario
         {
             [Test]
