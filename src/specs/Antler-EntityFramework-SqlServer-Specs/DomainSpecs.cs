@@ -7,7 +7,6 @@ using SmartElk.Antler.Core.Common.Reflection;
 using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
-using SmartElk.Antler.Specs.Shared.EntityFramework.Configuration;
 using SmartElk.Antler.Specs.Shared.EntityFramework.Mappings;
 using SmartElk.Antler.Windsor;
 
@@ -142,12 +141,10 @@ namespace Antler.EntityFramework.SqlServer.Specs
                 Configurator.UseWindsorContainer()
                             .UseStorage(typeof(T) == typeof(LazyLoading)
                                             ? EntityFrameworkStorage.Use.WithConnectionString(connectionString)
-                                                                      .WithMappings(assemblyWithMappings)
+                                                                      .WithMappings(assemblyWithMappings).WithRecreatedDatabase()
                                             : EntityFrameworkStorage.Use.WithoutLazyLoading()
                                                                       .WithConnectionString(connectionString)
-                                                                      .WithMappings(assemblyWithMappings));
-
-                Configurator.ClearDatabase();                                
+                                                                      .WithMappings(assemblyWithMappings).WithRecreatedDatabase());                
             }
 
             [TearDown]
