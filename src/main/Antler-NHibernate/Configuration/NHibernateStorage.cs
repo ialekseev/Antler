@@ -14,8 +14,8 @@ namespace Antler.NHibernate.Configuration
         protected Assembly AssemblyWithMappings { get; set; }
         protected Action<global::NHibernate.Cfg.Configuration> ActionToApplyOnNHibernateConfiguration;
         
-        protected bool GenerateDatabase { get; set; }
-        protected bool DropDatabaseBeforeGeneration { get; set; }
+        protected bool GeneratedDatabase { get; set; }
+        protected Action TryToCreateDatabaseCommand { get; set; }
 
         protected IPersistenceConfigurer PersistenceConfigurer { get; set; }
 
@@ -43,10 +43,10 @@ namespace Antler.NHibernate.Configuration
             return this;
         }
 
-        public NHibernateStorage WithGeneratedDatabase(bool dropBeforeGeneration = false)
+        public NHibernateStorage WithGeneratedDatabase(Action tryToCreateDatabaseCommand = null)
         {
-            GenerateDatabase = true;
-            DropDatabaseBeforeGeneration = dropBeforeGeneration;
+            GeneratedDatabase = true;
+            TryToCreateDatabaseCommand = tryToCreateDatabaseCommand;
             return this;
         }
 
@@ -67,13 +67,15 @@ namespace Antler.NHibernate.Configuration
                 {
                     configuration = x;
 
-                    if (GenerateDatabase)
+                    if (GeneratedDatabase)
                     {
-                        var export = new SchemaExport(x);
-                        if (DropDatabaseBeforeGeneration)
+                        if (TryToCreateDatabaseCommand != null)
                         {
-                            export.Drop(true, true);
+                            TryToCreateDatabaseCommand();
                         }
+
+                        var export = new SchemaExport(x);                                                                                                        
+                        export.Drop(true, true);                                                
                         export.Execute(false, true, false);
                     }
 
@@ -89,7 +91,7 @@ namespace Antler.NHibernate.Configuration
 
             LatestConfigurationResult = new ConfigurationResult(sessionFactory, configuration);
         }
-
+                
         private static ConfigurationResult LatestConfigurationResult { get; set; }
     }
 }

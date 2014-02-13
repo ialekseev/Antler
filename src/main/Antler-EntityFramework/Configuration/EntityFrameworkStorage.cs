@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Reflection;
+using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.Internal;
@@ -12,11 +13,12 @@ namespace SmartElk.Antler.EntityFramework.Configuration
         private string _connectionString;
         private IDatabaseInitializer<DataContext> _databaseInitializer;
         private bool _enableLazyLoading;
+        private bool _recreateDatabase;
 
         protected EntityFrameworkStorage()
         {
             _assemblyWithMappings = Assembly.GetCallingAssembly();
-            _databaseInitializer = new DropCreateDatabaseAlways<DataContext>();
+            _databaseInitializer = new CreateDatabaseIfNotExists<DataContext>();
             _enableLazyLoading = true;
         }
         
@@ -27,19 +29,22 @@ namespace SmartElk.Antler.EntityFramework.Configuration
         
         public EntityFrameworkStorage WithConnectionString(string connectionString)
         {            
-            this._connectionString = connectionString;
+            Requires.NotNullOrEmpty(connectionString, "connectionString");
+            _connectionString = connectionString;
             return this;
         }
 
         public EntityFrameworkStorage WithMappings(Assembly assembly)
         {
-            this._assemblyWithMappings = assembly;
+            Requires.NotNull(assembly, "assembly");
+            _assemblyWithMappings = assembly;
             return this;
         }
 
         public EntityFrameworkStorage WithDatabaseInitializer(IDatabaseInitializer<DataContext> databaseInitializer)
         {
-            this._databaseInitializer = databaseInitializer;
+            Requires.NotNull(databaseInitializer, "databaseInitializer");
+            _databaseInitializer = databaseInitializer;
             return this;
         }
 
@@ -55,6 +60,12 @@ namespace SmartElk.Antler.EntityFramework.Configuration
             return this;
         }
 
+        public EntityFrameworkStorage WithRecreatedDatabase()
+        {
+            this._recreateDatabase = true;
+            return this;
+        }
+
         public override void Configure(IDomainConfigurator configurator)
         {
             var dataContextFactory = string.IsNullOrEmpty(_connectionString)
@@ -64,7 +75,14 @@ namespace SmartElk.Antler.EntityFramework.Configuration
             
             var sessionScopeFactory = new EntityFrameworkSessionScopeFactory(dataContextFactory);
             configurator.Configuration.Container.PutWithNameOrDefault<ISessionScopeFactory>(sessionScopeFactory, configurator.Name);                                    
-            Database.SetInitializer(_databaseInitializer);             
+            Database.SetInitializer(_databaseInitializer);     
+        
+            if (_recreateDatabase)
+            {
+                var context = sessionScopeFactory.CreateContext();
+                context.Database.Delete();
+                context.Database.Create();
+            }
         }
     }
 }

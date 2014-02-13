@@ -53,7 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonSpecs\CommonDomainSpecs.cs" />
-    <Compile Include="Configuration\ConfigurationEx.cs" />
     <Compile Include="Mappings\CountryMap.cs" />
     <Compile Include="Mappings\EmployeeMap.cs" />
     <Compile Include="Mappings\TeamMap.cs" />
