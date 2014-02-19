@@ -8,7 +8,7 @@ using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
 using SmartElk.Antler.Specs.Shared.EntityFramework.Mappings;
-using SmartElk.Antler.Windsor;
+using SmartElk.Antler.StructureMap;
 
 namespace Antler.EntityFramework.SqlServer.Specs
 {    
@@ -138,7 +138,7 @@ namespace Antler.EntityFramework.SqlServer.Specs
 
                 const string connectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=AntlerTest;Integrated Security=True";
                 var assemblyWithMappings = From.AssemblyWithType<CountryMap>().First();
-                Configurator.UseWindsorContainer()
+                Configurator.UseStructureMapContainer()
                             .UseStorage(typeof(T) == typeof(LazyLoading)
                                             ? EntityFrameworkStorage.Use.WithConnectionString(connectionString)
                                                                       .WithMappings(assemblyWithMappings).WithRecreatedDatabase()
@@ -150,7 +150,7 @@ namespace Antler.EntityFramework.SqlServer.Specs
             [TearDown]
             public void Dispose()
             {
-                Configurator.UnUseWindsorContainer().UnUseStorage().Dispose();
+                Configurator.UnUseStructureMapContainer().UnUseStorage().Dispose();
             }
         } 
         #endregion

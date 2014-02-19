@@ -9,7 +9,7 @@ using SmartElk.Antler.Core.Abstractions;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
-using SmartElk.Antler.Windsor;
+using SmartElk.Antler.StructureMap;
 
 namespace SmartElk.Antler.NHibernate.Sqlite.Specs
 {
@@ -26,7 +26,7 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
                 var configurator = new AntlerConfigurator();
                 
                 //act
-                configurator.UseWindsorContainer().UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(SQLiteConfiguration.Standard.InMemory()));
+                configurator.UseStructureMapContainer().UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(SQLiteConfiguration.Standard.InMemory()));
 
                 //assert                                
                 configurator.Configuration.Container.Get<ISessionScopeFactory>().Should().BeOfType<NHibernateSessionScopeFactory>(); 
