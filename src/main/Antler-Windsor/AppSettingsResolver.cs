@@ -12,12 +12,12 @@ namespace SmartElk.Antler.Windsor
         private readonly IKernel _kernel;
 
         public AppSettingsResolver(IKernel kernel)
-        {
+        {            
             _kernel = kernel;
         }
 
         public string Key(ComponentModel model, DependencyModel dependency)
-        {
+        {            
             return string.Format("{0}.{1}", model.Implementation.Name, dependency.DependencyKey);
         }
 
