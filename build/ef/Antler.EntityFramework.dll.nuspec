@@ -12,7 +12,7 @@
     <copyright>Copyright 2014</copyright>
     <tags>Antler, EntityFramework</tags>
     <dependencies>
-      <dependency id="Antler.Core" version="" />
+      <dependency id="Antler.Core" version="[1.22]" />
       <dependency id="EntityFramework" version="6.0.2" />
     </dependencies>
   </metadata>
