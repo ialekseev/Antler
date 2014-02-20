@@ -8,7 +8,7 @@ using Blog.Web.Common.AppStart;
 using FluentNHibernate.Cfg.Db;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Domain.Configuration;
-using SmartElk.Antler.Windsor;
+using SmartElk.Antler.StructureMap;
 
 namespace Blog.Web.NH.SqlServer
 {
@@ -30,9 +30,9 @@ namespace Blog.Web.NH.SqlServer
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             
             AntlerConfigurator = new AntlerConfigurator();
-            AntlerConfigurator.UseWindsorContainer()
+            AntlerConfigurator.UseStructureMapContainer()
                               .UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(MsSqlConfiguration.MsSql2008.ConnectionString("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True"))
-                                                                  .WithMappings(Assembly.Load("Blog.Mappings.NH")).WithGeneratedDatabase(true));
+                                                                  .WithMappings(Assembly.Load("Blog.Mappings.NH")).WithGeneratedDatabase());
                         
             AntlerConfigurator.CreateInitialData();            
         }

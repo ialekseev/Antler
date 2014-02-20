@@ -12,7 +12,7 @@ echo Running tests...
 if exist output rmdir /s /q output
 mkdir output
 
-..\tools\nunit.runner\nunit-console.exe /work:output ..\src\specs\Antler-Domain-Specs\bin\Release\Antler.Domain.Specs.dll ..\src\specs\Antler-EntityFramework-SqlCe-Specs\bin\Release\Antler.EntityFramework.SqlCe.Specs.dll ..\src\specs\Antler-NHibernate-Sqlite-Specs\bin\Release\Antler.NHibernate.Sqlite.Specs.dll ..\src\specs\Antler-Storages-Specs\bin\Release\Antler.Storages.Specs.dll ..\src\specs\Antler-Windsor-Specs\bin\Release\Antler.Windsor.Specs.dll
+..\tools\nunit.runner\nunit-console.exe /work:output ..\src\specs\Antler-Domain-Specs\bin\Release\Antler.Domain.Specs.dll ..\src\specs\Antler-EntityFramework-SqlCe-Specs\bin\Release\Antler.EntityFramework.SqlCe.Specs.dll ..\src\specs\Antler-EntityFramework-SqlServer-Specs\bin\Release\Antler.EntityFramework.SqlServer.Specs.dll ..\src\specs\Antler-NHibernate-Sqlite-Specs\bin\Release\Antler.NHibernate.Sqlite.Specs.dll ..\src\specs\Antler-NHibernate-SqlServer-Specs\bin\Release\Antler.NHibernate.SqlServer.Specs.dll ..\src\specs\Antler-Storages-Specs\bin\Release\Antler.Storages.Specs.dll ..\src\specs\Antler-Windsor-Specs\bin\Release\Antler.Windsor.Specs.dll ..\src\specs\Antler-StructureMap-Specs\bin\Release\Antler.StructureMap.Specs.dll
 if %ERRORLEVEL% neq 0 goto end
 :skipTests
 
@@ -24,12 +24,14 @@ if exist nh\output rmdir /s /q nh\output
 if exist ef\output rmdir /s /q ef\output
 if exist ef-sqlce\output rmdir /s /q ef-sqlce\output
 if exist windsor\output rmdir /s /q windsor\output
+if exist structuremap\output rmdir /s /q structuremap\output
 
 mkdir core\output\lib\net40
 mkdir nh\output\lib\net40
 mkdir ef\output\lib\net40
 mkdir ef-sqlce\output\lib\net40
 mkdir windsor\output\lib\net40
+mkdir structuremap\output\lib\net40
 
 ::Core
 copy ..\src\main\Antler-Core\bin\Release\Antler.Core.* core\output\lib\net40
@@ -47,10 +49,13 @@ copy ..\src\main\Antler-EntityFramework-SqlCe\bin\Release\Antler.EntityFramework
 ::Windsor adapter
 copy ..\src\main\Antler-Windsor\bin\Release\Antler.Windsor.* windsor\output\lib\net40
 
+::StructureMap adapter
+copy ..\src\main\Antler-StructureMap\bin\Release\Antler.StructureMap.* structuremap\output\lib\net40
+
 ::+++++++++++++++++++++ Updating Nuget Spec files+++++++++++++++++++++++++++++++++++++++++++
 if %skipDependentPackagesVersionsUpdate%==true goto skipVersionsUpdate
 echo Updating Nuget Spec files(Dependent packages versions update)...
-@powershell ./substitude.ps1
+@powershell ./substitude.ps1 %version%
 :skipVersionsUpdate
 ::++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -78,14 +83,19 @@ copy windsor\Antler.Windsor.dll.nuspec windsor\output
 ..\src\.nuget\Nuget.exe pack windsor\output\Antler.Windsor.dll.nuspec -properties version=%version%
 move Antler.Windsor*.nupkg windsor\output
 
+copy structuremap\Antler.StructureMap.dll.nuspec structuremap\output
+..\src\.nuget\Nuget.exe pack structuremap\output\Antler.StructureMap.dll.nuspec -properties version=%version%
+move Antler.StructureMap*.nupkg structuremap\output
+
 ::+++++++++++++++++++++ Publishing NuGet packages+++++++++++++++++++++++++++++++++++++++++++
 if %skipPublishing%==true goto skipPublishing
 echo Publishing NuGet packages...
 ..\src\.nuget\Nuget.exe push core\output\Antler.Core.%version%.nupkg
-..\src\.nuget\Nuget.exe push windsor\output\Antler.Windsor.%version%.nupkg
 ..\src\.nuget\Nuget.exe push nh\output\Antler.NHibernate.%version%.nupkg
 ..\src\.nuget\Nuget.exe push ef\output\Antler.EntityFramework.%version%.nupkg
 ..\src\.nuget\Nuget.exe push ef-sqlce\output\Antler.EntityFramework.SqlCe.%version%.nupkg
+..\src\.nuget\Nuget.exe push windsor\output\Antler.Windsor.%version%.nupkg
+..\src\.nuget\Nuget.exe push structuremap\output\Antler.StructureMap.%version%.nupkg
 :skipPublishing
 ::++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 : end
