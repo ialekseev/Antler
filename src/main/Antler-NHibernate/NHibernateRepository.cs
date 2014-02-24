@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
+using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain;
 
 namespace Antler.NHibernate
@@ -10,6 +11,7 @@ namespace Antler.NHibernate
         private readonly ISession _session;
         public NHibernateRepository(ISession session)
         {
+            Requires.NotNull(session, "session");
             _session = session;
         }
 
@@ -25,11 +27,13 @@ namespace Antler.NHibernate
         
         public void Insert(TEntity entity)
         {
+            Requires.NotNull(entity, "entity");
             _session.Save(entity);
         }
 
         public void Delete(TEntity entity)
         {
+            Requires.NotNull(entity, "entity");
             _session.Delete(entity);
         }
 

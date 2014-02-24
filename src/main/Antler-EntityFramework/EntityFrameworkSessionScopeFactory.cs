@@ -1,4 +1,5 @@
-﻿using SmartElk.Antler.Core.Domain;
+﻿using SmartElk.Antler.Core.Common.CodeContracts;
+using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.EntityFramework.Internal;
 
 namespace SmartElk.Antler.EntityFramework
@@ -8,6 +9,7 @@ namespace SmartElk.Antler.EntityFramework
         private readonly IDataContextFactory _dbContextFactory;
         public EntityFrameworkSessionScopeFactory(IDataContextFactory dbContextFactory)
         {
+            Requires.NotNull(dbContextFactory, "dbContextFactory");
             _dbContextFactory = dbContextFactory;
         }
 

@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using SmartElk.Antler.Core.Common.CodeContracts;
 
 namespace SmartElk.Antler.EntityFramework.Internal
 {
@@ -10,6 +11,9 @@ namespace SmartElk.Antler.EntityFramework.Internal
 
         public DataContextFactory(string connectionString, Assembly assemblyWithMappings, bool enableLazyLoading)
         {
+            Requires.NotNullOrEmpty(connectionString, "connectionString");
+            Requires.NotNull(assemblyWithMappings, "assemblyWithMappings");
+
             _connectionString = connectionString;
             _assemblyWithMappings = assemblyWithMappings;
             _enableLazyLoading = enableLazyLoading;
@@ -17,6 +21,8 @@ namespace SmartElk.Antler.EntityFramework.Internal
 
         public DataContextFactory(Assembly assemblyWithMappings, bool enableLazyLoading)
         {
+            Requires.NotNull(assemblyWithMappings, "assemblyWithMappings");
+
             _assemblyWithMappings = assemblyWithMappings;
             _enableLazyLoading = enableLazyLoading;
         }

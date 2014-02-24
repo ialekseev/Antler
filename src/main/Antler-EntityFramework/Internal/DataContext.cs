@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Reflection;
+using SmartElk.Antler.Core.Common.CodeContracts;
 
 namespace SmartElk.Antler.EntityFramework.Internal
 {
@@ -12,6 +13,9 @@ namespace SmartElk.Antler.EntityFramework.Internal
 
         public DataContext(string connectionString, Assembly assemblyWithMappings, bool enableLazyLoading): base(connectionString)
         {
+            Requires.NotNullOrEmpty(connectionString, "connectionString");
+            Requires.NotNull(assemblyWithMappings, "assemblyWithMappings");
+            
             _assemblyWithMappings = assemblyWithMappings;
             this.Configuration.LazyLoadingEnabled = enableLazyLoading;
         }
@@ -23,6 +27,8 @@ namespace SmartElk.Antler.EntityFramework.Internal
         
         public DataContext(Assembly assemblyWithMappings, bool enableLazyLoading)            
         {
+            Requires.NotNull(assemblyWithMappings, "assemblyWithMappings");
+            
             _assemblyWithMappings = assemblyWithMappings;
             this.Configuration.LazyLoadingEnabled = enableLazyLoading;
         }
@@ -40,6 +46,8 @@ namespace SmartElk.Antler.EntityFramework.Internal
 
         private void RegisterMappings(DbModelBuilder modelBuilder)
         {
+            Requires.NotNull(modelBuilder, "modelBuilder");
+
             var typesToRegister =
                 _assemblyWithMappings.GetTypes().Where(
                     type =>

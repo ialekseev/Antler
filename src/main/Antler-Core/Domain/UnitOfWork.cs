@@ -30,8 +30,7 @@ namespace SmartElk.Antler.Core.Domain
         }
 
         private UnitOfWork(string storageName)            
-        {
-            Requires.NotNullOrEmpty(storageName, "Storage name can't be null or empty");
+        {            
             Assumes.True(SessionScopeFactoryNamedExtractor != null, "SessionScopeFactoryNamedExtractor should be set before using UnitOfWork with storage name. Wrong configuraiton?");
             var sessionScopeFactory = SessionScopeFactoryNamedExtractor(storageName);
             SetSession(sessionScopeFactory);
@@ -50,6 +49,8 @@ namespace SmartElk.Antler.Core.Domain
 
         public static void Do(Action<UnitOfWork> work)
         {
+            Requires.NotNull(work, "work");
+            
             using (var uow = new UnitOfWork())
             {
                 work(uow);
@@ -58,6 +59,8 @@ namespace SmartElk.Antler.Core.Domain
 
         public static TResult Do<TResult>(Func<UnitOfWork, TResult> work)
         {
+            Requires.NotNull(work, "work");
+
             using (var uow = new UnitOfWork())
             {
                 return work(uow);
@@ -66,6 +69,9 @@ namespace SmartElk.Antler.Core.Domain
 
         public static void Do(string storageName, Action<UnitOfWork> work)
         {
+            Requires.NotNullOrEmpty(storageName, "storageName");
+            Requires.NotNull(work, "work");
+
             using (var uow = new UnitOfWork(storageName))
             {
                 work(uow);
@@ -74,6 +80,9 @@ namespace SmartElk.Antler.Core.Domain
 
         public static TResult Do<TResult>(string storageName, Func<UnitOfWork, TResult> work)
         {
+            Requires.NotNullOrEmpty(storageName, "storageName");
+            Requires.NotNull(work, "work");
+
             using (var uow = new UnitOfWork(storageName))
             {
                 return work(uow);

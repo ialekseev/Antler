@@ -1,4 +1,5 @@
 ﻿using NHibernate;
+using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain;
 
 namespace Antler.NHibernate
@@ -10,6 +11,7 @@ namespace Antler.NHibernate
         
         public NHibernateSessionScopeFactory(ISessionFactory sessionFactory)
         {
+            Requires.NotNull(sessionFactory, "sessionFactory");            
             _sessionFactory = sessionFactory;
         }
         
@@ -23,6 +25,7 @@ namespace Antler.NHibernate
 
         void ISessionScopeFactoryEx.SetSession(ISession session)
         {
+            Requires.NotNull(session, "session");            
             _session = session;
         }
 
