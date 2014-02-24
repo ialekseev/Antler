@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.SqlServerCompact;
 using System.Linq;
+using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.Configuration;
 
@@ -10,13 +11,15 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Configuration
 {
     public class EntityFrameworkPlusSqlCe : EntityFrameworkStorage
     {
-        public static EntityFrameworkStorage Use
+        public new static EntityFrameworkStorage Use
         {
            get { return new EntityFrameworkPlusSqlCe();}            
         }
 
         public override void Configure(IDomainConfigurator configurator)
         {
+            Requires.NotNull(configurator, "configurator");
+
             DbConfiguration.SetConfiguration(new SqlCeDbConfiguration());
             RegisterDbProviderFactory();
             

@@ -9,7 +9,7 @@ using SmartElk.Antler.Core.Domain.Configuration;
 
 namespace Antler.NHibernate.Configuration
 {
-    public class NHibernateStorage : AbstractStorage /*<TStorage> : AbstractStorage where TStorage : class*/                                                                
+    public class NHibernateStorage : AbstractStorage
     {
         protected Assembly AssemblyWithMappings { get; set; }
         protected Action<global::NHibernate.Cfg.Configuration> ActionToApplyOnNHibernateConfiguration;
@@ -30,8 +30,9 @@ namespace Antler.NHibernate.Configuration
         }
 
         public NHibernateStorage WithMappings(Assembly assemblyWithMappings)
-        {
+        {                        
             Requires.NotNull(assemblyWithMappings, "assemblyWithMappings");
+            
             AssemblyWithMappings = assemblyWithMappings;
             return this;
         }
@@ -39,6 +40,7 @@ namespace Antler.NHibernate.Configuration
         public NHibernateStorage ApplyOnNHibernateConfiguration(Action<global::NHibernate.Cfg.Configuration> actionToApplyOnNHibernateConfiguration)
         {
             Requires.NotNull(actionToApplyOnNHibernateConfiguration, "actionToApplyOnNHibernateConfiguration");
+            
             ActionToApplyOnNHibernateConfiguration = actionToApplyOnNHibernateConfiguration;
             return this;
         }
@@ -52,12 +54,16 @@ namespace Antler.NHibernate.Configuration
 
         public NHibernateStorage WithDatabaseConfiguration(IPersistenceConfigurer persistenceConfigurer)
         {
+            Requires.NotNull(persistenceConfigurer, "persistenceConfigurer");
+            
             PersistenceConfigurer = persistenceConfigurer;
             return this;
         }
 
         public override void Configure(IDomainConfigurator configurator)
         {
+            Requires.NotNull(configurator, "configurator");
+
             global::NHibernate.Cfg.Configuration configuration = null;
 
             var sessionFactory = Fluently.Configure()

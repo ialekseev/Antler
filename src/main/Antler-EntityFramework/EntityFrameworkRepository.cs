@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Linq;
+using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.EntityFramework.Internal;
 
@@ -10,6 +11,7 @@ namespace SmartElk.Antler.EntityFramework
         private readonly DataContext _context;
         public EntityFrameworkRepository(DataContext context)
         {
+            Requires.NotNull(context, "context");
             _context = context;
         }
 
@@ -30,12 +32,16 @@ namespace SmartElk.Antler.EntityFramework
         
         public void Insert(TEntity entity)
         {
+            Requires.NotNull(entity, "entity");
+
             DbSet.Add(entity);
             _context.SaveChanges();
         }
 
         public void Delete(TEntity entity)
         {
+            Requires.NotNull(entity, "entity");
+
             DbSet.Remove(entity);
             _context.SaveChanges();
         }

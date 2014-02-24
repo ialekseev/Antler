@@ -68,6 +68,8 @@ namespace SmartElk.Antler.EntityFramework.Configuration
 
         public override void Configure(IDomainConfigurator configurator)
         {
+            Requires.NotNull(configurator, "configurator");
+            
             var dataContextFactory = string.IsNullOrEmpty(_connectionString)
                                          ? new DataContextFactory(_assemblyWithMappings, _enableLazyLoading)
                                          : new DataContextFactory(_connectionString, _assemblyWithMappings,

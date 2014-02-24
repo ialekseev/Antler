@@ -13,6 +13,7 @@ namespace Antler.NHibernate
         public NHibernateSessionScope(ISessionFactory sessionFactory)
         {                        
             Requires.NotNull(sessionFactory, "sessionFactory");
+            
             _session = sessionFactory.OpenSession();            
             _transaction = _session.BeginTransaction();
             _ownSession = true;
@@ -21,6 +22,7 @@ namespace Antler.NHibernate
         public NHibernateSessionScope(ISession session)
         {
             Requires.NotNull(session, "session");
+            
             _session = session;
             _transaction = _session.BeginTransaction();
             _ownSession = false;

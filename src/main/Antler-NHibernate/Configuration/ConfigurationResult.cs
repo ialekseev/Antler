@@ -1,4 +1,5 @@
 ﻿using NHibernate;
+using SmartElk.Antler.Core.Common.CodeContracts;
 
 namespace Antler.NHibernate.Configuration
 {
@@ -9,6 +10,9 @@ namespace Antler.NHibernate.Configuration
 
         public ConfigurationResult(ISessionFactory sessionFactory, global::NHibernate.Cfg.Configuration configuration)
         {
+            Requires.NotNull(sessionFactory, "sessionFactory");
+            Requires.NotNull(configuration, "configuration");
+
             SessionFactory = sessionFactory;
             Configuration = configuration;
         }
