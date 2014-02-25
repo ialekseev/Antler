@@ -49,13 +49,21 @@ configurator.UseWindsorContainer().UseStorage(EntityFrameworkStorage.Use.
 
 Installing NuGet packages
 -------------------------
+
 Core library: https://www.nuget.org/packages/Antler.Core/
 
+### Adapters for IoC Containers
+
 Windsor adapter: https://www.nuget.org/packages/Antler.Windsor/
+
+StructureMap adapter: https://www.nuget.org/packages/Antler.StructureMap/
+
+### Adapters for ORMs 
 
 NHibernate adapter: https://www.nuget.org/packages/Antler.NHibernate/
 
 EntityFramework adapter: https://www.nuget.org/packages/Antler.EntityFramework/
+
 
 <hr>
 Largely based on the great NoSQL framework https://github.com/Kostassoid/Anodyne.
