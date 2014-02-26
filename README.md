@@ -1,4 +1,4 @@
-Antler
+Antler ![alt text](http://www.gravatar.com/avatar/99c436bbd301be46a6e6daabc0dc1aa4.png "SmartElk/Antler")
 ======
 
 Pluggable framework to work with different databases(SqlServer, Oracle, SQL CE, Sqlite etc.) and different ORMs(NHibernate, EntityFramework Code First) using the <b>same syntax</b>.
