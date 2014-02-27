@@ -1,4 +1,4 @@
-Antler
+Antler ![alt text](http://www.gravatar.com/avatar/99c436bbd301be46a6e6daabc0dc1aa4.png "SmartElk/Antler")
 ======
 
 Pluggable framework to work with different databases(SqlServer, Oracle, SQL CE, Sqlite etc.) and different ORMs(NHibernate, EntityFramework Code First) using the <b>same syntax</b>.
@@ -45,13 +45,21 @@ configurator.UseWindsorContainer().UseStorage(EntityFrameworkStorage.Use.WithCon
 
 Installing NuGet packages
 -------------------------
+
 Core library: https://www.nuget.org/packages/Antler.Core/
 
+### Adapters for IoC Containers
+
 Windsor adapter: https://www.nuget.org/packages/Antler.Windsor/
+
+StructureMap adapter: https://www.nuget.org/packages/Antler.StructureMap/
+
+### Adapters for ORMs 
 
 NHibernate adapter: https://www.nuget.org/packages/Antler.NHibernate/
 
 EntityFramework adapter: https://www.nuget.org/packages/Antler.EntityFramework/
+
 
 <hr>
 Largely based on the great NoSQL framework https://github.com/Kostassoid/Anodyne.
