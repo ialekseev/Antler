@@ -1,12 +1,14 @@
 Antler ![alt text](http://www.gravatar.com/avatar/99c436bbd301be46a6e6daabc0dc1aa4.png "SmartElk/Antler")
 ======
 
-Pluggable framework to work with different databases(SqlServer, Oracle, SQL CE, Sqlite etc.) and different ORMs(NHibernate, EntityFramework Code First) using the <b>same syntax</b>.
+Pluggable framework for working with different ORMs(NHibernate, EntityFramework Code First) using the <b>same syntax</b>.
 
-+ Supporting multiple storages at the same time.
-+ Using common syntax to work with different storages, so we can easily substitute one storage with another.
-+ Having strong architectural base including UnitOfWork/DataSession/Repository etc. notions.
-+ Fully pluggable. For example, it's damn easy to choose which storage or IoC container to use.
+Goals
+--------------
++ To use common syntax to work with different ORMs, so we could easily substitute one ORM with another.
++ To support multiple storages at the same time.
++ To have strong architectural base including UnitOfWork/DataSession/Repository etc. notions.
++ To be fully pluggable. For example, it should be damn easy to choose which ORM, database or IoC container to use.
 
 
 Usage examples
