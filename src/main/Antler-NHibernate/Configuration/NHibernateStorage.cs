@@ -37,6 +37,14 @@ namespace Antler.NHibernate.Configuration
             return this;
         }
 
+        public NHibernateStorage WithMappings(string assemblyWithMappings)
+        {
+            Requires.NotNullOrEmpty(assemblyWithMappings, "assemblyWithMappings");
+
+            AssemblyWithMappings = Assembly.Load(assemblyWithMappings);
+            return this;
+        }
+
         public NHibernateStorage ApplyOnNHibernateConfiguration(Action<global::NHibernate.Cfg.Configuration> actionToApplyOnNHibernateConfiguration)
         {
             Requires.NotNull(actionToApplyOnNHibernateConfiguration, "actionToApplyOnNHibernateConfiguration");

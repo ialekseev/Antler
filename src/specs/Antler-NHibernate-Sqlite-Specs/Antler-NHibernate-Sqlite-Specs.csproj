@@ -75,7 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationSpecs.cs" />
-    <Compile Include="Configuration\ConfigurationEx.cs" />
     <Compile Include="DomainSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,13 +1,13 @@
 ﻿// ReSharper disable InconsistentNaming
 using System.Linq;
 using Antler.NHibernate.Configuration;
+using Antler.NHibernate.Internal;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NUnit.Framework;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Common.Reflection;
 using SmartElk.Antler.Core.Domain.Configuration;
-using SmartElk.Antler.NHibernate.Sqlite.Specs.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
 using SmartElk.Antler.Specs.Shared.NHibernate.Mappings;
 using SmartElk.Antler.StructureMap;
@@ -128,13 +128,13 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
                 Configurator = new AntlerConfigurator();                
                 Configurator.UseStructureMapContainer().UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(SQLiteConfiguration.Standard.InMemory()).WithMappings(From.AssemblyWithType<CountryMap>().First()));
 
-                session = Configurator.CreateNHibernateSession(typeof(NHibernateStorage));
+                session = NewSessionForTesting.CreateNHibernateSession(Configurator, typeof(NHibernateStorage));
             }
 
             [TearDown]
             public void TearDown()
             {
-                Configurator.ResetNHibernateSession(session);
+                NewSessionForTesting.ResetNHibernateSession(Configurator, session);
                 Configurator.UnUseStructureMapContainer().UnUseStorage().Dispose();
             }
         } 

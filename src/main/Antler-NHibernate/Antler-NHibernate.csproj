@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Configuration\ConfigurationResult.cs" />
     <Compile Include="Configuration\NHibernateStorage.cs" />
+    <Compile Include="Internal\NewSessionForTesting.cs" />
     <Compile Include="NHibernateRepository.cs" />
     <Compile Include="NHibernateSessionScope.cs" />
     <Compile Include="NHibernateSessionScopeFactory.cs" />
@@ -68,6 +69,7 @@
       <Name>Antler-Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
