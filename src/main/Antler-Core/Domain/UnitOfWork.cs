@@ -56,7 +56,7 @@ namespace SmartElk.Antler.Core.Domain
                 work(uow);
             }
         }
-
+        
         public static TResult Do<TResult>(Func<UnitOfWork, TResult> work)
         {
             Requires.NotNull(work, "work");

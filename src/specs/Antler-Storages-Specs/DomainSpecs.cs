@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using Antler.NHibernate.Configuration;
+using Antler.NHibernate.Internal;
 using FluentAssertions;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
@@ -11,7 +12,6 @@ using SmartElk.Antler.Core.Common.Reflection;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.SqlCe.Configuration;
-using SmartElk.Antler.NHibernate.Sqlite.Specs.Configuration;
 using SmartElk.Antler.Specs.Shared.Entities;
 using SmartElk.Antler.Specs.Shared.NHibernate.Mappings;
 using SmartElk.Antler.Windsor;
@@ -71,14 +71,14 @@ namespace SmartElk.Antler.Storages.Specs
                 Configurator = new AntlerConfigurator();
                 Configurator.UseWindsorContainer().UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(SQLiteConfiguration.Standard.InMemory()).WithMappings(From.AssemblyWithType<CountryMap>().First())).
                                                    UseStorageNamed(EntityFrameworkPlusSqlCe.Use.WithConnectionString("Data Source=TestDB.sdf").WithMappings(From.AssemblyWithType<Antler.Specs.Shared.EntityFramework.Mappings.CountryMap>().First()).WithRecreatedDatabase(), "EF");
-                                
-                nhSession = Configurator.CreateNHibernateSession(typeof(NHibernateStorage));
+
+                nhSession = NewSessionForTesting.CreateNHibernateSession(Configurator, typeof(NHibernateStorage));
             }
 
             [TearDown]
             public void TearDown()
             {
-                Configurator.ResetNHibernateSession(nhSession);
+                NewSessionForTesting.ResetNHibernateSession(Configurator, nhSession);
                 Configurator.UnUseWindsorContainer().UnUseStorage().Dispose();                
             }
         } 
