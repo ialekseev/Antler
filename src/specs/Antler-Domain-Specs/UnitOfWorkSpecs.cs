@@ -52,7 +52,7 @@ namespace SmartElk.Antler.Domain.Specs
                 A.CallTo(() => SessionScopeFactory.Open()).MustHaveHappened();
             }
         }
-
+        
         [TestFixture]
         [Category("Unit")]
         public class when_trying_to_create_unit_of_work_returning_result : UnitOfWorkScenario
@@ -221,6 +221,68 @@ namespace SmartElk.Antler.Domain.Specs
 
                 //assert
                 UnitOfWork.Current.IsSome.Should().BeFalse();
+            }
+        }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_trying_to_commit_unit_of_work_with_enabled_commits : UnitOfWorkScenario
+        {
+            [Test]
+            public void should_commit()
+            {
+                //act
+                UnitOfWork.Do(uow => { }, new UnitOfWorkSettings() { EnableCommit = true });
+
+                //assert
+                A.CallTo(() => SessionScope.Commit()).MustHaveHappened();
+            }
+        }
+        
+        [TestFixture]
+        [Category("Unit")]
+        public class when_trying_to_commit_unit_of_work_with_disabled_commits : UnitOfWorkScenario
+        {
+            [Test]
+            public void should_not_commit()
+            {                
+                //act
+                UnitOfWork.Do(uow => { }, new UnitOfWorkSettings() { EnableCommit = false });
+
+                //assert
+                A.CallTo(() => SessionScope.Commit()).MustNotHaveHappened();
+            }
+        }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_using_unit_of_work_with_rollback_on_dispose_setting : UnitOfWorkScenario
+        {
+            [Test]
+            public void should_rollback()
+            {
+                //act
+                UnitOfWork.Do(uow => { }, new UnitOfWorkSettings() { RollbackOnDispose = true});
+
+                //assert
+                A.CallTo(() => SessionScope.Commit()).MustNotHaveHappened();
+                A.CallTo(() => SessionScope.Rollback()).MustHaveHappened();
+            }
+        }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_using_unit_of_work_without_rollback_on_dispose_setting : UnitOfWorkScenario
+        {
+            [Test]
+            public void should_commit()
+            {
+                //act
+                UnitOfWork.Do(uow => { }, new UnitOfWorkSettings() { RollbackOnDispose = false });
+
+                //assert
+                A.CallTo(() => SessionScope.Rollback()).MustNotHaveHappened();
+                A.CallTo(() => SessionScope.Commit()).MustHaveHappened();
             }
         }
     }

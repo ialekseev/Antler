@@ -27,6 +27,13 @@ namespace SmartElk.Antler.Core.Domain.Configuration
             return configurator;
         }        
 
+        public static IAntlerConfigurator SetUnitOfWorkDefaultSettings(this IAntlerConfigurator configurator,
+                                                                 UnitOfWorkSettings settings)
+        {
+            UnitOfWorkSettings.Default = settings;
+            return configurator;
+        }
+        
         public static IAntlerConfigurator UnUseStorage(this IAntlerConfigurator configurator)
         {
             UnitOfWork.SessionScopeFactoryExtractor = null;
@@ -36,6 +43,12 @@ namespace SmartElk.Antler.Core.Domain.Configuration
         public static IAntlerConfigurator UnUseNamedStorage(this IAntlerConfigurator configurator)
         {
             UnitOfWork.SessionScopeFactoryNamedExtractor = null;
+            return configurator;
+        }
+
+        public static IAntlerConfigurator UnSetUnitOfWorkDefaultSettings(this IAntlerConfigurator configurator)
+        {
+            UnitOfWorkSettings.Default = new UnitOfWorkSettings();
             return configurator;
         }
     }    
