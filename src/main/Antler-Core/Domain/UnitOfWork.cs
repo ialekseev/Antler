@@ -3,7 +3,7 @@ using SmartElk.Antler.Core.Common;
 using SmartElk.Antler.Core.Common.CodeContracts;
 
 namespace SmartElk.Antler.Core.Domain
-{        
+{           
     public class UnitOfWork: IDisposable
     {
         public ISessionScope SessionScope { get; private set; }
@@ -18,23 +18,31 @@ namespace SmartElk.Antler.Core.Domain
                 
         public bool IsFinished { get; private set; }                
         public Guid Id { get; private set; }
-        
+        public UnitOfWorkSettings Settings { get; private set; }
+
         public static Func<ISessionScopeFactory> SessionScopeFactoryExtractor { get; set; }        
         public static Func<string, ISessionScopeFactory> SessionScopeFactoryNamedExtractor { get; set; }
-                        
-        private UnitOfWork()            
-        {            
+
+        private UnitOfWork(UnitOfWorkSettings settings)            
+        {
+            SetSettings(settings);
             Assumes.True(SessionScopeFactoryExtractor != null, "SessionScopeFactoryExtractor should be set before using UnitOfWork. Wrong configuration?");
             var sessionScopeFactory = SessionScopeFactoryExtractor();            
             SetSession(sessionScopeFactory);
         }
 
-        private UnitOfWork(string storageName)            
-        {            
+        private UnitOfWork(string storageName, UnitOfWorkSettings settings)
+        {
+            SetSettings(settings);
             Assumes.True(SessionScopeFactoryNamedExtractor != null, "SessionScopeFactoryNamedExtractor should be set before using UnitOfWork with storage name. Wrong configuraiton?");
             var sessionScopeFactory = SessionScopeFactoryNamedExtractor(storageName);
             SetSession(sessionScopeFactory);
         }
+
+         private void SetSettings(UnitOfWorkSettings settings)
+         {
+             Settings = settings ?? UnitOfWorkSettings.Default;
+         }
 
          private void SetSession(ISessionScopeFactory sessionScopeFactory)
          {
@@ -47,56 +55,63 @@ namespace SmartElk.Antler.Core.Domain
             Id = Guid.NewGuid();
         }
 
-        public static void Do(Action<UnitOfWork> work)
+        public static void Do(Action<UnitOfWork> work, UnitOfWorkSettings settings = null)
         {
             Requires.NotNull(work, "work");
             
-            using (var uow = new UnitOfWork())
-            {
-                work(uow);
-            }
-        }
-        
-        public static TResult Do<TResult>(Func<UnitOfWork, TResult> work)
-        {
-            Requires.NotNull(work, "work");
-
-            using (var uow = new UnitOfWork())
-            {
-                return work(uow);
-            }
-        }
-
-        public static void Do(string storageName, Action<UnitOfWork> work)
-        {
-            Requires.NotNullOrEmpty(storageName, "storageName");
-            Requires.NotNull(work, "work");
-
-            using (var uow = new UnitOfWork(storageName))
+            using (var uow = new UnitOfWork(settings))
             {
                 work(uow);
             }
         }
 
-        public static TResult Do<TResult>(string storageName, Func<UnitOfWork, TResult> work)
+        public static TResult Do<TResult>(Func<UnitOfWork, TResult> work, UnitOfWorkSettings settings = null)
         {
-            Requires.NotNullOrEmpty(storageName, "storageName");
             Requires.NotNull(work, "work");
 
-            using (var uow = new UnitOfWork(storageName))
+            using (var uow = new UnitOfWork(settings))
             {
                 return work(uow);
             }
         }
 
-        public void Dispose()
+        public static void Do(string storageName, Action<UnitOfWork> work, UnitOfWorkSettings settings = null)
         {
-            Commit();
+            Requires.NotNullOrEmpty(storageName, "storageName");
+            Requires.NotNull(work, "work");
+
+            using (var uow = new UnitOfWork(storageName, settings))
+            {
+                work(uow);
+            }
+        }
+
+        public static TResult Do<TResult>(string storageName, Func<UnitOfWork, TResult> work, UnitOfWorkSettings settings = null)
+        {
+            Requires.NotNullOrEmpty(storageName, "storageName");
+            Requires.NotNull(work, "work");
+
+            using (var uow = new UnitOfWork(storageName, settings))
+            {
+                return work(uow);
+            }
+        }
+
+        public void Dispose()        
+        {
+            if (Settings.RollbackOnDispose)
+              Rollback();
+            else    
+              Commit();
         }
         
         public void Commit()
-        {            
-            Perform(() => SessionScope.Commit());
+        {                        
+                Perform(() =>
+                    {
+                        if (Settings.EnableCommit) 
+                            SessionScope.Commit();
+                    });
         }
         
         public void Rollback()
