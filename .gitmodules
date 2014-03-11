@@ -1,0 +1,3 @@
+[submodule "Antler.wiki"]
+	path = Antler.wiki
+	url = https://github.com/SmartElk/Antler.wiki.git
