@@ -26,7 +26,8 @@ UnitOfWork.Do(uow =>
 
 Querying Teams from database:
 <pre>
-var found = UnitOfWork.Do(uow => uow.Repo<Team>().AsQueryable().Where(t => t.Description == "Hockey").OrderBy(t => t.Name).ToArray()); 
+var found = UnitOfWork.Do(uow => uow.Repo<Team>().AsQueryable().Where(t => t.Description == "Hockey").
+                                                                OrderBy(t => t.Name).ToArray()); 
 </pre>
 
 Configuration examples
@@ -34,16 +35,20 @@ Configuration examples
 For example, let's configure application to use (NHibernate + Sqlite database) and Castle Windsor container:
 <pre>
 var configurator = new AntlerConfigurator();
-configurator.UseWindsorContainer().UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(SQLiteConfiguration.Standard.InMemory()).WithMappings(assemblyWithMappings));
+configurator.UseWindsorContainer().UseStorage(NHibernateStorage.Use.
+                                              WithDatabaseConfiguration(SQLiteConfiguration.Standard.InMemory()).
+                                              WithMappings(assemblyWithMappings));
 </pre>
 
 Let's configure application to use (EntityFramework Code First + SqlServer) and Castle Windsor container:
 <pre>
 var configurator = new AntlerConfigurator();
-configurator.UseWindsorContainer().UseStorage(EntityFrameworkStorage.Use.WithConnectionString(connectionString)
-                                                                      .WithMappings(assemblyWithMappings));
+configurator.UseWindsorContainer().UseStorage(EntityFrameworkStorage.Use.
+                                              WithConnectionString(connectionString).
+                                              WithMappings(assemblyWithMappings));
 </pre>
-
+More examples in wiki:
+https://github.com/SmartElk/Antler/wiki/Configuration-examples
 
 Installing NuGet packages
 -------------------------
