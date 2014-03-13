@@ -29,6 +29,8 @@ namespace Antler.NHibernate.Configuration
             get { return new NHibernateStorage();}
         }
 
+        
+        //todo: move to the base class
         public NHibernateStorage WithMappings(Assembly assemblyWithMappings)
         {                        
             Requires.NotNull(assemblyWithMappings, "assemblyWithMappings");
@@ -37,6 +39,7 @@ namespace Antler.NHibernate.Configuration
             return this;
         }
 
+        //todo: move to the base class
         public NHibernateStorage WithMappings(string assemblyWithMappings)
         {
             Requires.NotNullOrEmpty(assemblyWithMappings, "assemblyWithMappings");

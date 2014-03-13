@@ -34,6 +34,7 @@ namespace SmartElk.Antler.EntityFramework.Configuration
             return this;
         }
 
+        //todo: move to the base class
         public EntityFrameworkStorage WithMappings(Assembly assembly)
         {
             Requires.NotNull(assembly, "assembly");
