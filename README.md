@@ -47,7 +47,8 @@ configurator.UseWindsorContainer().UseStorage(EntityFrameworkStorage.Use.
                                               WithConnectionString(connectionString).
                                               WithMappings(assemblyWithMappings));
 </pre>
-
+More examples in wiki:
+https://github.com/SmartElk/Antler/wiki/Configuration-examples
 
 Installing NuGet packages
 -------------------------
