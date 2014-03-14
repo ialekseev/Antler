@@ -6,9 +6,9 @@ Pluggable framework for working with different ORMs(NHibernate, EntityFramework 
 Goals
 --------------
 + To use common syntax to work with different ORMs, so we could easily substitute one ORM with another.
-+ To support multiple storages at the same time.
-+ To have strong architectural base including UnitOfWork/DataSession/Repository etc. notions.
++ To have very easy "fluent" configuration.
 + To be fully pluggable. For example, it should be damn easy to choose which ORM, database or IoC container to use.
++ To support multiple storages at the same time.
 
 
 Usage examples
