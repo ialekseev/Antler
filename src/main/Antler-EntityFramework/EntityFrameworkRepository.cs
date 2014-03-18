@@ -34,7 +34,15 @@ namespace SmartElk.Antler.EntityFramework
         {
             Requires.NotNull(entity, "entity");
 
-            DbSet.Add(entity);
+            _context.Entry(entity).State = EntityState.Added;            
+            _context.SaveChanges();
+        }
+
+        public void Update(TEntity entity)
+        {
+            Requires.NotNull(entity, "entity");
+
+            _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
@@ -42,7 +50,7 @@ namespace SmartElk.Antler.EntityFramework
         {
             Requires.NotNull(entity, "entity");
 
-            DbSet.Remove(entity);
+            _context.Entry(entity).State = EntityState.Deleted;            
             _context.SaveChanges();
         }
 
@@ -51,9 +59,9 @@ namespace SmartElk.Antler.EntityFramework
             var entity = GetById(id);
             if (entity != null)
             {
-                DbSet.Remove(entity);
+                _context.Entry(entity).State = EntityState.Deleted;                
                 _context.SaveChanges();
             }                        
-        }
+        }        
     }
 }

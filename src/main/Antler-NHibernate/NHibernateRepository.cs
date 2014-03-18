@@ -31,6 +31,12 @@ namespace Antler.NHibernate
             _session.Save(entity);
         }
 
+        public void Update(TEntity entity)
+        {
+            Requires.NotNull(entity, "entity");
+            _session.SaveOrUpdate(entity);
+        }
+
         public void Delete(TEntity entity)
         {
             Requires.NotNull(entity, "entity");
@@ -44,6 +50,6 @@ namespace Antler.NHibernate
             {
                 _session.Delete(entity);
             }            
-        }
+        }        
     }
 }
