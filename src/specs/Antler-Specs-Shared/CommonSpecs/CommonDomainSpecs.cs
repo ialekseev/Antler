@@ -277,6 +277,34 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
             }
         }
 
+        public static class when_trying_to_update_detached_team
+        {
+            public static void should_updated_team()
+            {
+                //arrange
+                Team team = null;
+                UnitOfWork.Do(uow =>
+                {
+                    team = new Team() { Name = "Super", Description = "SuperBg" };
+                    uow.Repo<Team>().Insert(team);
+                });
+                
+                var detachedTeam = new Team() {Id = team.Id, Name = "Super-Duper", Description = "Duper"};
+                
+                //act
+                UnitOfWork.Do(uow => uow.Repo<Team>().Update(detachedTeam));
+
+                //assert
+                UnitOfWork.Do(uow =>
+                {                                        
+                    var foundTeam = uow.Repo<Team>().GetById(team.Id);
+                    foundTeam.Id.Should().Be(detachedTeam.Id);
+                    foundTeam.Name.Should().Be("Super-Duper");
+                    foundTeam.Description.Should().Be("Duper");
+                });
+            }
+        }
+
         public static class when_trying_to_rollback_transaction
         {
             public static void should_rollback()

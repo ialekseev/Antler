@@ -30,20 +30,24 @@ namespace SmartElk.Antler.EntityFramework
             return DbSet.Find(id);
         }
         
-        public void Insert(TEntity entity)
+        public TEntity Insert(TEntity entity)
         {
             Requires.NotNull(entity, "entity");
 
             _context.Entry(entity).State = EntityState.Added;            
             _context.SaveChanges();
+
+            return entity;
         }
 
-        public void Update(TEntity entity)
+        public TEntity Update(TEntity entity)
         {
             Requires.NotNull(entity, "entity");
 
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
+
+            return entity;
         }
 
         public void Delete(TEntity entity)
