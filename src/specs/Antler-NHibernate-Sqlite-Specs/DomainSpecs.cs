@@ -95,6 +95,17 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
 
         [TestFixture]
         [Category("Integration")]
+        public class when_trying_to_update_detached_team : TestingScenario
+        {
+            [Test]
+            public void should_updated_team()
+            {
+                CommonDomainSpecs.when_trying_to_update_detached_team.should_updated_team();
+            }
+        }
+
+        [TestFixture]
+        [Category("Integration")]
         public class when_trying_to_rollback_transaction : TestingScenario
         {
             [Test]

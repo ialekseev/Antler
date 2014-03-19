@@ -25,16 +25,17 @@ namespace Antler.NHibernate
             return _session.Get<TEntity>(id);  
         }
         
-        public void Insert(TEntity entity)
+        public TEntity Insert(TEntity entity)
         {
             Requires.NotNull(entity, "entity");
             _session.Save(entity);
+            return entity;
         }
 
-        public void Update(TEntity entity)
+        public TEntity Update(TEntity entity)
         {
             Requires.NotNull(entity, "entity");
-            _session.SaveOrUpdate(entity);
+            return _session.Merge(entity);
         }
 
         public void Delete(TEntity entity)

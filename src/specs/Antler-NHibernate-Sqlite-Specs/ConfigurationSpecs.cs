@@ -21,7 +21,7 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
         {
             [Test]
             public void should_set_storage()
-            {
+            {                
                 //arrange
                 var configurator = new AntlerConfigurator();
                 

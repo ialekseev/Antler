@@ -93,6 +93,17 @@ namespace Antler.EntityFramework.SqlServer.Specs
 
         [TestFixture]
         [Category("Integration")]
+        public class when_trying_to_update_detached_team : TestingScenario<EagerLoading>
+        {
+            [Test]
+            public void should_updated_team()
+            {
+                CommonDomainSpecs.when_trying_to_update_detached_team.should_updated_team();
+            }
+        }
+
+        [TestFixture]
+        [Category("Integration")]
         public class when_trying_to_rollback_transaction : TestingScenario<LazyLoading>
         {
             [Test]

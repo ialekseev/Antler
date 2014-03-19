@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
@@ -9,9 +8,8 @@ using SmartElk.Antler.Core.Domain.Configuration;
 
 namespace Antler.NHibernate.Configuration
 {
-    public class NHibernateStorage : AbstractStorage
-    {
-        protected Assembly AssemblyWithMappings { get; set; }
+    public class NHibernateStorage : AbstractStorage<NHibernateStorage>
+    {        
         protected Action<global::NHibernate.Cfg.Configuration> ActionToApplyOnNHibernateConfiguration;
         
         protected bool GeneratedDatabase { get; set; }
@@ -21,33 +19,13 @@ namespace Antler.NHibernate.Configuration
 
         protected NHibernateStorage()
         {
-            AssemblyWithMappings = Assembly.GetCallingAssembly();            
         }
 
         public static NHibernateStorage Use
         {
             get { return new NHibernateStorage();}
         }
-
-        
-        //todo: move to the base class
-        public NHibernateStorage WithMappings(Assembly assemblyWithMappings)
-        {                        
-            Requires.NotNull(assemblyWithMappings, "assemblyWithMappings");
-            
-            AssemblyWithMappings = assemblyWithMappings;
-            return this;
-        }
-
-        //todo: move to the base class
-        public NHibernateStorage WithMappings(string assemblyWithMappings)
-        {
-            Requires.NotNullOrEmpty(assemblyWithMappings, "assemblyWithMappings");
-
-            AssemblyWithMappings = Assembly.Load(assemblyWithMappings);
-            return this;
-        }
-
+                
         public NHibernateStorage ApplyOnNHibernateConfiguration(Action<global::NHibernate.Cfg.Configuration> actionToApplyOnNHibernateConfiguration)
         {
             Requires.NotNull(actionToApplyOnNHibernateConfiguration, "actionToApplyOnNHibernateConfiguration");

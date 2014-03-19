@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity;
-using System.Reflection;
 using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
@@ -7,17 +6,15 @@ using SmartElk.Antler.EntityFramework.Internal;
 
 namespace SmartElk.Antler.EntityFramework.Configuration
 {
-    public class EntityFrameworkStorage : AbstractStorage
-    {        
-        private Assembly _assemblyWithMappings;
+    public class EntityFrameworkStorage : AbstractStorage<EntityFrameworkStorage>
+    {                
         private string _connectionString;
         private IDatabaseInitializer<DataContext> _databaseInitializer;
         private bool _enableLazyLoading;
         private bool _recreateDatabase;
 
         protected EntityFrameworkStorage()
-        {
-            _assemblyWithMappings = Assembly.GetCallingAssembly();
+        {            
             _databaseInitializer = new CreateDatabaseIfNotExists<DataContext>();
             _enableLazyLoading = true;
         }
@@ -33,15 +30,7 @@ namespace SmartElk.Antler.EntityFramework.Configuration
             _connectionString = connectionString;
             return this;
         }
-
-        //todo: move to the base class
-        public EntityFrameworkStorage WithMappings(Assembly assembly)
-        {
-            Requires.NotNull(assembly, "assembly");
-            _assemblyWithMappings = assembly;
-            return this;
-        }
-
+        
         public EntityFrameworkStorage WithDatabaseInitializer(IDatabaseInitializer<DataContext> databaseInitializer)
         {
             Requires.NotNull(databaseInitializer, "databaseInitializer");
@@ -72,8 +61,8 @@ namespace SmartElk.Antler.EntityFramework.Configuration
             Requires.NotNull(configurator, "configurator");
             
             var dataContextFactory = string.IsNullOrEmpty(_connectionString)
-                                         ? new DataContextFactory(_assemblyWithMappings, _enableLazyLoading)
-                                         : new DataContextFactory(_connectionString, _assemblyWithMappings,
+                                         ? new DataContextFactory(AssemblyWithMappings, _enableLazyLoading)
+                                         : new DataContextFactory(_connectionString, AssemblyWithMappings,
                                                                   _enableLazyLoading); 
             
             var sessionScopeFactory = new EntityFrameworkSessionScopeFactory(dataContextFactory);
