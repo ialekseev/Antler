@@ -1,7 +1,7 @@
 Antler ![alt text](http://www.gravatar.com/avatar/99c436bbd301be46a6e6daabc0dc1aa4.png "SmartElk/Antler")
 ======
 
-Pluggable framework for working with different ORMs(NHibernate, EntityFramework Code First) using the <b>same syntax</b>.
+Pluggable framework for .NET to work with popular ORMs(NHibernate, EntityFramework Code First) using the <b>same syntax</b>.
 
 Goals
 --------------
