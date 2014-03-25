@@ -9,6 +9,7 @@ namespace SmartElk.Antler.Common.Specs
     public class OptionSpecs
     {
         [TestFixture]
+        [Category("Unit")]
         public class when_trying_to_get_option_from_reference_null
         {
             [Test]
@@ -23,6 +24,7 @@ namespace SmartElk.Antler.Common.Specs
         }
 
         [TestFixture]
+        [Category("Unit")]
         public class when_trying_to_get_option_from_nullable_null
         {
             [Test]

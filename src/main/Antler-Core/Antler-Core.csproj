@@ -76,7 +76,7 @@
     <Compile Include="Common\Reflection\From.cs" />
     <Compile Include="Common\Reflection\TypeEx.cs" />
     <Compile Include="Common\StringEx.cs" />
-    <Compile Include="Container\DefaultContainer.cs" />
+    <Compile Include="Common\Container\BuiltInContainer.cs" />
     <Compile Include="Domain\Configuration\AbstractStorage.cs" />
     <Compile Include="Domain\Configuration\ConfigurationEx.cs" />
     <Compile Include="Domain\Configuration\ContainerEx.cs" />
