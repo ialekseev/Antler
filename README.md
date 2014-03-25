@@ -18,15 +18,15 @@ Inserting Teams in database:
 <pre>
 UnitOfWork.Do(uow =>
                     {
-                        uow.Repo<Team>().Insert(new Team() {Name = "Penguins", Description = "Hockey"});
-                        uow.Repo<Team>().Insert(new Team() {Name = "Capitals", Description = "Hockey"});
-                        uow.Repo<Team>().Insert(new Team() {Name = "Nets", Description = "Basketball"});
+                        uow.Repo&lt;Team&gt;().Insert(new Team() {Name = "Penguins", Description = "Hockey"});
+                        uow.Repo&lt;Team&gt;().Insert(new Team() {Name = "Capitals", Description = "Hockey"});
+                        uow.Repo&lt;Team&gt;().Insert(new Team() {Name = "Nets", Description = "Basketball"});
                     });
 </pre>
 
 Querying Teams from database:
 <pre>
-var found = UnitOfWork.Do(uow => uow.Repo<Team>().AsQueryable().Where(t => t.Description == "Hockey").
+var found = UnitOfWork.Do(uow => uow.Repo&lt;Team&gt;().AsQueryable().Where(t => t.Description == "Hockey").
                                                                 OrderBy(t => t.Name).ToArray()); 
 </pre>
 
