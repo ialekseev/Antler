@@ -27,7 +27,7 @@ namespace SmartElk.Antler.Common.Specs
             void DoKindness();
         }
         
-        public class Superman: ISuper
+        public class Superman: ISuper, ICloneable
         {
             public Guid Id { get; set; }
 
@@ -36,8 +36,28 @@ namespace SmartElk.Antler.Common.Specs
                 Id = Guid.NewGuid();
             }
 
+            public Superman(Guid id)
+            {
+                Id = id;
+            }
+
             public void DoKindness()
             {                
+            }
+
+            public override int GetHashCode()
+            {
+                return Id.GetHashCode();
+            }
+
+            public override bool Equals(object obj)
+            {                
+                return ((Superman)obj).Id.Equals(Id);
+            }
+
+            public object Clone()
+            {
+                return new Superman(Id);
             }
         }
 
@@ -57,6 +77,25 @@ namespace SmartElk.Antler.Common.Specs
 
                 //assert
                 result.Should().NotBeNull();
+            }
+        }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_trying_to_get_from_container_object_that_is_not_in_container : BuiltInContainerTestingScenario
+        {
+            [Test]
+            public void should_return_null()
+            {
+                //arrange
+                var superman = new Superman();
+                Container.Put(Binding.Use<ISuper>(superman));
+
+                //act
+                var result = Container.Get(typeof(Superman));
+
+                //assert
+                result.Should().BeNull();
             }
         }
 
@@ -115,7 +154,26 @@ namespace SmartElk.Antler.Common.Specs
                 //assert
                 result.Should().NotBeNull();
             }
-        }        
+        }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_trying_to_release_item_from_container : BuiltInContainerTestingScenario
+        {
+            [Test]
+            public void should_release_item()
+            {
+                //arrange
+                var superman = new Superman();
+                Container.Put(Binding.Use<ISuper>(superman).Named("bale"));
+
+                //act
+                Container.Release(superman.Clone());
+
+                //assert
+                Container.Get<ISuper>("bale").Should().BeNull();
+            }
+        } 
     }
 }
 

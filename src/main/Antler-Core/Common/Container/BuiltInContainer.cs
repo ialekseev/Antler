@@ -103,7 +103,8 @@ namespace SmartElk.Antler.Core.Common.Container
 
         private object Get(string key)
         {
-            Assumes.True(_maps.ContainsKey(key));
+            if (!_maps.ContainsKey(key))
+                return null;
             return _maps[key];
         }
         
