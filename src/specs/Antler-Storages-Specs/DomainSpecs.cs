@@ -8,6 +8,7 @@ using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NUnit.Framework;
 using SmartElk.Antler.Core.Abstractions.Configuration;
+using SmartElk.Antler.Core.Common.Container;
 using SmartElk.Antler.Core.Common.Reflection;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
@@ -69,9 +70,9 @@ namespace SmartElk.Antler.Storages.Specs
             public void SetUp()
             {
                 Configurator = new AntlerConfigurator();
-                Configurator.UseWindsorContainer().UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(SQLiteConfiguration.Standard.InMemory()).WithMappings(From.AssemblyWithType<CountryMap>().First())).
+                Configurator.UseBuiltInContainer().UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(SQLiteConfiguration.Standard.InMemory()).WithMappings(From.AssemblyWithType<CountryMap>().First())).
                                                    UseStorageNamed(EntityFrameworkPlusSqlCe.Use.WithConnectionString("Data Source=TestDB.sdf").WithMappings(From.AssemblyWithType<Antler.Specs.Shared.EntityFramework.Mappings.CountryMap>().First()).WithRecreatedDatabase(), "EF");
-
+                
                 nhSession = NewSessionForTesting.CreateNHibernateSession(Configurator, typeof(NHibernateStorage));
             }
 

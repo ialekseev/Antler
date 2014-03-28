@@ -66,6 +66,7 @@
     <Compile Include="Common\ArrayEx.cs" />
     <Compile Include="Common\CodeContracts\Assumes.cs" />
     <Compile Include="Common\CodeContracts\Requires.cs" />
+    <Compile Include="Common\Container\ConfigurationEx.cs" />
     <Compile Include="Common\Dynamic\StaticMembersDynamicWrapper.cs" />
     <Compile Include="Common\Extensions\ArrayEx.cs" />
     <Compile Include="Common\Extensions\EnumerableEx.cs" />

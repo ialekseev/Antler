@@ -7,28 +7,28 @@ using SmartElk.Antler.Core.Common.CodeContracts;
 
 namespace SmartElk.Antler.Core.Common.Container
 {
-    //todo: write specs + use as default container in AntlerConfigurator
+    //todo: more powerful built-in container. this is temp solution
     public class BuiltInContainer: IContainer
     {        
         private readonly Dictionary<string, object> _maps = new Dictionary<string, object>();
                         
         public T Get<T>()
         {
-            return (T)Get(ComposeKey<T>());
+            return (T)GetInternal(ComposeKey<T>());
         }
 
         public T Get<T>(string name)
         {
             Requires.NotNullOrEmpty(name, "name");
             
-            return (T)Get(ComposeKey<T>(name));
+            return (T)GetInternal(ComposeKey<T>(name));
         }
 
         public object Get(Type type)
         {
             Requires.NotNull(type, "type");
             
-            return Get(ComposeKey(type));
+            return GetInternal(ComposeKey(type));
         }
 
         public object Get(Type type, string name)
@@ -36,7 +36,7 @@ namespace SmartElk.Antler.Core.Common.Container
             Requires.NotNull(type, "type");
             Requires.NotNull(name, "name");
 
-            return Get(ComposeKey(type, name));
+            return GetInternal(ComposeKey(type, name));
         }
         
         public void Release(object instance)
@@ -66,22 +66,22 @@ namespace SmartElk.Antler.Core.Common.Container
 
         public bool Has<T>()
         {
-            return _maps.Any(t => t.Key.Equals(ComposeKey<T>()));
+            return HasInternal(ComposeKey<T>());
         }
 
         public bool Has(Type type)
         {
-            return _maps.Any(t => t.Key.Equals(ComposeKey(type)));
+            return HasInternal(ComposeKey(type));
         }
 
         public bool Has<T>(string name)
         {
-            return _maps.Any(t => t.Key.Equals(ComposeKey<T>(name)));
+            return HasInternal(ComposeKey<T>(name));
         }
 
         public bool Has(Type type, string name)
         {
-            return _maps.Any(t => t.Key.Equals(ComposeKey(type, name)));
+            return HasInternal(ComposeKey(type, name));
         }
         
         public void Dispose()
@@ -101,13 +101,18 @@ namespace SmartElk.Antler.Core.Common.Container
 
         #region Internal
 
-        private object Get(string key)
+        private object GetInternal(string key)
         {
             if (!_maps.ContainsKey(key))
                 return null;
             return _maps[key];
         }
         
+        private bool HasInternal(string key)
+        {
+            return _maps.Any(t => t.Key.Equals(key));
+        }
+
         private static string ComposeKey(Type type, string name = null)
         {
             Requires.NotNull(type, "type");

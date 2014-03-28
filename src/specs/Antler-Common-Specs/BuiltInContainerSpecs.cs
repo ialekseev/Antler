@@ -26,7 +26,19 @@ namespace SmartElk.Antler.Common.Specs
             Guid Id { get; }
             void DoKindness();
         }
-        
+
+        public interface IVillain
+        {
+            void DoHarm();
+        }
+
+        public class Joker: IVillain
+        {
+            public void DoHarm()
+            {                
+            }
+        }
+
         public class Superman: ISuper, ICloneable
         {
             public Guid Id { get; set; }
@@ -173,7 +185,79 @@ namespace SmartElk.Antler.Common.Specs
                 //assert
                 Container.Get<ISuper>("bale").Should().BeNull();
             }
-        } 
+        }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_trying_to_put_item_in_container : BuiltInContainerTestingScenario
+        {
+            [Test]
+            public void should_put_item()
+            {                                
+                //act
+                var superman = new Superman();
+                Container.Put(Binding.Use<ISuper>(superman));
+
+                //assert
+                Container.Get<ISuper>().Should().NotBeNull();
+            }
+        }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_trying_to_check_if_existing_item_present_in_container : BuiltInContainerTestingScenario
+        {
+            [Test]
+            public void should_return_true()
+            {
+                //arrange
+                var superman = new Superman();
+                Container.Put(Binding.Use<ISuper>(superman));
+
+                //act                
+                var result = Container.Has(typeof (ISuper));
+
+                //assert
+                result.Should().BeTrue();
+            }
+        }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_trying_to_check_if_non_existing_item_present_in_container : BuiltInContainerTestingScenario
+        {
+            [Test]
+            public void should_return_false()
+            {                
+                //act                
+                var result = Container.Has(typeof(ISuper));
+
+                //assert
+                result.Should().BeFalse();
+            }
+        }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_trying_dispose_container : BuiltInContainerTestingScenario
+        {
+            [Test]
+            public void should_clear_all_items_in_container()
+            {
+                //arrange
+                var superman = new Superman();                
+                Container.Put(Binding.Use<ISuper>(superman));
+                var joker = new Joker();
+                Container.Put(Binding.Use<IVillain>(joker).Named("joker"));
+
+                //act                
+                Container.Dispose();
+
+                //assert
+                Container.Has(typeof (ISuper)).Should().BeFalse();
+                Container.Has(typeof (IVillain), "joker").Should().BeFalse();
+            }
+        }
     }
 }
 
