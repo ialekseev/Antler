@@ -6,10 +6,10 @@ using System.Web.Routing;
 using Blog.Web.Common;
 using Blog.Web.Common.AppStart;
 using SmartElk.Antler.Core.Abstractions.Configuration;
+using SmartElk.Antler.Core.Common.Container;
 using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.Configuration;
 using SmartElk.Antler.EntityFramework.Internal;
-using SmartElk.Antler.Windsor;
 
 namespace Blog.Web.EF.SqlServer
 {
@@ -31,7 +31,7 @@ namespace Blog.Web.EF.SqlServer
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             
             AntlerConfigurator = new AntlerConfigurator();
-            AntlerConfigurator.UseWindsorContainer()
+            AntlerConfigurator.UseBuiltInContainer()
                               .UseStorage(EntityFrameworkStorage.Use.WithConnectionString("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True").WithLazyLoading().WithDatabaseInitializer(new DropCreateDatabaseIfModelChanges<DataContext>())
                                                                   .WithMappings(Assembly.Load("Blog.Mappings.EF")));
                         
