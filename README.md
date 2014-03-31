@@ -40,10 +40,10 @@ configurator.UseWindsorContainer().UseStorage(NHibernateStorage.Use.
                                               WithMappings(assemblyWithMappings));
 </pre>
 
-Let's configure application to use (EntityFramework Code First + SqlServer) and Castle Windsor container:
+Let's configure application to use (EntityFramework Code First + SqlServer) and StructureMap container:
 <pre>
 var configurator = new AntlerConfigurator();
-configurator.UseWindsorContainer().UseStorage(EntityFrameworkStorage.Use.
+configurator.UseStructureMapContainer().UseStorage(EntityFrameworkStorage.Use.
                                               WithConnectionString(connectionString).
                                               WithMappings(assemblyWithMappings));
 </pre>
