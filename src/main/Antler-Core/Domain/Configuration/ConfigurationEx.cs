@@ -5,11 +5,14 @@ using SmartElk.Antler.Core.Common.CodeContracts;
 namespace SmartElk.Antler.Core.Domain.Configuration
 {
     public static class ConfigurationEx
-    {        
+    {
+        public static string NoContainerMessage =
+            "Please choose some IoC container(e.g. use adapters for Castle Windsor, StructureMap or Built-in container)";
+        
         public static IAntlerConfigurator UseStorage(this IAntlerConfigurator configurator, IStorage storage)
         {
             Requires.NotNull(storage, "Storage can't be null");
-            Assumes.True<ContainerRequiredException>(configurator.HasContainer(), "Please choose some IoC container");                                    
+            Assumes.True<ContainerRequiredException>(configurator.HasContainer(), NoContainerMessage);                                    
             
             UnitOfWork.SessionScopeFactoryExtractor = () => configurator.Configuration.Container.Get<ISessionScopeFactory>();            
             storage.Configure(new DomainConfigurator(configurator.Configuration));
@@ -20,7 +23,7 @@ namespace SmartElk.Antler.Core.Domain.Configuration
         {
             Requires.NotNull(storage, "Storage can't be null");
             Requires.NotNull(storage, "Storage name can't be null");
-            Assumes.True<ContainerRequiredException>(configurator.HasContainer(), "Please choose some IoC container");
+            Assumes.True<ContainerRequiredException>(configurator.HasContainer(), NoContainerMessage);
             
             UnitOfWork.SessionScopeFactoryNamedExtractor = storageName => configurator.Configuration.Container.Get<ISessionScopeFactory>(storageName);
             storage.Configure(new DomainConfigurator(configurator.Configuration).Named(name));
