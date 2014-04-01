@@ -1,6 +1,6 @@
 @echo off
 set path=%path%;C:/Windows/Microsoft.NET/Framework/v4.0.30319;
-set version=2.8
+set version=2.9
 set skipBuild=false
 set skipTests=false
 set skipDependentPackagesVersionsUpdate=false
