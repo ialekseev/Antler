@@ -9,11 +9,12 @@
     <projectUrl>https://github.com/SmartElk/Antler</projectUrl>
     <iconUrl>http://www.gravatar.com/avatar/99c436bbd301be46a6e6daabc0dc1aa4.png</iconUrl>
     <description>EntityFramework adapter for Antler framework</description>
-    <releaseNotes>Beware: Project is still under construction</releaseNotes>
+    <releaseNotes>
+    </releaseNotes>
     <copyright>Copyright 2014</copyright>
     <tags>Antler, EntityFramework</tags>
     <dependencies>
-      <dependency id="Antler.Core" version="[2.9]" />
+      <dependency id="Antler.Core" version="[2.11]" />
       <dependency id="EntityFramework" version="6.0.2" />
     </dependencies>
   </metadata>
