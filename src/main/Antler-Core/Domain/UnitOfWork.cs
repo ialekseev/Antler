@@ -44,14 +44,23 @@ namespace SmartElk.Antler.Core.Domain
              Settings = settings ?? UnitOfWorkSettings.Default;
          }
 
-         private void SetSession(ISessionScopeFactory sessionScopeFactory)
+        //todo: more unit & integration specs about nested UnitOfWork 
+        private void SetSession(ISessionScopeFactory sessionScopeFactory)
          {
             Requires.NotNull(sessionScopeFactory, "Can't continue without SessionScopeFactory. Wrong configuration?");
-            Assumes.True(Current.IsNone, "Nested UnitOfWorks are not supported");  
-                      
-            SessionScope = sessionScopeFactory.Open();
-            Current = this;
-            IsFinished = false;
+            
+             if (Current.IsSome)
+             {
+                 SessionScope = Current.Value.SessionScope;
+                 IsFinished = true;
+             }
+             else
+             {
+                 SessionScope = sessionScopeFactory.Open();
+                 IsFinished = false;
+             }
+                                                  
+            Current = this;            
             Id = Guid.NewGuid();
         }
 
