@@ -197,13 +197,18 @@ namespace SmartElk.Antler.Domain.Specs
         [Category("Unit")]
         public class when_trying_to_create_nested_unit_of_work : UnitOfWorkScenario
         {
-            [Test]
-            [ExpectedException(typeof(Assumes.InternalErrorException))]
-            public void should_throw_exception()
+            [Test]            
+            public void should_not_open_new_session_and_commit_nested_unit_of_work()
             {                
+                //act
                 UnitOfWork.Do(uow => UnitOfWork.Do(nested =>
-                    {                                
+                    {
+                        nested.IsFinished.Should().BeTrue();
                     }));
+
+                //assert
+                A.CallTo(()=>SessionScopeFactory.Open()).MustHaveHappened(Repeated.Exactly.Once);
+                A.CallTo(() => SessionScope.Commit()).MustHaveHappened(Repeated.Exactly.Once);
             }
         }
         
