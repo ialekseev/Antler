@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using SmartElk.Antler.Core.Common;
 using SmartElk.Antler.Core.Common.CodeContracts;
 
 namespace SmartElk.Antler.Core.Domain
 {           
+    //todo: more tests(handling errors in root/nested unit of works)
     public class UnitOfWork: IDisposable
     {
         public ISessionScope SessionScope { get; private set; }
@@ -12,11 +14,16 @@ namespace SmartElk.Antler.Core.Domain
         private static UnitOfWork _current;
         public static Option<UnitOfWork> Current
         {
-            get { return _current; }
-            private set { _current = value.Value; }
+            get { return _current.AsOption(); }            
         }
+
+        public bool IsFinished
+        {
+            get { return _current == null; }
+        }
+        
+        public bool IsRoot { get; private set; }
                 
-        public bool IsFinished { get; private set; }                
         public Guid Id { get; private set; }
         public UnitOfWorkSettings Settings { get; private set; }
 
@@ -49,20 +56,20 @@ namespace SmartElk.Antler.Core.Domain
          {
             Requires.NotNull(sessionScopeFactory, "Can't continue without SessionScopeFactory. Wrong configuration?");
             
-             if (Current.IsSome)
+             if (_current == null)
              {
-                 SessionScope = Current.Value.SessionScope;
-                 IsFinished = true;
+                 SessionScope = sessionScopeFactory.Open();
+                 IsRoot = true;                 
              }
              else
              {
-                 SessionScope = sessionScopeFactory.Open();
-                 IsFinished = false;
+                 SessionScope = _current.SessionScope;
+                 IsRoot = false;
              }
                                                   
-            Current = this;            
-            Id = Guid.NewGuid();
-        }
+            _current = this;            
+            Id = Guid.NewGuid();            
+         }
 
         public static void Do(Action<UnitOfWork> work, UnitOfWorkSettings settings = null)
         {
@@ -105,13 +112,21 @@ namespace SmartElk.Antler.Core.Domain
                 return work(uow);
             }
         }
-
+        
         public void Dispose()        
         {
-            if (Settings.RollbackOnDispose)
-              Rollback();
-            else    
-              Commit();
+            if (Marshal.GetExceptionCode() == 0)
+            {
+                if (Settings.RollbackOnDispose)
+                    Rollback();
+                else
+                    Commit();
+            }
+            else
+            {
+                if (IsRoot && !IsFinished)
+                  CloseUnitOfWork();
+            }
         }
         
         public void Commit()
@@ -130,14 +145,24 @@ namespace SmartElk.Antler.Core.Domain
 
         private void Perform(Action action)
         {
-            Requires.NotNull(action, "action");            
-            if (!IsFinished)
+            Requires.NotNull(action, "action");
+            if (IsRoot && !IsFinished)
             {
-                action();
-                SessionScope.Dispose();
-                IsFinished = true;
-                _current = null;
+                try
+                {
+                    action();
+                }
+                finally 
+                {
+                    CloseUnitOfWork();
+                }                                
             }
+        }
+
+        private void CloseUnitOfWork()
+        {            
+            SessionScope.Dispose();
+            _current = null;                           
         }
 
         public IRepository<TEntity> Repo<TEntity>() where TEntity: class
