@@ -216,7 +216,7 @@ namespace SmartElk.Antler.Domain.Specs
         public class when_trying_to_get_current_uow_from_the_out_of_scope : UnitOfWorkScenario
         {
             [Test]
-            public void should_return_null()
+            public void should_return_none()
             {
                 //arrange
                 UnitOfWork.Do(uow =>
@@ -224,7 +224,7 @@ namespace SmartElk.Antler.Domain.Specs
                 });
 
                 //assert
-                UnitOfWork.Current.Should().BeNull();
+                UnitOfWork.Current.IsNone.Should().BeTrue();
             }
         }
 
@@ -334,7 +334,7 @@ namespace SmartElk.Antler.Domain.Specs
                 catch (Exception)
                 {
                     //assert
-                    UnitOfWork.Current.Should().BeNull();
+                    UnitOfWork.Current.IsNone.Should().BeTrue();
                 }                                                
             }
         }       

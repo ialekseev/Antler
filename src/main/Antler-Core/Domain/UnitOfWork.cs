@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using SmartElk.Antler.Core.Common;
 using SmartElk.Antler.Core.Common.CodeContracts;
 
 namespace SmartElk.Antler.Core.Domain
@@ -11,9 +12,9 @@ namespace SmartElk.Antler.Core.Domain
 
         [ThreadStatic]
         private static UnitOfWork _current;
-        public static UnitOfWork Current
+        public static Option<UnitOfWork> Current
         {
-            get { return _current; }            
+            get { return _current.AsOption(); }            
         }
 
         public bool IsFinished
