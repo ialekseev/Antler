@@ -198,12 +198,11 @@ namespace SmartElk.Antler.Domain.Specs
         public class when_trying_to_create_nested_unit_of_work : UnitOfWorkScenario
         {
             [Test]            
-            public void should_not_open_new_session_and_commit_nested_unit_of_work()
+            public void should_not_open_new_session_and_not_commit_nested_unit_of_work()
             {                
                 //act
                 UnitOfWork.Do(uow => UnitOfWork.Do(nested =>
-                    {
-                        nested.IsFinished.Should().BeTrue();
+                    {                        
                     }));
 
                 //assert
@@ -225,7 +224,7 @@ namespace SmartElk.Antler.Domain.Specs
                 });
 
                 //assert
-                UnitOfWork.Current.IsSome.Should().BeFalse();
+                UnitOfWork.Current.Should().BeNull();
             }
         }
 
@@ -290,6 +289,55 @@ namespace SmartElk.Antler.Domain.Specs
                 A.CallTo(() => SessionScope.Commit()).MustHaveHappened();
             }
         }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_throwing_exception_during_unit_of_work : UnitOfWorkScenario
+        {
+            [Test]
+            public void should_not_try_to_commit_or_rollback()
+            {
+                //act
+                try
+                {
+                    UnitOfWork.Do(uow =>
+                    {
+                        throw new Exception();
+                    });
+                }
+                catch (Exception)
+                {
+                    //assert                    
+                    A.CallTo(() => SessionScope.Rollback()).MustNotHaveHappened();
+                    A.CallTo(() => SessionScope.Commit()).MustNotHaveHappened();
+                }
+            }
+        }
+        
+        [TestFixture]
+        [Category("Unit")]
+        public class when_throwing_exception_during_commit : UnitOfWorkScenario
+        {
+            [Test]
+            public void should_close_unit_of_work()
+            {
+                //arrange
+                A.CallTo(() => SessionScope.Commit()).Throws<Exception>();
+
+                //act
+                try
+                {
+                    UnitOfWork.Do(uow =>
+                    {                        
+                    });
+                }
+                catch (Exception)
+                {
+                    //assert
+                    UnitOfWork.Current.Should().BeNull();
+                }                                                
+            }
+        }       
     }
 }
 // ReSharper restore InconsistentNaming
