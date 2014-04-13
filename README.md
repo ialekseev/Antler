@@ -67,6 +67,9 @@ NHibernate adapter: https://www.nuget.org/packages/Antler.NHibernate/
 
 EntityFramework adapter: https://www.nuget.org/packages/Antler.EntityFramework/
 
+Build server(TeamCity)
+-------------------------
+http://smartelk.com:8111/guestLogin.html?guest=1
 
 <hr>
 Largely based on the great NoSQL framework https://github.com/Kostassoid/Anodyne.
