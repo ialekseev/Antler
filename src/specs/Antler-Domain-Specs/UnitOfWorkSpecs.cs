@@ -295,7 +295,7 @@ namespace SmartElk.Antler.Domain.Specs
         public class when_throwing_exception_during_unit_of_work : UnitOfWorkScenario
         {
             [Test]
-            public void should_not_try_to_commit_or_rollback()
+            public void should_not_try_to_commit_or_rollback_and_should_close_unit_of_work()
             {
                 //act
                 try
@@ -310,6 +310,9 @@ namespace SmartElk.Antler.Domain.Specs
                     //assert                    
                     A.CallTo(() => SessionScope.Rollback()).MustNotHaveHappened();
                     A.CallTo(() => SessionScope.Commit()).MustNotHaveHappened();
+                    
+                    A.CallTo(() => SessionScope.Dispose()).MustHaveHappened();
+                    UnitOfWork.Current.IsNone.Should().BeTrue();
                 }
             }
         }
@@ -334,6 +337,7 @@ namespace SmartElk.Antler.Domain.Specs
                 catch (Exception)
                 {
                     //assert
+                    A.CallTo(() => SessionScope.Dispose()).MustHaveHappened();
                     UnitOfWork.Current.IsNone.Should().BeTrue();
                 }                                                
             }
