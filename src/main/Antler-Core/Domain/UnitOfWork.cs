@@ -50,8 +50,7 @@ namespace SmartElk.Antler.Core.Domain
          {
              Settings = settings ?? UnitOfWorkSettings.Default;
          }
-
-        //todo: more unit & integration specs about nested UnitOfWork 
+        
         private void SetSession(ISessionScopeFactory sessionScopeFactory)
          {
             Requires.NotNull(sessionScopeFactory, "Can't continue without SessionScopeFactory. Wrong configuration?");

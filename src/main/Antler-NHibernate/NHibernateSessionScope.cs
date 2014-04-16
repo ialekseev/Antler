@@ -71,6 +71,6 @@ namespace Antler.NHibernate
             _transaction.Dispose();            
             if (_ownSession)                            
               _session.Dispose();                            
-        }        
+        }       
     }
 }
