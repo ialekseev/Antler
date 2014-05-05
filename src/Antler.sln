@@ -25,11 +25,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Storages-Specs", "sp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Core", "main\Antler-Core\Antler-Core.csproj", "{61E50BED-1EA6-48C6-BEE9-E4471AEE4635}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4D81FA00-B3D4-423E-B82E-3B586766EE63}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-EntityFramework-SqlServer-Specs", "specs\Antler-EntityFramework-SqlServer-Specs\Antler-EntityFramework-SqlServer-Specs.csproj", "{2FC7F493-3B9C-4BF7-91FE-2F0D2EBABBB7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antler-Specs-Shared-EntityFramework", "specs\Antler-Specs-Shared-EntityFramework\Antler-Specs-Shared-EntityFramework.csproj", "{E8EEAF94-7FB9-458C-8298-74F2AFFF8F4D}"
