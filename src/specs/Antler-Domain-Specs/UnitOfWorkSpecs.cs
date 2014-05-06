@@ -102,10 +102,10 @@ namespace SmartElk.Antler.Domain.Specs
 
         [TestFixture]
         [Category("Unit")]
-        public class when_committing_unit_of_work : UnitOfWorkScenario
+        public class when_explicitly_committing_unit_of_work : UnitOfWorkScenario
         {
             [Test]
-            public void should_commit_and_dispose()
+            public void should_commit_and_dispose_only_once()
             {
                 //act
                 UnitOfWork.Do(uow => uow.Commit());
@@ -210,7 +210,37 @@ namespace SmartElk.Antler.Domain.Specs
                 A.CallTo(() => SessionScope.Commit()).MustHaveHappened(Repeated.Exactly.Once);
             }
         }
-        
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_trying_to_explicitly_commit_nested_unit_of_work : UnitOfWorkScenario
+        {
+            [Test]
+            public void should_not_commit_nested_unit_of_work()
+            {
+                //act
+                UnitOfWork.Do(uow => UnitOfWork.Do(nested => nested.Commit()));
+
+                //assert                
+                A.CallTo(() => SessionScope.Commit()).MustHaveHappened(Repeated.Exactly.Once);
+            }
+        }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_trying_to_rollback_nested_unit_of_work : UnitOfWorkScenario
+        {
+            [Test]
+            public void should_not_rollback_nested_unit_of_work()
+            {
+                //act
+                UnitOfWork.Do(uow => UnitOfWork.Do(nested => nested.Rollback()));
+
+                //assert                
+                A.CallTo(() => SessionScope.Rollback()).MustNotHaveHappened();
+            }
+        }
+
         [TestFixture]
         [Category("Unit")]
         public class when_trying_to_get_current_uow_from_the_out_of_scope : UnitOfWorkScenario
@@ -341,7 +371,7 @@ namespace SmartElk.Antler.Domain.Specs
                     UnitOfWork.Current.IsNone.Should().BeTrue();
                 }                                                
             }
-        }       
+        }        
     }
 }
 // ReSharper restore InconsistentNaming
