@@ -4,8 +4,7 @@ using SmartElk.Antler.Core.Common;
 using SmartElk.Antler.Core.Common.CodeContracts;
 
 namespace SmartElk.Antler.Core.Domain
-{           
-    //todo: more tests(handling errors in root/nested unit of works)
+{               
     public class UnitOfWork: IDisposable
     {
         public ISessionScope SessionScope { get; private set; }
