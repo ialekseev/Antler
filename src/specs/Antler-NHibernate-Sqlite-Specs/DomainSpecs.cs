@@ -5,6 +5,7 @@ using Antler.NHibernate.Internal;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NUnit.Framework;
+using SmartElk.Antler.Core;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Common.Reflection;
 using SmartElk.Antler.Core.Domain.Configuration;
@@ -146,7 +147,7 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
             public void TearDown()
             {
                 NewSessionForTesting.ResetNHibernateSession(Configurator, session);
-                Configurator.UnUseStructureMapContainer().UnUseStorage().Dispose();
+                Configurator.UnUseContainer().UnUseStorage().Dispose();
             }
         } 
         #endregion

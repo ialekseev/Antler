@@ -2,6 +2,7 @@
 
 using System.Linq;
 using NUnit.Framework;
+using SmartElk.Antler.Core;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Common.Reflection;
 using SmartElk.Antler.Core.Domain.Configuration;
@@ -162,7 +163,7 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
             [TearDown]
             public void Dispose()
             {                
-                Configurator.UnUseWindsorContainer().UnUseStorage().Dispose();
+                Configurator.UnUseContainer().UnUseStorage().Dispose();
             }
         } 
         #endregion

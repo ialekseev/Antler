@@ -7,6 +7,7 @@ using FluentAssertions;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NUnit.Framework;
+using SmartElk.Antler.Core;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Common.Container;
 using SmartElk.Antler.Core.Common.Reflection;
@@ -80,7 +81,7 @@ namespace SmartElk.Antler.Storages.Specs
             public void TearDown()
             {
                 NewSessionForTesting.ResetNHibernateSession(Configurator, nhSession);
-                Configurator.UnUseWindsorContainer().UnUseStorage().Dispose();                
+                Configurator.UnUseContainer().UnUseStorage().Dispose();                
             }
         } 
         #endregion
