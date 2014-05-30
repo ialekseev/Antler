@@ -2,6 +2,7 @@
 
 using System.Linq;
 using NUnit.Framework;
+using SmartElk.Antler.Core;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Common.Reflection;
 using SmartElk.Antler.Core.Domain.Configuration;
@@ -161,7 +162,7 @@ namespace Antler.EntityFramework.SqlServer.Specs
             [TearDown]
             public void Dispose()
             {
-                Configurator.UnUseStructureMapContainer().UnUseStorage().Dispose();
+                Configurator.UnUseContainer().UnUseStorage().Dispose();
             }
         } 
         #endregion

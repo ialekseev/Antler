@@ -4,6 +4,7 @@ using System.Linq;
 using Antler.NHibernate.Configuration;
 using FluentNHibernate.Cfg.Db;
 using NUnit.Framework;
+using SmartElk.Antler.Core;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Common.Reflection;
 using SmartElk.Antler.Core.Domain.Configuration;
@@ -131,7 +132,7 @@ namespace SmartElk.Antler.NHibernate.SqlServer.Specs
             [TearDown]
             public void TearDown()
             {                
-                Configurator.UnUseWindsorContainer().UnUseStorage().Dispose();
+                Configurator.UnUseContainer().UnUseStorage().Dispose();
             }
         } 
         #endregion

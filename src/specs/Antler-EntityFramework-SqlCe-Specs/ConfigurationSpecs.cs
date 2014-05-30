@@ -1,6 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
 using FluentAssertions;
 using NUnit.Framework;
+using SmartElk.Antler.Core;
 using SmartElk.Antler.Core.Abstractions;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Domain;
