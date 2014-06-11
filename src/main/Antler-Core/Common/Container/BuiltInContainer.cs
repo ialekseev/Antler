@@ -52,7 +52,7 @@ namespace SmartElk.Antler.Core.Common.Container
         public void Put(IBindingSyntax binding)
         {
             Requires.NotNull(binding, "binding");
-            Requires.NotNull(binding.Binding, "binding");
+            Requires.NotNull(binding.Binding, "binding.Binding");
 
             var singleBinding = binding.Binding as SingleBinding;            
             Assumes.True(singleBinding != null);
