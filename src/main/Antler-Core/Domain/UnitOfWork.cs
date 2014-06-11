@@ -52,7 +52,7 @@ namespace SmartElk.Antler.Core.Domain
         
         private void SetSession(ISessionScopeFactory sessionScopeFactory)
          {
-            Requires.NotNull(sessionScopeFactory, "Can't continue without SessionScopeFactory. Wrong configuration?");
+            Requires.NotNull(sessionScopeFactory, "sessionScopeFactory", "Can't continue without SessionScopeFactory. Wrong configuration?");
             
              if (_current == null)
              {

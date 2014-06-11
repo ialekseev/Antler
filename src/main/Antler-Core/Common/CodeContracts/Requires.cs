@@ -31,6 +31,25 @@ namespace SmartElk.Antler.Core.Common.CodeContracts
         }
 
         /// <summary>
+        /// Validates that a given parameter is not null.
+        /// </summary>
+        /// <typeparam name="T">The type of the parameter</typeparam>
+        /// <param name="value">The value.</param>
+        /// <param name="parameterName">Name of the parameter.</param>
+        /// <param name="message">The message to include with the exception.</param>
+        /// <returns>The tested value, guaranteed to not be null.</returns>
+        [Pure, DebuggerStepThrough]
+        public static void NotNull<T>(T value, string parameterName, string message) where T : class
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(parameterName, message);
+            }
+
+            Contract.EndContractBlock();
+        }
+
+        /// <summary>
         /// Validates that a parameter is not null or empty.
         /// </summary>
         /// <param name="value">The value.</param>

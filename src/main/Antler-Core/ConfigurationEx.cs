@@ -16,7 +16,7 @@ namespace SmartElk.Antler.Core
         /// </summary>             
         public static IAntlerConfigurator UseStorage(this IAntlerConfigurator configurator, IStorage storage)
         {
-            Requires.NotNull(storage, "Storage can't be null");
+            Requires.NotNull(storage, "storage", "Storage can't be null");
             Assumes.True<ContainerRequiredException>(configurator.HasContainer(), NoContainerMessage);                                    
             
             UnitOfWork.SessionScopeFactoryExtractor = () => configurator.Configuration.Container.Get<ISessionScopeFactory>();            
@@ -30,8 +30,8 @@ namespace SmartElk.Antler.Core
            </summary> */            
         public static IAntlerConfigurator UseStorageNamed(this IAntlerConfigurator configurator,  IStorage storage, string name)
         {
-            Requires.NotNull(storage, "Storage can't be null");
-            Requires.NotNull(storage, "Storage name can't be null");
+            Requires.NotNull(storage, "storage", "Storage can't be null");
+            Requires.NotNull(storage, "storage", "Storage name can't be null");
             Assumes.True<ContainerRequiredException>(configurator.HasContainer(), NoContainerMessage);
             
             UnitOfWork.SessionScopeFactoryNamedExtractor = storageName => configurator.Configuration.Container.Get<ISessionScopeFactory>(storageName);
