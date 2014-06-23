@@ -6,8 +6,8 @@ using Antler.NHibernate.Configuration;
 using Blog.Web.Common;
 using Blog.Web.Common.AppStart;
 using FluentNHibernate.Cfg.Db;
+using SmartElk.Antler.Core;
 using SmartElk.Antler.Core.Abstractions.Configuration;
-using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.StructureMap;
 
 namespace Blog.Web.NH.SqlServer
