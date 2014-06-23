@@ -61,6 +61,9 @@ namespace SmartElk.Antler.Core.Domain
              }
              else
              {
+                 if (Settings.ThrowIfNestedUnitOfWork)
+                     throw new NotSupportedException("Nested UnitOfWorks are not supported due to UnitOfWorkSettings configuration");
+
                  SessionScope = _current.SessionScope;
                  IsRoot = false;
              }

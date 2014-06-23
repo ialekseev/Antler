@@ -3,7 +3,6 @@ using System;
 using FakeItEasy;
 using FluentAssertions;
 using NUnit.Framework;
-using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain;
 
 namespace SmartElk.Antler.Domain.Specs
@@ -371,7 +370,22 @@ namespace SmartElk.Antler.Domain.Specs
                     UnitOfWork.Current.IsNone.Should().BeTrue();
                 }                                                
             }
-        }        
+        }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_using_nested_unit_of_work_with_throw_if_nested_setting : UnitOfWorkScenario
+        {
+            [Test]
+            [ExpectedException(typeof(NotSupportedException))]
+            public void should_throw()
+            {
+                //act
+                var setting = new UnitOfWorkSettings() {ThrowIfNestedUnitOfWork = true};
+
+                UnitOfWork.Do(uow => UnitOfWork.Do(nested => nested, setting), setting);                
+            }
+        }
     }
 }
 // ReSharper restore InconsistentNaming
