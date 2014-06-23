@@ -4,8 +4,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Blog.Web.Common;
 using Blog.Web.Common.AppStart;
+using SmartElk.Antler.Core;
 using SmartElk.Antler.Core.Abstractions.Configuration;
-using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.SqlCe.Configuration;
 using SmartElk.Antler.Windsor;
 
