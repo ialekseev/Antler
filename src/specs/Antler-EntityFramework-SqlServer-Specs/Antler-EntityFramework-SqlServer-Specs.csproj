@@ -8,7 +8,7 @@
     <ProjectGuid>{2FC7F493-3B9C-4BF7-91FE-2F0D2EBABBB7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Antler.EntityFramework.SqlServer.Specs</RootNamespace>
+    <RootNamespace>SmartElk.Antler.EntityFramework.SqlServer.Specs</RootNamespace>
     <AssemblyName>Antler.EntityFramework.SqlServer.Specs</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

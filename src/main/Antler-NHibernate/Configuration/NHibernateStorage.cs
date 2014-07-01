@@ -6,7 +6,7 @@ using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
 
-namespace Antler.NHibernate.Configuration
+namespace SmartElk.Antler.NHibernate.Configuration
 {
     public class NHibernateStorage : AbstractStorage<NHibernateStorage>
     {        

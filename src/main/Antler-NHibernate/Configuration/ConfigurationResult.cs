@@ -1,7 +1,7 @@
 ﻿using NHibernate;
 using SmartElk.Antler.Core.Common.CodeContracts;
 
-namespace Antler.NHibernate.Configuration
+namespace SmartElk.Antler.NHibernate.Configuration
 {
     public class ConfigurationResult
     {

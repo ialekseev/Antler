@@ -1,6 +1,6 @@
 ﻿using NHibernate;
 
-namespace Antler.NHibernate
+namespace SmartElk.Antler.NHibernate
 {
     public interface ISessionScopeFactoryEx
     {
