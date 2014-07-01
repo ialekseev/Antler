@@ -2,7 +2,7 @@
 using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain;
 
-namespace Antler.NHibernate
+namespace SmartElk.Antler.NHibernate
 {
     public class NHibernateSessionScope: ISessionScope
     {

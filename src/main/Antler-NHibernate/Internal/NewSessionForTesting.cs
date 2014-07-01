@@ -6,7 +6,7 @@ using SmartElk.Antler.Core.Common.Reflection;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
 
-namespace Antler.NHibernate.Internal
+namespace SmartElk.Antler.NHibernate.Internal
 {
     public class NewSessionForTesting
     {
