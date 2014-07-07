@@ -4,6 +4,7 @@ using SmartElk.Antler.Specs.Shared.Entities;
 
 namespace SmartElk.Antler.Specs.Shared.EntityFramework.Mappings
 {
+    //todo: rename stupid column names    
     public class TeamMap : EntityTypeConfiguration<Team>
     {
         public TeamMap()
