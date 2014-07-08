@@ -6,24 +6,24 @@ namespace SmartElk.Antler.Linq2Db.Configuration
 {
     public class Linq2DbStorage : IStorage
     {
-        private readonly string _databaseName;
+        private readonly string _connectionString;
 
-        private Linq2DbStorage(string databaseName)
+        private Linq2DbStorage(string connectionString)
         {
-            _databaseName = databaseName;
+            _connectionString = connectionString;
         }
-        
-        public static Linq2DbStorage Use(string databaseName)
+
+        public static Linq2DbStorage Use(string connectionString)
         {
-            Requires.NotNullOrEmpty(databaseName, "databaseName");
-            return new Linq2DbStorage(databaseName);
+            Requires.NotNullOrEmpty(connectionString, "connectionString");
+            return new Linq2DbStorage(connectionString);
         }
-        
+                
         public void Configure(IDomainConfigurator configurator)
         {
             Requires.NotNull(configurator, "configurator");
-            
-            var sessionScopeFactory = new Linq2DbSessionScopeFactory(_databaseName);
+
+            var sessionScopeFactory = new Linq2DbSessionScopeFactory(_connectionString);
             configurator.Configuration.Container.PutWithNameOrDefault<ISessionScopeFactory>(sessionScopeFactory, configurator.Name);
         }
     }

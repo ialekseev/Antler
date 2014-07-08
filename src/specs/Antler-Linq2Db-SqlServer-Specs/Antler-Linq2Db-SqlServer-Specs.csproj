@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="FluentAssertions">
       <HintPath>..\..\packages\FluentAssertions.3.0.107\lib\net40\FluentAssertions.dll</HintPath>
     </Reference>
@@ -46,6 +52,7 @@
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -70,6 +77,10 @@
       <Project>{61E50BED-1EA6-48C6-BEE9-E4471AEE4635}</Project>
       <Name>Antler-Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\main\Antler-EntityFramework\Antler-EntityFramework.csproj">
+      <Project>{34FCF9A5-7B9F-4A9A-A8B0-4FDA717744BD}</Project>
+      <Name>Antler-EntityFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\main\Antler-Linq2db\Antler-Linq2Db.csproj">
       <Project>{F323CEAA-6D17-4BBA-BA76-DE210066DBFF}</Project>
       <Name>Antler-Linq2Db</Name>
@@ -77,6 +88,10 @@
     <ProjectReference Include="..\..\main\Antler-Windsor\Antler-Windsor.csproj">
       <Project>{91A50383-D6EB-4303-91E8-BD3634E20CAB}</Project>
       <Name>Antler-Windsor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Antler-Specs-Shared-EntityFramework\Antler-Specs-Shared-EntityFramework.csproj">
+      <Project>{E8EEAF94-7FB9-458C-8298-74F2AFFF8F4D}</Project>
+      <Name>Antler-Specs-Shared-EntityFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\Antler-Specs-Shared\Antler-Specs-Shared.csproj">
       <Project>{9C008F64-DBBD-4135-A5C8-1249D5A603F1}</Project>

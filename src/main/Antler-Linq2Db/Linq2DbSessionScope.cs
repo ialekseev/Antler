@@ -14,7 +14,7 @@ namespace SmartElk.Antler.Linq2Db
             Requires.NotNull(dataConnection, "dataConnection");
 
             _dataConnection = dataConnection;
-            dataConnection.BeginTransaction();
+            dataConnection.BeginTransaction();            
         }
 
         public void Commit()

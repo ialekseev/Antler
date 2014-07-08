@@ -10,13 +10,11 @@ using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Common.Container;
 using SmartElk.Antler.Core.Common.Reflection;
 using SmartElk.Antler.Core.Domain;
-using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.EntityFramework.SqlCe.Configuration;
 using SmartElk.Antler.NHibernate.Configuration;
 using SmartElk.Antler.NHibernate.Internal;
 using SmartElk.Antler.Specs.Shared.Entities;
 using SmartElk.Antler.Specs.Shared.NHibernate.Mappings;
-using SmartElk.Antler.Windsor;
 
 namespace SmartElk.Antler.Storages.Specs
 {
