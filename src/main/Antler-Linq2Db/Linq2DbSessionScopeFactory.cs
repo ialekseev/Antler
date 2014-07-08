@@ -1,19 +1,19 @@
-﻿using LinqToDB.Data;
+﻿using LinqToDB.DataProvider.SqlServer;
 using SmartElk.Antler.Core.Domain;
 
 namespace SmartElk.Antler.Linq2Db
 {
     public class Linq2DbSessionScopeFactory: ISessionScopeFactory
     {
-        private readonly string _databaseName;
-        public Linq2DbSessionScopeFactory(string databaseName)
+        private readonly string _connectionString;
+        public Linq2DbSessionScopeFactory(string connectionString)
         {
-            _databaseName = databaseName;
+            _connectionString = connectionString;
         }
 
         public ISessionScope Open()
         {
-            return new Linq2DbSessionScope(new DataConnection(_databaseName));
+            return new Linq2DbSessionScope(SqlServerTools.CreateDataConnection(_connectionString));
         }                   
     }
 }
