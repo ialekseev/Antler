@@ -1,4 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
@@ -327,7 +329,26 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                 });
             }
         }
+        
+        public static class when_trying_to_insert_new_team
+        {           
+            public static void should_return_generated_id<TEntity, TId>() where TEntity: class
+            {
+                UnitOfWork.Do(uow =>
+                {
+                    //arrange
+                    dynamic team1 = Activator.CreateInstance<TEntity>();
+                    team1.Name = "SuperTeam";
+                    team1.Description = "Really super";
+                    
+                    //act                                                    
+                    var result = Convert.ToInt32((TId)uow.Repo<TEntity>().Insert<TId>(team1));
 
+                    //assert
+                    result.Should().BeGreaterThan(0);
+                });
+            }
+        }
     }
 }
 // ReSharper restore InconsistentNaming

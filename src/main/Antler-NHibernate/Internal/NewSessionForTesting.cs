@@ -4,13 +4,12 @@ using NHibernate.Tool.hbm2ddl;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Common.Reflection;
 using SmartElk.Antler.Core.Domain;
-using SmartElk.Antler.Core.Domain.Configuration;
 
 namespace SmartElk.Antler.NHibernate.Internal
 {
     public class NewSessionForTesting
     {
-        public static ISession CreateNHibernateSession(IAntlerConfigurator configurator, Type storageType, string storageName = null)
+        public static ISession CreateNHibernateSession(IAntlerConfigurator configurator, Type storageType, string storageName)
         {
             var nhConfigurationResult = storageType.AsStaticMembersDynamicWrapper().LatestConfigurationResult;
 
@@ -20,16 +19,16 @@ namespace SmartElk.Antler.NHibernate.Internal
             schemaExport.Drop(true, true);
             schemaExport.Execute(false, true, false, session.Connection, null);
 
-            var sessionScopeFactory = (ISessionScopeFactoryEx)configurator.Configuration.Container.GetWithNameOrDefault<ISessionScopeFactory>(storageName);
+            var sessionScopeFactory = (ISessionScopeFactoryEx)configurator.Configuration.Container.Get<ISessionScopeFactory>(storageName);
             sessionScopeFactory.SetSession(session);
 
             return session;
         }
 
-        public static void ResetNHibernateSession(IAntlerConfigurator configurator, ISession session, string storageName = null)
+        public static void ResetNHibernateSession(IAntlerConfigurator configurator, ISession session, string storageName)
         {
             session.Dispose();
-            var sessionScopeFactory = (ISessionScopeFactoryEx)configurator.Configuration.Container.GetWithNameOrDefault<ISessionScopeFactory>(storageName);
+            var sessionScopeFactory = (ISessionScopeFactoryEx)configurator.Configuration.Container.Get<ISessionScopeFactory>(storageName);
             sessionScopeFactory.ResetSession();
         }
     }

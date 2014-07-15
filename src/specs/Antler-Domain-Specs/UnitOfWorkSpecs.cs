@@ -18,22 +18,22 @@ namespace SmartElk.Antler.Domain.Specs
                 SessionScopeFactory = A.Fake<ISessionScopeFactory>();
                 SessionScope = A.Fake<ISessionScope>();
                 A.CallTo(() => SessionScopeFactory.Open()).Returns(SessionScope);
-                Func<ISessionScopeFactory> sessionScopeFactoryExtractor = () => SessionScopeFactory;
+                Func<string, ISessionScopeFactory> sessionScopeFactoryExtractor = name => (name == UnitOfWorkSettings.Default.StorageName ? SessionScopeFactory : null);
                 UnitOfWork.SessionScopeFactoryExtractor = sessionScopeFactoryExtractor;
             }
         }
         
-        public class UnitOfWorkNamedScenario
+        public class UnitOfWorkNamedStorageScenario
         {
             protected ISessionScopeFactory SessionScopeFactory { get; set; }
             protected ISessionScope SessionScope { get; set; }
-            public UnitOfWorkNamedScenario()
+            public UnitOfWorkNamedStorageScenario()
             {
                 SessionScopeFactory = A.Fake<ISessionScopeFactory>();
                 SessionScope = A.Fake<ISessionScope>();
                 A.CallTo(() => SessionScopeFactory.Open()).Returns(SessionScope);
                 Func<string, ISessionScopeFactory> sessionScopeFactoryExtractor = name => (name=="SuperStorage" ? SessionScopeFactory: null);
-                UnitOfWork.SessionScopeFactoryNamedExtractor = sessionScopeFactoryExtractor;
+                UnitOfWork.SessionScopeFactoryExtractor = sessionScopeFactoryExtractor;
             }
         }
         
@@ -70,13 +70,13 @@ namespace SmartElk.Antler.Domain.Specs
 
         [TestFixture]
         [Category("Unit")]
-        public class when_trying_to_create_unit_of_work_with_storage_name : UnitOfWorkNamedScenario
+        public class when_trying_to_create_unit_of_work_with_storage_name : UnitOfWorkNamedStorageScenario
         {
             [Test]
             public void should_open_session()
             {
                 //act
-                UnitOfWork.Do("SuperStorage", uow => { });
+                UnitOfWork.Do(uow => { }, new UnitOfWorkSettings { StorageName = "SuperStorage" });
 
                 //assert
                 A.CallTo(() => SessionScopeFactory.Open()).MustHaveHappened();
@@ -85,13 +85,13 @@ namespace SmartElk.Antler.Domain.Specs
 
         [TestFixture]
         [Category("Unit")]
-        public class when_trying_to_create_unit_of_work_with_storage_name_returning_result : UnitOfWorkNamedScenario
+        public class when_trying_to_create_unit_of_work_with_storage_name_returning_result : UnitOfWorkNamedStorageScenario
         {
             [Test]
             public void should_open_session_and_get_result()
             {
                 //act
-                var result = UnitOfWork.Do("SuperStorage", uow => "super");
+                var result = UnitOfWork.Do(uow => "super", new UnitOfWorkSettings { StorageName = "SuperStorage" });
 
                 //assert
                 A.CallTo(() => SessionScopeFactory.Open()).MustHaveHappened();

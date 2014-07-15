@@ -6,10 +6,12 @@ using NUnit.Framework;
 using SmartElk.Antler.Core;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Common.Reflection;
+using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.NHibernate.Configuration;
 using SmartElk.Antler.NHibernate.Internal;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
+using SmartElk.Antler.Specs.Shared.Entities;
 using SmartElk.Antler.Specs.Shared.NHibernate.Mappings;
 using SmartElk.Antler.StructureMap;
 
@@ -118,6 +120,17 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
 
         [TestFixture]
         [Category("Integration")]
+        public class when_trying_to_insert_new_team : TestingScenario
+        {
+            [Test]
+            public void should_return_generated_id()
+            {
+                CommonDomainSpecs.when_trying_to_insert_new_team.should_return_generated_id<Team, int>();
+            }
+        }
+
+        [TestFixture]
+        [Category("Integration")]
         public class when_trying_to_query_using_nhibernate_internal_session_directly : TestingScenario
         {
             [Test]
@@ -140,13 +153,13 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
                 Configurator = new AntlerConfigurator();                
                 Configurator.UseStructureMapContainer().UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(SQLiteConfiguration.Standard.InMemory()).WithMappings(From.AssemblyWithType<CountryMap>().First()));
 
-                session = NewSessionForTesting.CreateNHibernateSession(Configurator, typeof(NHibernateStorage));
+                session = NewSessionForTesting.CreateNHibernateSession(Configurator, typeof(NHibernateStorage), UnitOfWorkSettings.Default.StorageName);
             }
 
             [TearDown]
             public void TearDown()
             {
-                NewSessionForTesting.ResetNHibernateSession(Configurator, session);
+                NewSessionForTesting.ResetNHibernateSession(Configurator, session, UnitOfWorkSettings.Default.StorageName);
                 Configurator.UnUseContainer().UnUseStorage().Dispose();
             }
         } 

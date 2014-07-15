@@ -14,31 +14,18 @@ namespace SmartElk.Antler.Core
         /// <summary>
         /// Start to configure ORM/database using this method
         /// </summary>             
-        public static IAntlerConfigurator UseStorage(this IAntlerConfigurator configurator, IStorage storage)
+        public static IAntlerConfigurator UseStorage(this IAntlerConfigurator configurator, IStorage storage, string storageName = null)
         {
             Requires.NotNull(storage, "storage", "Storage can't be null");
-            Assumes.True<ContainerRequiredException>(configurator.HasContainer(), NoContainerMessage);                                    
-            
-            UnitOfWork.SessionScopeFactoryExtractor = () => configurator.Configuration.Container.Get<ISessionScopeFactory>();            
-            storage.Configure(new DomainConfigurator(configurator.Configuration));
-            return configurator;
-        }
-
-        /** <summary>
-          Start to configure named ORM/database using this method. 
-          Why named? If you have several different ORMs/databases in your application, you may need to distinguish them by name when using UnitOfWork
-           </summary> */            
-        public static IAntlerConfigurator UseStorageNamed(this IAntlerConfigurator configurator,  IStorage storage, string name)
-        {
-            Requires.NotNull(storage, "storage", "Storage can't be null");
-            Requires.NotNull(storage, "storage", "Storage name can't be null");
             Assumes.True<ContainerRequiredException>(configurator.HasContainer(), NoContainerMessage);
-            
-            UnitOfWork.SessionScopeFactoryNamedExtractor = storageName => configurator.Configuration.Container.Get<ISessionScopeFactory>(storageName);
-            storage.Configure(new DomainConfigurator(configurator.Configuration).Named(name));
+
+            storageName = storageName ?? UnitOfWorkSettings.Default.StorageName;
+
+            UnitOfWork.SessionScopeFactoryExtractor = s => configurator.Configuration.Container.Get<ISessionScopeFactory>(s);
+            storage.Configure(new DomainConfigurator(configurator.Configuration).Named(storageName));
             return configurator;
         }
-
+        
         /** <summary>
          Set UnitOfWork settings that will be used by default. 
          For example, to disable commits or to rollback transaction on UnitOfWork completion(could be useful when writing Integration tests)
@@ -58,16 +45,7 @@ namespace SmartElk.Antler.Core
             UnitOfWork.SessionScopeFactoryExtractor = null;
             return configurator;
         }
-
-        /// <summary>
-        /// Reset current named storages(mainly used in Unit/Integration testing)
-        /// </summary>        
-        public static IAntlerConfigurator UnUseNamedStorage(this IAntlerConfigurator configurator)
-        {
-            UnitOfWork.SessionScopeFactoryNamedExtractor = null;
-            return configurator;
-        }
-
+        
         /// <summary>
         /// Reset UnitOfWork default settings(mainly used in Unit/Integration testing)
         /// </summary>        

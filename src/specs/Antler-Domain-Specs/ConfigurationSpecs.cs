@@ -30,14 +30,14 @@ namespace SmartElk.Antler.Domain.Specs
         public class when_trying_to_set_unnamed_storage_on_configurator: ConfigurationScenario
         {
             [Test]
-            public void should_set_unit_of_work_and_perform_storage_configuring_without_name()
+            public void should_set_unit_of_work_and_perform_storage_configuring_with_default_storage_name()
             {
                 //arrange
                 var configurator = A.Fake<IAntlerConfigurator>();
                 var basicConfiguration = A.Fake<IBasicConfiguration>();
                 var container = A.Fake<IContainer>();
-                                
-                A.CallTo(() => container.Get<ISessionScopeFactory>()).Returns(new TestSessionScopeFactory());
+
+                A.CallTo(() => container.Get<ISessionScopeFactory>(UnitOfWorkSettings.Default.StorageName)).Returns(new TestSessionScopeFactory());
                 A.CallTo(() => basicConfiguration.Container).Returns(container);
                 A.CallTo(() => configurator.Configuration).Returns(basicConfiguration);
 
@@ -48,11 +48,11 @@ namespace SmartElk.Antler.Domain.Specs
 
                 //assert
                 var property = typeof(UnitOfWork).GetProperty("SessionScopeFactoryExtractor", BindingFlags.Public | BindingFlags.Static);
-                var sessionScopeFactoryExtractor = (Func<ISessionScopeFactory>)property.GetValue(null, null);
-                var sessionScopeFactory = sessionScopeFactoryExtractor();
+                var sessionScopeFactoryExtractor = (Func<string, ISessionScopeFactory>)property.GetValue(null, null);
+                var sessionScopeFactory = sessionScopeFactoryExtractor(UnitOfWorkSettings.Default.StorageName);
                 
                 sessionScopeFactory.Should().BeOfType<TestSessionScopeFactory>();
-                A.CallTo(()=>storage.Configure(A<IDomainConfigurator>.That.Matches(t=>string.IsNullOrEmpty(t.Name)))).MustHaveHappened();
+                A.CallTo(() => storage.Configure(A<IDomainConfigurator>.That.Matches(t=>t.Name.Equals(UnitOfWorkSettings.Default.StorageName)))).MustHaveHappened();
             }
         }
 
@@ -74,10 +74,10 @@ namespace SmartElk.Antler.Domain.Specs
                 var storage = A.Fake<IStorage>();
                 
                 //act
-                configurator.UseStorageNamed(storage, "SuperStorage");
+                configurator.UseStorage(storage, "SuperStorage");
 
                 //assert
-                var property = typeof(UnitOfWork).GetProperty("SessionScopeFactoryNamedExtractor", BindingFlags.Public | BindingFlags.Static);
+                var property = typeof(UnitOfWork).GetProperty("SessionScopeFactoryExtractor", BindingFlags.Public | BindingFlags.Static);
                 var sessionScopeFactoryExtractor = (Func<string, ISessionScopeFactory>)property.GetValue(null, null);
                 var sessionScopeFactory = sessionScopeFactoryExtractor("SuperStorage");
                 

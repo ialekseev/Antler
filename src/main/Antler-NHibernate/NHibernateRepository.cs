@@ -32,6 +32,14 @@ namespace SmartElk.Antler.NHibernate
             return entity;
         }
 
+        public TId Insert<TId>(TEntity entity)
+        {
+            Requires.NotNull(entity, "entity");
+            Requires.True(typeof(TId).IsValueType, "Only value type Ids are supported(int, decimal etc.)");
+
+            return (TId)_session.Save(entity);
+        }
+
         public TEntity Update(TEntity entity)
         {
             Requires.NotNull(entity, "entity");

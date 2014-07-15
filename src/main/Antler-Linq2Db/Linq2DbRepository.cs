@@ -22,14 +22,22 @@ namespace SmartElk.Antler.Linq2Db
 
         public TEntity GetById<TId>(TId id)
         {
-            throw new NotSupportedException();
+            throw new NotSupportedException("Use AsQueryable method for building GetById query");
         }
         
         public TEntity Insert(TEntity entity)
         {
             Requires.NotNull(entity, "entity");
-            _dataConnection.Insert(entity);    //todo: use InsertWithIdentity ???                    
+            _dataConnection.Insert(entity);
             return entity;
+        }
+
+        public TId Insert<TId>(TEntity entity)
+        {
+            Requires.NotNull(entity, "entity");                                    
+            Requires.True(typeof(TId).IsValueType, "Only value type Ids are supported(int, decimal etc.)");
+            
+            return (TId)_dataConnection.InsertWithIdentity(entity);
         }
 
         public TEntity Update(TEntity entity)
@@ -47,7 +55,7 @@ namespace SmartElk.Antler.Linq2Db
 
         public void Delete<TId>(TId id)
         {
-            throw new NotSupportedException();            
+            throw new NotSupportedException("Use overloaded method that accepts Entity as argument");            
         }        
     }
 }
