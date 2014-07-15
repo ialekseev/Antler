@@ -45,23 +45,7 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
                 //act
                 basicConfigurator.UseStorage(EntityFrameworkPlusSqlCe.Use);                                
             }
-        }
-
-        [TestFixture]
-        [Category("Integration")]
-        public class when_trying_to_configure_named_storage_without_container
-        {
-            [Test]
-            [ExpectedException(typeof(ContainerRequiredException))]
-            public void should_throw_exception()
-            {
-                //arrange
-                var basicConfigurator = new AntlerConfigurator();
-
-                //act
-                basicConfigurator.UseStorageNamed(EntityFrameworkPlusSqlCe.Use, "SuperStorage");                
-            }
-        }       
+        }             
     }
 }
 // ReSharper restore InconsistentNaming

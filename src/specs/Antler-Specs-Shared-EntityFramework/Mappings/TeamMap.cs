@@ -17,8 +17,8 @@ namespace SmartElk.Antler.Specs.Shared.EntityFramework.Mappings
             HasMany(d => d.Members).WithMany(t => t.Teams).Map(m =>
             {
                 m.ToTable("TEAMS_MEMBERS_MAP");
-                m.MapLeftKey("MEMBER_GPIN");
-                m.MapRightKey("TEAM_ID");
+                m.MapLeftKey("TEAM_ID");
+                m.MapRightKey("MEMBER_GPIN");
             });
             HasOptional(c => c.Country);
 		}

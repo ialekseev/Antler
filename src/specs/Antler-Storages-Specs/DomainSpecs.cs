@@ -47,9 +47,9 @@ namespace SmartElk.Antler.Storages.Specs
                 Func<UnitOfWork, Country> query = uow => uow.Repo<Country>().AsQueryable().First(t => t.Name == "Mexico");
                 
                 var countryToTransfer = UnitOfWork.Do(query);
-                UnitOfWork.Do("EF", uow => uow.Repo<Country>().Insert(countryToTransfer));
+                UnitOfWork.Do(uow => uow.Repo<Country>().Insert(countryToTransfer), new UnitOfWorkSettings{ StorageName = "EF" });
 
-                var result = UnitOfWork.Do("EF", query);
+                var result = UnitOfWork.Do(query, new UnitOfWorkSettings{StorageName = "EF"});
 
                 //assert
                 result.Name.Should().Be("Mexico");
@@ -70,15 +70,15 @@ namespace SmartElk.Antler.Storages.Specs
             {
                 Configurator = new AntlerConfigurator();
                 Configurator.UseBuiltInContainer().UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(SQLiteConfiguration.Standard.InMemory()).WithMappings(From.AssemblyWithType<CountryMap>().First())).
-                                                   UseStorageNamed(EntityFrameworkPlusSqlCe.Use.WithConnectionString("Data Source=TestDB.sdf").WithMappings(From.AssemblyWithType<Antler.Specs.Shared.EntityFramework.Mappings.CountryMap>().First()).WithRecreatedDatabase(), "EF");
-                
-                nhSession = NewSessionForTesting.CreateNHibernateSession(Configurator, typeof(NHibernateStorage));
+                                                   UseStorage(EntityFrameworkPlusSqlCe.Use.WithConnectionString("Data Source=TestDB.sdf").WithMappings(From.AssemblyWithType<Antler.Specs.Shared.EntityFramework.Mappings.CountryMap>().First()).WithRecreatedDatabase(), "EF");
+
+                nhSession = NewSessionForTesting.CreateNHibernateSession(Configurator, typeof(NHibernateStorage), UnitOfWorkSettings.Default.StorageName);
             }
 
             [TearDown]
             public void TearDown()
             {
-                NewSessionForTesting.ResetNHibernateSession(Configurator, nhSession);
+                NewSessionForTesting.ResetNHibernateSession(Configurator, nhSession, UnitOfWorkSettings.Default.StorageName);
                 Configurator.UnUseContainer().UnUseStorage().Dispose();                
             }
         } 

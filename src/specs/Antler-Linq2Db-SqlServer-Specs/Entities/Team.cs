@@ -15,6 +15,6 @@ namespace SmartElk.Antler.Linq2Db.SqlServer.Specs.Entities
         public virtual string Description { get; set; }
 
         [Column(Name = "COUNTRY_ID"), Nullable]
-        public virtual int CountryId { get; set; }
+        public virtual int? CountryId { get; set; }
     }
 }

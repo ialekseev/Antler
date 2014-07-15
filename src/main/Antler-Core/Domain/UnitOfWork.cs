@@ -25,34 +25,25 @@ namespace SmartElk.Antler.Core.Domain
                 
         public Guid Id { get; private set; }
         public UnitOfWorkSettings Settings { get; private set; }
+        public string StorageName { get; private set; }
 
-        public static Func<ISessionScopeFactory> SessionScopeFactoryExtractor { get; set; }        
-        public static Func<string, ISessionScopeFactory> SessionScopeFactoryNamedExtractor { get; set; }
-
-        private UnitOfWork(UnitOfWorkSettings settings)            
+        public static Func<string, ISessionScopeFactory> SessionScopeFactoryExtractor { get; set; }
+               
+        private UnitOfWork(UnitOfWorkSettings settings)
         {
-            SetSettings(settings);
-            Assumes.True(SessionScopeFactoryExtractor != null, "SessionScopeFactoryExtractor should be set before using UnitOfWork. Wrong configuration?");
-            var sessionScopeFactory = SessionScopeFactoryExtractor();            
+            Settings = settings ?? UnitOfWorkSettings.Default;
+
+            Assumes.True(SessionScopeFactoryExtractor != null, "SessionScopeFactoryExtractor should be set before using UnitOfWork. Wrong configuraiton?");
+            Assumes.True(!string.IsNullOrEmpty(Settings.StorageName), "Storage name can't be null or empty. Wrong configuration?");            
+            var sessionScopeFactory = SessionScopeFactoryExtractor(Settings.StorageName);
+            
+            Assumes.True(sessionScopeFactory != null, "Can't find storage with name {0}. Wrong storage name?", Settings.StorageName);
             SetSession(sessionScopeFactory);
         }
-
-        private UnitOfWork(string storageName, UnitOfWorkSettings settings)
-        {
-            SetSettings(settings);
-            Assumes.True(SessionScopeFactoryNamedExtractor != null, "SessionScopeFactoryNamedExtractor should be set before using UnitOfWork with storage name. Wrong configuraiton?");
-            var sessionScopeFactory = SessionScopeFactoryNamedExtractor(storageName);
-            SetSession(sessionScopeFactory);
-        }
-
-         private void SetSettings(UnitOfWorkSettings settings)
-         {
-             Settings = settings ?? UnitOfWorkSettings.Default;
-         }
-        
+                
         private void SetSession(ISessionScopeFactory sessionScopeFactory)
          {
-            Requires.NotNull(sessionScopeFactory, "sessionScopeFactory", "Can't continue without SessionScopeFactory. Wrong configuration?");
+            Requires.NotNull(sessionScopeFactory, "sessionScopeFactory");
             
              if (_current == null)
              {
@@ -71,7 +62,7 @@ namespace SmartElk.Antler.Core.Domain
             _current = this;            
             Id = Guid.NewGuid();            
          }
-
+        
         public static void Do(Action<UnitOfWork> work, UnitOfWorkSettings settings = null)
         {
             Requires.NotNull(work, "work");
@@ -91,29 +82,7 @@ namespace SmartElk.Antler.Core.Domain
                 return work(uow);
             }
         }
-
-        public static void Do(string storageName, Action<UnitOfWork> work, UnitOfWorkSettings settings = null)
-        {
-            Requires.NotNullOrEmpty(storageName, "storageName");
-            Requires.NotNull(work, "work");
-
-            using (var uow = new UnitOfWork(storageName, settings))
-            {
-                work(uow);
-            }
-        }
-
-        public static TResult Do<TResult>(string storageName, Func<UnitOfWork, TResult> work, UnitOfWorkSettings settings = null)
-        {
-            Requires.NotNullOrEmpty(storageName, "storageName");
-            Requires.NotNull(work, "work");
-
-            using (var uow = new UnitOfWork(storageName, settings))
-            {
-                return work(uow);
-            }
-        }
-        
+                
         public void Dispose()        
         {
             if (Marshal.GetExceptionCode() == 0)

@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain;
@@ -38,6 +39,11 @@ namespace SmartElk.Antler.EntityFramework
             _context.SaveChanges();
 
             return entity;
+        }
+
+        public TId Insert<TId>(TEntity entity)
+        {
+            throw new NotSupportedException();
         }
 
         public TEntity Update(TEntity entity)
