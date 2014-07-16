@@ -12,7 +12,7 @@ using SmartElk.Antler.StructureMap;
 
 namespace SmartElk.Antler.EntityFramework.SqlServer.Specs
 {
-    /***You need to create "AntlerTest" database in your SQL SERVER. See connection string below***/
+    /***You need to have "AntlerTest" database in your SQL SERVER. See connection string below***/
 
     public class DomainSpecs
     {                                                        
@@ -78,10 +78,21 @@ namespace SmartElk.Antler.EntityFramework.SqlServer.Specs
             [Test]
             public void should_return_country()
             {
-                CommonDomainSpecs.when_trying_to_find_team_by_country_name.should_return_country();
+                CommonDomainSpecs.when_trying_to_find_team_by_country_name.should_find_team();
             }
         }
 
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_delete_team : TestingScenario<LazyLoading>
+        {
+            [Test]
+            public void should_delete_team()
+            {
+                CommonDomainSpecs.when_trying_to_delete_team.should_delete_team();
+            }
+        }
+        
         [TestFixture]
         [Category("Integration")]        
         public class when_trying_to_delete_team_by_id : TestingScenario<LazyLoading>

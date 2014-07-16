@@ -15,9 +15,8 @@ using SmartElk.Antler.Windsor;
 
 namespace SmartElk.Antler.Linq2Db.SqlServer.Specs
 {
-    /***You need to create "AntlerTest" database in your SQL SERVER. See connection string below***/
-
-    //todo: write remaining tests    
+    /***You need to have "AntlerTest" database in your SQL SERVER. See connection string below***/
+    
     public class DomainSpecs
     {                
         [TestFixture]
@@ -190,16 +189,19 @@ namespace SmartElk.Antler.Linq2Db.SqlServer.Specs
 
                 UnitOfWork.Do(uow =>
                 {
-                    //act                    
-                    var resultEmployee = uow.Repo<Employee>().AsQueryable().First(t => t.FirstName == "John");
-                    var resultTeamEmployeeMap = uow.Repo<TeamEmployeeMap>().AsQueryable().Where(t => t.EmployeeId == employee2.Id).ToList();
+                    //act                                        
+                    var result = (from emp in uow.Repo<Employee>().AsQueryable()
+                                 join teamEmp in uow.Repo<TeamEmployeeMap>().AsQueryable() on emp.Id equals teamEmp.EmployeeId
+                                  where emp.FirstName=="John"
+                                  select new {Emp = emp, TeamEmp=teamEmp}).ToList();   
 
-                    //assert
-                    resultEmployee.Id.Should().Be(employee2.Id);
-                    resultEmployee.FirstName.Should().Be(employee2.FirstName);
-                    resultEmployee.LastName.Should().Be(employee2.LastName);
-                    resultTeamEmployeeMap.Count.Should().Be(1);
-                    resultTeamEmployeeMap.First().TeamId.Should().Be(team.Id);                    
+
+                    //assert                                        
+                    result.Count.Should().Be(1);
+                    result[0].Emp.Id.Should().Be(employee2.Id);
+                    result[0].Emp.FirstName.Should().Be(employee2.FirstName);
+                    result[0].Emp.LastName.Should().Be(employee2.LastName);                    
+                    result[0].TeamEmp.TeamId.Should().Be(team.Id);                    
                 });
             }
         }
@@ -277,6 +279,102 @@ namespace SmartElk.Antler.Linq2Db.SqlServer.Specs
             }
         }
 
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_find_team_by_country_name : TestingScenario
+        {
+            [Test]
+            public void should_find_team()
+            {
+                //arrange
+                Team team2 = null;
+                UnitOfWork.Do(uow =>
+                {
+                    var country1 = new Country { Name = "USA", Language = "English" };
+                    country1.Id = (int)uow.Repo<Country>().Insert<decimal>(country1);
+
+                    var country2 = new Country { Name = "Mexico", Language = "Spanish" };
+                    country2.Id = (int)uow.Repo<Country>().Insert<decimal>(country2);
+
+                    var team1 = new Team() { Name = "Super", Description = "SuperBg", CountryId = country1.Id};
+                    team1.Id = (int)uow.Repo<Team>().Insert<decimal>(team1);
+
+                    team2 = new Team() { Name = "Awesome", Description = "AwesomeBg", CountryId = country2.Id };
+                    team2.Id = (int)uow.Repo<Team>().Insert<decimal>(team2);
+                });
+
+                UnitOfWork.Do(uow =>
+                {
+                    //act                    
+                    var result = (from team in uow.Repo<Team>().AsQueryable()
+                                  join country in uow.Repo<Country>().AsQueryable() on team.CountryId equals country.Id
+                                  where country.Name == "Mexico"
+                                  select team).ToList();
+
+                    //assert
+                    result.Count.Should().Be(1);
+                    result[0].Id.Should().Be(team2.Id);
+                    result[0].Name.Should().Be("Awesome");
+                    result[0].Description.Should().Be("AwesomeBg");                    
+                });
+            }
+        }
+
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_delete_team : TestingScenario
+        {
+            [Test]
+            public void should_delete_team()
+            {
+                //arrange
+                Team team = null;
+                UnitOfWork.Do(uow =>
+                {
+                    team = new Team() { Name = "Super", Description = "SuperBg" };
+                    team.Id = (int)uow.Repo<Team>().Insert<decimal>(team);
+                });
+
+                UnitOfWork.Do(uow => uow.Repo<Team>().AsQueryable().FirstOrDefault(t => t.Id==team.Id).Should().NotBeNull());
+
+                UnitOfWork.Do(uow =>
+                {
+                    //act                    
+                    uow.Repo<Team>().Delete(team);
+
+                    //assert
+                    var foundTeam = uow.Repo<Team>().AsQueryable().FirstOrDefault(t => t.Id == team.Id);
+                    foundTeam.Should().BeNull();
+                });
+            }
+        }
+
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_rollback_transaction : TestingScenario
+        {
+            [Test]
+            public void should_rollback()
+            {
+                //arrange
+                Team team = null;
+                UnitOfWork.Do(uow =>
+                {
+                    team = new Team() { Name = "Super", Description = "SuperBg" };
+                    uow.Repo<Team>().Insert(team);
+
+                    uow.Rollback();
+                });
+
+                UnitOfWork.Do(uow =>
+                {
+                    //assert
+                    var foundTeam = uow.Repo<Team>().AsQueryable().FirstOrDefault(t => t.Name == "Super");
+                    foundTeam.Should().BeNull();
+                });
+            }
+        }
+        
         [TestFixture]
         [Category("Integration")]
         public class when_trying_to_insert_new_team : TestingScenario

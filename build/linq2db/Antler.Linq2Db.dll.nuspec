@@ -1,16 +1,21 @@
 <?xml version="1.0"?>
 <package>
   <metadata>
-    <id>Antler.Core</id>
+    <id>Antler.Linq2Db</id>
     <version>$version$</version>
     <authors>SmartElk</authors>
-    <owners>SmartElk</owners>    
+    <owners>SmartElk</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <projectUrl>https://github.com/SmartElk/Antler</projectUrl>
     <iconUrl>http://www.gravatar.com/avatar/99c436bbd301be46a6e6daabc0dc1aa4.png</iconUrl>
-    <description>Pluggable framework for .NET to work with popular ORMs(NHibernate, EntityFramework, Linq2Db) using the same syntax. Antler framework is an abstraction over ORM that you like to use. Core library.</description>
-    <releaseNotes></releaseNotes>
+    <description>Linq2Db adapter for Antler framework</description>
+    <releaseNotes>
+    </releaseNotes>
     <copyright>Copyright 2014</copyright>
-    <tags>Antler</tags>    
+    <tags>Antler, Linq2Db</tags>
+    <dependencies>
+      <dependency id="Antler.Core" version="[2.21]" />
+      <dependency id="linq2db" version="1.0.2" />
+    </dependencies>
   </metadata>
 </package>
