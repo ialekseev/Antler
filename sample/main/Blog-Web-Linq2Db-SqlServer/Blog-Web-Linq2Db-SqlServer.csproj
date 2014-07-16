@@ -37,14 +37,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antler.Core, Version=1.0.5310.27651, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Antler.Core.2.20\lib\net40\Antler.Core.dll</HintPath>
+    <Reference Include="Antler.Core, Version=1.0.5310.29328, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Antler.Core.2.21\lib\net40\Antler.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Antler.Linq2Db">
-      <HintPath>..\..\packages\Antler.Linq2Db.2.20\lib\net40\Antler.Linq2Db.dll</HintPath>
+    <Reference Include="Antler.Linq2Db, Version=1.0.5310.29339, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Antler.Linq2Db.2.21\lib\net40\Antler.Linq2Db.dll</HintPath>
     </Reference>
-    <Reference Include="Antler.Windsor">
-      <HintPath>..\..\packages\Antler.Windsor.2.20\lib\net40\Antler.Windsor.dll</HintPath>
+    <Reference Include="Antler.Windsor, Version=1.0.5310.29331, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Antler.Windsor.2.21\lib\net40\Antler.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core">
       <HintPath>..\..\packages\Castle.Core.3.2.2\lib\net40-client\Castle.Core.dll</HintPath>

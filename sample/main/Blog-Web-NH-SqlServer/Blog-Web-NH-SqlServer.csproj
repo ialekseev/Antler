@@ -37,17 +37,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antler.Core, Version=1.0.5310.27651, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.Core, Version=1.0.5310.29328, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.Core.2.20\lib\net40\Antler.Core.dll</HintPath>
+      <HintPath>..\..\packages\Antler.Core.2.21\lib\net40\Antler.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Antler.NHibernate, Version=1.0.5310.27652, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.NHibernate, Version=1.0.5310.29328, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.NHibernate.2.20\lib\net40\Antler.NHibernate.dll</HintPath>
+      <HintPath>..\..\packages\Antler.NHibernate.2.21\lib\net40\Antler.NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Antler.StructureMap, Version=1.0.5310.27652, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.StructureMap, Version=1.0.5310.29329, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.StructureMap.2.20\lib\net40\Antler.StructureMap.dll</HintPath>
+      <HintPath>..\..\packages\Antler.StructureMap.2.21\lib\net40\Antler.StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="FluentNHibernate, Version=1.4.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentNHibernate.1.4.0.0\lib\net35\FluentNHibernate.dll</HintPath>
