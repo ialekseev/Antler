@@ -1,6 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
@@ -53,32 +52,32 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                 UnitOfWork.Do(uow =>
                     {
                         //arrange                    
-                        var team1 = new Team() {Name = "Super", Description = "SuperBg"};
+                        var team1 = new Team {Name = "Super", Description = "SuperBg"};
                         uow.Repo<Team>().Insert(team1);
 
-                        var team2 = new Team() {Name = "Good", Description = "GoodBg"};
+                        var team2 = new Team {Name = "Good", Description = "GoodBg"};
                         uow.Repo<Team>().Insert(team2);
 
-                        var team3 = new Team() {Name = "Bad", Description = "BadBg"};
-                        uow.Repo<Team>().Insert(team3);
+                        var team3 = new Team {Name = "Bad", Description = "BadBg"};
+                        uow.Repo<Team>().Insert(team3);                        
                     });
 
                 UnitOfWork.Do(uow =>
                     {
                         //act                    
-                        var result = uow.Repo<Team>().AsQueryable().OrderBy(t => t.Name).ToArray();
+                        var result = uow.Repo<Team>().AsQueryable().ToArray();
 
                         //assert
                         result.Length.Should().Be(3);
-                        result[0].Id.Should().Be(3);
-                        result[0].Name.Should().Be("Bad");
-                        result[0].Description.Should().Be("BadBg");
+                        result[0].Id.Should().Be(1);
+                        result[0].Name.Should().Be("Super");
+                        result[0].Description.Should().Be("SuperBg");
                         result[1].Id.Should().Be(2);
                         result[1].Name.Should().Be("Good");
                         result[1].Description.Should().Be("GoodBg");
-                        result[2].Id.Should().Be(1);
-                        result[2].Name.Should().Be("Super");
-                        result[2].Description.Should().Be("SuperBg");
+                        result[2].Id.Should().Be(3);
+                        result[2].Name.Should().Be("Bad");
+                        result[2].Description.Should().Be("BadBg");                        
                     });
             }
         }
@@ -97,37 +96,40 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                         team = new Team() { Name = "Super", Description = "SuperBg" };
                         uow.Repo<Team>().Insert(team);
 
-                        employee1 = new Employee { Id = "667", FirstName = "Jack", LastName = "Black" };
+                        employee1 = new Employee { Id = "555", FirstName = "Jack", LastName = "Black" };
                         uow.Repo<Employee>().Insert(employee1);
 
                         employee2 = new Employee { Id = "666", FirstName = "John", LastName = "Smith", Teams = new List<Team>() { team } };
                         uow.Repo<Employee>().Insert(employee2);
 
-                        employee3 = new Employee { Id = "77", FirstName = "Billy", LastName = "Bobby", Teams = new List<Team>() { team } };
+                        employee3 = new Employee { Id = "777", FirstName = "Billy", LastName = "Bobby", Teams = new List<Team>() { team } };
                         uow.Repo<Employee>().Insert(employee3);
                     });
 
                 UnitOfWork.Do(uow =>
                     {
                         //act                    
-                        var result = uow.Repo<Employee>().AsQueryable().OrderBy(t => t.FirstName).ToArray();
+                        var result = uow.Repo<Employee>().AsQueryable().OrderBy(t => t.Id).ToArray();
 
                         //assert
                         result.Length.Should().Be(3);
-                        result[0].Id.Should().Be(employee3.Id);
-                        result[0].FirstName.Should().Be(employee3.FirstName);
-                        result[0].LastName.Should().Be(employee3.LastName);
-                        result[0].Teams.First().Id.Should().Be(team.Id);
-                        result[0].Teams.First().Name.Should().Be(team.Name);
-                        result[0].Teams.First().Description.Should().Be(team.Description);
-                        result[1].Id.Should().Be(employee1.Id);
-                        result[1].FirstName.Should().Be(employee1.FirstName);
-                        result[1].LastName.Should().Be(employee1.LastName);
-                        result[1].Teams.Count.Should().Be(0);
-                        result[2].Id.Should().Be(employee2.Id);
-                        result[2].FirstName.Should().Be(employee2.FirstName);
-                        result[2].LastName.Should().Be(employee2.LastName);
+                        result[0].Id.Should().Be(employee1.Id);
+                        result[0].FirstName.Should().Be(employee1.FirstName);
+                        result[0].LastName.Should().Be(employee1.LastName);
+                        result[0].Teams.Count.Should().Be(0);
+                        
+                        result[1].Id.Should().Be(employee2.Id);
+                        result[1].FirstName.Should().Be(employee2.FirstName);
+                        result[1].LastName.Should().Be(employee2.LastName);
+                        result[1].Teams.First().Id.Should().Be(team.Id);
+                        result[1].Teams.First().Name.Should().Be(team.Name);
+                        result[1].Teams.First().Description.Should().Be(team.Description);
+
+                        result[2].Id.Should().Be(employee3.Id);
+                        result[2].FirstName.Should().Be(employee3.FirstName);
+                        result[2].LastName.Should().Be(employee3.LastName);
                         result[2].Teams.First().Id.Should().Be(team.Id);
+                        result[2].Teams.First().Name.Should().Be(team.Name);
                         result[2].Teams.First().Description.Should().Be(team.Description);
                     });
             }
@@ -205,15 +207,15 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                 //assert
                 UnitOfWork.Do(uow =>
                     {
-                        var foundEmployee = uow.Repo<Employee>().GetById(employee.Id);
+                        var resultEmployee = uow.Repo<Employee>().GetById(employee.Id);
 
-                        foundEmployee.Teams.Count.Should().Be(3);
-                        foundEmployee.Teams[0].Name.Should().Be("Super-upd");
-                        foundEmployee.Teams[0].Description.Should().Be("SuperBg-upd");
-                        foundEmployee.Teams[1].Name.Should().Be("Great-upd");
-                        foundEmployee.Teams[1].Description.Should().Be("GreatBg-upd");
-                        foundEmployee.Teams[2].Name.Should().Be("Awesome");
-                        foundEmployee.Teams[2].Description.Should().Be("AwesomeBg");
+                        resultEmployee.Teams.Count.Should().Be(3);
+                        resultEmployee.Teams[0].Name.Should().Be("Super-upd");
+                        resultEmployee.Teams[0].Description.Should().Be("SuperBg-upd");
+                        resultEmployee.Teams[1].Name.Should().Be("Great-upd");
+                        resultEmployee.Teams[1].Description.Should().Be("GreatBg-upd");
+                        resultEmployee.Teams[2].Name.Should().Be("Awesome");
+                        resultEmployee.Teams[2].Description.Should().Be("AwesomeBg");
                     });
             }
         }
@@ -332,17 +334,15 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
         
         public static class when_trying_to_insert_new_team
         {           
-            public static void should_return_generated_id<TEntity, TId>() where TEntity: class
+            public static void should_return_generated_id()
             {
                 UnitOfWork.Do(uow =>
                 {
                     //arrange
-                    dynamic team1 = Activator.CreateInstance<TEntity>();
-                    team1.Name = "SuperTeam";
-                    team1.Description = "Really super";
-                    
+                    var team1 = new Team {Name = "SuperTeam", Description = "Really super"};
+
                     //act                                                    
-                    var result = Convert.ToInt32((TId)uow.Repo<TEntity>().Insert<TId>(team1));
+                    var result = uow.Repo<Team>().Insert<int>(team1);
 
                     //assert
                     result.Should().BeGreaterThan(0);

@@ -11,7 +11,9 @@ using SmartElk.Antler.Specs.Shared.EntityFramework.Mappings;
 using SmartElk.Antler.StructureMap;
 
 namespace SmartElk.Antler.EntityFramework.SqlServer.Specs
-{    
+{
+    /***You need to create "AntlerTest" database in your SQL SERVER. See connection string below***/
+
     public class DomainSpecs
     {                                                        
         [TestFixture]
