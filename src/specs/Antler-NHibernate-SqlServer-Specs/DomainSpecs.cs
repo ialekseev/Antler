@@ -1,23 +1,21 @@
 ﻿// ReSharper disable InconsistentNaming
 
 using System.Linq;
-using FluentAssertions;
 using FluentNHibernate.Cfg.Db;
 using NUnit.Framework;
 using SmartElk.Antler.Core;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Common.Reflection;
-using SmartElk.Antler.Core.Domain;
-using SmartElk.Antler.Core.Domain.Configuration;
 using SmartElk.Antler.NHibernate.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
-using SmartElk.Antler.Specs.Shared.Entities;
 using SmartElk.Antler.Specs.Shared.NHibernate.Mappings;
 using SmartElk.Antler.Windsor;
 using SmartElk.Antler.NHibernate.SqlServer.Specs.Configuration;
 
 namespace SmartElk.Antler.NHibernate.SqlServer.Specs
 {
+    /***You need to create "AntlerTest" database in your SQL SERVER. See connection string below***/
+
     public class DomainSpecs
     {                
         [TestFixture]
@@ -115,7 +113,7 @@ namespace SmartElk.Antler.NHibernate.SqlServer.Specs
             [Test]
             public void should_return_generated_id()
             {                
-                CommonDomainSpecs.when_trying_to_insert_new_team.should_return_generated_id<Team, int>();
+                CommonDomainSpecs.when_trying_to_insert_new_team.should_return_generated_id();
             }
         }
 
