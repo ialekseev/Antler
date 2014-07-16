@@ -222,7 +222,7 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
 
         public static class when_trying_to_find_team_by_country_name
         {
-            public static void should_return_country()
+            public static void should_find_team()
             {
                 //arrange
                 Team team2 = null;
@@ -255,6 +255,32 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
             }
         }
 
+        public static class when_trying_to_delete_team
+        {
+            public static void should_delete_team()
+            {
+                //arrange
+                Team team = null;
+                UnitOfWork.Do(uow =>
+                {
+                    team = new Team() { Name = "Super", Description = "SuperBg" };
+                    uow.Repo<Team>().Insert(team);
+                });
+
+                UnitOfWork.Do(uow => uow.Repo<Team>().GetById(team.Id).Should().NotBeNull());
+                
+                UnitOfWork.Do(uow =>
+                {                    
+                    //act                    
+                    uow.Repo<Team>().Delete(team);
+
+                    //assert
+                    var foundTeam = uow.Repo<Team>().GetById(team.Id);
+                    foundTeam.Should().BeNull();
+                });
+            }
+        }
+        
         public static class when_trying_to_delete_team_by_id
         {
             public static void should_delete_team()
@@ -266,11 +292,11 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                     team = new Team() { Name = "Super", Description = "SuperBg" };
                     uow.Repo<Team>().Insert(team);                    
                 });
-                
+
+                UnitOfWork.Do(uow => uow.Repo<Team>().GetById(team.Id).Should().NotBeNull());
+
                 UnitOfWork.Do(uow =>
-                    {
-                     uow.Repo<Team>().GetById(team.Id).Should().NotBeNull();
-                     
+                    {                                          
                      //act                    
                      uow.Repo<Team>().Delete(team.Id);
 

@@ -7,12 +7,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8FB4C292-144B-49FE-84D6-124BC271D830}</ProjectGuid>
+    <ProjectGuid>{1EC0BD00-1595-49BF-BF07-AAFF710EA0AC}</ProjectGuid>
     <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Blog.Web.EF.SqlCe</RootNamespace>
-    <AssemblyName>Blog.Web.EF.SqlCe</AssemblyName>
+    <RootNamespace>Blog.Web.Linq2Db.SqlServer</RootNamespace>
+    <AssemblyName>Blog.Web.Linq2Db.SqlServer</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
@@ -38,19 +38,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antler.Core, Version=1.0.5310.27651, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Antler.Core.2.20\lib\net40\Antler.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Antler.EntityFramework, Version=1.0.5310.27655, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.EntityFramework.SqlCe.2.20\lib\net40\Antler.EntityFramework.dll</HintPath>
+    <Reference Include="Antler.Linq2Db">
+      <HintPath>..\..\packages\Antler.Linq2Db.2.20\lib\net40\Antler.Linq2Db.dll</HintPath>
     </Reference>
-    <Reference Include="Antler.EntityFramework.SqlCe, Version=1.0.5310.27656, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.EntityFramework.SqlCe.2.20\lib\net40\Antler.EntityFramework.SqlCe.dll</HintPath>
-    </Reference>
-    <Reference Include="Antler.Windsor, Version=1.0.5310.27654, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Antler.Windsor">
       <HintPath>..\..\packages\Antler.Windsor.2.20\lib\net40\Antler.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core">
@@ -59,14 +52,8 @@
     <Reference Include="Castle.Windsor">
       <HintPath>..\..\packages\Castle.Windsor.3.2.1\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net40\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net40\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServerCompact, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.SqlServerCompact.6.1.1\lib\net40\EntityFramework.SqlServerCompact.dll</HintPath>
+    <Reference Include="linq2db">
+      <HintPath>..\..\packages\linq2db.1.0.3\lib\net40\linq2db.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -146,7 +133,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -155,20 +144,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Blog-Mappings-EF\Blog-Mappings-EF.csproj">
-      <Project>{46259AAD-3943-4B8F-9DCB-E6E661525B8D}</Project>
-      <Name>Blog-Mappings-EF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Blog-Service\Blog-Service.csproj">
-      <Project>{83AC0EB3-77B8-417F-9F99-7F4A05F1832A}</Project>
-      <Name>Blog-Service</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Blog-Web-Common\Blog-Web-Common.csproj">
       <Project>{257561C2-E0D9-416B-8774-E5960F9BE055}</Project>
       <Name>Blog-Web-Common</Name>
@@ -190,7 +168,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2617</DevelopmentServerPort>
+          <DevelopmentServerPort>4790</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

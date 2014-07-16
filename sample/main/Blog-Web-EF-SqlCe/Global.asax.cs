@@ -10,9 +10,7 @@ using SmartElk.Antler.EntityFramework.SqlCe.Configuration;
 using SmartElk.Antler.Windsor;
 
 namespace Blog.Web.EF.SqlCe
-{
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-    // visit http://go.microsoft.com/?LinkId=9394801
+{    
     public class MvcApplication : System.Web.HttpApplication
     {
         public static IAntlerConfigurator AntlerConfigurator { get; private set; }

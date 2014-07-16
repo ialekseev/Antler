@@ -22,6 +22,7 @@ echo Copying assemblies...
 if exist core\output rmdir /s /q core\output
 if exist nh\output rmdir /s /q nh\output
 if exist ef\output rmdir /s /q ef\output
+if exist linq2db\output rmdir /s /q linq2db\output
 if exist ef-sqlce\output rmdir /s /q ef-sqlce\output
 if exist windsor\output rmdir /s /q windsor\output
 if exist structuremap\output rmdir /s /q structuremap\output
@@ -29,6 +30,7 @@ if exist structuremap\output rmdir /s /q structuremap\output
 mkdir core\output\lib\net40
 mkdir nh\output\lib\net40
 mkdir ef\output\lib\net40
+mkdir linq2db\output\lib\net40
 mkdir ef-sqlce\output\lib\net40
 mkdir windsor\output\lib\net40
 mkdir structuremap\output\lib\net40
@@ -41,6 +43,9 @@ copy ..\src\main\Antler-NHibernate\bin\Release\Antler.NHibernate.* nh\output\lib
 
 ::EntityFramework adapter
 copy ..\src\main\Antler-EntityFramework\bin\Release\Antler.EntityFramework.* ef\output\lib\net40
+
+::Linq2Db adapter
+copy ..\src\main\Antler-Linq2Db\bin\Release\Antler.Linq2Db.* linq2db\output\lib\net40
 
 ::EntityFramework + SqlCe adapter
 copy ..\src\main\Antler-EntityFramework\bin\Release\Antler.EntityFramework.* ef-sqlce\output\lib\net40
@@ -75,6 +80,10 @@ copy ef\Antler.EntityFramework.dll.nuspec ef\output
 ..\src\.nuget\Nuget.exe pack ef\output\Antler.EntityFramework.dll.nuspec -properties version=%version%
 move Antler.EntityFramework*.nupkg ef\output
 
+copy linq2db\Antler.Linq2Db.dll.nuspec linq2db\output
+..\src\.nuget\Nuget.exe pack linq2db\output\Antler.Linq2Db.dll.nuspec -properties version=%version%
+move Antler.Linq2Db*.nupkg linq2db\output
+
 copy ef-sqlce\Antler.EntityFramework.SqlCe.dll.nuspec ef-sqlce\output
 ..\src\.nuget\Nuget.exe pack ef-sqlce\output\Antler.EntityFramework.SqlCe.dll.nuspec -properties version=%version%
 move Antler.EntityFramework.SqlCe*.nupkg ef-sqlce\output
@@ -93,6 +102,7 @@ echo Publishing NuGet packages...
 ..\src\.nuget\Nuget.exe push core\output\Antler.Core.%version%.nupkg
 ..\src\.nuget\Nuget.exe push nh\output\Antler.NHibernate.%version%.nupkg
 ..\src\.nuget\Nuget.exe push ef\output\Antler.EntityFramework.%version%.nupkg
+..\src\.nuget\Nuget.exe push linq2db\output\Antler.Linq2Db.%version%.nupkg
 ..\src\.nuget\Nuget.exe push ef-sqlce\output\Antler.EntityFramework.SqlCe.%version%.nupkg
 ..\src\.nuget\Nuget.exe push windsor\output\Antler.Windsor.%version%.nupkg
 ..\src\.nuget\Nuget.exe push structuremap\output\Antler.StructureMap.%version%.nupkg
