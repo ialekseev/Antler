@@ -25,10 +25,9 @@ namespace SmartElk.Antler.Core.Domain
                 
         public Guid Id { get; private set; }
         public UnitOfWorkSettings Settings { get; private set; }
-        public string StorageName { get; private set; }
-
+        
         public static Func<string, ISessionScopeFactory> SessionScopeFactoryExtractor { get; set; }
-               
+                        
         private UnitOfWork(UnitOfWorkSettings settings)
         {
             Settings = settings ?? UnitOfWorkSettings.Default;
