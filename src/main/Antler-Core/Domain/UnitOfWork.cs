@@ -61,7 +61,10 @@ namespace SmartElk.Antler.Core.Domain
             _current = this;            
             Id = Guid.NewGuid();            
          }
-        
+
+        /// <summary>
+        /// Start database transaction.
+        /// </summary>   
         public static void Do(Action<UnitOfWork> work, UnitOfWorkSettings settings = null)
         {
             Requires.NotNull(work, "work");
@@ -71,7 +74,10 @@ namespace SmartElk.Antler.Core.Domain
                 work(uow);
             }
         }
-
+        
+        /// <summary>
+        /// Start database transaction and return result from it.
+        /// </summary>   
         public static TResult Do<TResult>(Func<UnitOfWork, TResult> work, UnitOfWorkSettings settings = null)
         {
             Requires.NotNull(work, "work");
@@ -81,7 +87,10 @@ namespace SmartElk.Antler.Core.Domain
                 return work(uow);
             }
         }
-                
+
+        /// <summary>
+        /// Commit/Rollback transaction(depending on the configuration) explicitly. Will be called automatically in the end of the "Do" block.
+        /// </summary> 
         public void Dispose()        
         {
             if (Marshal.GetExceptionCode() == 0)
@@ -97,7 +106,10 @@ namespace SmartElk.Antler.Core.Domain
                   CloseUnitOfWork();
             }
         }
-        
+
+        /// <summary>
+        /// Commit database transaction explicitly(not necessarily to use in standard configuration, because transaction will be committed anyway in the end of the "Do" block).
+        /// </summary>  
         public void Commit()
         {                        
                 Perform(() =>
@@ -106,7 +118,10 @@ namespace SmartElk.Antler.Core.Domain
                             SessionScope.Commit();
                     });
         }
-        
+
+        /// <summary>
+        /// Rollback database transaction explicitly. As alternative you can use RollbackOnDispose setting to rollback transaction automatically in the end of the "Do" block(may be useful in testing).
+        /// </summary>  
         public void Rollback()
         {
             Perform(() => SessionScope.Rollback());            
@@ -134,6 +149,9 @@ namespace SmartElk.Antler.Core.Domain
             _current = null;                           
         }
 
+        /// <summary>
+        /// Get Repository object to perform queries/operations on database.
+        /// </summary> 
         public IRepository<TEntity> Repo<TEntity>() where TEntity: class
         {
             return SessionScope.CreateRepository<TEntity>();

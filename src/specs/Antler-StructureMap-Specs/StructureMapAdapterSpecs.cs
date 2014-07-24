@@ -345,7 +345,7 @@ namespace SmartElk.Antler.StructureMap.Specs
 		}
 
         [TestFixture]
-        [Category("Unit")]
+        [Category("Unit")]        
         public class when_accessing_native_container : StructureMapScenario
         {
             [Test]

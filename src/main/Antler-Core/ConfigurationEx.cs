@@ -12,7 +12,7 @@ namespace SmartElk.Antler.Core
             "Please choose some IoC container(e.g. use adapters for Castle Windsor, StructureMap or Built-in container)";
 
         /// <summary>
-        /// Start to configure ORM/database using this method
+        /// Start to configure ORM/database using this method.
         /// </summary>             
         public static IAntlerConfigurator UseStorage(this IAntlerConfigurator configurator, IStorage storage, string storageName = null)
         {
@@ -38,7 +38,7 @@ namespace SmartElk.Antler.Core
         }
 
         /// <summary>
-        /// Reset current storage(mainly used in Unit/Integration testing)
+        /// Reset current storage(mainly used in Unit/Integration testing).
         /// </summary>        
         public static IAntlerConfigurator UnUseStorage(this IAntlerConfigurator configurator)
         {
@@ -47,7 +47,7 @@ namespace SmartElk.Antler.Core
         }
         
         /// <summary>
-        /// Reset UnitOfWork default settings(mainly used in Unit/Integration testing)
+        /// Reset UnitOfWork default settings(mainly used in Unit/Integration testing).
         /// </summary>        
         public static IAntlerConfigurator UnSetUnitOfWorkDefaultSettings(this IAntlerConfigurator configurator)
         {
@@ -56,7 +56,7 @@ namespace SmartElk.Antler.Core
         }
 
         /// <summary>
-        /// Reset current IoC container(mainly used in Unit/Integration testing)
+        /// Reset current IoC container(mainly used in Unit/Integration testing).
         /// </summary>        
         public static IAntlerConfigurator UnUseContainer(this IAntlerConfigurator nodeConfigurator)
         {
