@@ -6,7 +6,7 @@ namespace SmartElk.Antler.StructureMap
     public static class ConfigurationEx
     {
         /// <summary>
-        /// Use StructureMap IoC container
+        /// Use StructureMap IoC container.
         /// </summary>        
         public static IAntlerConfigurator UseStructureMapContainer(this IAntlerConfigurator nodeConfigurator, Func<global::StructureMap.IContainer> containerProvider)
         {
@@ -15,7 +15,7 @@ namespace SmartElk.Antler.StructureMap
         }
 
         /// <summary>
-        /// Use StructureMap IoC container
+        /// Use StructureMap IoC container.
         /// </summary>        
         public static IAntlerConfigurator UseStructureMapContainer(this IAntlerConfigurator nodeConfigurator)
         {

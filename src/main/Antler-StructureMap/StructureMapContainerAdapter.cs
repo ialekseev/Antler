@@ -24,13 +24,13 @@ namespace SmartElk.Antler.StructureMap
 		}
 
         public IList<T> GetAll<T>()
-        {
-			return NativeContainer.GetAllInstances<T>();
+        {			            
+            return NativeContainer.GetAllInstances<T>().ToList();
         }
 
 		public IList GetAll(Type type)
-		{
-			return NativeContainer.GetAllInstances(type);
+		{            		    
+            return NativeContainer.GetAllInstances(type).Cast<object>().ToList();		    
 		}
 		
 		public T Get<T>()
