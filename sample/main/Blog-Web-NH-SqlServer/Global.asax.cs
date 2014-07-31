@@ -18,7 +18,7 @@ namespace Blog.Web.NH.SqlServer
 
         protected void Application_Start()
         {
-            /***You need to create "Antler" database in your SQL SERVER. See connection string below***/
+            /***You need to have "Antler" database in your SQL SERVER. See connection string below***/
 
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new BlogViewEngine());

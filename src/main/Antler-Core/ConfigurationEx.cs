@@ -33,6 +33,8 @@ namespace SmartElk.Antler.Core
         public static IAntlerConfigurator SetUnitOfWorkDefaultSettings(this IAntlerConfigurator configurator,
                                                                  UnitOfWorkSettings settings)
         {
+            Requires.NotNull(settings, "settings");
+            
             UnitOfWorkSettings.Default = settings;
             return configurator;
         }
