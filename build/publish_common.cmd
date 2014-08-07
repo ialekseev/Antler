@@ -1,23 +1,3 @@
-::++++++++++++++++++++++ Building +++++++++++++++++++++++++++++++++++++++++++++++++++++
-if %skipBuild%==true goto skipBuild
-echo Building project...
-
-msbuild.exe ..\src\Antler.sln /nologo /v:q /p:Configuration=Release /t:Clean
-msbuild.exe ..\src\Antler.sln /nologo /v:q /p:Configuration=Release /clp:ErrorsOnly
-:skipBuild
-::++++++++++++++++++++++ Running tests++++++++++++++++++++++++++++++++++++++++++++++++++
-
-if %skipTests%==true goto skipTests
-echo Running tests...
-if exist output rmdir /s /q output
-mkdir output
-
-..\tools\nunit.runner\nunit-console.exe /work:output ..\src\specs\Antler-Domain-Specs\bin\Release\Antler.Domain.Specs.dll ..\src\specs\Antler-EntityFramework-SqlCe-Specs\bin\Release\Antler.EntityFramework.SqlCe.Specs.dll ..\src\specs\Antler-EntityFramework-SqlServer-Specs\bin\Release\Antler.EntityFramework.SqlServer.Specs.dll ..\src\specs\Antler-NHibernate-Sqlite-Specs\bin\Release\Antler.NHibernate.Sqlite.Specs.dll ..\src\specs\Antler-NHibernate-SqlServer-Specs\bin\Release\Antler.NHibernate.SqlServer.Specs.dll ..\src\specs\Antler-Storages-Specs\bin\Release\Antler.Storages.Specs.dll ..\src\specs\Antler-Windsor-Specs\bin\Release\Antler.Windsor.Specs.dll ..\src\specs\Antler-StructureMap-Specs\bin\Release\Antler.StructureMap.Specs.dll
-if %ERRORLEVEL% neq 0 goto end
-:skipTests
-
-::++++++++++++++++++++++ Copying built assemblies+++++++++++++++++++++++++++++++++++++++
-echo Copying assemblies...
 
 if exist core\output rmdir /s /q core\output
 if exist nh\output rmdir /s /q nh\output
@@ -27,43 +7,16 @@ if exist ef-sqlce\output rmdir /s /q ef-sqlce\output
 if exist windsor\output rmdir /s /q windsor\output
 if exist structuremap\output rmdir /s /q structuremap\output
 
-mkdir core\output\lib\net40
-mkdir nh\output\lib\net40
-mkdir ef\output\lib\net40
-mkdir linq2db\output\lib\net40
-mkdir ef-sqlce\output\lib\net40
-mkdir windsor\output\lib\net40
-mkdir structuremap\output\lib\net40
 
-::Core
-copy ..\src\main\Antler-Core\bin\Release\Antler.Core.* core\output\lib\net40
-
-::NHibernate adapter
-copy ..\src\main\Antler-NHibernate\bin\Release\Antler.NHibernate.* nh\output\lib\net40
-
-::EntityFramework adapter
-copy ..\src\main\Antler-EntityFramework\bin\Release\Antler.EntityFramework.* ef\output\lib\net40
-
-::Linq2Db adapter
-copy ..\src\main\Antler-Linq2Db\bin\Release\Antler.Linq2Db.* linq2db\output\lib\net40
-
-::EntityFramework + SqlCe adapter
-copy ..\src\main\Antler-EntityFramework\bin\Release\Antler.EntityFramework.* ef-sqlce\output\lib\net40
-copy ..\src\main\Antler-EntityFramework-SqlCe\bin\Release\Antler.EntityFramework.SqlCe.* ef-sqlce\output\lib\net40
-
-::Windsor adapter
-copy ..\src\main\Antler-Windsor\bin\Release\Antler.Windsor.* windsor\output\lib\net40
-
-::StructureMap adapter
-copy ..\src\main\Antler-StructureMap\bin\Release\Antler.StructureMap.* structuremap\output\lib\net40
+set targetFrameworkVersion=v4.0
+set targetNuGetFolder=net40
+call build.cmd
 
 ::+++++++++++++++++++++ Updating Nuget Spec files+++++++++++++++++++++++++++++++++++++++++++
 if %skipDependentPackagesVersionsUpdate%==true goto skipVersionsUpdate
 echo Updating Nuget Spec files(Dependent packages versions update)...
 @powershell ./substitude.ps1 %version%
 :skipVersionsUpdate
-::++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 
 ::++++++++++++++++++++ Creating Nuget packages+++++++++++++++++++++++++++++++++++++++++++++
 echo Creating NuGet packages...
