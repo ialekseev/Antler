@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using LinqToDB.Data;
 using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain;
 using LinqToDB;
@@ -8,8 +9,8 @@ namespace SmartElk.Antler.Linq2Db
 {
     public class Linq2DbRepository<TEntity>: IRepository<TEntity> where TEntity: class
     {
-        private readonly LinqToDB.Data.DataConnection _dataConnection;
-        public Linq2DbRepository(LinqToDB.Data.DataConnection dataConnection)
+        private readonly DataConnection _dataConnection;
+        public Linq2DbRepository(DataConnection dataConnection)
         {
             Requires.NotNull(dataConnection, "dataConnection");
             _dataConnection = dataConnection;
