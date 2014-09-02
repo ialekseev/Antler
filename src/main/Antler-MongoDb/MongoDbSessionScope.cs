@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
@@ -15,19 +14,19 @@ namespace SmartElk.Antler.MongoDb
     public class MongoDbSessionScope : ISessionScope, ISessionScopeEx
     {
         private readonly MongoDatabase _session;
-        private readonly Func<object, object> _idExtractor;
+        private readonly string _idPropertyName;
                         
         private readonly ISet<object> _newEntities = new HashSet<object>();
         private readonly ISet<object> _updatedEntities = new HashSet<object>();
-        private readonly ISet<object> _deletedEntities = new HashSet<object>();  
+        private readonly ISet<object> _deletedEntities = new HashSet<object>();
 
-        public MongoDbSessionScope(MongoDatabase session, Func<object, object> idExtractor)
+        public MongoDbSessionScope(MongoDatabase session, string idPropertyName)
         {
             Requires.NotNull(session, "session");
-            Requires.NotNull(idExtractor, "idExtractor");
+            Requires.NotNullOrEmpty(idPropertyName, "idPropertyName");
 
             _session = session;
-            _idExtractor = idExtractor;           
+            _idPropertyName = idPropertyName;           
         }
 
         public void Commit()
@@ -68,18 +67,20 @@ namespace SmartElk.Antler.MongoDb
         private bool Save(object entity)
         {
             Requires.NotNull(entity, "entity");
+            Requires.True(entity.HasProperty(_idPropertyName));
 
             var collection = _session.GetCollection(entity);
-            var result = collection.Update(BuildRootQuery(_idExtractor(entity)), Update.Replace(entity), UpdateFlags.Upsert);
+            var result = collection.Update(BuildRootQuery(ExtractId(entity)), Update.Replace(entity), UpdateFlags.Upsert);
             return result.DocumentsAffected == 1;
         }
 
         private void Delete(object entity)
         {
             Requires.NotNull(entity, "entity");
+            Requires.True(entity.HasProperty(_idPropertyName));
 
             var collection = _session.GetCollection(entity);
-            collection.Remove(BuildRootQuery(_idExtractor(entity)));
+            collection.Remove(BuildRootQuery(ExtractId(entity)));
         }
 
         private static IMongoQuery BuildRootQuery(object id)
@@ -88,6 +89,11 @@ namespace SmartElk.Antler.MongoDb
             return Query.EQ("_id", id.AsIdValue());
         } 
 
+        private object ExtractId(object entity)
+        {
+            return entity.GetPropertyValue(_idPropertyName);
+        }
+        
         #region ISessionScopeEx
         IQueryable<TEntity> ISessionScopeEx.AsQueryable<TEntity>()
         {

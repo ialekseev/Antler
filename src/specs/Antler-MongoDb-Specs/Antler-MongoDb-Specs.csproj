@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{08FF42A9-06A6-4157-ACC3-C3B0AC969DCB}</ProjectGuid>
+    <ProjectGuid>{AC484881-766F-4C02-934A-3AF86142D87F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SmartElk.Antler.MongoDb</RootNamespace>
-    <AssemblyName>Antler.MongoDb</AssemblyName>
+    <RootNamespace>SmartElk.Antler.MongoDb.Specs</RootNamespace>
+    <AssemblyName>Antler.MongoDb.Specs</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -33,11 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MongoDB.Bson">
-      <HintPath>..\..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Bson.dll</HintPath>
+    <Reference Include="FluentAssertions">
+      <HintPath>..\..\packages\FluentAssertions.3.1.229\lib\net40\FluentAssertions.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Driver">
-      <HintPath>..\..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Driver.dll</HintPath>
+    <Reference Include="FluentAssertions.Core">
+      <HintPath>..\..\packages\FluentAssertions.3.1.229\lib\net40\FluentAssertions.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -48,22 +51,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\MongoDbStorage.cs" />
-    <Compile Include="Internal\ISessionScopeEx.cs" />
-    <Compile Include="MongoDbSessionScopeFactory.cs" />
-    <Compile Include="Extensions\MongoDatabaseEx.cs" />
-    <Compile Include="MongoDbRepository.cs" />
-    <Compile Include="MongoDbSessionScope.cs" />
-    <Compile Include="Extensions\ObjectEx.cs" />
+    <Compile Include="DomainSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Antler-Core\Antler-Core.csproj">
+    <ProjectReference Include="..\..\main\Antler-Core\Antler-Core.csproj">
       <Project>{61E50BED-1EA6-48C6-BEE9-E4471AEE4635}</Project>
       <Name>Antler-Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\main\Antler-Windsor\Antler-Windsor.csproj">
+      <Project>{91A50383-D6EB-4303-91E8-BD3634E20CAB}</Project>
+      <Name>Antler-Windsor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Antler-Specs-Shared\Antler-Specs-Shared.csproj">
+      <Project>{9C008F64-DBBD-4135-A5C8-1249D5A603F1}</Project>
+      <Name>Antler-Specs-Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

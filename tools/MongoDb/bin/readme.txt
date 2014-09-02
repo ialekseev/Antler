@@ -1,0 +1,1 @@
+You need to get MongoDb binaries(http://www.mongodb.org/downloads) and put them into the bin folder.
