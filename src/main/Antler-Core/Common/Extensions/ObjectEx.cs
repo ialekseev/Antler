@@ -37,5 +37,15 @@ namespace SmartElk.Antler.Core.Common.Extensions
                 (cloned, members, data);
             return cloned;
         }
+
+        public static bool HasProperty(this object obj, string propertyName)
+        {
+            return obj.GetType().GetProperty(propertyName) != null;
+        }
+
+        public static object GetPropertyValue(this object obj, string propertyName)
+        {
+            return obj.GetType().GetProperty(propertyName).GetValue(obj, null);
+        }
     }
 }
