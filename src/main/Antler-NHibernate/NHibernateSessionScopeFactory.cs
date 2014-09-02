@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain;
+using SmartElk.Antler.NHibernate.Internal;
 
 namespace SmartElk.Antler.NHibernate
 {

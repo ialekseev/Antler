@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\MongoDbSessionScopeEx.cs" />
+    <Compile Include="Internal\ISessionScopeEx.cs" />
     <Compile Include="MongoDbSessionScopeFactory.cs" />
     <Compile Include="Extensions\MongoDatabaseEx.cs" />
     <Compile Include="MongoDbRepository.cs" />
