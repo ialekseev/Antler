@@ -17,7 +17,18 @@ namespace SmartElk.Antler.NHibernate.SqlServer.Specs
     /***You need to have "AntlerTest" database in your SQL SERVER. See connection string below***/
 
     public class DomainSpecs
-    {                
+    {
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_insert_employee : TestingScenario
+        {
+            [Test]
+            public void should_insert()
+            {
+                CommonDomainSpecs.when_trying_to_insert_employee.should_insert();
+            }
+        }
+
         [TestFixture]
         [Category("Integration")]
         public class when_trying_to_get_one_employee : TestingScenario

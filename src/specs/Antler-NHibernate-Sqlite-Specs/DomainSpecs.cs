@@ -10,14 +10,24 @@ using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.NHibernate.Configuration;
 using SmartElk.Antler.NHibernate.Internal;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
-using SmartElk.Antler.Specs.Shared.Entities;
 using SmartElk.Antler.Specs.Shared.NHibernate.Mappings;
 using SmartElk.Antler.StructureMap;
 
 namespace SmartElk.Antler.NHibernate.Sqlite.Specs
 {
     public class DomainSpecs
-    {                
+    {
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_insert_employee : TestingScenario
+        {
+            [Test]
+            public void should_insert()
+            {
+                CommonDomainSpecs.when_trying_to_insert_employee.should_insert();
+            }
+        }
+
         [TestFixture]
         [Category("Integration")]
         public class when_trying_to_get_one_employee : TestingScenario
