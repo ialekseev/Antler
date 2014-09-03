@@ -2,7 +2,7 @@
 
 namespace SmartElk.Antler.Specs.Shared.Entities
 {
-    public class Employee: Entity<string>
+    public class Employee : Entity<string>
     {        
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }        

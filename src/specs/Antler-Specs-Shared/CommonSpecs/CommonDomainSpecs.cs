@@ -9,7 +9,39 @@ using SmartElk.Antler.Specs.Shared.Entities;
 namespace SmartElk.Antler.Specs.Shared.CommonSpecs
 {
     public static class CommonDomainSpecs
-    {        
+    {
+        public static class when_trying_to_insert_employee
+        {
+            public static void should_insert()
+            {
+                //arrange
+                Team team = null;
+                Employee employee = null;
+                UnitOfWork.Do(uow =>
+                {
+                    team = new Team() { Name = "Super", Description = "SuperBg" };
+                    uow.Repo<Team>().Insert(team);
+                    
+                    employee = new Employee { Id = "666", FirstName = "John", LastName = "Smith", Teams = new List<Team>() { team } };
+                    uow.Repo<Employee>().Insert(employee);
+                });
+
+                UnitOfWork.Do(uow =>
+                {
+                    //act                    
+                    var result = uow.Repo<Employee>().GetById(employee.Id);
+
+                    //assert
+                    result.Id.Should().Be(employee.Id);
+                    result.FirstName.Should().Be(employee.FirstName);
+                    result.LastName.Should().Be(employee.LastName);
+                    result.Teams.First().Id.Should().Be(team.Id);
+                    result.Teams.First().Name.Should().Be(team.Name);
+                    result.Teams.First().Description.Should().Be(team.Description);
+                });
+            }
+        }
+                
         public static class when_trying_to_get_one_employee
         {            
             public static void should_return_employee()

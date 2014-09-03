@@ -62,6 +62,10 @@
       <Project>{61E50BED-1EA6-48C6-BEE9-E4471AEE4635}</Project>
       <Name>Antler-Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\main\Antler-MongoDb\Antler-MongoDb.csproj">
+      <Project>{08FF42A9-06A6-4157-ACC3-C3B0AC969DCB}</Project>
+      <Name>Antler-MongoDb</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\main\Antler-Windsor\Antler-Windsor.csproj">
       <Project>{91A50383-D6EB-4303-91E8-BD3634E20CAB}</Project>
       <Name>Antler-Windsor</Name>

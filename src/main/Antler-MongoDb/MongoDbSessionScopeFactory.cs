@@ -8,8 +8,8 @@ namespace SmartElk.Antler.MongoDb
     {
         private readonly string _connectionString;
         private readonly string _databaseName;
-        private readonly string _idPropertyName;
-
+        private readonly string _idPropertyName;        
+        
         public MongoDbSessionScopeFactory(string connectionString, string databaseName, string idPropertyName)
         {
             Requires.NotNullOrEmpty(connectionString, "connectionString");
@@ -18,15 +18,14 @@ namespace SmartElk.Antler.MongoDb
 
             _connectionString = connectionString;
             _databaseName = databaseName;
-            _idPropertyName = idPropertyName;
+            _idPropertyName = idPropertyName;            
         }
 
         public ISessionScope Open()
-        {            
+        {                                    
             var client = new MongoClient(_connectionString);
-            var server = client.GetServer();
-            var database = server.GetDatabase(_databaseName);
-            return new MongoDbSessionScope(database, _idPropertyName);
-        }                   
+            var server = client.GetServer();                                                                                    
+            return new MongoDbSessionScope(server.GetDatabase(_databaseName), _idPropertyName);
+        }                
     }
 }

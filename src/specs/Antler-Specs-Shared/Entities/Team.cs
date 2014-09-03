@@ -2,7 +2,7 @@
 
 namespace SmartElk.Antler.Specs.Shared.Entities
 {
-    public class Team: Entity<int>
+    public class Team : Entity<int>
     {        
         public virtual string Name { get; set; }				
 		public virtual string Description { get; set; }

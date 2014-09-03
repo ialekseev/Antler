@@ -127,8 +127,7 @@ namespace SmartElk.Antler.MongoDb
         {
             Requires.NotNull(entity, "entity");
             Requires.NotNull(set, "set");
-            Requires.True(entity is IEqualityComparer<TEntity>, "Entity should implement IEqualityComparer");
-            
+                        
             set.Add(entity);
         }
 
