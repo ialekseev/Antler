@@ -71,6 +71,7 @@
     <Compile Include="Common\Extensions\ArrayEx.cs" />
     <Compile Include="Common\Extensions\EnumerableEx.cs" />
     <Compile Include="Common\Extensions\ObjectEx.cs" />
+    <Compile Include="Common\HashCodeGenerator.cs" />
     <Compile Include="Common\ISyntax.cs" />
     <Compile Include="Common\Option.cs" />
     <Compile Include="Common\Reflection\AllTypes.cs" />

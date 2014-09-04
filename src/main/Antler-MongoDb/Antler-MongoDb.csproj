@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\MongoDbIndexBuilder.cs" />
     <Compile Include="Configuration\MongoDbStorage.cs" />
     <Compile Include="Internal\ISessionScopeEx.cs" />
     <Compile Include="MongoDbSessionScopeFactory.cs" />

@@ -1,10 +1,15 @@
 ﻿// ReSharper disable InconsistentNaming
 
+using System.Linq;
+using FluentAssertions;
+using MongoDB.Driver.Builders;
 using NUnit.Framework;
 using SmartElk.Antler.Core;
 using SmartElk.Antler.Core.Abstractions.Configuration;
+using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.MongoDb.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
+using SmartElk.Antler.Specs.Shared.Entities;
 using SmartElk.Antler.Windsor;
 
 namespace SmartElk.Antler.MongoDb.Specs
@@ -46,7 +51,7 @@ namespace SmartElk.Antler.MongoDb.Specs
                 CommonDomainSpecs.when_trying_to_get_all_employees.should_return_all_employees();
             }
         }
-
+                
         [TestFixture]
         [Category("Integration")]        
         public class when_trying_to_find_employee_by_name : TestingScenario
@@ -68,7 +73,115 @@ namespace SmartElk.Antler.MongoDb.Specs
                 CommonDomainSpecs.when_trying_to_rollback_transaction.should_rollback();
             }
         }
-                      
+
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_find_team_by_country_name : TestingScenario
+        {
+            [Test]
+            public void should_find_team()
+            {
+                //arrange
+                Team team2 = null;
+                UnitOfWork.Do(uow =>
+                {
+                    var country1 = new Country {Id = 1, Name = "USA", Language = "English" };
+                    uow.Repo<Country>().Insert(country1);
+
+                    var country2 = new Country {Id = 2, Name = "Mexico", Language = "Spanish" };
+                    uow.Repo<Country>().Insert(country2);
+
+                    var team1 = new Team() {Id = 1, Name = "Super", Description = "SuperBg", Country = country1 };
+                    uow.Repo<Team>().Insert(team1);
+
+                    team2 = new Team() {Id = 2, Name = "Awesome", Description = "AwesomeBg", Country = country2 };
+                    uow.Repo<Team>().Insert(team2);
+                });
+
+                UnitOfWork.Do(uow =>
+                {
+                    //act                                                                                
+                    var result = uow.Repo<Team>().AsQueryable().First(t => t.Country.Name == "Mexico");
+                    
+                    //assert
+                    result.Id.Should().Be(team2.Id);
+                    result.Name.Should().Be("Awesome");
+                    result.Description.Should().Be("AwesomeBg");
+                    result.Country.Name.Should().Be("Mexico");
+                });
+            }
+        }
+        
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_get_all_teams : TestingScenario
+        {
+            [Test]
+            public void should_return_all_teams()
+            {
+                UnitOfWork.Do(uow =>
+                {
+                    //arrange                    
+                    var team1 = new Team {Id = 1, Name = "Super", Description = "SuperBg" };
+                    uow.Repo<Team>().Insert(team1);
+
+                    var team2 = new Team {Id = 2, Name = "Good", Description = "GoodBg" };
+                    uow.Repo<Team>().Insert(team2);
+
+                    var team3 = new Team {Id = 3, Name = "Bad", Description = "BadBg" };
+                    uow.Repo<Team>().Insert(team3);
+                });
+
+                UnitOfWork.Do(uow =>
+                {
+                    //act                    
+                    var result = uow.Repo<Team>().AsQueryable().ToArray();
+
+                    //assert
+                    result.Length.Should().Be(3);
+                    result[0].Id.Should().Be(1);
+                    result[0].Name.Should().Be("Super");
+                    result[0].Description.Should().Be("SuperBg");
+                    result[1].Id.Should().Be(2);
+                    result[1].Name.Should().Be("Good");
+                    result[1].Description.Should().Be("GoodBg");
+                    result[2].Id.Should().Be(3);
+                    result[2].Name.Should().Be("Bad");
+                    result[2].Description.Should().Be("BadBg");
+                });
+            }
+        }
+
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_delete_team : TestingScenario
+        {
+            [Test]
+            public void should_delete_team()
+            {
+                //arrange
+                Team team = null;
+                UnitOfWork.Do(uow =>
+                {
+                    team = new Team() { Name = "Super", Description = "SuperBg" };
+                    uow.Repo<Team>().Insert(team);
+                });
+
+                UnitOfWork.Do(uow => uow.Repo<Team>().GetById(team.Id).Should().NotBeNull());
+
+                //act
+                UnitOfWork.Do(uow => uow.Repo<Team>().Delete(team));
+
+                //assert
+                UnitOfWork.Do(uow =>
+                {                                        
+                    var foundTeam = uow.Repo<Team>().GetById(team.Id);
+                    foundTeam.Should().BeNull();
+                });
+            }
+        }
+        
+      
         #region Configuration
         public class TestingScenario
         {
@@ -78,7 +191,12 @@ namespace SmartElk.Antler.MongoDb.Specs
             public void SetUp()
             {                                               
                 Configurator = new AntlerConfigurator();
-                Configurator.UseWindsorContainer().UseStorage(MongoDbStorage.Use("mongodb://localhost:27017", "AntlerTest").WithRecreatedDatabase());
+                                                                
+                Configurator.UseWindsorContainer()
+                            .UseStorage(MongoDbStorage.Use("mongodb://localhost:27017", "AntlerTest")
+                                                      .WithRecreatedDatabase()
+                                                      .WithEnsuredIndexes(MongoDbIndexBuilder.Add<Employee>(IndexKeys<Employee>.Ascending(_ => _.Id), IndexOptions<Employee>.SetUnique(true))
+                                                                                             .ThenAdd<Team>(IndexKeys<Team>.Ascending(_ => _.Id), IndexOptions<Employee>.SetUnique(true))));
             }
 
             [TearDown]
