@@ -1,4 +1,6 @@
-﻿using MongoDB.Driver;
+﻿using System.Linq;
+using MongoDB.Driver;
+using SmartElk.Antler.Core.Common;
 using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain;
 using SmartElk.Antler.Core.Domain.Configuration;
@@ -11,6 +13,7 @@ namespace SmartElk.Antler.MongoDb.Configuration
         private readonly string _databaseName;
         private string _idPropertyName;
         private bool _recreateDatabase;
+        private Option<MongoDbIndexBuilder> _indexBuilder;
 
         private MongoDbStorage(string connectionString, string databaseName)
         {
@@ -42,6 +45,14 @@ namespace SmartElk.Antler.MongoDb.Configuration
             return this;
         }
 
+        public MongoDbStorage WithEnsuredIndexes(MongoDbIndexBuilder indexBuilder)
+        {
+            Requires.NotNull(indexBuilder, "indexBuilder");
+            
+            _indexBuilder = indexBuilder;
+            return this;
+        }
+
         public void Configure(IDomainConfigurator configurator)
         {
             Requires.NotNull(configurator, "configurator");
@@ -49,6 +60,11 @@ namespace SmartElk.Antler.MongoDb.Configuration
             if (_recreateDatabase)
             {
                 DropDatabase();
+            }
+
+            if (_indexBuilder.IsSome)
+            {
+                EnsureIndexes();
             }
 
             var sessionScopeFactory = new MongoDbSessionScopeFactory(_connectionString, _databaseName, _idPropertyName);
@@ -59,6 +75,26 @@ namespace SmartElk.Antler.MongoDb.Configuration
         {            
             var server = new MongoClient(_connectionString).GetServer();
             server.DropDatabase(_databaseName);            
+        }
+
+        private void EnsureIndexes()
+        {
+            var database = new MongoClient(_connectionString).GetServer().GetDatabase(_databaseName);
+            var collectionNames = database.GetCollectionNames();
+
+            foreach (var collectionName in collectionNames)
+            {
+                var collection = database.GetCollection(collectionName);                
+                var indexesForCollection = _indexBuilder.Value.Get().Where(t => t.CollectionName.Equals(collectionName)).ToList();
+                
+                foreach (var mongoDbIndex in indexesForCollection)
+                {
+                    if (mongoDbIndex.IndexOptions.IsSome)                    
+                        collection.CreateIndex(mongoDbIndex.Index, mongoDbIndex.IndexOptions.Value);
+                    else
+                        collection.CreateIndex(mongoDbIndex.Index);
+                }
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.Linq;
+using SmartElk.Antler.Core.Common;
 using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Common.Extensions;
 using SmartElk.Antler.Core.Domain;
@@ -16,9 +17,9 @@ namespace SmartElk.Antler.MongoDb
         private readonly MongoDatabase _session;
         private readonly string _idPropertyName;
                         
-        private readonly ISet<object> _newEntities = new HashSet<object>();
-        private readonly ISet<object> _updatedEntities = new HashSet<object>();
-        private readonly ISet<object> _deletedEntities = new HashSet<object>();
+        private readonly IDictionary<int, object> _newEntities = new Dictionary<int, object>();
+        private readonly IDictionary<int, object> _updatedEntities = new Dictionary<int, object>();
+        private readonly IDictionary<int, object> _deletedEntities = new Dictionary<int, object>();
 
         public MongoDbSessionScope(MongoDatabase session, string idPropertyName)
         {
@@ -31,13 +32,13 @@ namespace SmartElk.Antler.MongoDb
 
         public void Commit()
         {
-            _newEntities.ForEach(t => Save(t));                        
+            _newEntities.ForEach(t => Save(t.Value));                        
             _newEntities.Clear();
 
-            _updatedEntities.ForEach(t => Save(t));
+            _updatedEntities.ForEach(t => Save(t.Value));
             _updatedEntities.Clear();
 
-            _deletedEntities.ForEach(Delete);
+            _deletedEntities.ForEach(t=> Delete(t.Value));
             _deletedEntities.Clear();
         }
 
@@ -123,12 +124,15 @@ namespace SmartElk.Antler.MongoDb
             Mark(entity, _deletedEntities);                                                            
         }   
       
-        private static void Mark<TEntity>(TEntity entity, ISet<object> set) where TEntity: class
+        private void Mark<TEntity>(TEntity entity, IDictionary<int, object> dic) where TEntity: class
         {
             Requires.NotNull(entity, "entity");
-            Requires.NotNull(set, "set");
-                        
-            set.Add(entity);
+            Requires.NotNull(dic, "dic");
+            
+            var key = HashCodeGenerator.ComposeHashCode(entity.GetType(), ExtractId(entity));
+
+            if (!dic.ContainsKey(key))
+                dic.Add(key, entity);
         }
 
         #endregion
