@@ -163,7 +163,7 @@ namespace SmartElk.Antler.MongoDb.Specs
                 Team team = null;
                 UnitOfWork.Do(uow =>
                 {
-                    team = new Team() { Name = "Super", Description = "SuperBg" };
+                    team = new Team() {Id=1,  Name = "Super", Description = "SuperBg" };
                     uow.Repo<Team>().Insert(team);
                 });
 
@@ -180,7 +180,35 @@ namespace SmartElk.Antler.MongoDb.Specs
                 });
             }
         }
-        
+
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_delete_team_by_id : TestingScenario
+        {
+             [Test]
+            public void should_delete_team()
+            {
+                //arrange
+                Team team = null;
+                UnitOfWork.Do(uow =>
+                {
+                    team = new Team() {Id = 1, Name = "Super", Description = "SuperBg" };
+                    uow.Repo<Team>().Insert(team);
+                });
+
+                UnitOfWork.Do(uow => uow.Repo<Team>().GetById(team.Id).Should().NotBeNull());
+
+                //act                    
+                UnitOfWork.Do(uow => uow.Repo<Team>().Delete(team.Id));
+
+                //assert
+                UnitOfWork.Do(uow =>
+                {
+                    var foundTeam = uow.Repo<Team>().GetById(team.Id);
+                    foundTeam.Should().BeNull();
+                });
+            }
+        }
       
         #region Configuration
         public class TestingScenario
