@@ -48,7 +48,8 @@ namespace SmartElk.Antler.MongoDb
 
         public void Delete<TId>(TId id)
         {
-            throw new NotSupportedException();            
+            var entity = _sessionScope.GetById<TId, TEntity>(id);
+            _sessionScope.MarkAsDeleted(entity);
         }         
     }
 }
