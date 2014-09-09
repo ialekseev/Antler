@@ -144,7 +144,7 @@ namespace SmartElk.Antler.EntityFramework.SqlServer.Specs
             [Test]
             public static void should_return_employee()
             {
-                SmartElk.Antler.Specs.Shared.EntityFramework.CommonSpecs.CommonDomainSpecs.when_trying_to_get_one_employee_without_lazy_loading.should_return_employee();
+                Antler.Specs.Shared.EntityFramework.CommonSpecs.CommonDomainSpecs.when_trying_to_get_one_employee_without_lazy_loading.should_return_employee();
             }
         }
 
@@ -155,7 +155,7 @@ namespace SmartElk.Antler.EntityFramework.SqlServer.Specs
             [Test]
             public void should_return_country()
             {
-                SmartElk.Antler.Specs.Shared.EntityFramework.CommonSpecs.CommonDomainSpecs.when_trying_to_find_team_by_country_name_without_lazy_loading.should_return_country();
+                Antler.Specs.Shared.EntityFramework.CommonSpecs.CommonDomainSpecs.when_trying_to_find_team_by_country_name_without_lazy_loading.should_return_country();
             }
         }
 
