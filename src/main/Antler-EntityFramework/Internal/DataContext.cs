@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Reflection;
@@ -11,32 +12,27 @@ namespace SmartElk.Antler.EntityFramework.Internal
     {
         private readonly Assembly _assemblyWithMappings;
 
-        public DataContext(string connectionString, Assembly assemblyWithMappings, bool enableLazyLoading): base(connectionString)
+        public DataContext(string connectionString, Assembly assemblyWithMappings, Action<DbContextConfiguration> applyOnConfiguration)
+            : base(connectionString)
         {
             Requires.NotNullOrEmpty(connectionString, "connectionString");
             Requires.NotNull(assemblyWithMappings, "assemblyWithMappings");
-            
-            _assemblyWithMappings = assemblyWithMappings;
-            this.Configuration.LazyLoadingEnabled = enableLazyLoading;
+            Requires.NotNull(applyOnConfiguration, "applyOnConfiguration");
+
+            _assemblyWithMappings = assemblyWithMappings;            
+            applyOnConfiguration(this.Configuration);
         }
 
-        public DataContext(string connectionString, Assembly assemblyWithMappings)
-            : this(connectionString, assemblyWithMappings, true)
+        public DataContext(Assembly assemblyWithMappings, Action<DbContextConfiguration> applyOnConfiguration)            
         {            
+            Requires.NotNull(assemblyWithMappings, "assemblyWithMappings");
+            Requires.NotNull(applyOnConfiguration, "applyOnConfiguration");
+
+            _assemblyWithMappings = assemblyWithMappings;
+            applyOnConfiguration(this.Configuration);
         }
         
-        public DataContext(Assembly assemblyWithMappings, bool enableLazyLoading)            
-        {
-            Requires.NotNull(assemblyWithMappings, "assemblyWithMappings");
-            
-            _assemblyWithMappings = assemblyWithMappings;
-            this.Configuration.LazyLoadingEnabled = enableLazyLoading;
-        }
-
-        public DataContext(Assembly assemblyWithMappings) : this(assemblyWithMappings, true)
-        {            
-        }
-                        
+                            
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {                        
             RegisterMappings(modelBuilder);

@@ -1,38 +1,42 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Data.Entity.Infrastructure;
+using System.Reflection;
+using SmartElk.Antler.Core.Common;
 using SmartElk.Antler.Core.Common.CodeContracts;
 
 namespace SmartElk.Antler.EntityFramework.Internal
 {
     public class DataContextFactory : IDataContextFactory
     {
-        private readonly string _connectionString;
+        private readonly Option<string> _connectionString;
         private readonly Assembly _assemblyWithMappings;
-        private readonly bool _enableLazyLoading;
+        private readonly Action<DbContextConfiguration> _applyOnConfiguration;
 
-        public DataContextFactory(string connectionString, Assembly assemblyWithMappings, bool enableLazyLoading)
+        public DataContextFactory(Option<string> connectionString, Assembly assemblyWithMappings, Action<DbContextConfiguration> applyOnConfiguration)
         {
-            Requires.NotNullOrEmpty(connectionString, "connectionString");
+            Requires.NotNull(connectionString, "connectionString");
             Requires.NotNull(assemblyWithMappings, "assemblyWithMappings");
+            Requires.NotNull(applyOnConfiguration, "applyOnConfiguration");
 
             _connectionString = connectionString;
             _assemblyWithMappings = assemblyWithMappings;
-            _enableLazyLoading = enableLazyLoading;
+            _applyOnConfiguration = applyOnConfiguration;
         }
 
-        public DataContextFactory(Assembly assemblyWithMappings, bool enableLazyLoading)
-        {
-            Requires.NotNull(assemblyWithMappings, "assemblyWithMappings");
-
-            _assemblyWithMappings = assemblyWithMappings;
-            _enableLazyLoading = enableLazyLoading;
+        public DataContextFactory(Assembly assemblyWithMappings, Action<DbContextConfiguration> applyOnConfiguration)
+            : this(Option<string>.None, assemblyWithMappings, applyOnConfiguration)
+        {            
         }
 
         public DataContext CreateDataContext()
         {
-            if (!string.IsNullOrEmpty(_connectionString))
-              return new DataContext(_connectionString, _assemblyWithMappings, _enableLazyLoading);
-            
-            return new DataContext(_assemblyWithMappings, _enableLazyLoading);
+            if (_connectionString.IsSome)
+            {
+                Assumes.True(!string.IsNullOrEmpty(_connectionString.Value), "Can't proceed without Connection String");
+                return new DataContext(_connectionString.Value, _assemblyWithMappings, _applyOnConfiguration);
+            }
+                
+            return new DataContext(_assemblyWithMappings, _applyOnConfiguration);
         }        
     }
 }
