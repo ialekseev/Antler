@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using MongoDB.Driver;
 using SmartElk.Antler.Core.Common;
 using SmartElk.Antler.Core.Common.CodeContracts;
@@ -12,15 +13,19 @@ namespace SmartElk.Antler.MongoDb.Configuration
         private readonly string _connectionString;
         private readonly string _databaseName;
         private string _idPropertyName;
-        private bool _recreateDatabase;
+        private bool _recreateDatabase;        
+        private Action<MongoClient> _applyOnClientConfiguration;
+        private Action<MongoServer> _applyOnServerConfiguration;
         private Option<MongoDbIndexBuilder> _indexBuilder;
 
         private MongoDbStorage(string connectionString, string databaseName)
         {
-            _connectionString = connectionString;
+            _connectionString = connectionString;            
             _databaseName = databaseName;
             _idPropertyName = "Id";
             _recreateDatabase = false;
+            _applyOnClientConfiguration = client => { };
+            _applyOnServerConfiguration = server => { };
         }
 
         public static MongoDbStorage Use(string connectionString, string databaseName)
@@ -53,6 +58,22 @@ namespace SmartElk.Antler.MongoDb.Configuration
             return this;
         }
 
+        public MongoDbStorage ApplyOnClientConfiguration(Action<MongoClient> applyOnClientConfiguration)
+        {
+            Requires.NotNull(applyOnClientConfiguration, "applyOnClientConfiguration");
+
+            _applyOnClientConfiguration = applyOnClientConfiguration;
+            return this;
+        }
+        
+        public MongoDbStorage ApplyOnServerConfiguration(Action<MongoServer> applyOnServerConfiguration)
+        {
+            Requires.NotNull(applyOnServerConfiguration, "applyOnServerConfiguration");
+
+            _applyOnServerConfiguration = applyOnServerConfiguration;
+            return this;
+        }
+
         public void Configure(IDomainConfigurator configurator)
         {
             Requires.NotNull(configurator, "configurator");
@@ -67,7 +88,7 @@ namespace SmartElk.Antler.MongoDb.Configuration
                 EnsureIndexes();
             }
 
-            var sessionScopeFactory = new MongoDbSessionScopeFactory(_connectionString, _databaseName, _idPropertyName);
+            var sessionScopeFactory = new MongoDbSessionScopeFactory(_connectionString, _databaseName, _idPropertyName, _applyOnClientConfiguration, _applyOnServerConfiguration);
             configurator.Configuration.Container.PutWithNameOrDefault<ISessionScopeFactory>(sessionScopeFactory, configurator.Name);
         }
 
