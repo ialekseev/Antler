@@ -14,7 +14,7 @@ namespace SmartElk.Antler.Specs.Shared.EntityFramework.Mappings
             Property(p => p.Email).HasColumnName("EMAIL");
             Property(p => p.FirstName).HasColumnName("FIRST_NAME");
             Property(p => p.LastName).HasColumnName("LAST_NAME");
-            Property(p => p.JobTitle).HasColumnName("BUS_TITLE");
+            Property(p => p.JobTitle).HasColumnName("JOB_TITLE");
                                                                
             HasMany(d => d.Teams).WithMany(t => t.Members).Map(m =>
                 {

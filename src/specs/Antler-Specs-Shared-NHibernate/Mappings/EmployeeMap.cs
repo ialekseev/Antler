@@ -7,13 +7,13 @@ namespace SmartElk.Antler.Specs.Shared.NHibernate.Mappings
     {
         public EmployeeMap()
         {
-            Table("EmployeeTable");
+            Table("EMPLOYEE");
 
             Id(a => a.Id, "GPIN");
             Map(a => a.Email, "EMAIL");
             Map(a => a.FirstName, "FIRST_NAME");
             Map(a => a.LastName, "LAST_NAME");
-            Map(a => a.JobTitle, "BUS_TITLE");            
+            Map(a => a.JobTitle, "JOB_TITLE");            
             HasManyToMany(a => a.Teams)
                 .Table("TEAMS_MEMBERS_MAP")
                 .ChildKeyColumn("TEAM_ID")
