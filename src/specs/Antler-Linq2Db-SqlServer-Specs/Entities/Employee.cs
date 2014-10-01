@@ -16,8 +16,8 @@ namespace SmartElk.Antler.Linq2Db.SqlServer.Specs.Entities
         
         [Column(Name = "LAST_NAME")]
         public virtual string LastName { get; set; }
-                        
-        [Column(Name = "BUS_TITLE")]
+
+        [Column(Name = "JOB_TITLE")]
         public virtual string JobTitle { get; set; }        
     }
 }

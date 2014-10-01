@@ -3,17 +3,16 @@ using System.Data.Entity.ModelConfiguration;
 using SmartElk.Antler.Specs.Shared.Entities;
 
 namespace SmartElk.Antler.Specs.Shared.EntityFramework.Mappings
-{
-    //todo: rename stupid column names    
+{    
     public class TeamMap : EntityTypeConfiguration<Team>
     {
         public TeamMap()
 		{
-			ToTable("STANDARDS_TEAMS");
+			ToTable("TEAMS");
 
-            HasKey(c => c.Id).Property(c => c.Id).HasColumnName("STANDARDS_TEAMS_ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);            
+            HasKey(c => c.Id).Property(c => c.Id).HasColumnName("TEAMS_ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);            
             Property(p => p.Name).HasColumnName("NAME");
-            Property(p => p.Description).HasColumnName("BU");
+            Property(p => p.Description).HasColumnName("DESCRIPTION");
             HasMany(d => d.Members).WithMany(t => t.Teams).Map(m =>
             {
                 m.ToTable("TEAMS_MEMBERS_MAP");
