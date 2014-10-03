@@ -44,9 +44,10 @@ namespace SmartElk.Antler.MongoDb.Configuration
             return this;
         }
 
-        public MongoDbStorage WithRecreatedDatabase()
+        public MongoDbStorage WithRecreatedDatabase(bool really)
         {
-            _recreateDatabase = true;
+            if (really)
+             _recreateDatabase = true;
             return this;
         }
 

@@ -34,10 +34,13 @@ namespace SmartElk.Antler.NHibernate.Configuration
             return this;
         }
 
-        public NHibernateStorage WithGeneratedDatabase(Action tryToCreateDatabaseCommand = null)
+        public NHibernateStorage WithGeneratedDatabase(bool really, Action tryToCreateDatabaseCommand = null)
         {
-            GeneratedDatabase = true;
-            TryToCreateDatabaseCommand = tryToCreateDatabaseCommand;
+            if (really)
+            {
+                GeneratedDatabase = true;
+                TryToCreateDatabaseCommand = tryToCreateDatabaseCommand;
+            }            
             return this;
         }
 

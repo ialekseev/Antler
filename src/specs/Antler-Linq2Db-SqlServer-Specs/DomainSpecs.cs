@@ -411,7 +411,7 @@ namespace SmartElk.Antler.Linq2Db.SqlServer.Specs
                 Configurator.UseWindsorContainer()                            
                             .UseStorage(EntityFrameworkStorage.Use.WithConnectionString(connectionString)
                                                                    .WithMappings(From.AssemblyWithType<CountryMap>().First())
-                                                                   .WithRecreatedDatabase(), "JustToGenerateDatabase")
+                                                                   .WithRecreatedDatabase(true), "JustToGenerateDatabase")
                             .UseStorage(Linq2DbStorage.Use(connectionString));
 
             }

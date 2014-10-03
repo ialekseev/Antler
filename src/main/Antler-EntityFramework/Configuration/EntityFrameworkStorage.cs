@@ -61,9 +61,10 @@ namespace SmartElk.Antler.EntityFramework.Configuration
             return this;
         }
 
-        public EntityFrameworkStorage WithRecreatedDatabase()
+        public EntityFrameworkStorage WithRecreatedDatabase(bool really)
         {
-            this._recreateDatabase = true;
+            if (really)
+              this._recreateDatabase = true;
             return this;
         }
 

@@ -176,10 +176,10 @@ namespace SmartElk.Antler.EntityFramework.SqlServer.Specs
                 Configurator.UseStructureMapContainer()
                             .UseStorage(typeof(T) == typeof(LazyLoading)
                                             ? EntityFrameworkStorage.Use.WithConnectionString(connectionString)
-                                                                      .WithMappings(assemblyWithMappings).WithRecreatedDatabase()
+                                                                      .WithMappings(assemblyWithMappings).WithRecreatedDatabase(true)
                                             : EntityFrameworkStorage.Use.WithoutLazyLoading()
                                                                       .WithConnectionString(connectionString)
-                                                                      .WithMappings(assemblyWithMappings).WithRecreatedDatabase());                
+                                                                      .WithMappings(assemblyWithMappings).WithRecreatedDatabase(true));                
             }
 
             [TearDown]

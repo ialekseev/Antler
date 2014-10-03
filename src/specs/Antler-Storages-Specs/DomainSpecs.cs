@@ -94,7 +94,7 @@ namespace SmartElk.Antler.Storages.Specs
             {
                 Configurator = new AntlerConfigurator();
                 Configurator.UseBuiltInContainer().UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(SQLiteConfiguration.Standard.InMemory()).WithMappings(From.AssemblyWithType<CountryMap>().First())).
-                                                   UseStorage(EntityFrameworkPlusSqlCe.Use.WithConnectionString("Data Source=TestDB.sdf").WithMappings(From.AssemblyWithType<Antler.Specs.Shared.EntityFramework.Mappings.CountryMap>().First()).WithRecreatedDatabase(), "Second");
+                                                   UseStorage(EntityFrameworkPlusSqlCe.Use.WithConnectionString("Data Source=TestDB.sdf").WithMappings(From.AssemblyWithType<Antler.Specs.Shared.EntityFramework.Mappings.CountryMap>().First()).WithRecreatedDatabase(true), "Second");
 
                 nhSession = NewSessionForTesting.CreateNHibernateSession(Configurator, typeof(NHibernateStorage), UnitOfWorkSettings.Default.StorageName);
             }
