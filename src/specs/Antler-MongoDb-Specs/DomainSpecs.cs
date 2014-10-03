@@ -222,7 +222,7 @@ namespace SmartElk.Antler.MongoDb.Specs
                                                                 
                 Configurator.UseWindsorContainer()
                             .UseStorage(MongoDbStorage.Use("mongodb://localhost:27017", "AntlerTest")
-                                                      .WithRecreatedDatabase()                                                      
+                                                      .WithRecreatedDatabase(true)                                                      
                                                       .WithEnsuredIndexes(MongoDbIndexBuilder.Add<Employee>(IndexKeys<Employee>.Ascending(_ => _.Id), IndexOptions<Employee>.SetUnique(true))
                                                                                              .ThenAdd<Team>(IndexKeys<Team>.Ascending(_ => _.Id), IndexOptions<Employee>.SetUnique(true))));
             }

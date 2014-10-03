@@ -175,10 +175,10 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
                 Configurator.UseWindsorContainer()
                             .UseStorage(typeof (T) == typeof (LazyLoading)
                                             ? EntityFrameworkPlusSqlCe.Use.WithConnectionString(connectionString)
-                                                                      .WithMappings(assemblyWithMappings).WithRecreatedDatabase()
+                                                                      .WithMappings(assemblyWithMappings).WithRecreatedDatabase(true)
                                             : EntityFrameworkPlusSqlCe.Use.WithoutLazyLoading()
                                                                       .WithConnectionString(connectionString)
-                                                                      .WithMappings(assemblyWithMappings).WithRecreatedDatabase());
+                                                                      .WithMappings(assemblyWithMappings).WithRecreatedDatabase(true));
             }
 
             [TearDown]
