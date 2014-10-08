@@ -5,15 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{83AC0EB3-77B8-417F-9F99-7F4A05F1832A}</ProjectGuid>
+    <ProjectGuid>{F83256B3-E666-4AEF-A5A3-B538C61C1529}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Blog.Service</RootNamespace>
-    <AssemblyName>Blog.Service</AssemblyName>
+    <RootNamespace>Blog.Service.Contract</RootNamespace>
+    <AssemblyName>Blog.Service.Contract</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,10 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antler.Core, Version=1.0.5318.27164, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.Core.2.22\lib\net40\Antler.Core.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,25 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlogService.cs" />
-    <Compile Include="Mapper.cs" />
+    <Compile Include="Dto\CreatedUserDto.cs" />
+    <Compile Include="Dto\PostDto.cs" />
+    <Compile Include="Dto\SavePostDto.cs" />
+    <Compile Include="Dto\UserDto.cs" />
+    <Compile Include="IBlogService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Blog-Domain\Blog-Domain.csproj">
-      <Project>{C8004B90-6E29-4F42-9D71-5D23990CF1D8}</Project>
-      <Name>Blog-Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Blog-Service-Contract\Blog-Service-Contract.csproj">
-      <Project>{F83256B3-E666-4AEF-A5A3-B538C61C1529}</Project>
-      <Name>Blog-Service-Contract</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

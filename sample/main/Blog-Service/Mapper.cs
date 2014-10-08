@@ -1,5 +1,5 @@
 ﻿using Blog.Domain.Entities;
-using Blog.Service.Dto;
+using Blog.Service.Contract.Dto;
 
 namespace Blog.Service
 {

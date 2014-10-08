@@ -1,6 +1,6 @@
 ﻿using System;
 using Blog.Service;
-using Blog.Service.Dto;
+using Blog.Service.Contract.Dto;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 
 namespace Blog.Web.Common

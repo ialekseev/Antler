@@ -148,6 +148,10 @@
       <Project>{46259AAD-3943-4B8F-9DCB-E6E661525B8D}</Project>
       <Name>Blog-Mappings-EF</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Blog-Service-Contract\Blog-Service-Contract.csproj">
+      <Project>{F83256B3-E666-4AEF-A5A3-B538C61C1529}</Project>
+      <Name>Blog-Service-Contract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Blog-Service\Blog-Service.csproj">
       <Project>{83AC0EB3-77B8-417F-9F99-7F4A05F1832A}</Project>
       <Name>Blog-Service</Name>

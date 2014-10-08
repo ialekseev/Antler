@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Blog.Domain.Entities;
-using Blog.Service.Contracts;
-using Blog.Service.Dto;
+using Blog.Service.Contract;
+using Blog.Service.Contract.Dto;
 using SmartElk.Antler.Core.Domain;
 
 namespace Blog.Service
