@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Blog.Service.Dto;
+using Blog.Service.Contract.Dto;
 
-namespace Blog.Service.Contracts
+namespace Blog.Service.Contract
 {
     public interface IBlogService
     {

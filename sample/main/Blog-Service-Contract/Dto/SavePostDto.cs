@@ -1,4 +1,4 @@
-﻿namespace Blog.Service.Dto
+﻿namespace Blog.Service.Contract.Dto
 {
     public class SavePostDto
     {        

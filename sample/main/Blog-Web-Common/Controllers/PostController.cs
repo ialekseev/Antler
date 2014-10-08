@@ -1,10 +1,15 @@
 ﻿using System.Web.Mvc;
-using Blog.Service.Dto;
+using Blog.Service.Contract;
+using Blog.Service.Contract.Dto;
 
 namespace Blog.Web.Common.Controllers
 {
     public class PostController : BaseController
-    {        
+    {
+        public PostController(IBlogService blogService) : base(blogService)
+        {
+        }
+
         [HttpGet]
         public ActionResult Edit(int id)
         {            

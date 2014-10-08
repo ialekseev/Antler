@@ -2,6 +2,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Blog.Service;
 using Blog.Web.Common;
 using Blog.Web.Common.AppStart;
 using SmartElk.Antler.Core;
@@ -17,6 +18,8 @@ namespace Blog.Web.EF.SqlCe
 
         protected void Application_Start()
         {
+            /***See connection string below***/
+
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new BlogViewEngine());
 
@@ -25,6 +28,7 @@ namespace Blog.Web.EF.SqlCe
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            ControllerBuilder.Current.SetControllerFactory(new BlogControllerFactory(new BlogService()));
 
             AntlerConfigurator = new AntlerConfigurator();
             AntlerConfigurator.UseWindsorContainer()

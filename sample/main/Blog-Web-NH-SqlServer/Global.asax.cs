@@ -2,6 +2,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Blog.Service;
 using Blog.Web.Common;
 using Blog.Web.Common.AppStart;
 using FluentNHibernate.Cfg.Db;
@@ -18,7 +19,7 @@ namespace Blog.Web.NH.SqlServer
 
         protected void Application_Start()
         {
-            /***You need to have "Antler" database in your SQL SERVER. See connection string below***/
+            /***See connection string below***/
 
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new BlogViewEngine());
@@ -28,7 +29,8 @@ namespace Blog.Web.NH.SqlServer
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            
+            ControllerBuilder.Current.SetControllerFactory(new BlogControllerFactory(new BlogService()));
+
             AntlerConfigurator = new AntlerConfigurator();
             AntlerConfigurator.UseStructureMapContainer()
                               .UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(MsSqlConfiguration.MsSql2008.ConnectionString("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True"))

@@ -80,6 +80,7 @@
     <Compile Include="AppStart\RouteConfig.cs" />
     <Compile Include="AppStart\WebApiConfig.cs" />
     <Compile Include="BaseController.cs" />
+    <Compile Include="BlogControllerFactory.cs" />
     <Compile Include="BlogViewEngine.cs" />
     <Compile Include="ConfigurationEx.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -103,6 +104,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Blog-Service-Contract\Blog-Service-Contract.csproj">
+      <Project>{F83256B3-E666-4AEF-A5A3-B538C61C1529}</Project>
+      <Name>Blog-Service-Contract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Blog-Service\Blog-Service.csproj">
       <Project>{83AC0EB3-77B8-417F-9F99-7F4A05F1832A}</Project>
       <Name>Blog-Service</Name>

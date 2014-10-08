@@ -1,16 +1,15 @@
 ﻿using System.Web.Mvc;
-using Blog.Service;
-using Blog.Service.Contracts;
-using Blog.Service.Dto;
+using Blog.Service.Contract;
+using Blog.Service.Contract.Dto;
 
 namespace Blog.Web.Common
 {
     public abstract class BaseController : Controller
     {
         protected IBlogService BlogService { get; set; }
-        protected BaseController()
+        protected BaseController(IBlogService blogService)
         {
-            BlogService = new BlogService();
+            BlogService = blogService;
         }  
     
         public UserDto CurrentUser

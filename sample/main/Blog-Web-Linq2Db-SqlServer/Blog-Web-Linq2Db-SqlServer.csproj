@@ -131,6 +131,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Entities\Post.cs" />
+    <Compile Include="Code\Entities\User.cs" />
+    <Compile Include="Code\Linq2DbBlogService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -152,11 +155,16 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Blog-Service-Contract\Blog-Service-Contract.csproj">
+      <Project>{F83256B3-E666-4AEF-A5A3-B538C61C1529}</Project>
+      <Name>Blog-Service-Contract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Blog-Web-Common\Blog-Web-Common.csproj">
       <Project>{257561C2-E0D9-416B-8774-E5960F9BE055}</Project>
       <Name>Blog-Web-Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
