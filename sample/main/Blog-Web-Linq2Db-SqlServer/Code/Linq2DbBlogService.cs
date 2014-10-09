@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Blog.Service.Contract;
 using Blog.Service.Contract.Dto;
+using Blog.Web.Linq2Db.SqlServer.Code.Entities;
+using SmartElk.Antler.Core.Domain;
 
 namespace Blog.Web.Linq2Db.SqlServer.Code
 {
@@ -9,12 +12,29 @@ namespace Blog.Web.Linq2Db.SqlServer.Code
     {
         public int? CreateUser(CreatedUserDto userDto)
         {
-            throw new NotImplementedException();
+            return UnitOfWork.Do(uow =>
+            {
+                var found = uow.Repo<User>().AsQueryable().FirstOrDefault(t => t.Name == userDto.Email);
+                if (found == null)
+                {
+                    var user = new User { Name = userDto.Name, Email = userDto.Email };
+                    return uow.Repo<User>().Insert<int>(user);                    
+                }
+                return (int?)null;
+            });
         }
 
         public UserDto FindUserByName(string name)
         {
-            throw new NotImplementedException();
+            return UnitOfWork.Do(uow =>
+            {
+                var found = uow.Repo<User>().AsQueryable().FirstOrDefault(t => t.Name == name);
+                if (found != null)
+                {
+                    return new UserDto() { Id = found.Id, Name = found.Name, Email = found.Email };
+                }
+                return null;
+            });
         }
 
         public PostDto GetPost(int postId)

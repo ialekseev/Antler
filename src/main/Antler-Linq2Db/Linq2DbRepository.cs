@@ -55,7 +55,7 @@ namespace SmartElk.Antler.Linq2Db
         }
 
         public void Delete<TId>(TId id)
-        {
+        {                        
             throw new NotSupportedException("Use overloaded method that accepts Entity as argument");            
         }        
     }
