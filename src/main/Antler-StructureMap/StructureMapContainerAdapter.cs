@@ -103,13 +103,13 @@ namespace SmartElk.Antler.StructureMap
         }
 
         public bool Has<T>()
-        {
+        {            
             return NativeContainer.Model.HasImplementationsFor<T>();
         }
 
 		public bool Has(Type type)
-		{
-			return NativeContainer.Model.HasImplementationsFor(type);
+		{            
+            return NativeContainer.Model.HasImplementationsFor(type);
 		}
 
 		public bool Has<T>(string name)

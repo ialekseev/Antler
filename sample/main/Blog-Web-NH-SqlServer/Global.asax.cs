@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Blog.Service;
+using Blog.Service.Contract;
 using Blog.Web.Common;
 using Blog.Web.Common.AppStart;
 using FluentNHibernate.Cfg.Db;
@@ -10,6 +11,7 @@ using SmartElk.Antler.Core;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.NHibernate.Configuration;
 using SmartElk.Antler.StructureMap;
+using StructureMap;
 
 namespace Blog.Web.NH.SqlServer
 {    
@@ -19,7 +21,7 @@ namespace Blog.Web.NH.SqlServer
 
         protected void Application_Start()
         {
-            /***See connection string below***/
+            /***Example of using Antler with StructureMap IoC container & NHibernate ORM & SQLEXPRESS database. See connection string below***/
 
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new BlogViewEngine());
@@ -29,14 +31,23 @@ namespace Blog.Web.NH.SqlServer
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            ControllerBuilder.Current.SetControllerFactory(new BlogControllerFactory(new BlogService()));
 
+            var container = new Container(x =>
+                {
+                    x.For<IBlogService>().Use<BlogService>().Singleton();                    
+                    x.Scan(s =>
+                    {                        
+                        s.AddAllTypesOf(typeof(BaseController));
+                        s.Assembly("Blog.Web.Common");                                          
+                    });
+                });
+                                                
             AntlerConfigurator = new AntlerConfigurator();
-            AntlerConfigurator.UseStructureMapContainer()
+            AntlerConfigurator.UseStructureMapContainer(container)
                               .UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(MsSqlConfiguration.MsSql2008.ConnectionString("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True"))
-                                                                  .WithMappings(Assembly.Load("Blog.Mappings.NH")).WithGeneratedDatabase());
-                        
-            AntlerConfigurator.CreateInitialData();            
+                                                                  .WithMappings(Assembly.Load("Blog.Mappings.NH")).WithGeneratedDatabase(true)).CreateInitialData(container.GetInstance<IBlogService>());
+            
+            ControllerBuilder.Current.SetControllerFactory(new BlogControllerFactory(container.GetInstance));
         }
         
         protected void Application_End()
