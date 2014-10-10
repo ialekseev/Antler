@@ -14,8 +14,8 @@
     <copyright>Copyright 2014</copyright>
     <tags>Antler, StructureMap, IoC</tags>
     <dependencies>
-      <dependency id="Antler.Core" version="[2.22]" />
-      <dependency id="structuremap" version="3.0.5.130" />
+      <dependency id="Antler.Core" version="[2.23]" />
+      <dependency id="structuremap" version="3.1.3.142" />
     </dependencies>
   </metadata>
 </package>

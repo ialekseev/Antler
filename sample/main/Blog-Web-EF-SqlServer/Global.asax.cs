@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Reflection;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -20,7 +21,7 @@ namespace Blog.Web.EF.SqlServer
 
         protected void Application_Start()
         {
-            /***See connection string below***/
+            /***Example of using Antler with BuiltIn container & EntityFramework ORM & SQLEXPRESS database . See connection string below***/
             
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new BlogViewEngine());
@@ -30,14 +31,15 @@ namespace Blog.Web.EF.SqlServer
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            ControllerBuilder.Current.SetControllerFactory(new BlogControllerFactory(new BlogService()));
-
+            
+            var service = new BlogService();
+            
             AntlerConfigurator = new AntlerConfigurator();
             AntlerConfigurator.UseBuiltInContainer()
-                              .UseStorage(EntityFrameworkStorage.Use.WithConnectionString("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True").WithLazyLoading().WithDatabaseInitializer(new DropCreateDatabaseIfModelChanges<DataContext>())
-                                                                  .WithMappings(Assembly.Load("Blog.Mappings.EF")));
-                        
-            AntlerConfigurator.CreateInitialData();            
+                              .UseStorage(EntityFrameworkStorage.Use.WithConnectionString("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True").WithLazyLoading().WithDatabaseInitializer(new DropCreateDatabaseAlways<DataContext>())
+                                                                  .WithMappings(Assembly.Load("Blog.Mappings.EF"))).CreateInitialData(service);
+
+            ControllerBuilder.Current.SetControllerFactory(new BlogControllerFactory(t => Activator.CreateInstance(t, service)));
         }
         
         protected void Application_End()

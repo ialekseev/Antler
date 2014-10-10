@@ -8,19 +8,19 @@ namespace SmartElk.Antler.StructureMap
         /// <summary>
         /// Use StructureMap IoC container.
         /// </summary>        
-        public static IAntlerConfigurator UseStructureMapContainer(this IAntlerConfigurator nodeConfigurator)
+        public static IAntlerConfigurator UseStructureMapContainer(this IAntlerConfigurator configurator)
         {
-            ((IAntlerConfiguratorEx)nodeConfigurator).SetContainerAdapter(new StructureMapContainerAdapter());
-            return nodeConfigurator;
+            ((IAntlerConfiguratorEx)configurator).SetContainerAdapter(new StructureMapContainerAdapter());
+            return configurator;
         }
 
         /// <summary>
         /// Use specified StructureMap IoC container.
         /// </summary>        
-        public static IAntlerConfigurator UseStructureMapContainer(this IAntlerConfigurator nodeConfigurator, IContainer container)
+        public static IAntlerConfigurator UseStructureMapContainer(this IAntlerConfigurator configurator, IContainer container)
         {
-            ((IAntlerConfiguratorEx)nodeConfigurator).SetContainerAdapter(new StructureMapContainerAdapter(container));
-            return nodeConfigurator;
+            ((IAntlerConfiguratorEx)configurator).SetContainerAdapter(new StructureMapContainerAdapter(container));
+            return configurator;
         }
     }
 }

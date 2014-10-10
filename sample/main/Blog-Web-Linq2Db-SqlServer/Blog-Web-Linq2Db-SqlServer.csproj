@@ -37,17 +37,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antler.Core, Version=1.0.5318.27164, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.Core, Version=1.0.5396.26052, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.Core.2.22\lib\net40\Antler.Core.dll</HintPath>
+      <HintPath>..\..\packages\Antler.Core.2.23\lib\net40\Antler.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Antler.Linq2Db, Version=1.0.5318.27175, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.Linq2Db, Version=1.0.5396.26063, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.Linq2Db.2.22\lib\net40\Antler.Linq2Db.dll</HintPath>
+      <HintPath>..\..\packages\Antler.Linq2Db.2.23\lib\net40\Antler.Linq2Db.dll</HintPath>
     </Reference>
-    <Reference Include="Antler.Windsor, Version=1.0.5318.27167, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.Windsor, Version=1.0.5396.26055, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.Windsor.2.22\lib\net40\Antler.Windsor.dll</HintPath>
+      <HintPath>..\..\packages\Antler.Windsor.2.23\lib\net40\Antler.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -57,8 +57,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Castle.Windsor.3.3.0\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="linq2db">
-      <HintPath>..\..\packages\linq2db.1.0.3\lib\net40\linq2db.dll</HintPath>
+    <Reference Include="linq2db, Version=1.0.6.0, Culture=neutral, PublicKeyToken=f19f8aed7feff67e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\linq2db.1.0.6\lib\net40\linq2db.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -134,6 +135,7 @@
     <Compile Include="Code\Entities\Post.cs" />
     <Compile Include="Code\Entities\User.cs" />
     <Compile Include="Code\Linq2DbBlogService.cs" />
+    <Compile Include="Code\Linq2DbMapper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

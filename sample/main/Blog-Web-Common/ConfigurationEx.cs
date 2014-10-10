@@ -1,5 +1,5 @@
 ﻿using System;
-using Blog.Service;
+using Blog.Service.Contract;
 using Blog.Service.Contract.Dto;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 
@@ -7,10 +7,8 @@ namespace Blog.Web.Common
 {
     public static class ConfigurationEx
     {
-        public static void CreateInitialData(this IAntlerConfigurator configurator)
-        {
-            var blogService = new BlogService();
-                                    
+        public static void CreateInitialData(this IAntlerConfigurator configurator, IBlogService blogService)
+        {                                                
             var userId = blogService.CreateUser(new CreatedUserDto()
                 {
                     Name = "John",
@@ -18,7 +16,7 @@ namespace Blog.Web.Common
                 });
             
             if (!userId.HasValue)
-                throw new Exception("Problem with creating User");
+                throw new Exception("Problem while creating User");
                                     
             blogService.SavePost(new SavePostDto()
             {

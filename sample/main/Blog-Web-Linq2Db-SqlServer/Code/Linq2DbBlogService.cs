@@ -8,7 +8,7 @@ using SmartElk.Antler.Core.Domain;
 
 namespace Blog.Web.Linq2Db.SqlServer.Code
 {
-    public class BlogService: IBlogService
+    public class Linq2DbBlogService: IBlogService
     {
         public int? CreateUser(CreatedUserDto userDto)
         {
@@ -18,7 +18,7 @@ namespace Blog.Web.Linq2Db.SqlServer.Code
                 if (found == null)
                 {
                     var user = new User { Name = userDto.Name, Email = userDto.Email };
-                    return uow.Repo<User>().Insert<int>(user);                    
+                    return (int)uow.Repo<User>().Insert<decimal>(user);                    
                 }
                 return (int?)null;
             });
@@ -39,27 +39,76 @@ namespace Blog.Web.Linq2Db.SqlServer.Code
 
         public PostDto GetPost(int postId)
         {
-            throw new NotImplementedException();
+            return UnitOfWork.Do(uow =>
+                {
+                   var post = uow.Repo<Post>().AsQueryable().FirstOrDefault(t => t.Id == postId);
+                   if (post != null)
+                   {
+                      return Linq2DbMapper.Map(post).ApplyAuthorName(uow.Repo<User>().AsQueryable().First(t => t.Id == post.AuthorId));                                        
+                   }
+                return null;                
+            });
         }
 
         public IList<PostDto> GetAllPosts()
         {
-            throw new NotImplementedException();
+             return UnitOfWork.Do(uow =>
+                {
+                    var postDtos = uow.Repo<Post>().AsQueryable().ToList().Select(Linq2DbMapper.Map).ToList();
+                    var authorsIds = postDtos.Select(t => t.AuthorId).ToList();
+                    var authors = uow.Repo<User>().AsQueryable().Where(t => authorsIds.Contains(t.Id)).ToList();
+                    return postDtos.ApplyAuthorName(authors);                                                            
+                });                            
         }
 
         public IList<UserDto> GetAllUsers()
         {
-            throw new NotImplementedException();
+            return UnitOfWork.Do(uow => uow.Repo<User>().AsQueryable().Select(t => new UserDto() { Id = t.Id, Name = t.Name, Email = t.Email }).ToList());
         }
 
         public int? SavePost(SavePostDto postDto)
         {
-            throw new NotImplementedException();
+            return UnitOfWork.Do(uow =>
+            {
+                if (postDto.Id == 0)
+                {
+                    var post = new Post()
+                    {
+                        Title = postDto.Title,
+                        Text = postDto.Text,
+                        Created = DateTime.Now,
+                        AuthorId = uow.Repo<User>().AsQueryable().First(t=>t.Id==postDto.AuthodId).Id
+                    };
+
+                    var found = uow.Repo<Post>().AsQueryable().FirstOrDefault(t => t.Title == postDto.Title);
+                    if (found == null)
+                    {
+                        return (int)uow.Repo<Post>().Insert<decimal>(post);                        
+                    }
+                }
+                else
+                {
+                    var found = uow.Repo<Post>().AsQueryable().FirstOrDefault(t => t.Id == postDto.Id);
+                    if (found != null)
+                    {
+                        found.Title = postDto.Title;
+                        found.Text = postDto.Text;
+                        found.AuthorId = uow.Repo<User>().AsQueryable().First(t => t.Id == postDto.AuthodId).Id;
+                        uow.Repo<Post>().Update(found);
+                        return found.Id;
+                    }
+                }
+                return (int?)null;
+            }); 
         }
 
         public void DeletePost(int postId)
         {
-            throw new NotImplementedException();
+            UnitOfWork.Do(uow =>
+                {
+                    var post = uow.Repo<Post>().AsQueryable().First(t => t.Id == postId);
+                    uow.Repo<Post>().Delete(post);
+                });
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Blog.Web.Linq2Db.SqlServer.Code.Entities
         [Column(Name = "DATE")]                
         public virtual DateTime Created { get; set; }
         
-        [Column(Name = "USER_ID"), Nullable]
+        [Column(Name = "AUTHOR_ID")]
         public virtual int AuthorId { get; set; }
     }
 }
