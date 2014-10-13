@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Data.Common;
+using System.Reflection;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -45,7 +46,8 @@ namespace Blog.Web.NH.SqlServer
             AntlerConfigurator = new AntlerConfigurator();
             AntlerConfigurator.UseStructureMapContainer(container)
                               .UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(MsSqlConfiguration.MsSql2008.ConnectionString("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True"))
-                                                                  .WithMappings(Assembly.Load("Blog.Mappings.NH")).WithGeneratedDatabase(true)).CreateInitialData(container.GetInstance<IBlogService>());
+                                            .WithMappings(Assembly.Load("Blog.Mappings.NH")).WithCommandToTryToApplyOnServer(DbProviderFactories.GetFactory("System.Data.SqlClient"), "Data Source=.\\SQLEXPRESS;Integrated Security=True", "CREATE DATABASE Antler")
+                                            .WithGeneratedSchema(true)).CreateInitialData(container.GetInstance<IBlogService>());
             
             ControllerBuilder.Current.SetControllerFactory(new BlogControllerFactory(container.GetInstance));
         }

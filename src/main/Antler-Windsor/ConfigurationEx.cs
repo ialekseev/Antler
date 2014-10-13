@@ -8,19 +8,19 @@ namespace SmartElk.Antler.Windsor
         /// <summary>
         /// Use Castle Windsor IoC container.
         /// </summary>        
-        public static IAntlerConfigurator UseWindsorContainer(this IAntlerConfigurator nodeConfigurator)
+        public static IAntlerConfigurator UseWindsorContainer(this IAntlerConfigurator configurator)
         {
-            ((IAntlerConfiguratorEx)nodeConfigurator).SetContainerAdapter(new WindsorContainerAdapter());
-            return nodeConfigurator;
+            ((IAntlerConfiguratorEx)configurator).SetContainerAdapter(new WindsorContainerAdapter());
+            return configurator;
         }
 
         /// <summary>
         /// Use specified Castle Windsor IoC container.
         /// </summary>        
-        public static IAntlerConfigurator UseWindsorContainer(this IAntlerConfigurator nodeConfigurator, IWindsorContainer container)
+        public static IAntlerConfigurator UseWindsorContainer(this IAntlerConfigurator configurator, IWindsorContainer container)
         {
-            ((IAntlerConfiguratorEx)nodeConfigurator).SetContainerAdapter(new WindsorContainerAdapter(container));
-            return nodeConfigurator;
+            ((IAntlerConfiguratorEx)configurator).SetContainerAdapter(new WindsorContainerAdapter(container));
+            return configurator;
         }
     }
 }

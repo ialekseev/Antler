@@ -9,7 +9,7 @@ using SmartElk.Antler.EntityFramework.Internal;
 
 namespace SmartElk.Antler.EntityFramework.Configuration
 {
-    public class EntityFrameworkStorage : AbstractStorage<EntityFrameworkStorage>
+    public class EntityFrameworkStorage : AbstractOrmStorage<EntityFrameworkStorage>
     {                
         private Option<string> _connectionString;
         private Action<DbContextConfiguration> _applyOnConfiguration;
@@ -71,7 +71,9 @@ namespace SmartElk.Antler.EntityFramework.Configuration
         public override void Configure(IDomainConfigurator configurator)
         {
             Requires.NotNull(configurator, "configurator");
-
+            
+            CommandToTryToApplyOnServer();
+            
             var dataContextFactory = new DataContextFactory(_connectionString, AssemblyWithMappings, _applyOnConfiguration);                                                            
             var sessionScopeFactory = new EntityFrameworkSessionScopeFactory(dataContextFactory);
             configurator.Configuration.Container.PutWithNameOrDefault<ISessionScopeFactory>(sessionScopeFactory, configurator.Name);                                    

@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Data.Common;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Blog.Service.Contract;
@@ -40,7 +41,8 @@ namespace Blog.Web.Linq2Db.SqlServer
             container.Register(Classes.FromAssemblyNamed("Blog.Web.Common").BasedOn<BaseController>().LifestyleTransient());
                         
             AntlerConfigurator = new AntlerConfigurator();
-            AntlerConfigurator.UseWindsorContainer(container).UseStorage(Linq2DbStorage.Use("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True")).CreateInitialData(container.Resolve<IBlogService>());
+            AntlerConfigurator.UseWindsorContainer(container)
+                              .UseStorage(Linq2DbStorage.Use("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True")).CreateInitialData(container.Resolve<IBlogService>());
 
             ControllerBuilder.Current.SetControllerFactory(new BlogControllerFactory(container.Resolve));
         }
