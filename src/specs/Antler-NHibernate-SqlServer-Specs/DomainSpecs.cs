@@ -1,5 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 
+using System.Data.Common;
 using System.Linq;
 using FluentNHibernate.Cfg.Db;
 using NUnit.Framework;
@@ -10,7 +11,6 @@ using SmartElk.Antler.NHibernate.Configuration;
 using SmartElk.Antler.Specs.Shared.CommonSpecs;
 using SmartElk.Antler.Specs.Shared.NHibernate.Mappings;
 using SmartElk.Antler.Windsor;
-using SmartElk.Antler.NHibernate.SqlServer.Specs.Configuration;
 
 namespace SmartElk.Antler.NHibernate.SqlServer.Specs
 {
@@ -160,7 +160,7 @@ namespace SmartElk.Antler.NHibernate.SqlServer.Specs
             public void SetUp()
             {                                               
                 Configurator = new AntlerConfigurator();
-                Configurator.UseWindsorContainer().UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(MsSqlConfiguration.MsSql2008.ConnectionString("Data Source=.\\SQLEXPRESS;Initial Catalog=AntlerTest;Integrated Security=True")).WithGeneratedDatabase(true, Configurator.TryToCreateDatabaseCommand("AntlerTest")).WithMappings(From.AssemblyWithType<CountryMap>().First()));
+                Configurator.UseWindsorContainer().UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(MsSqlConfiguration.MsSql2008.ConnectionString("Data Source=.\\SQLEXPRESS;Initial Catalog=AntlerTest;Integrated Security=True")).WithCommandToTryToApplyOnServer(DbProviderFactories.GetFactory("System.Data.SqlClient"), "Data Source=.\\SQLEXPRESS;Integrated Security=True", "CREATE DATABASE AntlerTest").WithGeneratedSchema(true).WithMappings(From.AssemblyWithType<CountryMap>().First()));
             }
 
             [TearDown]

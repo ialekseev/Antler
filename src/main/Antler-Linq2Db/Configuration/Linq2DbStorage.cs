@@ -4,7 +4,7 @@ using SmartElk.Antler.Core.Domain.Configuration;
 
 namespace SmartElk.Antler.Linq2Db.Configuration
 {
-    public class Linq2DbStorage : IStorage
+    public class Linq2DbStorage : AbstractStorage<Linq2DbStorage>
     {
         private readonly string _connectionString;
 
@@ -18,10 +18,12 @@ namespace SmartElk.Antler.Linq2Db.Configuration
             Requires.NotNullOrEmpty(connectionString, "connectionString");
             return new Linq2DbStorage(connectionString);
         }
-                
-        public void Configure(IDomainConfigurator configurator)
+
+        public override void Configure(IDomainConfigurator configurator)
         {
             Requires.NotNull(configurator, "configurator");
+
+            CommandToTryToApplyOnServer(); //todo: move this call to the base class(for Linq2Db, NHibernate and EntityFramework adapters)
 
             var sessionScopeFactory = new Linq2DbSessionScopeFactory(_connectionString);
             configurator.Configuration.Container.PutWithNameOrDefault<ISessionScopeFactory>(sessionScopeFactory, configurator.Name);

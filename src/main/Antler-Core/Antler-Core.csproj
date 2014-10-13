@@ -80,6 +80,7 @@
     <Compile Include="Common\StringEx.cs" />
     <Compile Include="Common\Container\BuiltInContainer.cs" />
     <Compile Include="Domain\Configuration\AbstractStorage.cs" />
+    <Compile Include="Domain\Configuration\AbstractOrmStorage.cs" />
     <Compile Include="ConfigurationEx.cs" />
     <Compile Include="Domain\Configuration\ContainerEx.cs" />
     <Compile Include="Domain\Configuration\DomainConfigurator.cs" />

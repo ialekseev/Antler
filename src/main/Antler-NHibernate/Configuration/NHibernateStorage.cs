@@ -8,13 +8,11 @@ using SmartElk.Antler.Core.Domain.Configuration;
 
 namespace SmartElk.Antler.NHibernate.Configuration
 {
-    public class NHibernateStorage : AbstractStorage<NHibernateStorage>
+    public class NHibernateStorage : AbstractOrmStorage<NHibernateStorage>
     {        
         protected Action<global::NHibernate.Cfg.Configuration> ActionToApplyOnNHibernateConfiguration;
-        
-        protected bool GeneratedDatabase { get; set; }
-        protected Action TryToCreateDatabaseCommand { get; set; }
 
+        protected bool GeneratedSchema { get; set; }        
         protected IPersistenceConfigurer PersistenceConfigurer { get; set; }
 
         protected NHibernateStorage()
@@ -34,13 +32,10 @@ namespace SmartElk.Antler.NHibernate.Configuration
             return this;
         }
 
-        public NHibernateStorage WithGeneratedDatabase(bool really, Action tryToCreateDatabaseCommand = null)
+        public NHibernateStorage WithGeneratedSchema(bool really)
         {
-            if (really)
-            {
-                GeneratedDatabase = true;
-                TryToCreateDatabaseCommand = tryToCreateDatabaseCommand;
-            }            
+            if (really)            
+              GeneratedSchema = true;                        
             return this;
         }
 
@@ -55,9 +50,11 @@ namespace SmartElk.Antler.NHibernate.Configuration
         public override void Configure(IDomainConfigurator configurator)
         {
             Requires.NotNull(configurator, "configurator");
+            
+            CommandToTryToApplyOnServer();
 
             global::NHibernate.Cfg.Configuration configuration = null;
-
+                        
             var sessionFactory = Fluently.Configure()
                 .Database(PersistenceConfigurer)
                 .Mappings(x => x.FluentMappings.AddFromAssembly(AssemblyWithMappings)).
@@ -65,13 +62,8 @@ namespace SmartElk.Antler.NHibernate.Configuration
                 {
                     configuration = x;
 
-                    if (GeneratedDatabase)
-                    {
-                        if (TryToCreateDatabaseCommand != null)
-                        {
-                            TryToCreateDatabaseCommand();
-                        }
-
+                    if (GeneratedSchema)
+                    {                        
                         var export = new SchemaExport(x);                                                                                                        
                         export.Drop(true, true);                                                
                         export.Execute(false, true, false);
