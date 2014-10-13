@@ -16,7 +16,7 @@ namespace SmartElk.Antler.StructureMap.Specs
 
             public StructureMapScenario()
             {
-                Container = new StructureMapContainerAdapter();
+                Container = new StructureMapContainerAdapter();                         
             }
         }
 
@@ -303,8 +303,8 @@ namespace SmartElk.Antler.StructureMap.Specs
         {
             [Test]
             public void should_throw()
-            {
-				Container.Invoking(c => c.Get<Boo>()).ShouldThrow<BindingNotRegisteredException>();
+            {                                               
+                Container.Invoking(c => c.Get<Boo>()).ShouldThrow<BindingNotRegisteredException>();
             }
         }
 
