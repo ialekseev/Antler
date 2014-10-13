@@ -20,7 +20,7 @@ namespace SmartElk.Antler.StructureMap
 
 		public StructureMapContainerAdapter()
 		{
-			NativeContainer = new Container();
+			NativeContainer = new Container();            
 		}
 
         public IList<T> GetAll<T>()
