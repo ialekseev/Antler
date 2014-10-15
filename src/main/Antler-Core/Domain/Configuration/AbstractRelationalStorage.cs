@@ -5,18 +5,27 @@ using SmartElk.Antler.Core.Common.CodeContracts;
 
 namespace SmartElk.Antler.Core.Domain.Configuration
 {
-    public abstract class AbstractStorage<TStorage> : IStorage where TStorage : class
+    public abstract class AbstractRelationalStorage<TStorage> : IStorage where TStorage : class
     {
         protected Action CommandToTryToApplyOnServer { get; set; }
 
-        protected AbstractStorage()
+        protected AbstractRelationalStorage()
         {
             CommandToTryToApplyOnServer = () => { };
         }
         
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public abstract void Configure(IDomainConfigurator configurator);
+        public virtual void Configure(IDomainConfigurator configurator)
+        {
+            Requires.NotNull(configurator, "configurator");
 
+            CommandToTryToApplyOnServer();
+            
+            ConfigureInternal(configurator);
+        }
+
+        protected abstract void ConfigureInternal(IDomainConfigurator configurator);
+        
         //todo: check if it works for Specs & Sample projects
         public TStorage WithCommandToTryToApplyOnServer(DbProviderFactory providerFactory, string connectionString,
                                                  string commandText)

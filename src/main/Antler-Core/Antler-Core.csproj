@@ -79,7 +79,7 @@
     <Compile Include="Common\Reflection\TypeEx.cs" />
     <Compile Include="Common\StringEx.cs" />
     <Compile Include="Common\Container\BuiltInContainer.cs" />
-    <Compile Include="Domain\Configuration\AbstractStorage.cs" />
+    <Compile Include="Domain\Configuration\AbstractRelationalStorage.cs" />
     <Compile Include="Domain\Configuration\AbstractOrmStorage.cs" />
     <Compile Include="ConfigurationEx.cs" />
     <Compile Include="Domain\Configuration\ContainerEx.cs" />

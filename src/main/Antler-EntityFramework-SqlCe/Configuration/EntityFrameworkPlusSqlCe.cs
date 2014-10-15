@@ -16,14 +16,14 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Configuration
            get { return new EntityFrameworkPlusSqlCe();}            
         }
 
-        public override void Configure(IDomainConfigurator configurator)
+        protected override void ConfigureInternal(IDomainConfigurator configurator)
         {
             Requires.NotNull(configurator, "configurator");
 
             DbConfiguration.SetConfiguration(new SqlCeDbConfiguration());
             RegisterDbProviderFactory();
             
-            base.Configure(configurator);
+            base.ConfigureInternal(configurator);
         }
 
         private static void RegisterDbProviderFactory()//todo: find the better way
