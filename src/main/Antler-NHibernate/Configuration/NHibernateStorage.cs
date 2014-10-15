@@ -47,12 +47,10 @@ namespace SmartElk.Antler.NHibernate.Configuration
             return this;
         }
 
-        public override void Configure(IDomainConfigurator configurator)
+        protected override void ConfigureInternal(IDomainConfigurator configurator)
         {
             Requires.NotNull(configurator, "configurator");
-            
-            CommandToTryToApplyOnServer();
-
+                        
             global::NHibernate.Cfg.Configuration configuration = null;
                         
             var sessionFactory = Fluently.Configure()

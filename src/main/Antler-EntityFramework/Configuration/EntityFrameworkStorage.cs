@@ -68,12 +68,10 @@ namespace SmartElk.Antler.EntityFramework.Configuration
             return this;
         }
 
-        public override void Configure(IDomainConfigurator configurator)
+        protected override void ConfigureInternal(IDomainConfigurator configurator)
         {
             Requires.NotNull(configurator, "configurator");
-            
-            CommandToTryToApplyOnServer();
-            
+                                    
             var dataContextFactory = new DataContextFactory(_connectionString, AssemblyWithMappings, _applyOnConfiguration);                                                            
             var sessionScopeFactory = new EntityFrameworkSessionScopeFactory(dataContextFactory);
             configurator.Configuration.Container.PutWithNameOrDefault<ISessionScopeFactory>(sessionScopeFactory, configurator.Name);                                    

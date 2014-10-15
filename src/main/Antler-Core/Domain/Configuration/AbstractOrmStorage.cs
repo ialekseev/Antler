@@ -3,7 +3,7 @@ using SmartElk.Antler.Core.Common.CodeContracts;
 
 namespace SmartElk.Antler.Core.Domain.Configuration
 {
-    public abstract class AbstractOrmStorage<TStorage>: AbstractStorage<TStorage>  where TStorage : class
+    public abstract class AbstractOrmStorage<TStorage> : AbstractRelationalStorage<TStorage> where TStorage : class
     {
         protected Assembly AssemblyWithMappings { get; set; }
 
