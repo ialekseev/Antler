@@ -89,6 +89,7 @@ namespace SmartElk.Antler.MongoDb.Configuration
                 EnsureIndexes();
             }
 
+            //todo: DRY:we need somehow to move configurator.Configuration.Container.PutWithNameOrDefault command to the base class and use it in all Storage adapters 
             var sessionScopeFactory = new MongoDbSessionScopeFactory(_connectionString, _databaseName, _idPropertyName, _applyOnClientConfiguration, _applyOnServerConfiguration);
             configurator.Configuration.Container.PutWithNameOrDefault<ISessionScopeFactory>(sessionScopeFactory, configurator.Name);
         }

@@ -1,4 +1,4 @@
-﻿using System.Data.Common;
+﻿using System.Reflection;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -10,15 +10,12 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using SmartElk.Antler.Core;
 using SmartElk.Antler.Core.Abstractions.Configuration;
+using SmartElk.Antler.EntityFramework.Configuration;
 using SmartElk.Antler.Linq2Db.Configuration;
 using SmartElk.Antler.Windsor;
 
 namespace Blog.Web.Linq2Db.SqlServer
-{
-    //!Warning! Work in progress here.
-    //TODO: generate database
-    //TODO: verify sample
-
+{            
     public class MvcApplication : System.Web.HttpApplication
     {
         public static IAntlerConfigurator AntlerConfigurator { get; private set; }
@@ -26,6 +23,9 @@ namespace Blog.Web.Linq2Db.SqlServer
         protected void Application_Start()
         {
             /***Example of using Antler with Castle Windsor IoC container & Linq2Db ORM & SQLEXPRESS database. See connection string below***/
+            
+            /***! Plus we configure EntityFramework targeted on the same database, 
+                  just to use EF's functionallity to generate database & tables based on mappings(Linq2Db unable to do it) !***/
 
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new BlogViewEngine());
@@ -42,6 +42,7 @@ namespace Blog.Web.Linq2Db.SqlServer
                         
             AntlerConfigurator = new AntlerConfigurator();
             AntlerConfigurator.UseWindsorContainer(container)
+                              .UseStorage(EntityFrameworkStorage.Use.WithConnectionString("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True").WithRecreatedDatabase(true).WithMappings(Assembly.Load("Blog.Mappings.EF")), "JustToGenerateStuff")
                               .UseStorage(Linq2DbStorage.Use("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True")).CreateInitialData(container.Resolve<IBlogService>());
 
             ControllerBuilder.Current.SetControllerFactory(new BlogControllerFactory(container.Resolve));

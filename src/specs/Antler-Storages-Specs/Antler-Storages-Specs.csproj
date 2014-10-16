@@ -85,6 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigurationSpecs.cs" />
     <Compile Include="DomainSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -124,10 +125,6 @@
     <ProjectReference Include="..\..\main\Antler-NHibernate\Antler-NHibernate.csproj">
       <Project>{4A2FE4D5-9381-4695-A0D5-21787C903275}</Project>
       <Name>Antler-NHibernate</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\main\Antler-Windsor\Antler-Windsor.csproj">
-      <Project>{91A50383-D6EB-4303-91E8-BD3634E20CAB}</Project>
-      <Name>Antler-Windsor</Name>
     </ProjectReference>
     <ProjectReference Include="..\Antler-Specs-Shared-EntityFramework\Antler-Specs-Shared-EntityFramework.csproj">
       <Project>{E8EEAF94-7FB9-458C-8298-74F2AFFF8F4D}</Project>
