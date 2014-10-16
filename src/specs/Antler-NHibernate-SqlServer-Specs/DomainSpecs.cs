@@ -160,7 +160,7 @@ namespace SmartElk.Antler.NHibernate.SqlServer.Specs
             public void SetUp()
             {                                               
                 Configurator = new AntlerConfigurator();
-                Configurator.UseWindsorContainer().UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(MsSqlConfiguration.MsSql2008.ConnectionString("Data Source=.\\SQLEXPRESS;Initial Catalog=AntlerTest;Integrated Security=True")).WithCommandToTryToApplyOnServer(DbProviderFactories.GetFactory("System.Data.SqlClient"), "Data Source=.\\SQLEXPRESS;Integrated Security=True", "CREATE DATABASE AntlerTest").WithGeneratedSchema(true).WithMappings(From.AssemblyWithType<CountryMap>().First()));
+                Configurator.UseWindsorContainer().UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(MsSqlConfiguration.MsSql2008.ConnectionString("Data Source=.\\SQLEXPRESS;Initial Catalog=AntlerTest;Integrated Security=True")).WithCommandToTryToApplyOnServer(DbProviderFactories.GetFactory("System.Data.SqlClient"), "Data Source=.\\SQLEXPRESS;Integrated Security=True", "CREATE DATABASE AntlerTest").WithRegeneratedSchema(true).WithMappings(From.AssemblyWithType<CountryMap>().First()));
             }
 
             [TearDown]

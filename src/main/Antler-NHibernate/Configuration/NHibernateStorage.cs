@@ -19,7 +19,7 @@ namespace SmartElk.Antler.NHibernate.Configuration
         {
         }
 
-        public static NHibernateStorage Use
+        public static NHibernateStorage Use //todo: is it ok to allow to create storage without providing connection string?(the same for EntityFrameworkStorage)
         {
             get { return new NHibernateStorage();}
         }
@@ -32,7 +32,7 @@ namespace SmartElk.Antler.NHibernate.Configuration
             return this;
         }
 
-        public NHibernateStorage WithGeneratedSchema(bool really)
+        public NHibernateStorage WithRegeneratedSchema(bool really)
         {
             if (really)            
               GeneratedSchema = true;                        

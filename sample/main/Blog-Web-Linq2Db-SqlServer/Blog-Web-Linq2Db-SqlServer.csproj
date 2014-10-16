@@ -41,6 +41,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Antler.Core.2.26\lib\net40\Antler.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Antler.EntityFramework">
+      <HintPath>..\..\packages\Antler.EntityFramework.2.26\lib\net40\Antler.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Antler.Linq2Db, Version=1.0.5401.21788, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Antler.Linq2Db.2.26\lib\net40\Antler.Linq2Db.dll</HintPath>
@@ -56,6 +59,12 @@
     <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Castle.Windsor.3.3.0\lib\net40\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net40\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="linq2db, Version=1.0.6.0, Culture=neutral, PublicKeyToken=f19f8aed7feff67e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -157,6 +166,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Blog-Mappings-EF\Blog-Mappings-EF.csproj">
+      <Project>{46259AAD-3943-4B8F-9DCB-E6E661525B8D}</Project>
+      <Name>Blog-Mappings-EF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Blog-Service-Contract\Blog-Service-Contract.csproj">
       <Project>{F83256B3-E666-4AEF-A5A3-B538C61C1529}</Project>
       <Name>Blog-Service-Contract</Name>
