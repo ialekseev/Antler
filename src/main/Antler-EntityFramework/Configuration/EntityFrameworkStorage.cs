@@ -71,8 +71,10 @@ namespace SmartElk.Antler.EntityFramework.Configuration
         protected override ISessionScopeFactory ConfigureInternal(IDomainConfigurator configurator)
         {
             Requires.NotNull(configurator, "configurator");
-                                    
-            var dataContextFactory = new DataContextFactory(_connectionString, AssemblyWithMappings, _applyOnConfiguration);                                                            
+
+            Assumes.True(AssemblyWithMappings != null, "Specify Assembly with Mappings");            
+            
+            var dataContextFactory =  new DataContextFactory(_connectionString, AssemblyWithMappings, _applyOnConfiguration);                                                                                    
             var sessionScopeFactory = new EntityFrameworkSessionScopeFactory(dataContextFactory);
             
             Database.SetInitializer(_databaseInitializer);     
