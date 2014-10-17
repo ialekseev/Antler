@@ -47,7 +47,7 @@ namespace SmartElk.Antler.NHibernate.Configuration
             return this;
         }
 
-        protected override void ConfigureInternal(IDomainConfigurator configurator)
+        protected override ISessionScopeFactory ConfigureInternal(IDomainConfigurator configurator)
         {
             Requires.NotNull(configurator, "configurator");
                         
@@ -74,10 +74,10 @@ namespace SmartElk.Antler.NHibernate.Configuration
                 })
                 .BuildSessionFactory();
 
-            var sessionScopeFactory = new NHibernateSessionScopeFactory(sessionFactory);
-            configurator.Configuration.Container.PutWithNameOrDefault<ISessionScopeFactory>(sessionScopeFactory, configurator.Name);
-
+            var sessionScopeFactory = new NHibernateSessionScopeFactory(sessionFactory);            
             LatestConfigurationResult = new ConfigurationResult(sessionFactory, configuration);
+
+            return sessionScopeFactory;
         }
                 
         private static ConfigurationResult LatestConfigurationResult { get; set; }

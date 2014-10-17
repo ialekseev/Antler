@@ -8,7 +8,7 @@ using SmartElk.Antler.Core.Domain.Configuration;
 
 namespace SmartElk.Antler.MongoDb.Configuration
 {
-    public class MongoDbStorage : IStorage
+    public class MongoDbStorage : AbstractStorage
     {
         private readonly string _connectionString;
         private readonly string _databaseName;
@@ -75,7 +75,7 @@ namespace SmartElk.Antler.MongoDb.Configuration
             return this;
         }
 
-        public void Configure(IDomainConfigurator configurator)
+        protected override ISessionScopeFactory ConfigureInternal(IDomainConfigurator configurator)
         {
             Requires.NotNull(configurator, "configurator");
             
@@ -88,10 +88,8 @@ namespace SmartElk.Antler.MongoDb.Configuration
             {
                 EnsureIndexes();
             }
-
-            //todo: DRY:we need somehow to move configurator.Configuration.Container.PutWithNameOrDefault command to the base class and use it in all Storage adapters 
-            var sessionScopeFactory = new MongoDbSessionScopeFactory(_connectionString, _databaseName, _idPropertyName, _applyOnClientConfiguration, _applyOnServerConfiguration);
-            configurator.Configuration.Container.PutWithNameOrDefault<ISessionScopeFactory>(sessionScopeFactory, configurator.Name);
+            
+           return new MongoDbSessionScopeFactory(_connectionString, _databaseName, _idPropertyName, _applyOnClientConfiguration, _applyOnServerConfiguration);            
         }
 
         private void DropDatabase()

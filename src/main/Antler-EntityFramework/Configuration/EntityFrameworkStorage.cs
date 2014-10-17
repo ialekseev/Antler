@@ -68,13 +68,13 @@ namespace SmartElk.Antler.EntityFramework.Configuration
             return this;
         }
 
-        protected override void ConfigureInternal(IDomainConfigurator configurator)
+        protected override ISessionScopeFactory ConfigureInternal(IDomainConfigurator configurator)
         {
             Requires.NotNull(configurator, "configurator");
                                     
             var dataContextFactory = new DataContextFactory(_connectionString, AssemblyWithMappings, _applyOnConfiguration);                                                            
             var sessionScopeFactory = new EntityFrameworkSessionScopeFactory(dataContextFactory);
-            configurator.Configuration.Container.PutWithNameOrDefault<ISessionScopeFactory>(sessionScopeFactory, configurator.Name);                                    
+            
             Database.SetInitializer(_databaseInitializer);     
         
             if (_recreateDatabase)
@@ -83,6 +83,8 @@ namespace SmartElk.Antler.EntityFramework.Configuration
                 context.Database.Delete();
                 context.Database.Create();
             }
+
+            return sessionScopeFactory;
         }
     }
 }
