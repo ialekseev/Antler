@@ -19,7 +19,7 @@ namespace SmartElk.Antler.NHibernate.Configuration
         {
         }
 
-        public static NHibernateStorage Use //todo: is it ok to allow to create storage without providing connection string?(the same for EntityFrameworkStorage)
+        public static NHibernateStorage Use
         {
             get { return new NHibernateStorage();}
         }
@@ -50,7 +50,10 @@ namespace SmartElk.Antler.NHibernate.Configuration
         protected override ISessionScopeFactory ConfigureInternal(IDomainConfigurator configurator)
         {
             Requires.NotNull(configurator, "configurator");
-                        
+            
+            Assumes.True(PersistenceConfigurer != null, "Specify Database Configuration");
+            Assumes.True(AssemblyWithMappings != null, "Specify Assembly with Mappings");
+
             global::NHibernate.Cfg.Configuration configuration = null;
                         
             var sessionFactory = Fluently.Configure()
