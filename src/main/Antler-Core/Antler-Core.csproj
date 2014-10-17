@@ -82,6 +82,7 @@
     <Compile Include="Domain\Configuration\AbstractRelationalStorage.cs" />
     <Compile Include="Domain\Configuration\AbstractOrmStorage.cs" />
     <Compile Include="ConfigurationEx.cs" />
+    <Compile Include="Domain\Configuration\AbstractStorage.cs" />
     <Compile Include="Domain\Configuration\ContainerEx.cs" />
     <Compile Include="Domain\Configuration\DomainConfigurator.cs" />
     <Compile Include="Domain\Configuration\IDomainConfigurator.cs" />

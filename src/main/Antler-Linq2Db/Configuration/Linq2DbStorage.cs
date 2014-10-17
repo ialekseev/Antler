@@ -19,12 +19,10 @@ namespace SmartElk.Antler.Linq2Db.Configuration
             return new Linq2DbStorage(connectionString);
         }
 
-        protected override void ConfigureInternal(IDomainConfigurator configurator)
+        protected override ISessionScopeFactory ConfigureInternal(IDomainConfigurator configurator)
         {
             Requires.NotNull(configurator, "configurator");
-
-            var sessionScopeFactory = new Linq2DbSessionScopeFactory(_connectionString);
-            configurator.Configuration.Container.PutWithNameOrDefault<ISessionScopeFactory>(sessionScopeFactory, configurator.Name);
+            return new Linq2DbSessionScopeFactory(_connectionString);           
         }
     }
 }
