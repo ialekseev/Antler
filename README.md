@@ -55,12 +55,6 @@ Installing NuGet packages
 
 Core library: https://www.nuget.org/packages/Antler.Core/
 
-### Adapters for IoC Containers
-
-Windsor adapter: https://www.nuget.org/packages/Antler.Windsor/
-
-StructureMap adapter: https://www.nuget.org/packages/Antler.StructureMap/
-
 ### Adapters for ORMs 
 
 NHibernate adapter: https://www.nuget.org/packages/Antler.NHibernate/
@@ -68,6 +62,12 @@ NHibernate adapter: https://www.nuget.org/packages/Antler.NHibernate/
 EntityFramework Code First adapter: https://www.nuget.org/packages/Antler.EntityFramework/
 
 Linq2Db adapter: https://www.nuget.org/packages/Antler.Linq2Db/
+
+### Adapters for IoC Containers
+
+Windsor adapter: https://www.nuget.org/packages/Antler.Windsor/
+
+StructureMap adapter: https://www.nuget.org/packages/Antler.StructureMap/
 
 Build server(TeamCity)
 -------------------------
