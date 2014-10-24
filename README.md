@@ -47,8 +47,8 @@ configurator.UseStructureMapContainer().UseStorage(EntityFrameworkStorage.Use.
                                               WithConnectionString(connectionString).
                                               WithMappings(assemblyWithMappings));
 </pre>
-More examples in wiki:
-https://github.com/SmartElk/Antler/wiki/Configuration-examples
+More info in wiki:
+https://github.com/SmartElk/Antler/wiki/Wiki-home
 
 Installing NuGet packages
 -------------------------
