@@ -103,7 +103,9 @@ namespace SmartElk.Antler.Core.Domain
             else
             {
                 if (IsRoot && !IsFinished)
-                  CloseUnitOfWork();
+                {                                       
+                    CloseUnitOfWork();
+                }                  
             }
         }
 

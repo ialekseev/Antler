@@ -1,5 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
@@ -407,6 +408,37 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                 });
             }
         }
+
+        public static class when_throwing_exception_after_insert
+        {
+            public static void should_rollback_transaction()
+            {
+                try
+                {
+                    UnitOfWork.Do(uow =>
+                    {
+                        //arrange
+                        var employee = new Employee { Id = "667", FirstName = "Jack", LastName = "Black" };
+                        uow.Repo<Employee>().Insert(employee);
+
+                        //act                                                                        
+                        throw new Exception("Horrible thing");
+                    });
+                }
+                catch (Exception)
+                {                                     
+                }
+                
+                
+                UnitOfWork.Do(uow =>
+                    {                        
+                        var found = uow.Repo<Employee>().AsQueryable().FirstOrDefault(t => t.Id == "667");
+                        
+                        //assert
+                        found.Should().BeNull();                        
+                    });
+            }
+        }       
     }
 }
 // ReSharper restore InconsistentNaming
