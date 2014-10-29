@@ -87,6 +87,17 @@ namespace SmartElk.Antler.MongoDb.Specs
 
         [TestFixture]
         [Category("Integration")]
+        public class when_throwing_exception_from_nested_uof_after_inserting_in_root_uof : TestingScenario
+        {
+            [Test]
+            public void should_rollback_root_transaction()
+            {
+                CommonDomainSpecs.when_throwing_exception_from_nested_uof_after_inserting_in_root_uof.should_rollback_root_transaction();
+            }
+        }
+
+        [TestFixture]
+        [Category("Integration")]
         public class when_trying_to_find_team_by_country_name : TestingScenario
         {
             [Test]
