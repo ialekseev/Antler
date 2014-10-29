@@ -148,6 +148,17 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
 
         [TestFixture]
         [Category("Integration")]
+        public class when_throwing_exception_from_nested_uof_after_inserting_in_root_uof : TestingScenario<EagerLoading>
+        {
+            [Test]
+            public void should_rollback_root_transaction()
+            {
+                CommonDomainSpecs.when_throwing_exception_from_nested_uof_after_inserting_in_root_uof.should_rollback_root_transaction();
+            }
+        }
+
+        [TestFixture]
+        [Category("Integration")]
         public class when_trying_to_get_one_employee_without_lazy_loading : TestingScenario<EagerLoading>
         {
             [Test]

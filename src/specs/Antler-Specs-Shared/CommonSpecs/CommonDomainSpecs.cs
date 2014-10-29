@@ -438,7 +438,41 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                         found.Should().BeNull();                        
                     });
             }
-        }       
+        }
+
+        public static class when_throwing_exception_from_nested_uof_after_inserting_in_root_uof
+        {
+            public static void should_rollback_root_transaction()
+            {
+                try
+                {
+                    UnitOfWork.Do(uow =>
+                    {
+                        //arrange
+                        var employee = new Employee { Id = "667", FirstName = "Jack", LastName = "Black" };
+                        uow.Repo<Employee>().Insert(employee);
+
+                        //act                                                                        
+                        UnitOfWork.Do(nested =>
+                            {
+                                throw new Exception("Horrible thing");
+                            });
+                    });
+                }
+                catch (Exception)
+                {
+                }
+
+
+                UnitOfWork.Do(uow =>
+                {
+                    var found = uow.Repo<Employee>().AsQueryable().FirstOrDefault(t => t.Id == "667");
+
+                    //assert
+                    found.Should().BeNull();
+                });
+            }
+        }
     }
 }
 // ReSharper restore InconsistentNaming
