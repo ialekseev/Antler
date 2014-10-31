@@ -379,6 +379,7 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                     team = new Team() { Name = "Super", Description = "SuperBg" };
                     uow.Repo<Team>().Insert(team);
 
+                    //act
                     uow.Rollback();
                 });
 
@@ -442,7 +443,7 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
 
         public static class when_throwing_exception_from_nested_uof_after_inserting_in_root_uof
         {
-            public static void should_rollback_root_transaction()
+            public static void should_rollback_everything()
             {
                 try
                 {
@@ -473,6 +474,41 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                 });
             }
         }
+
+        public static class when_throwing_exception_from_root_unit_of_work_after_completing_nested_one
+        {
+            public static void should_rollback_everything()
+            {
+                try
+                {
+                    UnitOfWork.Do(uow =>
+                    {
+                        //arrange                                                
+                        UnitOfWork.Do(nested =>
+                        {
+                            var employee = new Employee { Id = "667", FirstName = "Jack", LastName = "Black" };
+                            uow.Repo<Employee>().Insert(employee);                            
+                        });
+
+                        //act                                                                        
+                        throw new Exception("Horrible thing");
+                    });
+                }
+                catch (Exception)
+                {
+                }
+
+
+                UnitOfWork.Do(uow =>
+                {
+                    var found = uow.Repo<Employee>().AsQueryable().FirstOrDefault(t => t.Id == "667");
+
+                    //assert
+                    found.Should().BeNull();
+                });
+            }
+        }
+
     }
 }
 // ReSharper restore InconsistentNaming

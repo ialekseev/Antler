@@ -153,9 +153,20 @@ namespace SmartElk.Antler.EntityFramework.SqlServer.Specs
         public class when_throwing_exception_from_nested_uof_after_inserting_in_root_uof : TestingScenario<EagerLoading>
         {
             [Test]
-            public void should_rollback_root_transaction()
+            public void should_rollback_everything()
             {
-                CommonDomainSpecs.when_throwing_exception_from_nested_uof_after_inserting_in_root_uof.should_rollback_root_transaction();
+                CommonDomainSpecs.when_throwing_exception_from_nested_uof_after_inserting_in_root_uof.should_rollback_everything();
+            }
+        }
+
+        [TestFixture]
+        [Category("Integration")]
+        public class when_throwing_exception_from_root_unit_of_work_after_completing_nested_one : TestingScenario<EagerLoading>
+        {
+            [Test]
+            public void should_rollback_everything()
+            {
+                CommonDomainSpecs.when_throwing_exception_from_root_unit_of_work_after_completing_nested_one.should_rollback_everything();
             }
         }
 
