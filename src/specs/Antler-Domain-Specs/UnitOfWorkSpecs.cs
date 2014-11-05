@@ -1,5 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 using System;
+using System.Threading.Tasks;
 using FakeItEasy;
 using FluentAssertions;
 using NUnit.Framework;
@@ -386,6 +387,28 @@ namespace SmartElk.Antler.Domain.Specs
                 UnitOfWork.Do(uow => UnitOfWork.Do(nested => nested, setting), setting);                
             }
         }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_creating_nested_unit_of_work_in_the_different_thread : UnitOfWorkScenario
+        {
+            [Test]            
+            public void nested_unit_of_work_should_be_treated_as_root_in_its_thread()
+            {
+                UnitOfWork.Do(uow =>
+                    {
+                        var t = Task.Factory.StartNew(() =>
+                            {                                
+                                //assert
+                                UnitOfWork.Do(nested =>nested.IsRoot.Should().BeTrue());                                   
+                            });
+                        t.Wait();
+                        
+                        uow.IsRoot.Should().BeTrue();
+                    });                                
+            }
+        }
+
     }
 }
 // ReSharper restore InconsistentNaming
