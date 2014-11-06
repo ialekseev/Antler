@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using SmartElk.Antler.Core.Common;
 using SmartElk.Antler.Core.Common.CodeContracts;
 
@@ -86,6 +87,26 @@ namespace SmartElk.Antler.Core.Domain
             {
                 return work(uow);
             }
+        }
+
+        /// <summary>
+        /// Start database transaction(asynchronous version).
+        /// </summary>   
+        public static Task DoAsync(Action<UnitOfWork> work, UnitOfWorkSettings settings = null)
+        {
+            Requires.NotNull(work, "work");
+
+            return Task.Factory.StartNew(() => Do(work, settings));
+        }
+
+        /// <summary>
+        /// Start database transaction and return result from it(asynchronous version).
+        /// </summary>   
+        public static Task<TResult> DoAsync<TResult>(Func<UnitOfWork, TResult> work, UnitOfWorkSettings settings = null)
+        {
+            Requires.NotNull(work, "work");
+
+            return Task<TResult>.Factory.StartNew(() => Do(work, settings));
         }
 
         /// <summary>
