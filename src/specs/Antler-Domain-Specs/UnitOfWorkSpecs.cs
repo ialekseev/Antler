@@ -409,6 +409,58 @@ namespace SmartElk.Antler.Domain.Specs
             }
         }
 
+        [TestFixture]
+        [Category("Unit")]
+        public class when_trying_to_create_async_unit_of_work : UnitOfWorkScenario
+        {
+            [Test]
+            public void should_open_session()
+            {
+                //act
+                var task = UnitOfWork.DoAsync(uow => { });
+
+                task.Wait();
+
+                //assert
+                A.CallTo(() => SessionScopeFactory.Open()).MustHaveHappened();
+            }
+        }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_trying_to_create_async_unit_of_work_returning_result : UnitOfWorkScenario
+        {
+            [Test]
+            public void should_open_session_and_get_result()
+            {
+                //act
+                var task = UnitOfWork.DoAsync(uow => 1);
+
+                var result = task.Result;
+
+                //assert
+                A.CallTo(() => SessionScopeFactory.Open()).MustHaveHappened();
+                result.Should().Be(1);
+            }
+        }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class when_trying_to_create_async_unit_of_work_with_storage_name : UnitOfWorkNamedStorageScenario
+        {
+            [Test]
+            public void should_open_session()
+            {
+                //act
+                var task = UnitOfWork.DoAsync(uow => { }, new UnitOfWorkSettings { StorageName = "SuperStorage" });
+
+                task.Wait();
+
+                //assert
+                A.CallTo(() => SessionScopeFactory.Open()).MustHaveHappened();
+            }
+        }
+
     }
 }
 // ReSharper restore InconsistentNaming
