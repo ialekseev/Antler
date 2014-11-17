@@ -6,13 +6,10 @@ using SmartElk.Antler.Core.Domain;
 namespace SmartElk.Antler.MongoDb
 {
     public class MongoDbSessionScopeFactory: ISessionScopeFactory
-    {
-        private readonly string _connectionString;
-        private readonly string _databaseName;
+    {        
         private readonly string _idPropertyName;
-        private readonly Action<MongoClient> _applyOnClientConfiguration;
-        private readonly Action<MongoServer> _applyOnServerConfiguration;
-
+        private readonly MongoDatabase _database;
+        
         public MongoDbSessionScopeFactory(string connectionString, string databaseName, string idPropertyName, Action<MongoClient> applyOnClientConfiguration, Action<MongoServer> applyOnServerConfiguration)
         {
             Requires.NotNullOrEmpty(connectionString, "connectionString");
@@ -20,23 +17,21 @@ namespace SmartElk.Antler.MongoDb
             Requires.NotNullOrEmpty(idPropertyName, "idPropertyName");
             Requires.NotNull(applyOnClientConfiguration, "applyOnClientConfiguration");
             Requires.NotNull(applyOnServerConfiguration, "applyOnServerConfiguration");
-
-            _connectionString = connectionString;
-            _databaseName = databaseName;
+            
             _idPropertyName = idPropertyName;
-            _applyOnClientConfiguration = applyOnClientConfiguration;
-            _applyOnServerConfiguration = applyOnServerConfiguration;
+            
+            var client = new MongoClient(connectionString);
+            applyOnClientConfiguration(client);
+
+            var server = client.GetServer();
+            applyOnServerConfiguration(server);
+
+            _database = server.GetDatabase(databaseName);
         }
 
         public ISessionScope Open()
-        {            
-            var client = new MongoClient(_connectionString);
-            _applyOnClientConfiguration(client);
-            
-            var server = client.GetServer();            
-            _applyOnServerConfiguration(server);
-            
-            return new MongoDbSessionScope(server.GetDatabase(_databaseName), _idPropertyName);
+        {                                    
+            return new MongoDbSessionScope(_database, _idPropertyName);
         }                
     }
 }
