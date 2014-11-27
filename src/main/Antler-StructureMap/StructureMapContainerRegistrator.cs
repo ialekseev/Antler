@@ -42,7 +42,7 @@ namespace SmartElk.Antler.StructureMap
 				});
 		}
 
-        //todo: very weirdly, after updating StructureMap to version 3, double dispatch via dynamic not works anymore 
+        //todo: very weirdly, after updating StructureMap to version 3, double dispatch via dynamic not works anymore(http://stackoverflow.com/questions/27011810/mystery-with-dynamic-type-double-dispatch) 
         private static object ApplyResolver(GenericFamilyExpression builder, IImplementationResolver resolver)
         {
             if (resolver is StaticResolver)
