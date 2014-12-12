@@ -10,17 +10,19 @@ using SmartElk.Antler.EntityFramework.Internal;
 namespace SmartElk.Antler.EntityFramework.Configuration
 {
     public class EntityFrameworkStorage : AbstractOrmStorage<EntityFrameworkStorage>
-    {                
-        private Option<string> _connectionString;
+    {                        
+        private Option<string> _connectionString;        
+        private Action _applyBeforeConfiguration;
+        private IDatabaseInitializer<DataContext> _databaseInitializer;
         private Action<DbContextConfiguration> _applyOnConfiguration;
-        private IDatabaseInitializer<DataContext> _databaseInitializer;        
         private bool _recreateDatabase;
-
+        
         protected EntityFrameworkStorage()
         {
             _connectionString = Option<string>.None;
-            _applyOnConfiguration = configuration => configuration.LazyLoadingEnabled = true;             
+            _applyBeforeConfiguration = () => { };
             _databaseInitializer = new CreateDatabaseIfNotExists<DataContext>();            
+            _applyOnConfiguration = configuration => configuration.LazyLoadingEnabled = true;                         
         }
         
         public static EntityFrameworkStorage Use
@@ -34,6 +36,12 @@ namespace SmartElk.Antler.EntityFramework.Configuration
             _connectionString = connectionString.AsOption();
             return this;
         }
+
+        public EntityFrameworkStorage ApplyBeforeConfiguration(Action applyBeforeConfiguration)
+        {
+            _applyBeforeConfiguration = applyBeforeConfiguration;
+            return this;
+        }
         
         public EntityFrameworkStorage WithDatabaseInitializer(IDatabaseInitializer<DataContext> databaseInitializer)
         {
@@ -41,7 +49,7 @@ namespace SmartElk.Antler.EntityFramework.Configuration
             _databaseInitializer = databaseInitializer;
             return this;
         }
-
+        
         public EntityFrameworkStorage ApplyOnConfiguration(Action<DbContextConfiguration> applyOnConfiguration)
         {
             Requires.NotNull(applyOnConfiguration, "applyOnConfiguration");
@@ -72,11 +80,13 @@ namespace SmartElk.Antler.EntityFramework.Configuration
         {
             Requires.NotNull(configurator, "configurator");
 
-            Assumes.True(AssemblyWithMappings != null, "Specify Assembly with Mappings");            
+            Assumes.True(AssemblyWithMappings != null, "Specify Assembly with Mappings");
+
+            _applyBeforeConfiguration();
             
             var dataContextFactory =  new DataContextFactory(_connectionString, AssemblyWithMappings, _applyOnConfiguration);                                                                                    
             var sessionScopeFactory = new EntityFrameworkSessionScopeFactory(dataContextFactory);
-            
+                                                
             Database.SetInitializer(_databaseInitializer);     
         
             if (_recreateDatabase)

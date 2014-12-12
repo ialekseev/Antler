@@ -319,8 +319,8 @@ namespace SmartElk.Antler.Windsor.Specs
         }
 
 		[TestFixture]
-		[Category("Unit")]
-		public class when_resolving_object_with_dependencies_from_app_settings : WindsorScenario
+		[Category("Unit")]		
+        public class when_resolving_object_with_dependencies_from_app_settings : WindsorScenario
 		{
 			[Test]
 			public void should_resolve_from_app_settings()

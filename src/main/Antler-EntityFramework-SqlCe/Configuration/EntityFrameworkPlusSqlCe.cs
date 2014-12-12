@@ -19,23 +19,33 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Configuration
         public override void Configure(IDomainConfigurator configurator)
         {
             Requires.NotNull(configurator, "configurator");
-
             DbConfiguration.SetConfiguration(new SqlCeDbConfiguration());
-            RegisterDbProviderFactory();
-            
+            RegisterDbProviderFactory();                                     
             base.Configure(configurator);
         }
 
-        private static void RegisterDbProviderFactory()//todo: find the better way
+        private static DataTable GetProviderFactoriesFromConfiguration()
         {
             var data = (DataSet)ConfigurationManager.GetSection("system.data");
-            var providerFactories = data.Tables["DbProviderFactories"];
-            
+            return data.Tables["DbProviderFactories"];
+        }
+        
+        private static void RegisterDbProviderFactory()
+        {
+            var providerFactories = GetProviderFactoriesFromConfiguration();            
             var alreadyRegistered = providerFactories.Rows.Cast<DataRow>().Any(rowTyped => rowTyped.ItemArray.Any(t => t.ToString().Contains(SqlCeProviderServices.ProviderInvariantName)));
             if (!alreadyRegistered)
             {
                 providerFactories.Rows.Add(SqlCeProviderServices.ProviderInvariantName, SqlCeProviderServices.ProviderInvariantName, SqlCeProviderServices.ProviderInvariantName, "System.Data.SqlServerCe.SqlCeProviderFactory, System.Data.SqlServerCe");
             }
         }
-    }
+
+        public static void ForgetDbProviderFactory()
+        {
+            var providerFactories = GetProviderFactoriesFromConfiguration();
+            var sqlCeProviderFactory = providerFactories.Rows.Cast<DataRow>().FirstOrDefault(rowTyped => rowTyped.ItemArray.Any(t => t.ToString().Contains(SqlCeProviderServices.ProviderInvariantName)));
+            if (sqlCeProviderFactory != null)
+             providerFactories.Rows.Remove(sqlCeProviderFactory);            
+        }
+    }    
 }

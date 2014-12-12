@@ -9,10 +9,7 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Configuration
     {
         public SqlCeDbConfiguration()
         {            
-            SetProviderServices(
-                SqlCeProviderServices.ProviderInvariantName,
-                SqlCeProviderServices.Instance);
-
+            SetProviderServices(SqlCeProviderServices.ProviderInvariantName, SqlCeProviderServices.Instance);
             SetDefaultConnectionFactory(new SqlCeConnectionFactory(SqlCeProviderServices.ProviderInvariantName));
         }
     }

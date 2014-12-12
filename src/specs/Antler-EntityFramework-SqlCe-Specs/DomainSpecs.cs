@@ -1,5 +1,6 @@
-﻿// ReSharper disable InconsistentNaming
-
+﻿using System;
+using System.Data.Entity;
+// ReSharper disable InconsistentNaming
 using System.Linq;
 using NUnit.Framework;
 using SmartElk.Antler.Core;
@@ -195,7 +196,7 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
         public class LazyLoading { }
         public class EagerLoading { }
         public class TestingScenario<T>
-        {
+        {            
             protected IAntlerConfigurator Configurator { get; set; }
 
             [SetUp]
@@ -205,6 +206,7 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
 
                 const string connectionString = "Data Source=TestDB.sdf";
                 var assemblyWithMappings = From.AssemblyWithType<CountryMap>().First();
+                                
                 Configurator.UseWindsorContainer()
                             .UseStorage(typeof (T) == typeof (LazyLoading)
                                             ? EntityFrameworkPlusSqlCe.Use.WithConnectionString(connectionString)
@@ -217,7 +219,7 @@ namespace SmartElk.Antler.EntityFramework.SqlCe.Specs
             [TearDown]
             public void Dispose()
             {                
-                Configurator.UnUseContainer().UnUseStorage().Dispose();
+                Configurator.UnUseContainer().UnUseStorage(EntityFrameworkPlusSqlCe.ForgetDbProviderFactory).Dispose();
             }
         } 
         #endregion

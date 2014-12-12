@@ -1,5 +1,5 @@
-﻿// ReSharper disable InconsistentNaming
-
+﻿using System.Configuration;
+// ReSharper disable InconsistentNaming
 using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
@@ -405,9 +405,8 @@ namespace SmartElk.Antler.Linq2Db.SqlServer.Specs
             public void SetUp()
             {
                 Configurator = new AntlerConfigurator();
-
-                const string connectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=AntlerTest;Integrated Security=True";
                 
+                var connectionString = ConfigurationManager.AppSettings["ConnectionString"];                
                 Configurator.UseWindsorContainer()                            
                             .UseStorage(EntityFrameworkStorage.Use.WithConnectionString(connectionString)
                                                                    .WithMappings(From.AssemblyWithType<CountryMap>().First())

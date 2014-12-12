@@ -1,0 +1,10 @@
+Basically you should be able to open project and run tests without any additional configurations,
+except: 
+
+*)projects with tests for [<ORM> + SqlServer]. In these projects you may need to specify valid connection
+strings to Sql Server in corresponded app.config files.
+
+*)to run tests over MongoDb you need to download MongoDb BINs and put them into the tools/MongoDb/bin folder. Then
+start MongoDb instance using tools/MongoDb/start.cmd file.
+
+If you have any problems, just let me know.

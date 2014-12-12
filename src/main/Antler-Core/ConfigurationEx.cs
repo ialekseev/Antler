@@ -1,4 +1,5 @@
-﻿using SmartElk.Antler.Core.Abstractions;
+﻿using System;
+using SmartElk.Antler.Core.Abstractions;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.Core.Common.CodeContracts;
 using SmartElk.Antler.Core.Domain;
@@ -44,6 +45,17 @@ namespace SmartElk.Antler.Core
         public static IAntlerConfigurator UnUseStorage(this IAntlerConfigurator configurator)
         {
             UnitOfWork.SessionScopeFactoryExtractor = null;
+            return configurator;
+        }
+        
+        /// <summary>        
+        /// Reset current storage and apply cleanup action(mainly used in Unit/Integration testing).
+        /// </summary>        
+        public static IAntlerConfigurator UnUseStorage(this IAntlerConfigurator configurator, Action cleanupAction)
+        {
+            Requires.NotNull(cleanupAction, "cleanupAction");
+            UnUseStorage(configurator);
+            cleanupAction();
             return configurator;
         }
         
