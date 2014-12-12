@@ -7,4 +7,7 @@ strings to Sql Server in corresponded app.config files.
 *)to run tests over MongoDb you need to download MongoDb BINs and put them into the tools/MongoDb/bin folder. Then
 start MongoDb instance using tools/MongoDb/start.cmd file.
 
+*)your test-runner(NUnit, Resharper) should load assemblies with tests into different AppDomains, because there are many integration tests around
+that need to be properly isolated. E.g. for Resharper you could find this option in settings.
+
 If you have any problems, just let me know.
