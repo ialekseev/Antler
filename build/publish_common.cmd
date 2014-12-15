@@ -15,7 +15,7 @@ call build.cmd
 ::+++++++++++++++++++++ Updating Nuget Spec files+++++++++++++++++++++++++++++++++++++++++++
 if %skipDependentPackagesVersionsUpdate%==true goto skipVersionsUpdate
 echo Updating Nuget Spec files(Dependent packages versions update)...
-@powershell ./substitude.ps1 %version%
+@powershell ./substitute.ps1 %version%
 :skipVersionsUpdate
 
 ::++++++++++++++++++++ Creating Nuget packages+++++++++++++++++++++++++++++++++++++++++++++
