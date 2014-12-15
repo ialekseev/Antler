@@ -4,7 +4,7 @@ set version=2.26
 set skipBuild=false
 set skipTests=false
 set skipDependentPackagesVersionsUpdate=false
-set skipPublishing=false
+set skipPublishing=true
 
 call publish_common.cmd
 
