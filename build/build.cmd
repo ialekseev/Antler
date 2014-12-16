@@ -49,3 +49,4 @@ copy ..\src\main\Antler-Windsor\bin\Release\Antler.Windsor.* windsor\output\lib\
 ::StructureMap adapter
 copy ..\src\main\Antler-StructureMap\bin\Release\Antler.StructureMap.* structuremap\output\lib\%targetNuGetFolder%
 ::++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+: end
