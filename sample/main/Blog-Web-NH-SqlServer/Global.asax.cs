@@ -8,10 +8,10 @@ using Blog.Service.Contract;
 using Blog.Web.Common;
 using Blog.Web.Common.AppStart;
 using FluentNHibernate.Cfg.Db;
-using SmartElk.Antler.Core;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.NHibernate.Configuration;
 using SmartElk.Antler.StructureMap;
+using SmartElk.Antler.Core;
 using StructureMap;
 
 namespace Blog.Web.NH.SqlServer
@@ -22,7 +22,7 @@ namespace Blog.Web.NH.SqlServer
 
         protected void Application_Start()
         {
-            /***Example of using Antler with StructureMap IoC container & NHibernate ORM & SQLEXPRESS database. See connection string below***/
+            /***Example of using Antler with StructureMap IoC container & NHibernate ORM & SqlServer database. See connection string below***/
 
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new BlogViewEngine());
@@ -43,11 +43,12 @@ namespace Blog.Web.NH.SqlServer
                     });
                 });
                                                 
+            const string connectionString = "Data Source=(localdb)\\Projects;Initial Catalog=Antler;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False";
             AntlerConfigurator = new AntlerConfigurator();
             AntlerConfigurator.UseStructureMapContainer(container)
-                              .UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(MsSqlConfiguration.MsSql2008.ConnectionString("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True"))
-                                            .WithMappings(Assembly.Load("Blog.Mappings.NH")).WithCommandToTryToApplyOnServer(DbProviderFactories.GetFactory("System.Data.SqlClient"), "Data Source=.\\SQLEXPRESS;Integrated Security=True", "CREATE DATABASE Antler")
-                                            .WithGeneratedSchema(true)).CreateInitialData(container.GetInstance<IBlogService>());
+                              .UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(MsSqlConfiguration.MsSql2008.ConnectionString(connectionString))
+                                            .WithMappings(Assembly.Load("Blog.Mappings.NH")).WithCommandToTryToApplyOnServer(DbProviderFactories.GetFactory("System.Data.SqlClient"), connectionString, "CREATE DATABASE Antler")
+                                            .WithRegeneratedSchema(true)).CreateInitialData(container.GetInstance<IBlogService>());
             
             ControllerBuilder.Current.SetControllerFactory(new BlogControllerFactory(container.GetInstance));
         }
