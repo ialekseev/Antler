@@ -8,11 +8,11 @@ using Blog.Web.Common.AppStart;
 using Blog.Web.Linq2Db.SqlServer.Code;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using SmartElk.Antler.Core;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.EntityFramework.Configuration;
 using SmartElk.Antler.Linq2Db.Configuration;
 using SmartElk.Antler.Windsor;
+using SmartElk.Antler.Core;
 
 namespace Blog.Web.Linq2Db.SqlServer
 {            
@@ -22,7 +22,7 @@ namespace Blog.Web.Linq2Db.SqlServer
 
         protected void Application_Start()
         {
-            /***Example of using Antler with Castle Windsor IoC container & Linq2Db ORM & SQLEXPRESS database. See connection string below***/
+            /***Example of using Antler with Castle Windsor IoC container & Linq2Db ORM & SqlServer database. See connection string below***/
             
             /***! Plus we configure EntityFramework targeted on the same database, 
                   just to use EF's functionallity to generate database & tables based on mappings(Linq2Db unable to do it) !***/
@@ -39,11 +39,12 @@ namespace Blog.Web.Linq2Db.SqlServer
             var container = new WindsorContainer();
             container.Register(Component.For<IBlogService>().ImplementedBy<Linq2DbBlogService>());
             container.Register(Classes.FromAssemblyNamed("Blog.Web.Common").BasedOn<BaseController>().LifestyleTransient());
-                        
+
+            const string connectionString = "Data Source=(localdb)\\Projects;Initial Catalog=Antler;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False";
             AntlerConfigurator = new AntlerConfigurator();
             AntlerConfigurator.UseWindsorContainer(container)
-                              .UseStorage(EntityFrameworkStorage.Use.WithConnectionString("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True").WithRecreatedDatabase(true).WithMappings(Assembly.Load("Blog.Mappings.EF")), "JustToGenerateStuff")
-                              .UseStorage(Linq2DbStorage.Use("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True")).CreateInitialData(container.Resolve<IBlogService>());
+                              .UseStorage(EntityFrameworkStorage.Use.WithConnectionString(connectionString).WithRecreatedDatabase(true).WithMappings(Assembly.Load("Blog.Mappings.EF")), "JustToGenerateStuff")
+                              .UseStorage(Linq2DbStorage.Use(connectionString)).CreateInitialData(container.Resolve<IBlogService>());
 
             ControllerBuilder.Current.SetControllerFactory(new BlogControllerFactory(container.Resolve));
         }

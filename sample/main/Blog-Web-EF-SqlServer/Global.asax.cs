@@ -21,7 +21,7 @@ namespace Blog.Web.EF.SqlServer
 
         protected void Application_Start()
         {
-            /***Example of using Antler with BuiltIn container & EntityFramework ORM & SQLEXPRESS database . See connection string below***/
+            /***Example of using Antler with BuiltIn container & EntityFramework ORM & SqlServer database . See connection string below***/
             
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new BlogViewEngine());
@@ -36,7 +36,7 @@ namespace Blog.Web.EF.SqlServer
             
             AntlerConfigurator = new AntlerConfigurator();
             AntlerConfigurator.UseBuiltInContainer()
-                              .UseStorage(EntityFrameworkStorage.Use.WithConnectionString("Data Source=.\\SQLEXPRESS;Initial Catalog=Antler;Integrated Security=True").WithLazyLoading().WithDatabaseInitializer(new DropCreateDatabaseAlways<DataContext>())
+                              .UseStorage(EntityFrameworkStorage.Use.WithConnectionString("Data Source=(localdb)\\Projects;Initial Catalog=Antler;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False").WithLazyLoading().WithDatabaseInitializer(new DropCreateDatabaseAlways<DataContext>())
                                                                   .WithMappings(Assembly.Load("Blog.Mappings.EF"))).CreateInitialData(service);
 
             ControllerBuilder.Current.SetControllerFactory(new BlogControllerFactory(t => Activator.CreateInstance(t, service)));

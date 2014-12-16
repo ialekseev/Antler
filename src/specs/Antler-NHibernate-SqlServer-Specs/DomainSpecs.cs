@@ -194,7 +194,7 @@ namespace SmartElk.Antler.NHibernate.SqlServer.Specs
             {
                 var connectionString = ConfigurationManager.AppSettings["ConnectionString"];
                 Configurator = new AntlerConfigurator();
-                Configurator.UseWindsorContainer().UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(MsSqlConfiguration.MsSql2008.ConnectionString(connectionString)).WithCommandToTryToApplyOnServer(DbProviderFactories.GetFactory("System.Data.SqlClient"), "Data Source=.\\SQLEXPRESS;Integrated Security=True", "CREATE DATABASE AntlerTest").WithRegeneratedSchema(true).WithMappings(From.AssemblyWithType<CountryMap>().First()));
+                Configurator.UseWindsorContainer().UseStorage(NHibernateStorage.Use.WithDatabaseConfiguration(MsSqlConfiguration.MsSql2008.ConnectionString(connectionString)).WithCommandToTryToApplyOnServer(DbProviderFactories.GetFactory("System.Data.SqlClient"), connectionString, "CREATE DATABASE AntlerTest").WithRegeneratedSchema(true).WithMappings(From.AssemblyWithType<CountryMap>().First()));
             }
 
             [TearDown]

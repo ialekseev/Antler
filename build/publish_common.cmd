@@ -12,6 +12,10 @@ set targetFrameworkVersion=v4.0
 set targetNuGetFolder=net40
 call build.cmd
 
+set targetFrameworkVersion=v4.5
+set targetNuGetFolder=net45
+call build.cmd
+
 ::+++++++++++++++++++++ Updating Nuget Spec files+++++++++++++++++++++++++++++++++++++++++++
 if %skipDependentPackagesVersionsUpdate%==true goto skipVersionsUpdate
 echo Updating Nuget Spec files(Dependent packages versions update)...
