@@ -23,6 +23,7 @@ echo Updating Nuget Spec files(Dependent packages versions update)...
 :skipVersionsUpdate
 
 ::++++++++++++++++++++ Creating Nuget packages+++++++++++++++++++++++++++++++++++++++++++++
+if %skipCreatingNuGetPackages%==true goto skipCreatingNuGetPackages
 echo Creating NuGet packages...
 
 copy core\Antler.Core.dll.nuspec core\output
@@ -52,6 +53,7 @@ move Antler.Windsor*.nupkg windsor\output
 copy structuremap\Antler.StructureMap.dll.nuspec structuremap\output
 ..\src\.nuget\Nuget.exe pack structuremap\output\Antler.StructureMap.dll.nuspec -properties version=%version%
 move Antler.StructureMap*.nupkg structuremap\output
+:skipCreatingNuGetPackages
 
 ::+++++++++++++++++++++ Publishing NuGet packages+++++++++++++++++++++++++++++++++++++++++++
 if %skipPublishing%==true goto skipPublishing
@@ -65,5 +67,4 @@ echo Publishing NuGet packages...
 ..\src\.nuget\Nuget.exe push structuremap\output\Antler.StructureMap.%version%.nupkg
 :skipPublishing
 ::++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-: end
 echo Done.

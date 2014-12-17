@@ -12,11 +12,13 @@ echo Running tests...
 if exist output rmdir /s /q output
 mkdir output
 
-..\tools\nunit.runner\nunit-console.exe /work:output ..\src\specs\Antler-Domain-Specs\bin\Release\Antler.Domain.Specs.dll ..\src\specs\Antler-EntityFramework-SqlCe-Specs\bin\Release\Antler.EntityFramework.SqlCe.Specs.dll ..\src\specs\Antler-EntityFramework-SqlServer-Specs\bin\Release\Antler.EntityFramework.SqlServer.Specs.dll ..\src\specs\Antler-NHibernate-Sqlite-Specs\bin\Release\Antler.NHibernate.Sqlite.Specs.dll ..\src\specs\Antler-NHibernate-SqlServer-Specs\bin\Release\Antler.NHibernate.SqlServer.Specs.dll ..\src\specs\Antler-Storages-Specs\bin\Release\Antler.Storages.Specs.dll ..\src\specs\Antler-Windsor-Specs\bin\Release\Antler.Windsor.Specs.dll ..\src\specs\Antler-StructureMap-Specs\bin\Release\Antler.StructureMap.Specs.dll
-if %ERRORLEVEL% neq 0 goto end
+@powershell ./run_tests.ps1
+if %ERRORLEVEL% neq 0 Exit %ERRORLEVEL%
 :skipTests
 
 ::++++++++++++++++++++++ Copying built assemblies+++++++++++++++++++++++++++++++++++++++
+if %skipCopyingBuiltAssemblies%==true goto skipCopyingBuiltAssemblies
+
 echo Copying assemblies...
 
 mkdir core\output\lib\%targetNuGetFolder%
@@ -48,5 +50,5 @@ copy ..\src\main\Antler-Windsor\bin\Release\Antler.Windsor.* windsor\output\lib\
 
 ::StructureMap adapter
 copy ..\src\main\Antler-StructureMap\bin\Release\Antler.StructureMap.* structuremap\output\lib\%targetNuGetFolder%
+:skipCopyingBuiltAssemblies
 ::++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-: end

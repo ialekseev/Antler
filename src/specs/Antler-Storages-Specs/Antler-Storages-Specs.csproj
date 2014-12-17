@@ -99,14 +99,6 @@
       <Project>{ED6504E9-077F-44EA-B144-FB8796151E46}</Project>
       <Name>Antler-Specs-Shared-NHibernate</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\specs\Antler-EntityFramework-SqlCe-Specs\Antler-EntityFramework-SqlCe-Specs.csproj">
-      <Project>{26A0DD0A-C9A4-42DA-9F12-D1FFC499BCFF}</Project>
-      <Name>Antler-EntityFramework-SqlCe-Specs</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\specs\Antler-NHibernate-Sqlite-Specs\Antler-NHibernate-Sqlite-Specs.csproj">
-      <Project>{22241314-ACB1-4BD6-AA61-7006A5D19DD5}</Project>
-      <Name>Antler-NHibernate-Sqlite-Specs</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\specs\Antler-Specs-Shared\Antler-Specs-Shared.csproj">
       <Project>{9C008F64-DBBD-4135-A5C8-1249D5A603F1}</Project>
       <Name>Antler-Specs-Shared</Name>
