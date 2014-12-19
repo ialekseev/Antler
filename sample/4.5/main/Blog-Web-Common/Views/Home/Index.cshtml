@@ -1,0 +1,27 @@
+﻿@model IList<Blog.Service.Contract.Dto.PostDto>
+
+@{
+    ViewBag.Title = "Blog posts";
+}
+
+<html>     
+    <body>
+        <h2>Blog posts</h2>
+        <hr />
+        @foreach (var post in Model)
+        {
+            <div>
+                <p><b><a href="@Url.Action("Edit", "Post", new { id = post.Id })">@post.Title</a></b>&nbsp; author:&nbsp;@post.AuthorName</p>        
+            </div>
+        }
+        <br/>
+        <hr />
+        <div>
+            <b><a href="@Url.Action("New", "Post")">create new post</a></b>
+        </div>
+        <br/>
+        <div>
+            <a href="@Url.Action("Index", "User")">users list</a>
+        </div>
+    </body>
+</html>
