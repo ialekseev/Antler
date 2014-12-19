@@ -1,0 +1,22 @@
+﻿@model IList<Blog.Service.Contract.Dto.UserDto>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<html>
+<body>
+    <h2>Users</h2>
+
+    <div>
+        <a href="@Url.Action("Index", "Home")">home</a>
+    </div>
+    <hr />
+    @foreach (var user in Model)
+    {
+        <div>
+            Name:@user.Name, Email:@user.Email, Id: @user.Id
+        </div>
+    }
+</body>
+</html>
