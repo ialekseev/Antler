@@ -3,7 +3,7 @@ $configDirectory = Split-Path $script:MyInvocation.MyCommand.Path
 function substituteConnectionString($appConfigPath){
   $appConfigPathFull = ($configDirectory + $appConfigPath)
   [xml]$appConfig = Get-Content $appConfigPathFull   
-  $appConfig.SelectSingleNode("//configuration/appSettings/add[@key='ConnectionString']").value = "Data Source=.\\SQLEXPRESS;Initial Catalog=AntlerTest;Integrated Security=True"
+  $appConfig.SelectSingleNode("//configuration/appSettings/add[@key='ConnectionString']").value = "Data Source=.\SQLEXPRESS;Initial Catalog=AntlerTest;Integrated Security=True"
   $appConfig.Save($appConfigPathFull)
 }
 
