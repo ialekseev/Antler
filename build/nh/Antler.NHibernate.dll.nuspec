@@ -14,10 +14,10 @@
     <copyright>Copyright 2015</copyright>
     <tags>Antler, NHibernate</tags>
     <dependencies>
-      <dependency id="Antler.Core" version="[3.2.0-alpha]" />
+      <dependency id="Antler.Core" version="[3.3.0]" />
       <dependency id="NHibernate" version="4.0.2.4000" />
       <dependency id="Iesi.Collections" version="4.0.1.4000" />
-      <dependency id="FluentNHibernate" version="2.0.1-alpha" />
+      <dependency id="FluentNHibernate" version="2.0.1.0" />
     </dependencies>
   </metadata>
 </package>
