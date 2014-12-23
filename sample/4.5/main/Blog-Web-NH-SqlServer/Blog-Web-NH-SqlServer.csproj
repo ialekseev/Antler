@@ -44,20 +44,21 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antler.Core, Version=1.0.5466.24997, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.Core, Version=1.0.5470.19059, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.Core.3.2.0-alpha\lib\net45\Antler.Core.dll</HintPath>
+      <HintPath>..\..\packages\Antler.Core.3.3.0\lib\net45\Antler.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Antler.NHibernate, Version=1.0.5466.24997, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Antler.NHibernate, Version=1.0.5470.19060, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Antler.NHibernate.3.2.0-alpha\lib\net45\Antler.NHibernate.dll</HintPath>
+      <HintPath>..\..\packages\Antler.NHibernate.3.3.0\lib\net45\Antler.NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Antler.StructureMap">
-      <HintPath>..\..\packages\Antler.StructureMap.3.2.0-alpha\lib\net45\Antler.StructureMap.dll</HintPath>
+    <Reference Include="Antler.StructureMap, Version=1.0.5470.19060, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Antler.StructureMap.3.3.0\lib\net45\Antler.StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="FluentNHibernate, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\FluentNHibernate.2.0.1-alpha\lib\net40\FluentNHibernate.dll</HintPath>
+      <HintPath>..\..\packages\FluentNHibernate.2.0.1.0\lib\net40\FluentNHibernate.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
