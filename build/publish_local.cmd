@@ -1,6 +1,6 @@
 @echo off
 set path=%path%;C:/Windows/Microsoft.NET/Framework/v4.0.30319;
-set version=3.3.0
+set version=3.3.1
 set skipBuild=false
 set skipTests=false
 set skipCopyingBuiltAssemblies=false

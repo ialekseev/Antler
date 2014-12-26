@@ -7,6 +7,7 @@ if exist ef-sqlce\output rmdir /s /q ef-sqlce\output
 if exist windsor\output rmdir /s /q windsor\output
 if exist structuremap\output rmdir /s /q structuremap\output
 
+@powershell ./update_assemblies_version.ps1 %version%
 
 set targetFrameworkVersion=v4.0
 set targetNuGetFolder=net40
