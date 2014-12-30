@@ -6,7 +6,7 @@ set skipTests=false
 set skipCopyingBuiltAssemblies=false
 set skipDependentPackagesVersionsUpdate=false
 set skipCreatingNuGetPackages=false
-set skipPublishing=false
+set skipPublishing=true
 
 call publish_common.cmd
 
