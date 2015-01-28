@@ -8,7 +8,7 @@ Goals
 + To use common syntax to work with different ORMs, so we could easily substitute one ORM with another.
 + To have very easy "fluent" configuration.
 + To be fully pluggable. For example, it should be damn easy to choose which ORM, database or IoC container to use.
-+ Applications that use framework should be easily testable(unit & integration tests).
++ Applications that use the framework should be easily testable(unit & integration tests).
 
 
 Usage examples
