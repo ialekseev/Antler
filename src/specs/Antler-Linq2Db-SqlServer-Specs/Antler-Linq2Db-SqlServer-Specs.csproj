@@ -55,9 +55,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\FluentAssertions.3.2.2\lib\net40\FluentAssertions.Core.dll</HintPath>
     </Reference>
-    <Reference Include="linq2db, Version=1.0.6.0, Culture=neutral, PublicKeyToken=f19f8aed7feff67e, processorArchitecture=MSIL">
+    <Reference Include="linq2db, Version=1.0.7.0, Culture=neutral, PublicKeyToken=f19f8aed7feff67e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\linq2db.1.0.6\lib\net40\linq2db.dll</HintPath>
+      <HintPath>..\..\packages\linq2db.1.0.7\lib\net40\linq2db.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
