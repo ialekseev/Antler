@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Antler.MongoDb</id>
+    <version>$version$</version>
+    <authors>SmartElk</authors>
+    <owners>SmartElk</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/SmartElk/Antler</projectUrl>
+    <iconUrl>http://www.gravatar.com/avatar/99c436bbd301be46a6e6daabc0dc1aa4.png</iconUrl>
+    <description>MongoDb adapter for Antler framework</description>
+    <releaseNotes>
+    </releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>Antler, MongoDb</tags>
+    <dependencies>
+      <dependency id="Antler.Core" version="[3.3.1]" />
+      <dependency id="mongocsharpdriver" version="1.10.0" />
+    </dependencies>
+  </metadata>
+</package>
