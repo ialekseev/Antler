@@ -46,3 +46,7 @@ substituteVersions "\..\src\main\Antler-Windsor\packages.config" "\windsor\Antle
 #structuremap
 setCorePackageVersion "\structuremap\Antler.StructureMap.dll.nuspec"
 substituteVersions "\..\src\main\Antler-StructureMap\packages.config" "\structuremap\Antler.StructureMap.dll.nuspec" "structuremap"
+
+#mongodb
+setCorePackageVersion "\mongodb\Antler.MongoDb.dll.nuspec"
+substituteVersions "\..\src\main\Antler-MongoDb\packages.config" "\mongodb\Antler.MongoDb.dll.nuspec" "mongocsharpdriver"
