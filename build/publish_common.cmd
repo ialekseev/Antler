@@ -4,6 +4,7 @@ if exist nh\output rmdir /s /q nh\output
 if exist ef\output rmdir /s /q ef\output
 if exist linq2db\output rmdir /s /q linq2db\output
 if exist ef-sqlce\output rmdir /s /q ef-sqlce\output
+if exist mongodb\output rmdir /s /q mongodb\output
 if exist windsor\output rmdir /s /q windsor\output
 if exist structuremap\output rmdir /s /q structuremap\output
 
@@ -11,10 +12,6 @@ if exist structuremap\output rmdir /s /q structuremap\output
 
 set targetFrameworkVersion=v4.0
 set targetNuGetFolder=net40
-call build.cmd
-
-set targetFrameworkVersion=v4.5
-set targetNuGetFolder=net45
 call build.cmd
 
 ::+++++++++++++++++++++ Updating Nuget Spec files+++++++++++++++++++++++++++++++++++++++++++
@@ -47,6 +44,10 @@ copy ef-sqlce\Antler.EntityFramework.SqlCe.dll.nuspec ef-sqlce\output
 ..\src\.nuget\Nuget.exe pack ef-sqlce\output\Antler.EntityFramework.SqlCe.dll.nuspec -properties version=%version%
 move Antler.EntityFramework.SqlCe*.nupkg ef-sqlce\output
 
+copy mongodb\Antler.MongoDb.dll.nuspec mongodb\output
+..\src\.nuget\Nuget.exe pack mongodb\output\Antler.MongoDb.dll.nuspec -properties version=%version%
+move Antler.MongoDb*.nupkg mongodb\output
+
 copy windsor\Antler.Windsor.dll.nuspec windsor\output
 ..\src\.nuget\Nuget.exe pack windsor\output\Antler.Windsor.dll.nuspec -properties version=%version%
 move Antler.Windsor*.nupkg windsor\output
@@ -64,6 +65,7 @@ echo Publishing NuGet packages...
 ..\src\.nuget\Nuget.exe push ef\output\Antler.EntityFramework.%version%.nupkg
 ..\src\.nuget\Nuget.exe push linq2db\output\Antler.Linq2Db.%version%.nupkg
 ..\src\.nuget\Nuget.exe push ef-sqlce\output\Antler.EntityFramework.SqlCe.%version%.nupkg
+..\src\.nuget\Nuget.exe push mongodb\output\Antler.MongoDb.%version%.nupkg
 ..\src\.nuget\Nuget.exe push windsor\output\Antler.Windsor.%version%.nupkg
 ..\src\.nuget\Nuget.exe push structuremap\output\Antler.StructureMap.%version%.nupkg
 :skipPublishing

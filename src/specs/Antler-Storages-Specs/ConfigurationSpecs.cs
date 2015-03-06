@@ -1,4 +1,7 @@
-﻿// ReSharper disable InconsistentNaming
+﻿using MongoDB.Driver.Builders;
+using SmartElk.Antler.MongoDb.Configuration;
+using SmartElk.Antler.Specs.Shared.Entities;
+// ReSharper disable InconsistentNaming
 using System.Linq;
 using FluentNHibernate.Cfg.Db;
 using NUnit.Framework;
@@ -57,6 +60,23 @@ namespace SmartElk.Antler.Storages.Specs
                              UseStorage(
                                  NHibernateStorage.Use.WithDatabaseConfiguration(SQLiteConfiguration.Standard.InMemory())
                                                   .WithMappings(From.AssemblyWithType<CountryMap>().First()), "Super");
+            }
+        }
+
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_configure_mongodb_without_indexes
+        {
+             [Test]
+            public void should_not_fail()
+            {
+                //act
+                var configurator = new AntlerConfigurator();
+                 configurator.UseBuiltInContainer()
+                     .UseStorage(MongoDbStorage.Use("mongodb://localhost:27017", "AntlerTest")
+                         .WithRecreatedDatabase(true));
+
+
             }
         }
     }

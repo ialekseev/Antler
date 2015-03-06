@@ -26,6 +26,7 @@ namespace SmartElk.Antler.MongoDb.Configuration
             _recreateDatabase = false;
             _applyOnClientConfiguration = client => { };
             _applyOnServerConfiguration = server => { };
+            _indexBuilder = Option<MongoDbIndexBuilder>.None;
         }
 
         public static MongoDbStorage Use(string connectionString, string databaseName)

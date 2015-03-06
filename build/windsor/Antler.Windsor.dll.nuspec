@@ -14,7 +14,7 @@
     <copyright>Copyright 2015</copyright>
     <tags>Antler, Castle Windsor, IoC</tags>
     <dependencies>
-      <dependency id="Antler.Core" version="[3.3.1]" />
+      <dependency id="Antler.Core" version="[3.4.1]" />
       <dependency id="Castle.Windsor" version="3.3.0" />
     </dependencies>
   </metadata>
