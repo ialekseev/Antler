@@ -61,6 +61,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\..\packages\mongocsharpdriver.1.10.0\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\..\packages\mongocsharpdriver.1.10.0\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\NHibernate.4.0.3.4000\lib\net40\NHibernate.dll</HintPath>
@@ -100,6 +106,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\main\Antler-MongoDb\Antler-MongoDb.csproj">
+      <Project>{08ff42a9-06a6-4157-acc3-c3b0ac969dcb}</Project>
+      <Name>Antler-MongoDb</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Antler-Specs-Shared-NHibernate\Antler-Specs-Shared-NHibernate.csproj">
       <Project>{ED6504E9-077F-44EA-B144-FB8796151E46}</Project>
       <Name>Antler-Specs-Shared-NHibernate</Name>

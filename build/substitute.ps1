@@ -39,6 +39,10 @@ substituteVersions "\..\src\main\Antler-EntityFramework-SqlCe\packages.config" "
 substituteVersions "\..\src\main\Antler-EntityFramework-SqlCe\packages.config" "\ef-sqlce\Antler.EntityFramework.SqlCe.dll.nuspec" "EntityFramework.SqlServerCompact"
 substituteVersions "\..\src\main\Antler-EntityFramework-SqlCe\packages.config" "\ef-sqlce\Antler.EntityFramework.SqlCe.dll.nuspec" "Microsoft.SqlServer.Compact"
 
+#mongodb
+setCorePackageVersion "\mongodb\Antler.MongoDb.dll.nuspec"
+substituteVersions "\..\src\main\Antler-MongoDb\packages.config" "\mongodb\Antler.MongoDb.dll.nuspec" "mongocsharpdriver"
+
 #windsor
 setCorePackageVersion "\windsor\Antler.Windsor.dll.nuspec"
 substituteVersions "\..\src\main\Antler-Windsor\packages.config" "\windsor\Antler.Windsor.dll.nuspec" "Castle.Windsor"
@@ -46,7 +50,3 @@ substituteVersions "\..\src\main\Antler-Windsor\packages.config" "\windsor\Antle
 #structuremap
 setCorePackageVersion "\structuremap\Antler.StructureMap.dll.nuspec"
 substituteVersions "\..\src\main\Antler-StructureMap\packages.config" "\structuremap\Antler.StructureMap.dll.nuspec" "structuremap"
-
-#mongodb
-setCorePackageVersion "\mongodb\Antler.MongoDb.dll.nuspec"
-substituteVersions "\..\src\main\Antler-MongoDb\packages.config" "\mongodb\Antler.MongoDb.dll.nuspec" "mongocsharpdriver"

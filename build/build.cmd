@@ -26,6 +26,7 @@ mkdir nh\output\lib\%targetNuGetFolder%
 mkdir ef\output\lib\%targetNuGetFolder%
 mkdir linq2db\output\lib\%targetNuGetFolder%
 mkdir ef-sqlce\output\lib\%targetNuGetFolder%
+mkdir mongodb\output\lib\%targetNuGetFolder%
 mkdir windsor\output\lib\%targetNuGetFolder%
 mkdir structuremap\output\lib\%targetNuGetFolder%
 
@@ -44,6 +45,9 @@ copy ..\src\main\Antler-Linq2Db\bin\Release\Antler.Linq2Db.* linq2db\output\lib\
 ::EntityFramework + SqlCe adapter
 copy ..\src\main\Antler-EntityFramework\bin\Release\Antler.EntityFramework.* ef-sqlce\output\lib\%targetNuGetFolder%
 copy ..\src\main\Antler-EntityFramework-SqlCe\bin\Release\Antler.EntityFramework.SqlCe.* ef-sqlce\output\lib\%targetNuGetFolder%
+
+::MongoDb adapter
+copy ..\src\main\Antler-MongoDb\bin\Release\Antler.MongoDb.* mongodb\output\lib\%targetNuGetFolder%
 
 ::Windsor adapter
 copy ..\src\main\Antler-Windsor\bin\Release\Antler.Windsor.* windsor\output\lib\%targetNuGetFolder%
