@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
@@ -16,18 +17,21 @@ namespace SmartElk.Antler.MongoDb
     {
         private readonly MongoDatabase _session;
         private readonly string _idPropertyName;
-                        
+        private readonly Option<Func<object>> _identityGenerator; 
+                
         private readonly IDictionary<int, object> _newEntities = new Dictionary<int, object>();
         private readonly IDictionary<int, object> _updatedEntities = new Dictionary<int, object>();
         private readonly IDictionary<int, object> _deletedEntities = new Dictionary<int, object>();
 
-        public MongoDbSessionScope(MongoDatabase session, string idPropertyName)
+        public MongoDbSessionScope(MongoDatabase session, string idPropertyName, Option<Func<object>> identityGenerator)
         {
             Requires.NotNull(session, "session");
             Requires.NotNullOrEmpty(idPropertyName, "idPropertyName");
+            Requires.NotNull(identityGenerator, "identityGenerator");
 
             _session = session;
-            _idPropertyName = idPropertyName;           
+            _idPropertyName = idPropertyName;
+            _identityGenerator = identityGenerator;
         }
 
         public void Commit()
@@ -51,7 +55,7 @@ namespace SmartElk.Antler.MongoDb
 
         public IRepository<TEntity> CreateRepository<TEntity>() where TEntity : class
         {
-            return new MongoDbRepository<TEntity>(this);
+            return new MongoDbRepository<TEntity>(this, _idPropertyName, _identityGenerator);
         }
                 
         public TInternal GetInternal<TInternal>() where TInternal  : class
@@ -71,7 +75,7 @@ namespace SmartElk.Antler.MongoDb
             Requires.True(entity.HasProperty(_idPropertyName));
 
             var collection = _session.GetCollection(entity);
-            var result = collection.Update(BuildRootQuery(ExtractId(entity)), Update.Replace(entity), UpdateFlags.Upsert);
+            var result = collection.Update(BuildRootQuery(entity.ExtractId(_idPropertyName)), Update.Replace(entity), UpdateFlags.Upsert);
             return result.DocumentsAffected == 1;
         }
 
@@ -81,19 +85,14 @@ namespace SmartElk.Antler.MongoDb
             Requires.True(entity.HasProperty(_idPropertyName));
 
             var collection = _session.GetCollection(entity);
-            collection.Remove(BuildRootQuery(ExtractId(entity)));
+            collection.Remove(BuildRootQuery(entity.ExtractId(_idPropertyName)));
         }
 
         private static IMongoQuery BuildRootQuery(object id)
         {
             Requires.NotNull(id, "id");
             return Query.EQ("_id", id.AsIdValue());
-        } 
-
-        private object ExtractId(object entity)
-        {
-            return entity.GetPropertyValue(_idPropertyName);
-        }
+        }         
         
         #region ISessionScopeEx
         IQueryable<TEntity> ISessionScopeEx.AsQueryable<TEntity>()
@@ -129,7 +128,7 @@ namespace SmartElk.Antler.MongoDb
             Requires.NotNull(entity, "entity");
             Requires.NotNull(dic, "dic");
             
-            var key = HashCodeGenerator.ComposeHashCode(entity.GetType(), ExtractId(entity));
+            var key = HashCodeGenerator.ComposeHashCode(entity.GetType(), entity.ExtractId(_idPropertyName));
 
             if (!dic.ContainsKey(key))
                 dic.Add(key, entity);

@@ -29,6 +29,15 @@ namespace SmartElk.Antler.Core.Common.Reflection
         public static dynamic AsStaticMembersDynamicWrapper(this Type type)
         {                        
             return new StaticMembersDynamicWrapper(type);
-        }            
+        }
+
+        public static object GetDefaultValue(this Type type)
+        {
+            if (type.IsValueType)
+            {
+                return Activator.CreateInstance(type);
+            }
+            return null;
+        }
     }
 }

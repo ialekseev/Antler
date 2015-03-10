@@ -16,6 +16,7 @@ namespace SmartElk.Antler.MongoDb.Configuration
         private bool _recreateDatabase;        
         private Action<MongoClient> _applyOnClientConfiguration;
         private Action<MongoServer> _applyOnServerConfiguration;
+        private Option<Func<object>> _identityGenerator;
         private Option<MongoDbIndexBuilder> _indexBuilder;
 
         private MongoDbStorage(string connectionString, string databaseName)
@@ -26,6 +27,7 @@ namespace SmartElk.Antler.MongoDb.Configuration
             _recreateDatabase = false;
             _applyOnClientConfiguration = client => { };
             _applyOnServerConfiguration = server => { };
+            _identityGenerator = Option<Func<object>>.None;
             _indexBuilder = Option<MongoDbIndexBuilder>.None;
         }
 
@@ -49,6 +51,14 @@ namespace SmartElk.Antler.MongoDb.Configuration
         {
             if (really)
              _recreateDatabase = true;
+            return this;
+        }
+
+        public MongoDbStorage WithIdentityGenerator(Func<object> identityGenerator)
+        {
+            Requires.NotNull(identityGenerator, "identityGenerator");
+
+            _identityGenerator = identityGenerator;
             return this;
         }
 
@@ -90,7 +100,7 @@ namespace SmartElk.Antler.MongoDb.Configuration
                 EnsureIndexes();
             }
             
-           return new MongoDbSessionScopeFactory(_connectionString, _databaseName, _idPropertyName, _applyOnClientConfiguration, _applyOnServerConfiguration);            
+           return new MongoDbSessionScopeFactory(_connectionString, _databaseName, _idPropertyName, _applyOnClientConfiguration, _applyOnServerConfiguration, _identityGenerator);            
         }
 
         private void DropDatabase()
