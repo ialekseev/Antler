@@ -47,5 +47,11 @@ namespace SmartElk.Antler.Core.Common.Extensions
         {
             return obj.GetType().GetProperty(propertyName).GetValue(obj, null);
         }
+
+        public static object SetPropertyValue(this object obj, string propertyName, object propertyValue)
+        {
+            obj.GetType().GetProperty(propertyName).SetValue(obj, propertyValue, null);
+            return obj;
+        }
     }
 }

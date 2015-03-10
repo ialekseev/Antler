@@ -3,12 +3,14 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Blog.Service;
+using Blog.Service.Contract;
 using Blog.Web.Common;
 using Blog.Web.Common.AppStart;
 using SmartElk.Antler.Core;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.MongoDb.Configuration;
 using SmartElk.Antler.StructureMap;
+using StructureMap;
 
 
 namespace Blog.Web.MongoDb
@@ -32,10 +34,20 @@ namespace Blog.Web.MongoDb
             
             var service = new BlogService();
 
+            var container = new Container(x =>
+            {
+                x.For<IBlogService>().Use<BlogService>().Singleton();
+                x.Scan(s =>
+                {
+                    s.AddAllTypesOf(typeof(BaseController));
+                    s.Assembly("Blog.Web.Common");
+                });
+            });
+
             AntlerConfigurator = new AntlerConfigurator();
-            AntlerConfigurator.UseStructureMapContainer()
+            AntlerConfigurator.UseStructureMapContainer(container)
                 .UseStorage(MongoDbStorage.Use("mongodb://localhost:27017", "Antler")
-                    .WithRecreatedDatabase(true));
+                    .WithRecreatedDatabase(true)).CreateInitialData(container.GetInstance<IBlogService>()); ;
                                                                               
             ControllerBuilder.Current.SetControllerFactory(new BlogControllerFactory(t => Activator.CreateInstance(t, service)));
         }

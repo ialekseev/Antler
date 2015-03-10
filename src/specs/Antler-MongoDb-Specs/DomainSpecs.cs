@@ -1,5 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
-
+using System;
 using System.Linq;
 using FluentAssertions;
 using MongoDB.Driver.Builders;
@@ -107,6 +107,48 @@ namespace SmartElk.Antler.MongoDb.Specs
             }
         }
 
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_insert_new_team_without_providing_id : TestingScenario
+        {
+            [Test]
+            public void should_insert_with_generated_id_because_identity_generator_has_been_configured_in_bootstrap()
+            {
+                UnitOfWork.Do(uow =>
+                {
+                    //arrange
+                    var team1 = new Team { Name = "SuperTeam", Description = "Really super" };
+
+                    //act                                                    
+                    var result = uow.Repo<Team>().Insert(team1);
+
+                    //assert
+                    result.Id.Should().NotBe(0);
+                });
+            }
+        }
+
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_insert_new_team_with_provided_id : TestingScenario
+        {
+            [Test]
+            public void should_insert_with_provided_id()
+            {
+                UnitOfWork.Do(uow =>
+                {
+                    //arrange
+                    var team1 = new Team {Id = 5, Name = "SuperTeam", Description = "Really super" };
+
+                    //act                                                    
+                    var result = uow.Repo<Team>().Insert(team1);
+
+                    //assert
+                    result.Id.Should().Be(5);
+                });
+            }
+        }
+       
         [TestFixture]
         [Category("Integration")]
         public class when_trying_to_find_team_by_country_name : TestingScenario
@@ -255,9 +297,10 @@ namespace SmartElk.Antler.MongoDb.Specs
                                                                 
                 Configurator.UseWindsorContainer()
                             .UseStorage(MongoDbStorage.Use("mongodb://localhost:27017", "AntlerTest")
-                                                      .WithRecreatedDatabase(true)                                                      
+                                                      .WithRecreatedDatabase(true)
+                                                      .WithIdentityGenerator(() => new Random().Next(1, int.MaxValue))
                                                       .WithEnsuredIndexes(MongoDbIndexBuilder.Add<Employee>(IndexKeys<Employee>.Ascending(_ => _.Id), IndexOptions<Employee>.SetUnique(true))
-                                                                                             .ThenAdd<Team>(IndexKeys<Team>.Ascending(_ => _.Id), IndexOptions<Employee>.SetUnique(true))));
+                                                                          .ThenAdd<Team>(IndexKeys<Team>.Ascending(_ => _.Id), IndexOptions<Employee>.SetUnique(true))));
             }
 
             [TearDown]
