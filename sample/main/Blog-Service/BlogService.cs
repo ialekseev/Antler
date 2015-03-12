@@ -86,6 +86,7 @@ namespace Blog.Service
                             found.Title = postDto.Title;
                             found.Text = postDto.Text;
                             found.Author = uow.Repo<User>().GetById(postDto.AuthodId);
+                            uow.Repo<Post>().Update(found);
                             return found.Id;
                         }                        
                     }

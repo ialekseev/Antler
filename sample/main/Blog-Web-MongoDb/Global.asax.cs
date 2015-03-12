@@ -6,10 +6,10 @@ using Blog.Service;
 using Blog.Service.Contract;
 using Blog.Web.Common;
 using Blog.Web.Common.AppStart;
-using SmartElk.Antler.Core;
 using SmartElk.Antler.Core.Abstractions.Configuration;
 using SmartElk.Antler.MongoDb.Configuration;
 using SmartElk.Antler.StructureMap;
+using SmartElk.Antler.Core;
 using StructureMap;
 
 
@@ -47,7 +47,7 @@ namespace Blog.Web.MongoDb
             AntlerConfigurator = new AntlerConfigurator();
             AntlerConfigurator.UseStructureMapContainer(container)
                 .UseStorage(MongoDbStorage.Use("mongodb://localhost:27017", "Antler")
-                    .WithRecreatedDatabase(true)).CreateInitialData(container.GetInstance<IBlogService>()); ;
+                    .WithRecreatedDatabase(true).WithIdentityGenerator(()=>new Random().Next(Int32.MinValue, Int32.MaxValue))).CreateInitialData(container.GetInstance<IBlogService>());
                                                                               
             ControllerBuilder.Current.SetControllerFactory(new BlogControllerFactory(t => Activator.CreateInstance(t, service)));
         }
