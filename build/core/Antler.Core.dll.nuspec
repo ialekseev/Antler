@@ -8,7 +8,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <projectUrl>https://github.com/SmartElk/Antler</projectUrl>
     <iconUrl>http://www.gravatar.com/avatar/99c436bbd301be46a6e6daabc0dc1aa4.png</iconUrl>
-    <description>Pluggable framework for .NET to work with popular ORMs(NHibernate, EntityFramework, Linq2Db) using the same syntax. Antler framework is an abstraction over ORM that you like to use. Core library.</description>
+    <description>Pluggable framework for .NET to work with popular ORMs (NHibernate, EntityFramework, Linq2Db) and NoSQL storages (MongoDB) using same syntax. Antler framework is an abstraction over ORM/storage that you like to use. Core library.</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2015</copyright>
     <tags>Antler</tags>    
