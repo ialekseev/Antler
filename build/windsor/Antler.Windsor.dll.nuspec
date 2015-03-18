@@ -8,7 +8,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <projectUrl>https://github.com/SmartElk/Antler</projectUrl>
     <iconUrl>http://www.gravatar.com/avatar/99c436bbd301be46a6e6daabc0dc1aa4.png</iconUrl>
-    <description>Windsor adapter for Antler framework</description>
+    <description>Windsor adapter for Antler framework.</description>
     <releaseNotes>
     </releaseNotes>
     <copyright>Copyright 2015</copyright>
