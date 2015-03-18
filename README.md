@@ -71,10 +71,6 @@ Windsor adapter: https://www.nuget.org/packages/Antler.Windsor/
 
 StructureMap adapter: https://www.nuget.org/packages/Antler.StructureMap/
 
-Build server(TeamCity)
--------------------------
-http://smartelk.com:8111/guestLogin.html?guest=1
-
 <hr>
 Largely based on the great NoSQL framework https://github.com/Kostassoid/Anodyne.
 
