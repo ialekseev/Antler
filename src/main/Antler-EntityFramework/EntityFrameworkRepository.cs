@@ -41,7 +41,7 @@ namespace SmartElk.Antler.EntityFramework
             return entity;
         }
 
-        public TId Insert<TId>(TEntity entity)
+        public TId Insert<TId>(TEntity entity) where TId : struct
         {
             throw new NotSupportedException();
         }
@@ -56,6 +56,12 @@ namespace SmartElk.Antler.EntityFramework
             return entity;
         }
 
+        public TEntity InsertOrUpdate(TEntity entity)
+        {
+            //todo: Implement
+            throw new NotImplementedException();
+        }
+        
         public void Delete(TEntity entity)
         {
             Requires.NotNull(entity, "entity");

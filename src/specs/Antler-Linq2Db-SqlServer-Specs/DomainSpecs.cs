@@ -18,7 +18,71 @@ namespace SmartElk.Antler.Linq2Db.SqlServer.Specs
     /***You need to have "AntlerTest" database in your SQL SERVER. See connection string below***/
     
     public class DomainSpecs
-    {                
+    {
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_insert_or_update_existing_employee : TestingScenario
+        {
+            [Test]
+            public void should_update()
+            {
+                //arrange                
+                Employee employee = null;
+                UnitOfWork.Do(uow =>
+                {
+                    employee = new Employee {Id = "667", FirstName = "Jack", LastName = "Black"};
+                    uow.Repo<Employee>().Insert(employee);
+                });
+
+                //act
+                UnitOfWork.Do(uow =>
+                {
+                    employee = new Employee {Id = "667", FirstName = "Jack1", LastName = "Black1"};
+                    uow.Repo<Employee>().InsertOrUpdate(employee);
+                });
+
+                //assert
+                UnitOfWork.Do(uow =>
+                {
+                    var result = uow.Repo<Employee>().AsQueryable().First(t => t.Id == employee.Id);
+
+                    result.Id.Should().Be(employee.Id);
+                    result.FirstName.Should().Be("Jack1");
+                    result.LastName.Should().Be("Black1");
+                });
+            }
+        }
+
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_insert_or_update_non_existing_employee : TestingScenario
+        {
+            [Test]
+            public void should_insert()
+            {                                
+                //arrange
+                UnitOfWork.Do(uow => uow.Repo<Employee>().AsQueryable().FirstOrDefault().Should().BeNull());
+
+                //act                                
+                Employee employee = null;
+                UnitOfWork.Do(uow =>
+                {
+                    employee = new Employee { Id = "667", FirstName = "Jack1", LastName = "Black1" };
+                    uow.Repo<Employee>().InsertOrUpdate(employee);
+                });
+
+                //assert
+                UnitOfWork.Do(uow =>
+                {
+                    var result = uow.Repo<Employee>().AsQueryable().First(t => t.Id == employee.Id);
+
+                    result.Id.Should().Be(employee.Id);
+                    result.FirstName.Should().Be("Jack1");
+                    result.LastName.Should().Be("Black1");
+                });
+            }
+        }
+        
         [TestFixture]
         [Category("Integration")]                        
         public class when_trying_to_get_one_employee : TestingScenario

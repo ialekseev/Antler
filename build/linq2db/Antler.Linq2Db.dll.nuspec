@@ -14,7 +14,7 @@
     <copyright>Copyright 2015</copyright>
     <tags>Antler, Linq2Db</tags>
     <dependencies>
-      <dependency id="Antler.Core" version="[3.4.4]" />
+      <dependency id="Antler.Core" version="[3.5.0]" />
       <dependency id="linq2db" version="1.0.7.1" />
     </dependencies>
   </metadata>
