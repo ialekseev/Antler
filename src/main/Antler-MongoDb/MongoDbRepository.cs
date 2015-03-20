@@ -46,7 +46,7 @@ namespace SmartElk.Antler.MongoDb
             return entity;
         }
 
-        public TId Insert<TId>(TEntity entity)
+        public TId Insert<TId>(TEntity entity) where TId : struct
         {
             throw new NotSupportedException();            
         }
@@ -59,6 +59,14 @@ namespace SmartElk.Antler.MongoDb
             return entity;            
         }
 
+        public TEntity InsertOrUpdate(TEntity entity)
+        {
+            Requires.NotNull(entity, "entity");
+
+            _sessionScope.MarkAsUpdated(entity);
+            return entity;            
+        }
+        
         public void Delete(TEntity entity)
         {
             Requires.NotNull(entity, "entity");

@@ -14,7 +14,7 @@
     <copyright>Copyright 2015</copyright>
     <tags>Antler, EntityFramework, Sql Server Compact</tags>
     <dependencies>
-      <dependency id="Antler.Core" version="[3.4.4]" />
+      <dependency id="Antler.Core" version="[3.5.0]" />
       <dependency id="EntityFramework" version="6.1.2" />
       <dependency id="EntityFramework.SqlServerCompact" version="6.1.2" />
       <dependency id="Microsoft.SqlServer.Compact" version="4.0.8876.1" />

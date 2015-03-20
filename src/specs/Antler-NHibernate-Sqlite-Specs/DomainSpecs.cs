@@ -27,6 +27,17 @@ namespace SmartElk.Antler.NHibernate.Sqlite.Specs
                 CommonDomainSpecs.when_trying_to_insert_employee.should_insert();
             }
         }
+        
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_insert_or_update_non_existing_team : TestingScenario
+        {
+            [Test]
+            public void should_insert()
+            {
+                CommonDomainSpecs.when_trying_to_insert_or_update_non_existing_team.should_insert();
+            }
+        }
 
         [TestFixture]
         [Category("Integration")]

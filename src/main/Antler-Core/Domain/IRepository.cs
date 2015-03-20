@@ -22,12 +22,17 @@ namespace SmartElk.Antler.Core.Domain
         /// <summary>
         /// Insert new entity and get generated identifier back.
         /// </summary>   
-        TId Insert<TId>(TEntity entity);
+        TId Insert<TId>(TEntity entity) where TId : struct;
 
         /// <summary>
         /// Update entity.
         /// </summary>   
         TEntity Update(TEntity entity);
+
+        /// <summary>
+        /// Insert or update entity and get it back.
+        /// </summary>   
+        TEntity InsertOrUpdate(TEntity entity);
 
         /// <summary>
         /// Delete entity.

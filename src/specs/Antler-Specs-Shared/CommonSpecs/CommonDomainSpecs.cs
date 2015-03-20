@@ -42,7 +42,63 @@ namespace SmartElk.Antler.Specs.Shared.CommonSpecs
                 });
             }
         }
-                
+
+        public static class when_trying_to_insert_or_update_existing_team
+        {
+            public static void should_update()
+            {
+                //arrange                
+                Team team = null;
+                UnitOfWork.Do(uow =>
+                {
+                    team = new Team() { Name = "Super", Description = "SuperBg" };
+                    uow.Repo<Team>().Insert(team);                                        
+                });
+
+                //act
+                UnitOfWork.Do(uow =>
+                {
+                    team = new Team() {Id = team.Id, Name = "Super1", Description = "SuperBg1" };
+                    uow.Repo<Team>().InsertOrUpdate(team);
+                });
+
+                //assert
+                UnitOfWork.Do(uow =>
+                {                    
+                    var result = uow.Repo<Team>().GetById(team.Id);
+                    
+                    result.Id.Should().Be(team.Id);
+                    result.Name.Should().Be("Super1");
+                    result.Description.Should().Be("SuperBg1");
+                });
+            }
+        }
+
+        public static class when_trying_to_insert_or_update_non_existing_team
+        {
+            public static void should_insert()
+            {                                                
+                //act                
+                Team team = null;
+                UnitOfWork.Do(uow =>
+                {
+                    team = new Team() { Name = "Super", Description = "SuperBg" };
+                    uow.Repo<Team>().InsertOrUpdate(team);
+                });
+
+                //assert
+                UnitOfWork.Do(uow =>
+                {
+                    var result = uow.Repo<Team>().GetById(team.Id);
+
+                    result.Id.Should().Be(team.Id);
+                    result.Name.Should().Be("Super");
+                    result.Description.Should().Be("SuperBg");
+                });
+            }
+        }
+
+
         public static class when_trying_to_get_one_employee
         {            
             public static void should_return_employee()

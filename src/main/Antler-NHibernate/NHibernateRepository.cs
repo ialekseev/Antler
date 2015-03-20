@@ -32,11 +32,9 @@ namespace SmartElk.Antler.NHibernate
             return entity;
         }
 
-        public TId Insert<TId>(TEntity entity)
+        public TId Insert<TId>(TEntity entity) where TId : struct
         {
-            Requires.NotNull(entity, "entity");
-            Requires.True(typeof(TId).IsValueType, "Only value type Ids are supported(int, decimal etc.)");
-
+            Requires.NotNull(entity, "entity");            
             return (TId)_session.Save(entity);
         }
 
@@ -46,6 +44,13 @@ namespace SmartElk.Antler.NHibernate
             return _session.Merge(entity);
         }
 
+        public TEntity InsertOrUpdate(TEntity entity)
+        {
+            Requires.NotNull(entity, "entity");
+            _session.SaveOrUpdate(entity);
+            return entity;
+        }
+        
         public void Delete(TEntity entity)
         {
             Requires.NotNull(entity, "entity");

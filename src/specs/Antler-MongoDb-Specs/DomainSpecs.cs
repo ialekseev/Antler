@@ -31,6 +31,28 @@ namespace SmartElk.Antler.MongoDb.Specs
         }
 
         [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_insert_or_update_existing_team : TestingScenario
+        {
+            [Test]
+            public void should_update()
+            {
+                CommonDomainSpecs.when_trying_to_insert_or_update_existing_team.should_update();
+            }
+        }
+
+        [TestFixture]
+        [Category("Integration")]
+        public class when_trying_to_insert_or_update_non_existing_team : TestingScenario
+        {
+            [Test]
+            public void should_insert()
+            {
+                CommonDomainSpecs.when_trying_to_insert_or_update_non_existing_team.should_insert();
+            }
+        }
+
+        [TestFixture]
         [Category("Integration")]        
         public class when_trying_to_get_one_employee : TestingScenario
         {                                              
