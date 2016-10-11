@@ -1,7 +1,7 @@
 Antler ![alt text](http://www.gravatar.com/avatar/99c436bbd301be46a6e6daabc0dc1aa4.png "SmartElk/Antler")
 ======
 
-Pluggable framework for .NET to work with popular ORMs (NHibernate, EntityFramework, Linq2Db) and NoSQL storages (MongoDB) using <b>same syntax</b>. Antler framework is an abstraction over ORM/storage that you like to use. 
+Pluggable framework for .NET to work with popular ORMs (NHibernate, EntityFramework, Linq2Db) and NoSQL storages (MongoDB) using <b>the same syntax</b>. Antler framework is an abstraction over ORM/storage that you like to use. 
 
 Goals
 --------------
